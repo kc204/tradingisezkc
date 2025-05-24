@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Map } from "lucide-react";
@@ -14,7 +15,7 @@ const sitemapLinks = [
     { href: "/compare", label: "Compare Firms" },
     { href: "/resources", label: "Trading Resources" },
     { href: "/about", label: "About Us" },
-    { href: "/contact", label: "Contact Us" },
+    // { href: "/contact", label: "Contact Us" }, // Removed from main navigation
   ]},
   { category: "Prop Firms (Examples - Dynamic in real app)", links: [
     // In a real app, these would be dynamically generated from your firm data
@@ -25,13 +26,14 @@ const sitemapLinks = [
     { href: "/resources/guides", label: "Trading Guides" },
     { href: "/resources/tools", label: "Trading Tools" },
     { href: "/resources/news", label: "Trading News" },
-    // Add more resource sub-pages if they exist
+    { href: "/resources/al-brooks-trading-course", label: "Al Brooks Course" },
   ]},
   { category: "Legal & Information", links: [
     { href: "/privacy-policy", label: "Privacy Policy" },
     { href: "/terms-of-service", label: "Terms of Service" },
     { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
     { href: "/how-we-rate", label: "How We Rate &amp; Review" },
+    { href: "/contact", label: "Contact Us Page (Still accessible directly)" }, // Clarify it's still a page
   ]},
 ];
 

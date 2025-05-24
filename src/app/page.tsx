@@ -1,5 +1,4 @@
 
-import AiMatcher from '@/components/propfirms/AiMatcher';
 import FirmCard from '@/components/propfirms/FirmCard';
 import ArticleCard from '@/components/shared/ArticleCard';
 import { Button } from '@/components/ui/button';
@@ -37,19 +36,23 @@ export default function Home() {
             <Button asChild size="lg" className="bg-special-accent text-special-accent-foreground hover:bg-special-accent/90 px-8 py-3 text-lg">
               <Link href="/firms">Find Your Firm Now</Link>
             </Button>
+            {/* Removed AI Firm Matcher button 
             <Button asChild size="lg" variant="outline" className="px-8 py-3 text-lg border-primary text-primary hover:bg-primary/10">
               <Link href="#ai-matcher">AI Firm Matcher</Link>
             </Button>
+            */}
           </div>
         </div>
       </section>
 
-      {/* AI Firm Matcher Section */}
+      {/* AI Firm Matcher Section REMOVED */}
+      {/* 
       <section id="ai-matcher" className="py-12">
         <div className="container mx-auto px-4">
           <AiMatcher />
         </div>
       </section>
+      */}
 
       {/* Featured Prop Firms Section */}
       <section className="py-12">

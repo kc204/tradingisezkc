@@ -16,7 +16,7 @@
     --secondary-foreground: 0 0% 100%; /* #FFFFFF */
     --muted: 216 25% 90%;
     --muted-foreground: 198 39% 40%;
-    --accent: 45 74% 69.6%; /* #E9C46A (PRD's subtle-accent) */
+    --accent: 45 74% 69.6%; /* #E9C46A */
     --accent-foreground: 198 39% 24.1%; /* #264653 */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -25,9 +25,9 @@
     --ring: 192 31% 40.6%; /* primary color */
 
     /* Custom colors as per PRD */
-    --special-accent: 28 89% 64.1%; /* #F4A261 (PRD's Primary Orange) */
+    --special-accent: 28 89% 64.1%; /* #F4A261 (Primary Orange Buttons) */
     --special-accent-foreground: 0 0% 100%; /* #FFFFFF */
-    --header-background: 192 31% 40.6%; /* #468189 (Matches primary) */
+    --header-background: 198 39% 24.1%; /* #264653 (Header / Nav Bar) */
     --header-foreground: 0 0% 100%; /* #FFFFFF */
 
     --chart-1: 12 76% 61%;
@@ -38,31 +38,31 @@
   }
 
   .dark {
-    --background: 200 10% 10%;
-    --foreground: 210 30% 90%;
-    --card: 200 10% 15%;
-    --card-foreground: 210 30% 90%;
-    --popover: 200 10% 15%;
-    --popover-foreground: 210 30% 90%;
-    --primary: 192 40% 60%;
+    --background: 216 15% 10%;
+    --foreground: 198 15% 88%;
+    --card: 216 15% 15%;
+    --card-foreground: 198 15% 88%;
+    --popover: 216 15% 15%;
+    --popover-foreground: 198 15% 88%;
+    --primary: 192 30% 60%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 172 50% 55%;
-    --secondary-foreground: 200 10% 10%;
-    --muted: 200 10% 20%;
-    --muted-foreground: 210 30% 60%;
-    --accent: 45 65% 60%; /* Dark mode for #E9C46A */
+    --secondary: 172 40% 50%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 216 15% 20%;
+    --muted-foreground: 198 10% 65%;
+    --accent: 45 60% 60%; 
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 200 10% 25%;
-    --input: 200 10% 25%;
-    --ring: 192 40% 60%; /* primary color for dark */
+    --border: 216 15% 25%;
+    --input: 216 15% 25%;
+    --ring: 192 30% 60%; 
     
     /* Custom colors for dark mode */
-    --special-accent: 28 80% 60%; /* Dark mode for #F4A261 */
+    --special-accent: 28 70% 60%; 
     --special-accent-foreground: 0 0% 100%;
-    --header-background: 192 40% 60%; /* Matches dark primary */
-    --header-foreground: 0 0% 100%;
+    --header-background: 198 30% 20%; 
+    --header-foreground: 198 15% 88%;
     
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;

@@ -35,7 +35,7 @@ const navLinks = [
     ],
   },
   { href: '/about', label: 'About Us' },
-  { href: '/contact', label: 'Contact Us' },
+  // { href: '/contact', label: 'Contact Us' }, // Removed as per request
 ];
 
 const Header = () => {
