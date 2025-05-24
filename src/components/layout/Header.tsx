@@ -35,7 +35,6 @@ const navLinks = [
     ],
   },
   { href: '/about', label: 'About Us' },
-  // { href: '/contact', label: 'Contact Us' }, // Removed as per request
 ];
 
 const Header = () => {
@@ -54,7 +53,7 @@ const Header = () => {
       <Button
         variant="ghost"
         size="icon"
-        className="text-header-foreground hover:bg-primary/80 hover:text-header-foreground w-9 h-9"
+        className="text-header-foreground hover:bg-primary/80 hover:text-white w-9 h-9"
         onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         aria-label="Toggle theme"
       >
@@ -73,7 +72,7 @@ const Header = () => {
       link.dropdown ? (
         <DropdownMenu key={link.label}>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className={`text-header-foreground hover:bg-primary/80 hover:text-header-foreground ${isMobile ? 'w-full justify-start text-foreground hover:text-foreground' : ''}`}>
+            <Button variant="ghost" className={`text-header-foreground hover:bg-primary/80 hover:text-white ${isMobile ? 'w-full justify-start text-foreground hover:text-foreground' : ''}`}>
               {link.label}
             </Button>
           </DropdownMenuTrigger>
@@ -86,7 +85,7 @@ const Header = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Button key={link.label} variant="ghost" asChild className={`text-header-foreground hover:bg-primary/80 hover:text-header-foreground ${isMobile ? 'w-full justify-start text-foreground hover:text-foreground' : ''}`}>
+        <Button key={link.label} variant="ghost" asChild className={`text-header-foreground hover:bg-primary/80 hover:text-white ${isMobile ? 'w-full justify-start text-foreground hover:text-foreground' : ''}`}>
           <Link href={link.href} onClick={() => isMobile && setMobileMenuOpen(false)}>{link.label}</Link>
         </Button>
       )
@@ -108,7 +107,7 @@ const Header = () => {
           <ThemeToggle />
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="ml-2 text-header-foreground hover:bg-primary/80 hover:text-header-foreground">
+              <Button variant="ghost" size="icon" className="ml-2 text-header-foreground hover:bg-primary/80 hover:text-white">
                 <Menu />
                 <span className="sr-only">Open menu</span>
               </Button>
