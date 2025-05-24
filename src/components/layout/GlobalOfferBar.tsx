@@ -26,7 +26,7 @@ const GlobalOfferBar = () => {
   const currentOffer = activeOffers[currentOfferIndex];
 
   return (
-    <div className="bg-primary text-primary-foreground py-2 text-sm sticky top-0 z-50 shadow-md">
+    <div className="bg-primary text-white py-2 text-sm sticky top-0 z-50 shadow-md">
       <div className="container mx-auto px-4 flex items-center justify-center">
         <Link href={currentOffer.affiliateLink} passHref legacyBehavior>
           <a className="hover:underline flex items-center transition-opacity duration-500 ease-in-out" target="_blank" rel="noopener noreferrer">
