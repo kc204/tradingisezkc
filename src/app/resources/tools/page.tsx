@@ -40,7 +40,7 @@ export default function ToolsPage() {
               <p className="text-sm mb-4 min-h-[4rem]">{tool.description}</p>
             </CardContent>
             <CardFooter>
-              <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+              <Button asChild className="w-full bg-special-accent text-special-accent-foreground hover:bg-special-accent-hover">
                 <Link href={tool.affiliateLink} target="_blank" rel="noopener noreferrer">
                   Visit {tool.name} <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>

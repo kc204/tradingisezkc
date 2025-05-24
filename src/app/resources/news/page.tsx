@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { mockTradingResources } from "@/lib/mockData";
@@ -40,7 +41,7 @@ export default function NewsPage() {
               <p className="text-sm mb-4 min-h-[4rem]">{source.description}</p>
             </CardContent>
             <CardFooter>
-              <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+              <Button asChild className="w-full bg-special-accent text-special-accent-foreground hover:bg-special-accent-hover">
                 <Link href={source.affiliateLink} target="_blank" rel="noopener noreferrer">
                   Visit {source.name} <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>

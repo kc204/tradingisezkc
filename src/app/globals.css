@@ -5,28 +5,32 @@
 @layer base {
   :root {
     --background: 216 25% 95.1%; /* #F0F2F5 */
-    --foreground: 198 39% 24.1%; /* #264653 */
-    --card: 0 0% 100%; /* #FFFFFF */
+    --foreground: 198 39% 24.1%; /* #264653 */ /* Body Text (Headings, Key Info) */
+    --card: 0 0% 100%; /* #FFFFFF */ /* Cards / Panels / Content Backgrounds */
     --card-foreground: 198 39% 24.1%; /* #264653 */
     --popover: 0 0% 100%; /* #FFFFFF */
     --popover-foreground: 198 39% 24.1%; /* #264653 */
-    --primary: 192 31% 40.6%; /* #468189 */
+    --primary: 192 31% 40.6%; /* #468189 (New Primary Blue - Links, UI accents) */
     --primary-foreground: 0 0% 100%; /* #FFFFFF */
-    --secondary: 172 58% 39%; /* #2A9D8F */
+    --secondary: 172 58% 39%; /* #2A9D8F (Secondary Buttons) */
     --secondary-foreground: 0 0% 100%; /* #FFFFFF */
     --muted: 216 25% 90%;
-    --muted-foreground: 198 39% 40%;
-    --accent: 45 74% 69.6%; /* #E9C46A */
+    --muted-foreground: 240 4% 20%; /* #333333 (Paragraph Text) */
+    --accent: 45 74% 69.6%; /* #E9C46A (Subtle Accents / Highlights) */
     --accent-foreground: 198 39% 24.1%; /* #264653 */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 216 25% 88%;
     --input: 216 25% 88%;
-    --ring: 192 31% 40.6%; /* primary color */
+    --ring: 192 31% 40.6%; /* primary color for focus rings etc. */
 
     /* Custom colors as per PRD */
-    --special-accent: 28 89% 64.1%; /* #F4A261 (Primary Orange Buttons) */
+    --special-accent: 28 89% 64.1%; /* #F4A261 (Primary Buttons) */
+    --special-accent-hover: 12 76% 61%; /* #E76F51 (Primary Hover) */
     --special-accent-foreground: 0 0% 100%; /* #FFFFFF */
+    
+    --secondary-hover: 172 58% 30%; /* #1F7A72 (Secondary Hover, derived from #2A9D8F) */
+
     --header-background: 198 39% 24.1%; /* #264653 (Header / Nav Bar) */
     --header-foreground: 0 0% 100%; /* #FFFFFF */
 
@@ -38,30 +42,34 @@
   }
 
   .dark {
-    --background: 216 15% 10%;
-    --foreground: 198 15% 88%;
-    --card: 216 15% 15%;
+    --background: 216 15% 10%; /* Darker Page BG */
+    --foreground: 198 15% 88%; /* Lighter Body Text */
+    --card: 216 15% 15%; /* Darker Panels */
     --card-foreground: 198 15% 88%;
     --popover: 216 15% 15%;
     --popover-foreground: 198 15% 88%;
-    --primary: 192 30% 60%;
+    --primary: 192 30% 60%; /* Lighter Primary Blue */
     --primary-foreground: 0 0% 100%;
-    --secondary: 172 40% 50%;
+    --secondary: 172 40% 50%; /* Lighter Secondary Green */
     --secondary-foreground: 0 0% 100%;
     --muted: 216 15% 20%;
-    --muted-foreground: 198 10% 65%;
-    --accent: 45 60% 60%; 
+    --muted-foreground: 210 10% 80%; /* Lighter Paragraph Text */
+    --accent: 45 60% 60%; /* Adjusted Subtle Accent */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 216 15% 25%;
     --input: 216 15% 25%;
-    --ring: 192 30% 60%; 
+    --ring: 192 30% 60%;
     
     /* Custom colors for dark mode */
-    --special-accent: 28 70% 60%; 
+    --special-accent: 28 70% 60%; /* Darker Primary Orange */
+    --special-accent-hover: 12 57% 57%; /* Darker Primary Orange Hover */
     --special-accent-foreground: 0 0% 100%;
-    --header-background: 198 30% 20%; 
+    
+    --secondary-hover: 172 40% 40%; /* Darker Secondary Green Hover */
+
+    --header-background: 198 30% 18%; /* Darker Header BG #202E3A (example) */
     --header-foreground: 198 15% 88%;
     
     --chart-1: 220 70% 50%;
@@ -79,5 +87,57 @@
   body {
     @apply bg-background text-foreground font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  /* Ensure paragraph text uses the correct foreground color */
+  p {
+    @apply text-muted-foreground;
+  }
+  /* Headings and other key text should use the main foreground */
+  h1, h2, h3, h4, h5, h6, strong, dt {
+    @apply text-foreground;
+  }
+  /* Links should use primary color */
+  a {
+    @apply text-primary;
+  }
+  /* Fix for prose text color in dark mode for specific pages */
+  .dark .prose {
+    --tw-prose-body: hsl(var(--muted-foreground));
+    --tw-prose-headings: hsl(var(--foreground));
+    --tw-prose-lead: hsl(var(--muted-foreground));
+    --tw-prose-links: hsl(var(--primary));
+    --tw-prose-bold: hsl(var(--foreground));
+    --tw-prose-counters: hsl(var(--muted-foreground));
+    --tw-prose-bullets: hsl(var(--border));
+    --tw-prose-hr: hsl(var(--border));
+    --tw-prose-quotes: hsl(var(--foreground));
+    --tw-prose-quote-borders: hsl(var(--border));
+    --tw-prose-captions: hsl(var(--muted-foreground));
+    --tw-prose-code: hsl(var(--foreground));
+    --tw-prose-pre-code: hsl(var(--card-foreground));
+    --tw-prose-pre-bg: hsl(var(--card));
+    --tw-prose-th-borders: hsl(var(--border));
+    --tw-prose-td-borders: hsl(var(--border));
+    --tw-prose-invert-body: hsl(var(--muted-foreground));
+    --tw-prose-invert-headings: hsl(var(--foreground));
+    --tw-prose-invert-lead: hsl(var(--muted-foreground));
+    --tw-prose-invert-links: hsl(var(--primary));
+    --tw-prose-invert-bold: hsl(var(--foreground));
+    --tw-prose-invert-counters: hsl(var(--muted-foreground));
+    --tw-prose-invert-bullets: hsl(var(--border));
+    --tw-prose-invert-hr: hsl(var(--border));
+    --tw-prose-invert-quotes: hsl(var(--foreground));
+    --tw-prose-invert-quote-borders: hsl(var(--border));
+    --tw-prose-invert-captions: hsl(var(--muted-foreground));
+    --tw-prose-invert-code: hsl(var(--foreground));
+    --tw-prose-invert-pre-code: hsl(var(--card-foreground));
+    --tw-prose-invert-pre-bg: hsl(var(--card));
+    --tw-prose-invert-th-borders: hsl(var(--border));
+    --tw-prose-invert-td-borders: hsl(var(--border));
+  }
+  .prose {
+    --tw-prose-body: hsl(var(--muted-foreground));
+    --tw-prose-headings: hsl(var(--foreground));
+    --tw-prose-links: hsl(var(--primary));
   }
 }

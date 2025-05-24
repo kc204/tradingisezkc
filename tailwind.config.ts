@@ -30,7 +30,8 @@ export default {
   			},
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
+  				foreground: 'hsl(var(--secondary-foreground))',
+          hover: 'hsl(var(--secondary-hover))',
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
@@ -43,6 +44,7 @@ export default {
         'special-accent': {
           DEFAULT: 'hsl(var(--special-accent))',
           foreground: 'hsl(var(--special-accent-foreground))',
+          hover: 'hsl(var(--special-accent-hover))',
         },
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',
@@ -100,5 +102,5 @@ export default {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require('@tailwindcss/typography')],
 } satisfies Config;
