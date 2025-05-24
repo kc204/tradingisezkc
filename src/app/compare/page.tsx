@@ -1,3 +1,4 @@
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -5,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { Check, X } from 'lucide-react';
+import { Check, ExternalLink, X } from 'lucide-react';
 
 export const metadata = {
   title: 'Compare Prop Firms | Prop Firm Finder',
@@ -24,13 +25,14 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
   return (
     <div className="w-full overflow-x-auto">
-      <Table className="min-w-[800px]">
+      <Table className="min-w-[950px]"> {/* Adjusted min-width for the new column */}
         <TableHeader>
           <TableRow>
             <TableHead className="sticky left-0 bg-card z-10 min-w-[200px]">Firm</TableHead>
             {featuresToCompare.map(feature => (
               <TableHead key={feature.label} className="text-center min-w-[150px]">{feature.label}</TableHead>
             ))}
+            <TableHead className="text-center min-w-[150px]">Website</TableHead>
             <TableHead className="text-center min-w-[150px]">Details</TableHead>
           </TableRow>
         </TableHeader>
@@ -51,6 +53,13 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                   {feature.getValue(firm)}
                 </TableCell>
               ))}
+              <TableCell className="text-center">
+                <Button asChild variant="outline" size="sm">
+                  <Link href={firm.websiteUrl} target="_blank" rel="noopener noreferrer">
+                    Visit Website <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                  </Link>
+                </Button>
+              </TableCell>
               <TableCell className="text-center">
                 <Button asChild variant="outline" size="sm">
                   <Link href={`/firms/${firm.slug}`}>View Details</Link>
