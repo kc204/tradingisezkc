@@ -29,6 +29,8 @@ export interface PropFirm {
   isFeatured?: boolean;
   minAccountSize?: number;
   maxAccountSize?: number;
+  minChallengeCost?: number;
+  maxChallengeCost?: number;
   challengeType?: string; // e.g., 1-step, 2-step
 }
 

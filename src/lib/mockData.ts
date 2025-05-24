@@ -36,6 +36,8 @@ export const mockPropFirms: PropFirm[] = [
     isFeatured: true,
     minAccountSize: 10000,
     maxAccountSize: 2000000,
+    minChallengeCost: 89,
+    maxChallengeCost: 999,
     challengeType: '1-Step, 2-Step',
   },
   {
@@ -66,6 +68,8 @@ export const mockPropFirms: PropFirm[] = [
     isFeatured: true,
     minAccountSize: 5000,
     maxAccountSize: 300000,
+    minChallengeCost: 49,
+    maxChallengeCost: 299,
     challengeType: '2-Step',
   },
   {
@@ -94,6 +98,8 @@ export const mockPropFirms: PropFirm[] = [
     isFeatured: false,
     minAccountSize: 25000,
     maxAccountSize: 5000000,
+    minChallengeCost: 250,
+    maxChallengeCost: 2500,
     challengeType: '3-Step, Instant',
   },
 ];

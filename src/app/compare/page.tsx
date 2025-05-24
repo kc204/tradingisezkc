@@ -31,6 +31,22 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
         return '-';
       } 
     },
+    {
+      label: 'Evaluation Cost',
+      getValue: (f: PropFirm) => {
+        const min = f.minChallengeCost;
+        const max = f.maxChallengeCost;
+        if (min && max) {
+          if (min === max) return `$${min.toLocaleString()}`;
+          return `$${min.toLocaleString()} - $${max.toLocaleString()}`;
+        } else if (min) {
+          return `From $${min.toLocaleString()}`;
+        } else if (max) {
+          return `Up to $${max.toLocaleString()}`;
+        }
+        return '-';
+      }
+    },
     { label: 'Profit Split', getValue: (f: PropFirm) => f.profitSplit || '-' },
     { label: 'Max Funding', getValue: (f: PropFirm) => f.maxAccountSize ? `$${f.maxAccountSize.toLocaleString()}` : '-' },
     { label: 'Challenge Type', getValue: (f: PropFirm) => f.challengeType || '-' },
@@ -59,7 +75,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
   return (
     <div className="w-full overflow-x-auto">
-      <Table className="min-w-[1250px]"> {/* Adjusted min-width for the new column */}
+      <Table className="min-w-[1400px]"> {/* Adjusted min-width for the new column */}
         <TableHeader>
           <TableRow>
             <TableHead className="sticky left-0 bg-card z-10 min-w-[200px]">Firm</TableHead>
@@ -133,4 +149,3 @@ export default function ComparePage() {
     </div>
   );
 }
-
