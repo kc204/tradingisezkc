@@ -30,7 +30,7 @@ const OfferBox = ({ firm, className }: OfferBoxProps) => {
           </div>
           {firm.offerBadgeLabel && (
             <Badge variant="default" className="bg-special-accent text-special-accent-foreground text-sm px-3 py-1">
-              {firm.offerBadgeLabel}
+              🔥 {firm.offerBadgeLabel}
             </Badge>
           )}
         </div>
@@ -61,7 +61,7 @@ const OfferBox = ({ firm, className }: OfferBoxProps) => {
             </ul>
           </div>
         )}
-        <Button asChild size="lg" className="w-full bg-special-accent text-special-accent-foreground hover:bg-special-accent/90 text-base">
+        <Button asChild size="lg" className="w-full bg-special-accent text-special-accent-foreground hover:bg-special-accent-hover text-base">
           <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
             Claim Offer &amp; Visit {firm.name}
             <ExternalLink className="ml-2 h-4 w-4" />
