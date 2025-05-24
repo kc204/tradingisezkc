@@ -19,6 +19,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
     { label: 'Max Funding', getValue: (f: PropFirm) => f.maxAccountSize ? `$${f.maxAccountSize.toLocaleString()}` : '-' },
     { label: 'Challenge Type', getValue: (f: PropFirm) => f.challengeType || '-' },
     { label: 'Drawdown Rules', getValue: (f: PropFirm) => f.drawdownRules || '-' },
+    { label: 'Profit Goal', getValue: (f: PropFirm) => f.profitTarget || '-' },
     { label: 'Platforms', getValue: (f: PropFirm) => f.platforms?.join(', ') || '-' },
     {
       label: 'Rating',
@@ -42,7 +43,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
   return (
     <div className="w-full overflow-x-auto">
-      <Table className="min-w-[950px]">
+      <Table className="min-w-[1100px]"> {/* Adjusted min-width for the new column */}
         <TableHeader>
           <TableRow>
             <TableHead className="sticky left-0 bg-card z-10 min-w-[200px]">Firm</TableHead>
