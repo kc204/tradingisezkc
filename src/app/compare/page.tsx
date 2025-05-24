@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { Check, ExternalLink, X } from 'lucide-react';
+import { Check, ExternalLink, X, Star } from 'lucide-react'; // Added Star
 
 export const metadata = {
   title: 'Compare Prop Firms | Prop Firm Finder',
@@ -20,12 +20,28 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
     { label: 'Challenge Type', getValue: (f: PropFirm) => f.challengeType || '-' },
     { label: 'Drawdown Rules', getValue: (f: PropFirm) => f.drawdownRules || '-' },
     { label: 'Platforms', getValue: (f: PropFirm) => f.platforms?.join(', ') || '-' },
-    { label: 'Rating', getValue: (f: PropFirm) => f.rating ? `${f.rating.toFixed(1)}/5` : '-' },
+    { 
+      label: 'Rating', 
+      getValue: (f: PropFirm) => {
+        if (!f.rating) return '-';
+        return (
+          <div className="flex items-center justify-center">
+            {[...Array(5)].map((_, i) => (
+              <Star 
+                key={i} 
+                className={`w-4 h-4 ${i < Math.round(f.rating || 0) ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/30'}`} 
+              />
+            ))}
+            <span className="ml-1.5">{f.rating.toFixed(1)}/5</span>
+          </div>
+        );
+      } 
+    },
   ];
 
   return (
     <div className="w-full overflow-x-auto">
-      <Table className="min-w-[950px]"> {/* Adjusted min-width for the new column */}
+      <Table className="min-w-[950px]">
         <TableHeader>
           <TableRow>
             <TableHead className="sticky left-0 bg-card z-10 min-w-[200px]">Firm</TableHead>
