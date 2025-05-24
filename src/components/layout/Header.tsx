@@ -38,8 +38,8 @@ const navLinks = [
   { href: '/about', label: 'About Us' },
 ];
 
-const SCROLL_DELTA_THRESHOLD = 5; // Min scroll difference in pixels to trigger visibility change
-const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64; // If scrollY is less than this, header is always visible (approx header height)
+const SCROLL_DELTA_THRESHOLD = 5; 
+const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64; 
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -61,29 +61,31 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    lastScrollY.current = window.scrollY;
+    if (typeof window !== 'undefined') {
+      lastScrollY.current = window.scrollY;
 
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      const handleScroll = () => {
+        const currentScrollY = window.scrollY;
 
-      if (Math.abs(currentScrollY - lastScrollY.current) < SCROLL_DELTA_THRESHOLD) {
-        return; // Not enough scroll to trigger change, prevents jitter
-      }
+        if (Math.abs(currentScrollY - lastScrollY.current) < SCROLL_DELTA_THRESHOLD) {
+          return; 
+        }
 
-      if (currentScrollY < HEADER_ALWAYS_VISIBLE_THRESHOLD) {
-        setIsVisible(true); // Always show if near the top
-      } else if (currentScrollY > lastScrollY.current) {
-        setIsVisible(false); // Scrolling down
-      } else {
-        setIsVisible(true); // Scrolling up
-      }
-      lastScrollY.current = currentScrollY;
-    };
+        if (currentScrollY < HEADER_ALWAYS_VISIBLE_THRESHOLD) {
+          setIsVisible(true); 
+        } else if (currentScrollY > lastScrollY.current) {
+          setIsVisible(false); 
+        } else {
+          setIsVisible(true); 
+        }
+        lastScrollY.current = currentScrollY;
+      };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
   }, []);
 
 
@@ -142,6 +144,7 @@ const Header = () => {
               if (isOpen) {
                 setOpenDropdown(link.label);
               } else {
+                // Only close if it's the currently open one, to avoid closing due to focus changes
                 if (openDropdown === link.label) {
                   setOpenDropdown(null);
                 }
@@ -155,9 +158,9 @@ const Header = () => {
               className={`text-header-foreground hover:bg-primary/80 hover:text-white ${isMobileLink ? 'w-full justify-start text-foreground hover:text-foreground' : 'group'}`}
               onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)}
               onMouseLeave={() => handleMouseLeave(isMobileLink)}
-              onClick={() => {
+              onClick={() => { // Handles click for both mobile and desktop (toggle for desktop)
                 if (isMobileLink) {
-                  // Mobile sheet logic for dropdowns if needed, or just navigate if top-level
+                  // Mobile sheet dropdowns are handled by Radix UI state or custom state if needed
                 } else {
                   setOpenDropdown(openDropdown === link.label ? null : link.label);
                 }
@@ -171,8 +174,8 @@ const Header = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="bg-card text-card-foreground"
-            onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)}
-            onMouseLeave={() => handleMouseLeave(isMobileLink)}
+            onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)} // Keep open on hover content
+            onMouseLeave={() => handleMouseLeave(isMobileLink)} // Allow closing when mouse leaves content
           >
             {link.dropdown.map((item) => (
               <DropdownMenuItem key={item.label} asChild className="hover:bg-accent hover:text-accent-foreground">
@@ -181,8 +184,8 @@ const Header = () => {
                   onClick={() => {
                     if (isMobileLink) setMobileMenuOpen(false);
                     if (!isMobileLink && mounted) {
-                      clearHoverTimeout();
-                      setOpenDropdown(null);
+                      clearHoverTimeout(); // Clear any pending close
+                      setOpenDropdown(null); // Close dropdown on item click
                     }
                   }}
                 >
@@ -197,8 +200,8 @@ const Header = () => {
           <Link href={link.href} onClick={() => {
             if (isMobileLink) setMobileMenuOpen(false);
             if (!isMobileLink && mounted) {
-              clearHoverTimeout();
-              setOpenDropdown(null);
+               clearHoverTimeout(); // Clear any pending close
+               setOpenDropdown(null); // Close any open dropdown
             }
           }}>
             {link.label}
@@ -211,16 +214,17 @@ const Header = () => {
     <header
       className={cn(
         "bg-header-background text-header-foreground shadow-lg sticky z-40",
-        "transition-[transform,opacity] duration-300 ease-in-out", // Specific transitions
+        "top-[2.25rem]", // Consistent top offset below GlobalOfferBar
+        "transition-[transform,opacity] duration-300 ease-out", // Use ease-out for a quicker start to the animation
         isVisible
-          ? "opacity-100 translate-y-0 top-[calc(2.5rem)] md:top-[calc(2.25rem)]" // Original sticky top
-          : "opacity-0 -translate-y-full pointer-events-none top-[calc(2.5rem)] md:top-[calc(2.25rem)]" // Keep original top for reference, but translate out
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 -translate-y-full pointer-events-none"
       )}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold" onClick={() => {
           if (mobileMenuOpen) setMobileMenuOpen(false);
-          if (openDropdown) setOpenDropdown(null);
+          if (openDropdown) setOpenDropdown(null); // Close dropdown if clicking main logo
         }}>
           Prop Firm Finder
         </Link>
@@ -261,3 +265,4 @@ const Header = () => {
 };
 
 export default Header;
+
