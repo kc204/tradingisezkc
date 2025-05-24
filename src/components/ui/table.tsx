@@ -11,9 +11,7 @@ const Table = React.forwardRef<
       ref={ref}
       className={cn("w-full caption-bottom text-sm", className)}
       {...props} // Spread other props
-    >
-      {children} {/* Render children directly inside the table element */}
-    </table>
+    >{children}</table> {/* Render children directly inside the table element, no newlines/spaces */}
   </div>
 ))
 Table.displayName = "Table"
