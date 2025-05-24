@@ -7,10 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, MessageSquare, Send } from "lucide-react";
 
-export const metadata = {
-  title: 'Contact Us | Prop Firm Finder',
-  description: 'Get in touch with the Prop Firm Finder team.',
-};
+// Removed metadata export as it's not allowed in client components
 
 const ContactPage = () => {
   // This is a UI-only form for now.
