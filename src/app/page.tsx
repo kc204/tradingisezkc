@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { mockArticles, mockPropFirms } from '@/lib/mockData';
 import Link from 'next/link';
 import Image from 'next/image';
-import { StarBorder } from "@/components/ui/star-border"; // Added import
+// Removed import for StarBorder as it's being removed
 
 export default function Home() {
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
@@ -89,17 +89,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* StarBorder Demo Section */}
-      <section className="py-12">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-foreground mb-10">StarBorder Component Demo</h2>
-          <div className="flex justify-center">
-            <StarBorder>
-              Theme-aware Border
-            </StarBorder>
-          </div>
-        </div>
-      </section>
+      {/* StarBorder Demo Section REMOVED */}
     </div>
   );
 }
