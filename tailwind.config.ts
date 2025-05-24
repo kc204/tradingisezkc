@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
     darkMode: ["class"],
@@ -9,6 +10,9 @@ export default {
   ],
   theme: {
   	extend: {
+      fontFamily: {
+        sans: ["var(--font-plus-jakarta-sans)", ...fontFamily.sans],
+      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -36,6 +40,10 @@ export default {
   				DEFAULT: 'hsl(var(--accent))',
   				foreground: 'hsl(var(--accent-foreground))'
   			},
+        'special-accent': {
+          DEFAULT: 'hsl(var(--special-accent))',
+          foreground: 'hsl(var(--special-accent-foreground))',
+        },
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
@@ -50,15 +58,17 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			},
-  			sidebar: {
-  				DEFAULT: 'hsl(var(--sidebar-background))',
-  				foreground: 'hsl(var(--sidebar-foreground))',
-  				primary: 'hsl(var(--sidebar-primary))',
-  				'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-  				accent: 'hsl(var(--sidebar-accent))',
-  				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-  				border: 'hsl(var(--sidebar-border))',
-  				ring: 'hsl(var(--sidebar-ring))'
+  			// Remove sidebar specific colors if not using the sidebar component directly
+        // For now, keeping them as they might be used by shadcn ui internals or future features
+        sidebar: {
+  				DEFAULT: 'hsl(var(--card))', // or a specific sidebar bg
+  				foreground: 'hsl(var(--card-foreground))',
+  				primary: 'hsl(var(--primary))',
+  				'primary-foreground': 'hsl(var(--primary-foreground))',
+  				accent: 'hsl(var(--accent))',
+  				'accent-foreground': 'hsl(var(--accent-foreground))',
+  				border: 'hsl(var(--border))',
+  				ring: 'hsl(var(--ring))'
   			}
   		},
   		borderRadius: {

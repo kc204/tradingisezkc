@@ -1,0 +1,62 @@
+import type { PropFirm } from '@/lib/types';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Star, TrendingUp } from 'lucide-react';
+
+interface FirmCardProps {
+  firm: PropFirm;
+}
+
+const FirmCard = ({ firm }: FirmCardProps) => {
+  return (
+    <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <CardHeader className="relative">
+        <div className="flex items-start justify-between">
+          <div className="w-24 h-12 relative mb-2 mr-4 flex-shrink-0">
+             <Image 
+                src={firm.logoUrl} 
+                alt={`${firm.name} logo`} 
+                layout="fill" 
+                objectFit="contain" 
+                data-ai-hint="company logo"
+              />
+          </div>
+          {firm.isFeatured && (
+            <Badge variant="default" className="absolute top-4 right-4 bg-special-accent text-special-accent-foreground">
+              <TrendingUp className="w-3 h-3 mr-1" /> Featured
+            </Badge>
+          )}
+        </div>
+        <CardTitle className="text-xl font-semibold">{firm.name}</CardTitle>
+        {firm.offerBadgeLabel && (
+          <Badge variant="secondary" className="mt-1 w-fit">{firm.offerBadgeLabel}</Badge>
+        )}
+      </CardHeader>
+      <CardContent className="flex-grow">
+        <CardDescription className="text-sm mb-3 min-h-[3rem]">{firm.briefDescription}</CardDescription>
+        <div className="space-y-1 text-xs text-muted-foreground">
+          {firm.keyInfoSnippets?.slice(0, 2).map(snippet => (
+             <p key={snippet.label}><span className="font-medium text-foreground">{snippet.label}:</span> {snippet.value}</p>
+          ))}
+        </div>
+        {firm.rating && (
+          <div className="flex items-center mt-3 text-sm">
+            <Star className="w-4 h-4 text-yellow-400 fill-yellow-400 mr-1" />
+            <span className="font-semibold">{firm.rating.toFixed(1)}</span>
+            <span className="text-muted-foreground ml-1">/ 5.0</span>
+          </div>
+        )}
+      </CardContent>
+      <CardFooter className="mt-auto">
+        <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+          <Link href={`/firms/${firm.slug}`}>View Details</Link>
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+};
+
+export default FirmCard;
