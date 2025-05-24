@@ -28,7 +28,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
         } else if (max) {
           return `Up to $${max.toLocaleString()}`;
         }
-        return '-';
+        return f.id.startsWith('placeholder-') ? '' : '-';
       } 
     },
     {
@@ -44,22 +44,23 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
         } else if (max) {
           return `Up to $${max.toLocaleString()}`;
         }
-        return '-';
+        return f.id.startsWith('placeholder-') ? '' : '-';
       }
     },
     { 
       label: 'Activation Fee', 
-      getValue: (f: PropFirm) => f.activationFee || '-' 
+      getValue: (f: PropFirm) => f.activationFee || (f.id.startsWith('placeholder-') ? '' : '-')
     },
-    { label: 'Profit Split', getValue: (f: PropFirm) => f.profitSplit || '-' },
-    { label: 'Max Funding', getValue: (f: PropFirm) => f.maxAccountSize ? `$${f.maxAccountSize.toLocaleString()}` : '-' },
-    { label: 'Challenge Type', getValue: (f: PropFirm) => f.challengeType || '-' },
-    { label: 'Drawdown Rules', getValue: (f: PropFirm) => f.drawdownRules || '-' },
-    { label: 'Profit Goal', getValue: (f: PropFirm) => f.profitTarget || '-' },
-    { label: 'Platforms', getValue: (f: PropFirm) => f.platforms?.join(', ') || '-' },
+    { label: 'Profit Split', getValue: (f: PropFirm) => f.profitSplit || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Max Funding', getValue: (f: PropFirm) => f.maxAccountSize ? `$${f.maxAccountSize.toLocaleString()}` : (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Challenge Type', getValue: (f: PropFirm) => f.challengeType || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Drawdown Rules', getValue: (f: PropFirm) => f.drawdownRules || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Profit Goal', getValue: (f: PropFirm) => f.profitTarget || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Platforms', getValue: (f: PropFirm) => f.platforms?.join(', ') || (f.id.startsWith('placeholder-') ? '' : '-') },
     {
       label: 'Rating',
       getValue: (f: PropFirm) => {
+        if (f.id.startsWith('placeholder-')) return '';
         if (!f.rating) return '-';
         const roundedRating = Math.round(f.rating || 0);
         return (
@@ -79,7 +80,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
   return (
     <div className="w-full overflow-x-auto">
-      <Table className="min-w-[2000px]"> {/* Adjusted min-width for the new column */}
+      <Table className="min-w-[2000px]">
         <TableHeader>
           <TableRow>
             <TableHead className="sticky left-0 bg-card z-10 min-w-[200px]">Firm</TableHead>
@@ -95,12 +96,16 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
             <TableRow key={firm.id}>
               <TableCell className="font-medium sticky left-0 bg-card z-10">
                 <div className="flex items-center space-x-3">
-                  <div className="w-16 h-8 relative">
-                    <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo" />
-                  </div>
+                  {firm.logoUrl && !firm.id.startsWith('placeholder-') ? (
+                    <div className="w-16 h-8 relative">
+                      <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo" />
+                    </div>
+                  ) : firm.id.startsWith('placeholder-') ? (
+                    <div className="w-16 h-8 flex items-center justify-center text-muted-foreground text-xs"></div>
+                  ) : null}
                   <span>{firm.name}</span>
                 </div>
-                {firm.offerBadgeLabel && <Badge variant="secondary" className="mt-1">{firm.offerBadgeLabel}</Badge>}
+                {firm.offerBadgeLabel && !firm.id.startsWith('placeholder-') && <Badge variant="secondary" className="mt-1">{firm.offerBadgeLabel}</Badge>}
               </TableCell>
               {featuresToCompare.map(feature => (
                 <TableCell key={`${firm.id}-${feature.label}`} className="text-center">
@@ -108,16 +113,20 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                 </TableCell>
               ))}
               <TableCell className="text-center">
-                <Button asChild variant="outline" size="sm">
-                  <Link href={firm.websiteUrl} target="_blank" rel="noopener noreferrer">
-                    Visit Website <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
-                  </Link>
-                </Button>
+                {firm.websiteUrl && !firm.id.startsWith('placeholder-') ? (
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={firm.websiteUrl} target="_blank" rel="noopener noreferrer">
+                      Visit Website <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                    </Link>
+                  </Button>
+                ) : ''}
               </TableCell>
               <TableCell className="text-center">
-                <Button asChild variant="outline" size="sm">
-                  <Link href={`/firms/${firm.slug}`}>View Details</Link>
-                </Button>
+                 {firm.slug && !firm.id.startsWith('placeholder-') ? (
+                    <Button asChild variant="outline" size="sm">
+                    <Link href={`/firms/${firm.slug}`}>View Details</Link>
+                    </Button>
+                 ) : ''}
               </TableCell>
             </TableRow>
           ))}
@@ -129,8 +138,33 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
 
 export default function ComparePage() {
-  // Select a few firms for comparison, or allow user selection in a future version
-  const firmsToCompare = mockPropFirms.slice(0, 3); 
+  const existingFirms = mockPropFirms.slice(0, 3); 
+
+  const placeholderFirms: PropFirm[] = Array.from({ length: 10 }, (_, i) => ({
+    id: `placeholder-${i + 1}`,
+    slug: `placeholder-firm-${i + 1}`,
+    name: ``, // Empty name for placeholder rows
+    logoUrl: '', // No logo for placeholder
+    websiteUrl: '',
+    affiliateLink: '',
+    briefDescription: '',
+    minAccountSize: undefined,
+    maxAccountSize: undefined,
+    minChallengeCost: undefined,
+    maxChallengeCost: undefined,
+    activationFee: '',
+    profitSplit: '',
+    challengeType: '',
+    drawdownRules: '',
+    profitTarget: '',
+    platforms: [],
+    rating: undefined,
+    // Ensure all required fields from PropFirm type are present, even if empty or default
+    fundingModels: [],
+    tradableInstruments: [],
+  }));
+
+  const firmsToCompare = [...existingFirms, ...placeholderFirms];
 
   return (
     <div className="space-y-8">
@@ -153,4 +187,3 @@ export default function ComparePage() {
     </div>
   );
 }
-
