@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -30,7 +31,7 @@ const navLinks = [
       { href: '/resources/guides', label: 'Guides' },
       { href: '/resources/tools', label: 'Tools' },
       { href: '/resources/news', label: 'News' },
-      // { href: '/resources/al-brooks-trading-course', label: 'Al Brooks Course' }, // Example
+      { href: '/resources/al-brooks-trading-course', label: 'Al Brooks Course' },
     ],
   },
   { href: '/about', label: 'About Us' },

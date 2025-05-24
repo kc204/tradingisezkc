@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Target, Zap, ShieldCheck } from "lucide-react";
 import Image from "next/image";
@@ -15,7 +16,7 @@ const AboutPage = () => {
           <Users className="w-16 h-16 text-primary-foreground mx-auto mb-4" />
           <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">About Prop Firm Finder</h1>
           <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto">
-            Empowering traders with the insights, tools, and connections to accelerate their trading careers.
+            Empowering traders with the insights, tools, and connections to accelerate your trading careers.
           </p>
         </div>
       </section>

@@ -1,3 +1,4 @@
+
 import AiMatcher from '@/components/propfirms/AiMatcher';
 import FirmCard from '@/components/propfirms/FirmCard';
 import ArticleCard from '@/components/shared/ArticleCard';
@@ -27,10 +28,10 @@ export default function Home() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Unlock Your Trading Potential
+            Unlock Your Trading Potential: Find the Perfect Prop Firm &amp; Get Funded.
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Tired of risking your own capital? Discover top-rated prop firms, master the rules, access exclusive deals, and secure your funded account with confidence.
+            Tired of risking your own capital or sifting through confusing prop firm options? Discover top-rated firms, master the rules, access exclusive deals, and secure your funded account with confidence.
           </p>
           <div className="space-x-4">
             <Button asChild size="lg" className="bg-special-accent text-special-accent-foreground hover:bg-special-accent/90 px-8 py-3 text-lg">
