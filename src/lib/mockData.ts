@@ -38,6 +38,7 @@ export const mockPropFirms: PropFirm[] = [
     maxAccountSize: 2000000,
     minChallengeCost: 89,
     maxChallengeCost: 999,
+    activationFee: 'Free',
     challengeType: '1-Step, 2-Step',
   },
   {
@@ -70,6 +71,7 @@ export const mockPropFirms: PropFirm[] = [
     maxAccountSize: 300000,
     minChallengeCost: 49,
     maxChallengeCost: 299,
+    activationFee: '$99',
     challengeType: '2-Step',
   },
   {
@@ -100,6 +102,7 @@ export const mockPropFirms: PropFirm[] = [
     maxAccountSize: 5000000,
     minChallengeCost: 250,
     maxChallengeCost: 2500,
+    activationFee: 'Varies',
     challengeType: '3-Step, Instant',
   },
 ];
@@ -166,3 +169,4 @@ export const mockTradingResources: TradingResource[] = [
     resourceType: 'News',
   },
 ];
+

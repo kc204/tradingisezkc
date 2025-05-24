@@ -47,6 +47,10 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
         return '-';
       }
     },
+    { 
+      label: 'Activation Fee', 
+      getValue: (f: PropFirm) => f.activationFee || '-' 
+    },
     { label: 'Profit Split', getValue: (f: PropFirm) => f.profitSplit || '-' },
     { label: 'Max Funding', getValue: (f: PropFirm) => f.maxAccountSize ? `$${f.maxAccountSize.toLocaleString()}` : '-' },
     { label: 'Challenge Type', getValue: (f: PropFirm) => f.challengeType || '-' },
@@ -75,7 +79,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
   return (
     <div className="w-full overflow-x-auto">
-      <Table className="min-w-[1400px]"> {/* Adjusted min-width for the new column */}
+      <Table className="min-w-[2000px]"> {/* Adjusted min-width for the new column */}
         <TableHeader>
           <TableRow>
             <TableHead className="sticky left-0 bg-card z-10 min-w-[200px]">Firm</TableHead>
@@ -149,3 +153,4 @@ export default function ComparePage() {
     </div>
   );
 }
+

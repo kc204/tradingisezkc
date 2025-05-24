@@ -1,3 +1,4 @@
+
 export interface GlobalOffer {
   id: string;
   text: string;
@@ -31,6 +32,7 @@ export interface PropFirm {
   maxAccountSize?: number;
   minChallengeCost?: number;
   maxChallengeCost?: number;
+  activationFee?: string; // e.g., "Free", "$99", "N/A"
   challengeType?: string; // e.g., 1-step, 2-step
 }
 
@@ -55,3 +57,4 @@ export type TradingResource = {
   description: string;
   resourceType: 'Guide' | 'Tool' | 'News' | 'Course';
 };
+
