@@ -24,15 +24,15 @@ export function StarBorder<T extends ElementType = "button">({
   return (
     <Component 
       className={cn(
-        "relative inline-block py-[1px] overflow-hidden rounded-[20px]",
+        "relative inline-block py-[1px] overflow-hidden rounded-[20px] group transition-all duration-300 ease-in-out", // Added group and transition
         className
       )} 
       {...props}
     >
       <div
         className={cn(
-          "absolute w-[400%] h-[50%] bottom-[-11px] right-[-350%] rounded-full animate-star-movement-bottom z-0", // Increased width and adjusted right offset
-          "opacity-30 dark:opacity-75" 
+          "absolute w-[400%] h-[50%] bottom-[-11px] right-[-350%] rounded-full animate-star-movement-bottom z-0",
+          "opacity-30 dark:opacity-75 group-hover:opacity-60 dark:group-hover:opacity-90 transition-opacity duration-300 ease-in-out" // Increased hover opacity
         )}
         style={{
           background: `radial-gradient(circle, ${defaultColor}, transparent 20%)`, // Made gradient spread larger
@@ -41,8 +41,8 @@ export function StarBorder<T extends ElementType = "button">({
       />
       <div
         className={cn(
-          "absolute w-[400%] h-[50%] top-[-10px] left-[-350%] rounded-full animate-star-movement-top z-0", // Increased width and adjusted left offset
-          "opacity-30 dark:opacity-75"
+          "absolute w-[400%] h-[50%] top-[-10px] left-[-350%] rounded-full animate-star-movement-top z-0",
+          "opacity-30 dark:opacity-75 group-hover:opacity-60 dark:group-hover:opacity-90 transition-opacity duration-300 ease-in-out" // Increased hover opacity
         )}
         style={{
           background: `radial-gradient(circle, ${defaultColor}, transparent 20%)`, // Made gradient spread larger
