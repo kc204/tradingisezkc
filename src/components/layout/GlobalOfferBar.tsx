@@ -26,21 +26,29 @@ const GlobalOfferBar = () => {
 
   const currentOffer = activeOffers[currentOfferIndex];
 
+  // Defensive check, though unlikely to be hit with current logic
+  if (!currentOffer) {
+    return null; 
+  }
+
   return (
+    // The parent div sets bg-primary and text-white, which should be inherited.
     <div className="bg-primary text-white py-2 text-sm sticky top-0 z-50 shadow-md">
-      <div className="container mx-auto px-4 flex items-center justify-center">
-        {currentOffer && (
-          <Link
-            href={currentOffer.affiliateLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:underline flex items-center"
-            key={currentOffer.id} // Add key to help React differentiate changing content
-          >
-            {currentOffer.text}
-            <ChevronRight className="ml-1 h-4 w-4" />
-          </Link>
-        )}
+      {/* Added h-full to ensure this div takes the parent's height from py-2 */}
+      <div className="container mx-auto px-4 flex items-center justify-center h-full">
+        <Link
+          href={currentOffer.affiliateLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          // Using inline-flex for the Link to properly contain its flex children (text and icon)
+          // Text color should be inherited from the parent div.
+          className="hover:underline inline-flex items-center" 
+          key={currentOffer.id} // Key to help React differentiate changing content and force re-render
+        >
+          <span>{currentOffer.text}</span>
+          {/* Added shrink-0 to prevent icon from unduly affecting layout */}
+          <ChevronRight className="ml-1 h-4 w-4 shrink-0" />
+        </Link>
       </div>
     </div>
   );
