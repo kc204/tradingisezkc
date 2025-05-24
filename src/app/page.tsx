@@ -5,7 +5,18 @@ import { Button } from '@/components/ui/button';
 import { mockArticles, mockPropFirms } from '@/lib/mockData';
 import Link from 'next/link';
 import Image from 'next/image';
-// Removed import for StarBorder as it's being removed
+import { StarBorder } from "@/components/ui/star-border"; // Import the new component
+
+// Demo component for StarBorder
+function StarBorderDemo() {
+  return (
+    <div className="space-y-8 my-12 py-8 flex justify-center">
+      <StarBorder>
+        Theme-aware Border
+      </StarBorder>
+    </div>
+  )
+}
 
 export default function Home() {
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
@@ -37,23 +48,10 @@ export default function Home() {
             <Button asChild size="lg" className="bg-special-accent text-special-accent-foreground hover:bg-special-accent/90 px-8 py-3 text-lg">
               <Link href="/firms">Find Your Firm Now</Link>
             </Button>
-            {/* Removed AI Firm Matcher button 
-            <Button asChild size="lg" variant="outline" className="px-8 py-3 text-lg border-primary text-primary hover:bg-primary/10">
-              <Link href="#ai-matcher">AI Firm Matcher</Link>
-            </Button>
-            */}
+            
           </div>
         </div>
       </section>
-
-      {/* AI Firm Matcher Section REMOVED */}
-      {/* 
-      <section id="ai-matcher" className="py-12">
-        <div className="container mx-auto px-4">
-          <AiMatcher />
-        </div>
-      </section>
-      */}
 
       {/* Featured Prop Firms Section */}
       <section className="py-12">
@@ -89,7 +87,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* StarBorder Demo Section REMOVED */}
+      {/* StarBorder Demo Section */}
+      <section>
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-10">StarBorder Component Demo</h2>
+          <StarBorderDemo />
+        </div>
+      </section>
     </div>
   );
 }
