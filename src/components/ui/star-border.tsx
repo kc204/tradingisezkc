@@ -4,7 +4,7 @@ import type { ElementType, ComponentPropsWithoutRef } from "react"
 
 interface StarBorderProps<T extends ElementType> {
   as?: T
-  color?: string // For the animated border effect itself, defaults to secondary color
+  color?: string // For the animated border effect itself
   speed?: string
   className?: string
   children: React.ReactNode
@@ -24,7 +24,7 @@ export function StarBorder<T extends ElementType = "button">({
   return (
     <Component 
       className={cn(
-        "relative inline-block py-[1px] overflow-hidden rounded-[20px] group transition-all duration-300 ease-in-out",
+        "relative inline-block py-[1px] overflow-hidden group transition-all duration-300 ease-in-out", // Removed rounded-[20px]
         className
       )} 
       {...props}
@@ -52,7 +52,7 @@ export function StarBorder<T extends ElementType = "button">({
       />
       
       <div className={cn(
-        "relative z-10 border text-center text-base py-4 px-6 rounded-[20px] transition-colors duration-300 ease-in-out",
+        "relative z-10 border text-center text-base py-4 px-6 transition-colors duration-300 ease-in-out", // Removed rounded-[20px]
         // Button face: Default orange background, white text
         "bg-special-accent text-special-accent-foreground border-transparent",
         // Button face: Hover darker orange background
