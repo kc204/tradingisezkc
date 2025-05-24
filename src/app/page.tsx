@@ -1,22 +1,10 @@
 
 import FirmCard from '@/components/propfirms/FirmCard';
 import ArticleCard from '@/components/shared/ArticleCard';
-import { Button } from '@/components/ui/button';
 import { mockArticles, mockPropFirms } from '@/lib/mockData';
 import Link from 'next/link';
 import Image from 'next/image';
-import { StarBorder } from "@/components/ui/star-border"; // Import the new component
-
-// Demo component for StarBorder
-function StarBorderDemo() {
-  return (
-    <div className="space-y-8 my-12 py-8 flex justify-center">
-      <StarBorder>
-        Theme-aware Border
-      </StarBorder>
-    </div>
-  )
-}
+import { StarBorder } from "@/components/ui/star-border";
 
 export default function Home() {
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
@@ -45,10 +33,13 @@ export default function Home() {
             Tired of risking your own capital or sifting through confusing prop firm options? Discover top-rated firms, master the rules, access exclusive deals, and secure your funded account with confidence.
           </p>
           <div className="space-x-4">
-            <Button asChild size="lg" className="bg-special-accent text-special-accent-foreground hover:bg-special-accent/90 px-8 py-3 text-lg">
-              <Link href="/firms">Find Your Firm Now</Link>
-            </Button>
-            
+            <StarBorder<typeof Link>
+              as={Link}
+              href="/firms"
+              className="text-lg"
+            >
+              Find Your Firm Now
+            </StarBorder>
           </div>
         </div>
       </section>
@@ -63,9 +54,12 @@ export default function Home() {
             ))}
           </div>
           <div className="text-center mt-10">
-            <Button asChild variant="outline" size="lg">
-              <Link href="/firms">View All Firms</Link>
-            </Button>
+            <StarBorder<typeof Link>
+              as={Link}
+              href="/firms"
+            >
+              View All Firms
+            </StarBorder>
           </div>
         </div>
       </section>
@@ -80,20 +74,17 @@ export default function Home() {
             ))}
           </div>
           <div className="text-center mt-10">
-            <Button asChild variant="default" size="lg">
-              <Link href="/resources">Explore All Resources</Link>
-            </Button>
+            <StarBorder<typeof Link>
+              as={Link}
+              href="/resources"
+            >
+              Explore All Resources
+            </StarBorder>
           </div>
         </div>
       </section>
 
-      {/* StarBorder Demo Section */}
-      <section>
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-10">StarBorder Component Demo</h2>
-          <StarBorderDemo />
-        </div>
-      </section>
+      {/* StarBorder Demo Section is removed as requested */}
     </div>
   );
 }
