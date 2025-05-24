@@ -1,56 +1,18 @@
+
 import FirmCard from '@/components/propfirms/FirmCard';
 import { mockPropFirms } from '@/lib/mockData';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Filter, Search } from 'lucide-react';
+// import { Input } from '@/components/ui/input'; // No longer needed
+// import { Button } from '@/components/ui/button'; // No longer needed
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'; // No longer needed
+// import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'; // No longer needed
+// import { Filter, Search } from 'lucide-react'; // No longer needed
 
 export const metadata = {
   title: 'All Prop Firms | Prop Firm Finder',
   description: 'Browse and compare all listed proprietary trading firms.',
 };
 
-// Placeholder for search/filter component or logic
-const FirmSearchFilter = () => {
-  return (
-    <Card className="mb-8 shadow-md">
-      <CardHeader>
-        <CardTitle className="text-xl flex items-center"><Filter className="mr-2 h-5 w-5" /> Filter Prop Firms</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="relative">
-            <Input type="text" placeholder="Search by firm name..." className="pl-10" />
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          </div>
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Funding Model" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="2-step">2-Step Challenge</SelectItem>
-              <SelectItem value="1-step">1-Step Challenge</SelectItem>
-              <SelectItem value="instant">Instant Funding</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Max Account Size" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="100k">$100,000+</SelectItem>
-              <SelectItem value="500k">$500,000+</SelectItem>
-              <SelectItem value="1m">$1,000,000+</SelectItem>
-            </SelectContent>
-          </Select>
-          <Button className="w-full lg:w-auto bg-primary text-primary-foreground hover:bg-primary/90">Apply Filters</Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
-
+// FirmSearchFilter component is removed as it's no longer used.
 
 export default function FirmsPage() {
   const firms = mockPropFirms; // In a real app, fetch this data
@@ -62,7 +24,7 @@ export default function FirmsPage() {
         <p className="text-lg text-primary-foreground/90">Find the funding opportunity that matches your trading style.</p>
       </section>
       
-      <FirmSearchFilter />
+      {/* FirmSearchFilter component removed from here */}
 
       <section>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
