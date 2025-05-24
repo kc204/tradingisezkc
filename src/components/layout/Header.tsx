@@ -13,6 +13,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useTheme } from 'next-themes';
 import { useState, useEffect, useRef } from 'react';
+import { cn } from '@/lib/utils';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -37,12 +38,18 @@ const navLinks = [
   { href: '/about', label: 'About Us' },
 ];
 
+const SCROLL_DELTA_THRESHOLD = 5; // Min scroll difference in pixels to trigger visibility change
+const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64; // If scrollY is less than this, header is always visible (approx header height)
+
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     setMounted(true);
@@ -52,6 +59,33 @@ const Header = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (Math.abs(currentScrollY - lastScrollY.current) < SCROLL_DELTA_THRESHOLD) {
+        return; // Not enough scroll to trigger change, prevents jitter
+      }
+
+      if (currentScrollY < HEADER_ALWAYS_VISIBLE_THRESHOLD) {
+        setIsVisible(true); // Always show if near the top
+      } else if (currentScrollY > lastScrollY.current) {
+        setIsVisible(false); // Scrolling down
+      } else {
+        setIsVisible(true); // Scrolling up
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
 
   const clearHoverTimeout = () => {
     if (hoverTimeoutRef.current) {
@@ -72,7 +106,7 @@ const Header = () => {
       clearHoverTimeout();
       hoverTimeoutRef.current = setTimeout(() => {
         setOpenDropdown(null);
-      }, 100); // 100ms delay before closing
+      }, 100);
     }
   };
 
@@ -113,7 +147,6 @@ const Header = () => {
                 }
               }
             }
-            // For mobile, sheet handles dropdowns differently or might not use Radix DropdownMenu directly within the sheet in the same way
           }}
         >
           <DropdownMenuTrigger asChild>
@@ -122,11 +155,10 @@ const Header = () => {
               className={`text-header-foreground hover:bg-primary/80 hover:text-white ${isMobileLink ? 'w-full justify-start text-foreground hover:text-foreground' : 'group'}`}
               onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)}
               onMouseLeave={() => handleMouseLeave(isMobileLink)}
-              onClick={() => { // Retain click for accessibility and mobile toggling
+              onClick={() => {
                 if (isMobileLink) {
-                  // Mobile sheet logic
+                  // Mobile sheet logic for dropdowns if needed, or just navigate if top-level
                 } else {
-                  // Desktop: toggle if not already open by hover, or let onOpenChange handle
                   setOpenDropdown(openDropdown === link.label ? null : link.label);
                 }
               }}
@@ -164,7 +196,6 @@ const Header = () => {
         <Button key={link.label} variant="ghost" asChild className={`text-header-foreground hover:bg-primary/80 hover:text-white ${isMobileLink ? 'w-full justify-start text-foreground hover:text-foreground' : ''}`}>
           <Link href={link.href} onClick={() => {
             if (isMobileLink) setMobileMenuOpen(false);
-            // For non-dropdown items, ensure any open hover dropdown closes
             if (!isMobileLink && mounted) {
               clearHoverTimeout();
               setOpenDropdown(null);
@@ -177,9 +208,20 @@ const Header = () => {
     );
 
   return (
-    <header className="bg-header-background text-header-foreground shadow-lg sticky top-[calc(2.5rem)] md:top-[calc(2.25rem)] z-40"> {/* Adjusted top value if GlobalOfferBar height changes */}
+    <header
+      className={cn(
+        "bg-header-background text-header-foreground shadow-lg sticky z-40",
+        "transition-[transform,opacity] duration-300 ease-in-out", // Specific transitions
+        isVisible
+          ? "opacity-100 translate-y-0 top-[calc(2.5rem)] md:top-[calc(2.25rem)]" // Original sticky top
+          : "opacity-0 -translate-y-full pointer-events-none top-[calc(2.5rem)] md:top-[calc(2.25rem)]" // Keep original top for reference, but translate out
+      )}
+    >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold">
+        <Link href="/" className="text-2xl font-bold" onClick={() => {
+          if (mobileMenuOpen) setMobileMenuOpen(false);
+          if (openDropdown) setOpenDropdown(null);
+        }}>
           Prop Firm Finder
         </Link>
 
