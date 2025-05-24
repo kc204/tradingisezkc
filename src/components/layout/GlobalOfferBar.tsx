@@ -1,3 +1,4 @@
+
 'use client';
 
 import { mockGlobalOffers } from '@/lib/mockData';
@@ -28,12 +29,18 @@ const GlobalOfferBar = () => {
   return (
     <div className="bg-primary text-white py-2 text-sm sticky top-0 z-50 shadow-md">
       <div className="container mx-auto px-4 flex items-center justify-center">
-        <Link href={currentOffer.affiliateLink} passHref legacyBehavior>
-          <a className="hover:underline flex items-center transition-opacity duration-500 ease-in-out" target="_blank" rel="noopener noreferrer">
+        {currentOffer && (
+          <Link
+            href={currentOffer.affiliateLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline flex items-center"
+            key={currentOffer.id} // Add key to help React differentiate changing content
+          >
             {currentOffer.text}
             <ChevronRight className="ml-1 h-4 w-4" />
-          </a>
-        </Link>
+          </Link>
+        )}
       </div>
     </div>
   );
