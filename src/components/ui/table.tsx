@@ -6,13 +6,13 @@ import { cn } from "@/lib/utils"
 const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
->(({ className, children, ...props }, ref) => (
+>(({ className, children, ...rest }, ref) => ( // Explicitly destructure children, use ...rest for other props
   <div className="relative w-full overflow-auto">
     <table
       ref={ref}
       className={cn("w-full caption-bottom text-sm", className)}
-      {...props}
-    >{children}</table>
+      {...rest} // Spread only the rest of the props
+    >{children}</table> {/* Render children explicitly with no surrounding JSX whitespace */}
   </div>
 ))
 Table.displayName = "Table"
