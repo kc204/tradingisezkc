@@ -32,20 +32,20 @@ export function StarBorder<T extends ElementType = "button">({
       <div
         className={cn(
           "absolute w-[400%] h-[50%] bottom-[-11px] right-[-350%] rounded-full animate-star-movement-bottom z-0", // Increased width and adjusted right offset
-          "opacity-20 dark:opacity-70" 
+          "opacity-30 dark:opacity-75" 
         )}
         style={{
-          background: `radial-gradient(circle, ${defaultColor}, transparent 15%)`, // Made gradient spread larger
+          background: `radial-gradient(circle, ${defaultColor}, transparent 20%)`, // Made gradient spread larger
           animationDuration: speed,
         }}
       />
       <div
         className={cn(
           "absolute w-[400%] h-[50%] top-[-10px] left-[-350%] rounded-full animate-star-movement-top z-0", // Increased width and adjusted left offset
-          "opacity-20 dark:opacity-70"
+          "opacity-30 dark:opacity-75"
         )}
         style={{
-          background: `radial-gradient(circle, ${defaultColor}, transparent 15%)`, // Made gradient spread larger
+          background: `radial-gradient(circle, ${defaultColor}, transparent 20%)`, // Made gradient spread larger
           animationDuration: speed,
         }}
       />
