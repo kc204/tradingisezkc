@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { Check, ExternalLink, X, Star } from 'lucide-react'; // Added Star
+import { ExternalLink, Star } from 'lucide-react'; 
 
 export const metadata = {
   title: 'Compare Prop Firms | Prop Firm Finder',
@@ -20,22 +20,23 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
     { label: 'Challenge Type', getValue: (f: PropFirm) => f.challengeType || '-' },
     { label: 'Drawdown Rules', getValue: (f: PropFirm) => f.drawdownRules || '-' },
     { label: 'Platforms', getValue: (f: PropFirm) => f.platforms?.join(', ') || '-' },
-    { 
-      label: 'Rating', 
+    {
+      label: 'Rating',
       getValue: (f: PropFirm) => {
         if (!f.rating) return '-';
+        const roundedRating = Math.round(f.rating || 0);
         return (
           <div className="flex items-center justify-center">
             {[...Array(5)].map((_, i) => (
-              <Star 
-                key={i} 
-                className={`w-4 h-4 ${i < Math.round(f.rating || 0) ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/30'}`} 
+              <Star
+                key={i}
+                className={`w-4 h-4 ${i < roundedRating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/30'}`}
               />
             ))}
             <span className="ml-1.5">{f.rating.toFixed(1)}/5</span>
           </div>
         );
-      } 
+      }
     },
   ];
 
