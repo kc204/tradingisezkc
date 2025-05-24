@@ -1,7 +1,8 @@
+
 import type { GlobalOffer, PropFirm, Article, TradingResource } from './types';
 
 export const mockGlobalOffers: GlobalOffer[] = [
-  { id: '1', text: '🔥 TopPropFirm: Get 50% off your first challenge! Limited time!', affiliateLink: '#', isActive: true },
+  { id: '1', text: 'VISIBLE OFFER TEXT TEST', affiliateLink: '#', isActive: true },
   { id: '2', text: 'FundYourDreams: Pass guarantee or free retry!', affiliateLink: '#', isActive: true },
   { id: '3', text: 'NewFirmX: 10% bonus on payout with code FINDER10', affiliateLink: '#', isActive: true },
 ];
