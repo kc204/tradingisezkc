@@ -24,6 +24,14 @@ export default function Home() {
         <p className="text-center mt-4 text-muted-foreground relative z-20 max-w-2xl px-4">
           Tired of risking your own capital or sifting through confusing prop firm options? Discover top-rated firms, master the rules, access exclusive deals, and secure your funded account with confidence.
         </p>
+        <div className="mt-8 relative z-20">
+          <StarBorder<typeof Link>
+            as={Link}
+            href="/firms"
+          >
+            Find Your Firm Now
+          </StarBorder>
+        </div>
       </div>
 
       {/* Featured Prop Firms Section */}
