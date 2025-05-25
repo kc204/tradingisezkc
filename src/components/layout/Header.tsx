@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'; // Added SheetTitle
 import { useTheme } from 'next-themes';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
@@ -38,8 +38,8 @@ const navLinks = [
   { href: '/about', label: 'About Us' },
 ];
 
-const SCROLL_DELTA_THRESHOLD = 5; 
-const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64; 
+const SCROLL_DELTA_THRESHOLD = 5;
+const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64;
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -68,15 +68,15 @@ const Header = () => {
         const currentScrollY = window.scrollY;
 
         if (Math.abs(currentScrollY - lastScrollY.current) < SCROLL_DELTA_THRESHOLD) {
-          return; 
+          return;
         }
 
         if (currentScrollY < HEADER_ALWAYS_VISIBLE_THRESHOLD) {
-          setIsVisible(true); 
+          setIsVisible(true);
         } else if (currentScrollY > lastScrollY.current) {
-          setIsVisible(false); 
+          setIsVisible(false);
         } else {
-          setIsVisible(true); 
+          setIsVisible(true);
         }
         lastScrollY.current = currentScrollY;
       };
@@ -173,19 +173,19 @@ const Header = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="bg-card text-card-foreground"
-            onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)} // Keep open on hover content
-            onMouseLeave={() => handleMouseLeave(isMobileLink)} // Allow closing when mouse leaves content
+            className="bg-header-background text-popover-foreground" 
+            onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)} 
+            onMouseLeave={() => handleMouseLeave(isMobileLink)} 
           >
             {link.dropdown.map((item) => (
-              <DropdownMenuItem key={item.label} asChild className="hover:bg-accent hover:text-accent-foreground">
+              <DropdownMenuItem key={item.label} asChild className="text-foreground hover:bg-accent hover:text-accent-foreground">
                 <Link
                   href={item.href}
                   onClick={() => {
                     if (isMobileLink) setMobileMenuOpen(false);
                     if (!isMobileLink && mounted) {
-                      clearHoverTimeout(); // Clear any pending close
-                      setOpenDropdown(null); // Close dropdown on item click
+                      clearHoverTimeout(); 
+                      setOpenDropdown(null); 
                     }
                   }}
                 >
@@ -200,8 +200,8 @@ const Header = () => {
           <Link href={link.href} onClick={() => {
             if (isMobileLink) setMobileMenuOpen(false);
             if (!isMobileLink && mounted) {
-               clearHoverTimeout(); // Clear any pending close
-               setOpenDropdown(null); // Close any open dropdown
+               clearHoverTimeout(); 
+               setOpenDropdown(null); 
             }
           }}>
             {link.label}
@@ -214,8 +214,8 @@ const Header = () => {
     <header
       className={cn(
         "bg-header-background text-header-foreground shadow-lg sticky z-40",
-        "top-[2.25rem]", // Consistent top offset below GlobalOfferBar
-        "transition-[transform,opacity] duration-300 ease-out", // Use ease-out for a quicker start to the animation
+        "top-[2.25rem]", 
+        "transition-[transform,opacity] duration-300 ease-out", 
         isVisible
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-full pointer-events-none"
@@ -224,7 +224,7 @@ const Header = () => {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold text-header-foreground" onClick={() => {
           if (mobileMenuOpen) setMobileMenuOpen(false);
-          if (openDropdown) setOpenDropdown(null); // Close dropdown if clicking main logo
+          if (openDropdown) setOpenDropdown(null); 
         }}>
           TradingisEZ
         </Link>
@@ -244,11 +244,12 @@ const Header = () => {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[350px] bg-card text-card-foreground p-6">
+              <SheetTitle className="sr-only">Main Menu</SheetTitle>
               <div className="flex justify-between items-center mb-6">
                  <Link href="/" className="text-2xl font-bold text-foreground" onClick={() => setMobileMenuOpen(false)}>
                     TradingisEZ
                   </Link>
-                <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
+                <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
                   <X />
                   <span className="sr-only">Close menu</span>
                 </Button>
