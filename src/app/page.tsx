@@ -3,8 +3,10 @@ import FirmCard from '@/components/propfirms/FirmCard';
 import ArticleCard from '@/components/shared/ArticleCard';
 import { mockArticles, mockPropFirms } from '@/lib/mockData';
 import Link from 'next/link';
-import Image from 'next/image';
+import { Boxes } from "@/components/ui/background-boxes";
+import { cn } from "@/lib/utils";
 import { StarBorder } from "@/components/ui/star-border";
+
 
 export default function Home() {
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
@@ -12,37 +14,17 @@ export default function Home() {
 
   return (
     <div className="space-y-16">
-      {/* Hero Section */}
-      <section className="relative text-center py-16 md:py-24 rounded-xl overflow-hidden bg-gradient-to-br from-primary/30 via-background to-background">
-        <div className="absolute inset-0 z-0 opacity-20">
-           <Image 
-            src="https://placehold.co/1200x600.png" // Optional background image
-            alt="Trading desk background" 
-            layout="fill" 
-            objectFit="cover" 
-            quality={75}
-            priority
-            data-ai-hint="trading finance"
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Unlock Your Trading Potential with TradingisEZ: Get Funded.
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Tired of risking your own capital or sifting through confusing prop firm options? TradingisEZ helps you discover top-rated firms, master the rules, access exclusive deals, and secure your funded account with confidence.
-          </p>
-          <div className="space-x-4">
-            <StarBorder<typeof Link>
-              as={Link}
-              href="/firms"
-              className="text-lg"
-            >
-              Find Your Firm Now
-            </StarBorder>
-          </div>
-        </div>
-      </section>
+      {/* New Hero Section with BackgroundBoxes */}
+      <div className="h-96 relative w-full overflow-hidden bg-slate-900 flex flex-col items-center justify-center rounded-lg">
+        <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
+        <Boxes />
+        <h1 className={cn("md:text-4xl text-xl text-white relative z-20")}>
+          Tailwind is Awesome
+        </h1>
+        <p className="text-center mt-2 text-neutral-300 relative z-20">
+          Framer motion is the best animation library ngl
+        </p>
+      </div>
 
       {/* Featured Prop Firms Section */}
       <section className="py-12">
