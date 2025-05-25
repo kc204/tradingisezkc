@@ -80,7 +80,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
   return (
     <div className="w-full overflow-x-auto">
-      <Table className="min-w-[2000px]">
+      <Table className="min-w-[2000px]"> {/* Adjusted min-width if necessary */}
         <TableHeader>
           <TableRow>
             <TableHead className="sticky left-0 bg-card z-10 min-w-[200px]">Firm</TableHead>
@@ -98,7 +98,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                 <div className="flex items-center space-x-3">
                   {firm.logoUrl && !firm.id.startsWith('placeholder-') ? (
                     <div className="w-16 h-8 relative">
-                      <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo" />
+                      <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo"/>
                     </div>
                   ) : firm.id.startsWith('placeholder-') ? (
                     <div className="w-16 h-8 flex items-center justify-center text-muted-foreground text-xs"></div>
@@ -159,7 +159,6 @@ export default function ComparePage() {
     profitTarget: '',
     platforms: [],
     rating: undefined,
-    // Ensure all required fields from PropFirm type are present, even if empty or default
     fundingModels: [],
     tradableInstruments: [],
   }));
@@ -168,9 +167,9 @@ export default function ComparePage() {
 
   return (
     <div className="space-y-8">
-      <section className="text-center py-10 bg-gradient-to-r from-primary to-secondary rounded-lg shadow-lg">
-        <h1 className="text-4xl font-bold text-primary-foreground mb-2">Compare Prop Firms</h1>
-        <p className="text-lg text-primary-foreground/90">Make informed decisions by comparing key features side-by-side.</p>
+      <section className="text-center py-10 bg-background rounded-lg shadow-lg">
+        <h1 className="text-4xl font-bold text-foreground mb-2">Compare Prop Firms</h1>
+        <p className="text-lg text-muted-foreground">Make informed decisions by comparing key features side-by-side.</p>
       </section>
       
       {firmsToCompare.length > 0 ? (
@@ -180,7 +179,7 @@ export default function ComparePage() {
       )}
       
       <div className="text-center mt-8">
-        <Button asChild size="lg">
+        <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent-hover">
           <Link href="/firms">Explore All Firms</Link>
         </Button>
       </div>
