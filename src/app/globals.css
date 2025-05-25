@@ -50,7 +50,7 @@
 
     /* Header specific colors - mapping to the new base palette */
     --header-background: 0 0% 7%; /* Use --background (Near Black) */
-    --header-foreground: 0 0% 96%; /* Use --foreground (Bright Off-White) */
+    --header-foreground: 0 0% 100%; /* #FFFFFF (Pure White) */
 
     /* Chart colors using the new palette */
     --chart-1: 217 91% 60%; /* Bright Blue (primary) */
@@ -95,7 +95,7 @@
     --ring: 217 91% 60%;
 
     --header-background: 0 0% 7%;
-    --header-foreground: 0 0% 96%;
+    --header-foreground: 0 0% 100%; /* #FFFFFF (Pure White) */
 
     --chart-1: 217 91% 60%;
     --chart-2: 27 95% 53%;
