@@ -63,14 +63,14 @@ export default {
   				'5': 'hsl(var(--chart-5))'
   			},
         sidebar: { 
-  				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))',
-  				primary: 'hsl(var(--primary))',
-  				'primary-foreground': 'hsl(var(--primary-foreground))',
-  				accent: 'hsl(var(--accent))',
-  				'accent-foreground': 'hsl(var(--accent-foreground))',
-  				border: 'hsl(var(--border))',
-  				ring: 'hsl(var(--ring))'
+  				DEFAULT: 'hsl(var(--card))', // Uses card background
+  				foreground: 'hsl(var(--card-foreground))', // Uses card foreground
+  				primary: 'hsl(var(--primary))', // Main interactive color for sidebar elements
+  				'primary-foreground': 'hsl(var(--primary-foreground))', // Text on primary elements
+  				accent: 'hsl(var(--accent))', // Accent color for sidebar, e.g., active item
+  				'accent-foreground': 'hsl(var(--accent-foreground))', // Text on accent elements
+  				border: 'hsl(var(--border))', // Border for sidebar separators
+  				ring: 'hsl(var(--ring))' // Ring for focused elements
   			}
   		},
   		borderRadius: {
