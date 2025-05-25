@@ -15,12 +15,12 @@ export default function NewsPage() {
   const newsSources = mockTradingResources.filter(r => r.resourceType === 'News');
   return (
     <div className="space-y-8">
-      <section className="text-center py-10 bg-gradient-to-r from-primary to-secondary rounded-lg shadow-lg"> {/* Consider updating gradient with new palette */}
+      <section className="text-center py-10 bg-background rounded-lg shadow-lg">
         <div className="flex justify-center items-center mb-4">
-          <Newspaper className="w-12 h-12 text-primary-foreground mr-3" />
-          <h1 className="text-4xl font-bold text-primary-foreground">Trading News</h1>
+          <Newspaper className="w-12 h-12 text-primary mr-3" />
+          <h1 className="text-4xl font-bold text-foreground">Trading News</h1>
         </div>
-        <p className="text-lg text-primary-foreground/90">Keep your finger on the pulse of the market.</p>
+        <p className="text-lg text-muted-foreground">Keep your finger on the pulse of the market.</p>
       </section>
       
       {newsSources.length > 0 ? (
