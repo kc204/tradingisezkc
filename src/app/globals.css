@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -50,7 +51,7 @@
 
     /* Header specific colors */
     --header-background: 0 0% 7%; /* Use --background (Near Black) */
-    --header-foreground: 0 0% 96%; /* Use --foreground (Bright Off-White #F5F5F5) */
+    --header-foreground: 0 0% 100%; /* Pure White #FFFFFF */
 
     /* Chart colors using the new palette */
     --chart-1: 217 91% 60%; /* Bright Blue (primary) */
@@ -95,7 +96,7 @@
     --ring: 217 91% 60%;
 
     --header-background: 0 0% 7%;
-    --header-foreground: 0 0% 96%; /* Use --foreground (Bright Off-White #F5F5F5) */
+    --header-foreground: 0 0% 100%; /* Pure White #FFFFFF */
 
     --chart-1: 217 91% 60%;
     --chart-2: 27 95% 53%;
@@ -176,3 +177,4 @@
     --tw-prose-td-borders: hsl(var(--border));
   }
 }
+
