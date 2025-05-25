@@ -19,7 +19,7 @@ export function StarBorder<T extends ElementType = "button">({
   ...props
 }: StarBorderProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof StarBorderProps<T>>) {
   const Component = as || "button"
-  // Animated border effect defaults to Cyber Purple (primary)
+  // Animated border effect defaults to Strong Teal (primary)
   const effectColor = color || "hsl(var(--primary))"; 
 
   return (
@@ -30,7 +30,7 @@ export function StarBorder<T extends ElementType = "button">({
       )} 
       {...props}
     >
-      {/* Single set of animated border elements, color comes from effectColor */}
+      {/* Animated border elements, color comes from effectColor (Strong Teal) */}
       <div
         className={cn(
           "absolute w-[400%] h-[50%] bottom-[-11px] right-[-350%] rounded-full animate-star-movement-bottom z-0",
@@ -56,9 +56,9 @@ export function StarBorder<T extends ElementType = "button">({
       
       <div className={cn(
         "relative z-10 border text-center text-base py-4 px-6 transition-colors duration-300 ease-in-out",
-        // Button face: Neon Teal background, dark text (accent colors)
+        // Button face: Vibrant Green background, dark text (accent colors)
         "bg-accent text-accent-foreground border-transparent",
-        // Button face: Hover darker Neon Teal background
+        // Button face: Hover darker Vibrant Green background
         "group-hover:bg-accent-hover"
       )}>
         {children}

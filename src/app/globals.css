@@ -4,88 +4,105 @@
 
 @layer base {
   :root {
-    /* Cyber Fusion Palette - Applied to both light and dark modes */
-    --background: 240 20% 5%; /* #0A0A0F (bg-main) */
-    --foreground: 240 14% 94%; /* #EDEDF1 (text-main) */
+    /* Sophisticated Slate & Teal Palette - Applied to both light and dark modes */
+    --background: 222 47% 11%; /* #0F172A (Very Dark Slate Blue) */
+    --foreground: 215 28% 90%; /* #E2E8F0 (Light Cool Grey) */
 
-    --card: 240 16% 12%; /* #1A1A24 (bg-card) */
-    --card-foreground: 240 14% 94%; /* #EDEDF1 (text-main) */
+    --card: 215 39% 17%; /* #1E293B (Dark Slate) */
+    --card-foreground: 215 28% 90%; /* #E2E8F0 (Light Cool Grey) */
 
-    --popover: 240 16% 12%; /* #1A1A24 (bg-card) */
-    --popover-foreground: 240 14% 94%; /* #EDEDF1 (text-main) */
+    --popover: 215 39% 17%; /* #1E293B (Dark Slate) */
+    --popover-foreground: 215 28% 90%; /* #E2E8F0 (Light Cool Grey) */
 
-    --primary: 261 78% 58%; /* #7D41E8 (accent-primary - Links, Icons, UI Elements - Cyber Purple) */
-    --primary-foreground: 240 14% 94%; /* #EDEDF1 (text-main for contrast) */
+    /* --accent-primary (Links, Icons, UI Highlights): #14B8A6 (Strong Teal) */
+    --primary: 172 80% 40%; 
+    --primary-foreground: 215 28% 90%; /* #E2E8F0 for contrast on Teal */
+    --primary-hover: 172 80% 32%; /* Darker Teal for hover */
 
-    --secondary: 39 100% 58%; /* #FFAE27 (accent-secondary - Secondary CTAs, Warnings - Amber/Orange) */
-    --secondary-foreground: 240 20% 10%; /* Darker for contrast with Amber, e.g. near black */
-    --secondary-hover: 39 100% 53%; /* Darker Amber/Orange for hover */
+    /* --accent-secondary (Secondary CTAs, Info Badges): #60A5FA (Calm Sky Blue) */
+    --secondary: 217 94% 67%;
+    --secondary-foreground: 221 44% 11%; /* Dark Blue/Black for contrast on Sky Blue */
+    --secondary-hover: 217 91% 60%; /* Darker Sky Blue for hover */
     
-    --muted: 240 13% 20%; /* #2D2D3A (divider, as base for muted background) */
-    --muted-foreground: 240 5% 61%; /* #9494A1 (text-muted) */
+    /* --text-muted: #94A3B8 (Muted Cool Grey) */
+    /* --muted will use --card, --muted-foreground will use --text-muted */
+    --muted: 215 39% 17%; /* Same as card */
+    --muted-foreground: 216 22% 65%; 
 
-    --accent: 161 100% 44%; /* #00DF9A (cta-main - Primary CTA Buttons - Neon Teal) */
-    --accent-foreground: 240 20% 10%; /* Darker for contrast with Neon Teal */
-    --accent-hover: 161 100% 39%; /* Darker Neon Teal for hover */
+    /* --cta-main (Primary CTA Buttons): #22C55E (Vibrant Green) */
+    --accent: 145 63% 46%; 
+    --accent-foreground: 156 81% 10%; /* Dark Green/Black for contrast on Vibrant Green */
+    --accent-hover: 145 63% 39%; /* Darker Vibrant Green for hover */
 
-    --destructive: 0 100% 71%; /* #FF6B6B (error-state - Vivid Coral Red) */
-    --destructive-foreground: 240 14% 94%; /* #EDEDF1 (text-main for contrast) */
+    /* --error-state: #F43F5E (Rose Red) */
+    --destructive: 349 89% 60%; 
+    --destructive-foreground: 215 28% 90%; /* #E2E8F0 for contrast */
     
-    --success: 145 46% 51%; /* #48BB78 (success-state - Clear Tealish Green) */
-    --success-foreground: 240 14% 94%; /* #EDEDF1 (text-main for contrast) */
+    /* --success-state: #10B981 (Emerald Green) */
+    --success: 160 84% 39%; 
+    --success-foreground: 215 28% 90%; /* #E2E8F0 for contrast */
 
-    --border: 240 13% 20%; /* #2D2D3A (divider) */
-    --input: 240 13% 25%; /* Slightly lighter border for inputs for visibility */
-    --ring: 261 78% 58%; /* #7D41E8 (accent-primary - Cyber Purple for focus rings) */
+    /* --divider: #334155 (Darker Slate) */
+    --border: 215 25% 27%; 
+    --input: 215 25% 32%; /* Slightly lighter border for inputs */
+    --ring: 172 80% 40%; /* Strong Teal for focus rings */
 
     --radius: 0.5rem;
 
     /* Header specific colors - mapping to the new base palette */
-    --header-background: 240 20% 5%; /* Use --background (bg-main) */
-    --header-foreground: 240 14% 94%; /* Use --foreground (text-main) */
+    --header-background: 222 47% 11%; /* Use --background (Very Dark Slate Blue) */
+    --header-foreground: 215 28% 90%; /* Use --foreground (Light Cool Grey) */
 
     /* Chart colors using the new palette */
-    --chart-1: 261 78% 58%; /* Cyber Purple (primary) */
-    --chart-2: 161 100% 44%; /* Neon Teal (accent) */
-    --chart-3: 39 100% 58%; /* Amber/Orange (secondary) */
-    --chart-4: 145 46% 51%; /* Success Green (success) */
-    --chart-5: 240 5% 70%; /* Lighter Muted Grey */
+    --chart-1: 172 80% 40%; /* Strong Teal (primary) */
+    --chart-2: 145 63% 46%; /* Vibrant Green (accent) */
+    --chart-3: 217 94% 67%; /* Calm Sky Blue (secondary) */
+    --chart-4: 160 84% 39%; /* Emerald Green (success) */
+    --chart-5: 216 22% 75%; /* Lighter Muted Cool Grey */
   }
 
   .dark {
-    /* Cyber Fusion Palette is inherently dark, so same values as :root */
-    --background: 240 20% 5%;
-    --foreground: 240 14% 94%;
-    --card: 240 16% 12%;
-    --card-foreground: 240 14% 94%;
-    --popover: 240 16% 12%;
-    --popover-foreground: 240 14% 94%;
-    --primary: 261 78% 58%;
-    --primary-foreground: 240 14% 94%;
-    --secondary: 39 100% 58%;
-    --secondary-foreground: 240 20% 10%;
-    --secondary-hover: 39 100% 53%;
-    --muted: 240 13% 20%;
-    --muted-foreground: 240 5% 61%;
-    --accent: 161 100% 44%;
-    --accent-foreground: 240 20% 10%;
-    --accent-hover: 161 100% 39%;
-    --destructive: 0 100% 71%;
-    --destructive-foreground: 240 14% 94%;
-    --success: 145 46% 51%;
-    --success-foreground: 240 14% 94%;
-    --border: 240 13% 20%;
-    --input: 240 13% 25%;
-    --ring: 261 78% 58%;
+    /* Sophisticated Slate & Teal Palette is inherently dark, so same values as :root */
+    --background: 222 47% 11%;
+    --foreground: 215 28% 90%;
+    --card: 215 39% 17%;
+    --card-foreground: 215 28% 90%;
+    --popover: 215 39% 17%;
+    --popover-foreground: 215 28% 90%;
+    
+    --primary: 172 80% 40%;
+    --primary-foreground: 215 28% 90%;
+    --primary-hover: 172 80% 32%;
 
-    --header-background: 240 20% 5%;
-    --header-foreground: 240 14% 94%;
+    --secondary: 217 94% 67%;
+    --secondary-foreground: 221 44% 11%;
+    --secondary-hover: 217 91% 60%;
 
-    --chart-1: 261 78% 58%;
-    --chart-2: 161 100% 44%;
-    --chart-3: 39 100% 58%;
-    --chart-4: 145 46% 51%;
-    --chart-5: 240 5% 70%;
+    --muted: 215 39% 17%;
+    --muted-foreground: 216 22% 65%;
+
+    --accent: 145 63% 46%;
+    --accent-foreground: 156 81% 10%;
+    --accent-hover: 145 63% 39%;
+
+    --destructive: 349 89% 60%;
+    --destructive-foreground: 215 28% 90%;
+
+    --success: 160 84% 39%;
+    --success-foreground: 215 28% 90%;
+
+    --border: 215 25% 27%;
+    --input: 215 25% 32%;
+    --ring: 172 80% 40%;
+
+    --header-background: 222 47% 11%;
+    --header-foreground: 215 28% 90%;
+
+    --chart-1: 172 80% 40%;
+    --chart-2: 145 63% 46%;
+    --chart-3: 217 94% 67%;
+    --chart-4: 160 84% 39%;
+    --chart-5: 216 22% 75%;
   }
 }
 
@@ -104,7 +121,7 @@
     @apply text-foreground;
   }
   a {
-    @apply text-primary; /* Cyber Purple for links */
+    @apply text-primary; /* Strong Teal for links */
   }
   /* Ensure prose respects the new dark theme colors */
   .dark .prose {

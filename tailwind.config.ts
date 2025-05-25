@@ -26,34 +26,35 @@ export default {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))', // Cyber Purple
-  				foreground: 'hsl(var(--primary-foreground))'
+  				DEFAULT: 'hsl(var(--primary))', 
+  				foreground: 'hsl(var(--primary-foreground))',
+          hover: 'hsl(var(--primary-hover))',
   			},
   			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))', // Amber/Orange
+  				DEFAULT: 'hsl(var(--secondary))', 
   				foreground: 'hsl(var(--secondary-foreground))',
-          hover: 'hsl(var(--secondary-hover))', // Darker Amber/Orange
+          hover: 'hsl(var(--secondary-hover))', 
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
   				foreground: 'hsl(var(--muted-foreground))'
   			},
   			accent: {
-  				DEFAULT: 'hsl(var(--accent))', // Neon Teal (Primary CTAs)
+  				DEFAULT: 'hsl(var(--accent))', 
   				foreground: 'hsl(var(--accent-foreground))',
-          hover: 'hsl(var(--accent-hover))', // Darker Neon Teal
+          hover: 'hsl(var(--accent-hover))', 
   			},
   			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))', // Coral Red
+  				DEFAULT: 'hsl(var(--destructive))', 
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
         success: {
-          DEFAULT: 'hsl(var(--success))', // Success Green
+          DEFAULT: 'hsl(var(--success))', 
           foreground: 'hsl(var(--success-foreground))',
         },
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))', // Cyber Purple
+  			ring: 'hsl(var(--ring))', 
   			chart: {
   				'1': 'hsl(var(--chart-1))',
   				'2': 'hsl(var(--chart-2))',
@@ -61,7 +62,7 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			},
-        sidebar: { // Keeping for potential shadcn internal use or future sidebar
+        sidebar: { 
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))',
   				primary: 'hsl(var(--primary))',
