@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { mockTradingResources } from "@/lib/mockData";
@@ -14,12 +15,12 @@ export default function ToolsPage() {
   const tools = mockTradingResources.filter(r => r.resourceType === 'Tool');
   return (
     <div className="space-y-8">
-       <section className="text-center py-10 bg-gradient-to-r from-primary to-accent rounded-lg shadow-lg"> {/* Updated gradient with new palette */}
+       <section className="text-center py-10 bg-background rounded-lg shadow-lg">
         <div className="flex justify-center items-center mb-4">
-          <Wrench className="w-12 h-12 text-primary-foreground mr-3" />
-          <h1 className="text-4xl font-bold text-primary-foreground">Trading Tools</h1>
+          <Wrench className="w-12 h-12 text-primary mr-3" />
+          <h1 className="text-4xl font-bold text-foreground">Trading Tools</h1>
         </div>
-        <p className="text-lg text-primary-foreground/90">Essential tools to power your trading strategy.</p>
+        <p className="text-lg text-muted-foreground">Essential tools to power your trading strategy.</p>
       </section>
 
       {tools.length > 0 ? (
@@ -55,4 +56,3 @@ export default function ToolsPage() {
     </div>
   );
 }
-
