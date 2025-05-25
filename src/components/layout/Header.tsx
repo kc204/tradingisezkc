@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, Moon, Sun, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react'; // Removed Moon, Sun
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -10,8 +10,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'; // Added SheetTitle
-import { useTheme } from 'next-themes';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
+// Removed: import { useTheme } from 'next-themes';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -39,11 +39,11 @@ const navLinks = [
 ];
 
 const SCROLL_DELTA_THRESHOLD = 5;
-const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64;
+const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64; // Approx GlobalOfferBar height (2.25rem * 16px/rem = 36px, + padding)
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  // Removed: const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -74,9 +74,9 @@ const Header = () => {
         if (currentScrollY < HEADER_ALWAYS_VISIBLE_THRESHOLD) {
           setIsVisible(true);
         } else if (currentScrollY > lastScrollY.current) {
-          setIsVisible(false);
+          setIsVisible(false); // Hide header
         } else {
-          setIsVisible(true);
+          setIsVisible(true); // Show header
         }
         lastScrollY.current = currentScrollY;
       };
@@ -108,30 +108,11 @@ const Header = () => {
       clearHoverTimeout();
       hoverTimeoutRef.current = setTimeout(() => {
         setOpenDropdown(null);
-      }, 100);
+      }, 100); // Small delay before closing on mouse leave
     }
   };
 
-  const ThemeToggle = () => {
-    if (!mounted) {
-      return <Button variant="ghost" size="icon" className="w-9 h-9" disabled><Sun className="h-[1.2rem] w-[1.2rem]" /></Button>;
-    }
-    return (
-      <Button
-        variant="ghost"
-        size="icon"
-        className="text-header-foreground hover:bg-primary/80 hover:text-white w-9 h-9"
-        onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-        aria-label="Toggle theme"
-      >
-        {theme === 'light' ? (
-          <Moon className="h-[1.2rem] w-[1.2rem]" />
-        ) : (
-          <Sun className="h-[1.2rem] w-[1.2rem]" />
-        )}
-      </Button>
-    );
-  };
+  // ThemeToggle component removed
 
   const renderNavLinks = (isMobileLink: boolean) =>
     navLinks.map((link) =>
@@ -214,8 +195,8 @@ const Header = () => {
     <header
       className={cn(
         "bg-header-background text-header-foreground shadow-lg sticky z-40",
-        "top-[2.25rem]", 
-        "transition-[transform,opacity] duration-300 ease-out", 
+        "top-[2.25rem]", // Adjusted to be consistent
+        "transition-[transform,opacity] duration-300 ease-out", // Changed easing
         isVisible
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-full pointer-events-none"
@@ -231,11 +212,11 @@ const Header = () => {
 
         <nav className="hidden md:flex items-center space-x-2">
           {renderNavLinks(false)}
-          <ThemeToggle />
+          {/* ThemeToggle removed from here */}
         </nav>
 
         <div className="md:hidden flex items-center">
-          <ThemeToggle />
+          {/* ThemeToggle removed from here */}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="ml-2 text-header-foreground hover:bg-primary/80 hover:text-white">
