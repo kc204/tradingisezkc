@@ -12,12 +12,12 @@ export const metadata = {
 export default function AlBrooksTradingCoursePage() {
   return (
     <div className="space-y-8">
-      <section className="text-center py-10 bg-gradient-to-r from-primary to-secondary rounded-lg shadow-lg">
+      <section className="text-center py-10 bg-background rounded-lg shadow-lg"> {/* Updated background */}
         <div className="flex justify-center items-center mb-4">
-          <Award className="w-12 h-12 text-primary-foreground mr-3" />
-          <h1 className="text-4xl font-bold text-primary-foreground">Al Brooks Trading Course</h1>
+          <Award className="w-12 h-12 text-primary mr-3" /> {/* Updated icon color */}
+          <h1 className="text-4xl font-bold text-foreground">Al Brooks Trading Course</h1> {/* Updated text color */}
         </div>
-        <p className="text-lg text-primary-foreground/90">Learn from a master price action trader.</p>
+        <p className="text-lg text-muted-foreground">Learn from a master price action trader.</p> {/* Updated text color */}
       </section>
 
       <Card className="shadow-lg">
@@ -37,7 +37,7 @@ export default function AlBrooksTradingCoursePage() {
           <p>While we prepare specific details and potential offers related to the Al Brooks Trading Course, we encourage you to explore our other valuable trading resources on TradingisEZ.</p>
           
           <div className="mt-6 text-center">
-            <Button asChild size="lg">
+            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent-hover">
               <Link href="/resources">Explore Other Trading Resources</Link>
             </Button>
           </div>
