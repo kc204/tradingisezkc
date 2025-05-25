@@ -1,3 +1,4 @@
+
 import ArticleCard from "@/components/shared/ArticleCard";
 import { mockArticles } from "@/lib/mockData";
 import { BookOpenText } from "lucide-react";
@@ -12,12 +13,12 @@ export default function GuidesPage() {
 
   return (
     <div className="space-y-8">
-      <section className="text-center py-10 bg-gradient-to-r from-primary to-secondary rounded-lg shadow-lg">
+      <section className="text-center py-10 bg-background rounded-lg shadow-lg"> {/* Updated background */}
         <div className="flex justify-center items-center mb-4">
-          <BookOpenText className="w-12 h-12 text-primary-foreground mr-3" />
-          <h1 className="text-4xl font-bold text-primary-foreground">Trading Guides</h1>
+          <BookOpenText className="w-12 h-12 text-primary mr-3" /> {/* Updated icon color */}
+          <h1 className="text-4xl font-bold text-foreground">Trading Guides</h1> {/* Updated text color */}
         </div>
-        <p className="text-lg text-primary-foreground/90">Learn the essentials and advanced strategies for trading success.</p>
+        <p className="text-lg text-muted-foreground">Learn the essentials and advanced strategies for trading success.</p> {/* Updated text color */}
       </section>
 
       {guides.length > 0 ? (
