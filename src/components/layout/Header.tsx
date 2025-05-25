@@ -168,7 +168,7 @@ const Header = () => {
             >
               {link.label}
               {!isMobileLink && mounted && (
-                <ChevronDown className="ml-1 h-4 w-4 shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                <ChevronDown className="ml-1 h-4 w-4 shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180 text-header-foreground" />
               )}
             </Button>
           </DropdownMenuTrigger>
