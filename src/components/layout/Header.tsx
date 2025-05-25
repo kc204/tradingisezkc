@@ -222,7 +222,7 @@ const Header = () => {
       )}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold" onClick={() => {
+        <Link href="/" className="text-2xl font-bold text-header-foreground" onClick={() => {
           if (mobileMenuOpen) setMobileMenuOpen(false);
           if (openDropdown) setOpenDropdown(null); // Close dropdown if clicking main logo
         }}>
