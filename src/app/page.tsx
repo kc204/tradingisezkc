@@ -14,15 +14,15 @@ export default function Home() {
 
   return (
     <div className="space-y-16">
-      {/* New Hero Section with BackgroundBoxes */}
-      <div className="h-96 relative w-full overflow-hidden bg-slate-900 flex flex-col items-center justify-center rounded-lg">
-        <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
+      {/* Updated Hero Section with BackgroundBoxes */}
+      <div className="h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg">
+        <div className="absolute inset-0 w-full h-full bg-background z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
         <Boxes />
-        <h1 className={cn("md:text-4xl text-xl text-white relative z-20")}>
-          Tailwind is Awesome
+        <h1 className={cn("md:text-4xl text-xl text-foreground relative z-20 text-center px-4")}>
+          Unlock Your Trading Potential: Find the Perfect Prop Firm & Get Funded.
         </h1>
-        <p className="text-center mt-2 text-neutral-300 relative z-20">
-          Framer motion is the best animation library ngl
+        <p className="text-center mt-4 text-muted-foreground relative z-20 max-w-2xl px-4">
+          Tired of risking your own capital or sifting through confusing prop firm options? Discover top-rated firms, master the rules, access exclusive deals, and secure your funded account with confidence.
         </p>
       </div>
 
@@ -47,7 +47,7 @@ export default function Home() {
       </section>
 
       {/* Recent Articles & Guides Section */}
-      <section className="py-12 bg-muted/50 rounded-xl">
+      <section className="py-12 bg-card rounded-xl"> {/* Changed bg-muted/50 to bg-card for better theme consistency */}
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-foreground mb-10">Latest Insights &amp; Guides</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
