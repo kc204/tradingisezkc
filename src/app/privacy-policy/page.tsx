@@ -2,8 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield } from "lucide-react";
 
 export const metadata = {
-  title: 'Privacy Policy | Prop Firm Finder',
-  description: 'Read the Privacy Policy for Prop Firm Finder.',
+  title: 'Privacy Policy | TradingisEZ',
+  description: 'Read the Privacy Policy for TradingisEZ.',
 };
 
 export default function PrivacyPolicyPage() {
@@ -20,10 +20,10 @@ export default function PrivacyPolicyPage() {
           <CardTitle className="text-2xl">Introduction</CardTitle>
         </CardHeader>
         <CardContent className="prose dark:prose-invert max-w-none">
-          <p>Welcome to Prop Firm Finder ("us", "we", or "our"). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about this privacy notice, or our practices with regards to your personal information, please contact us.</p>
+          <p>Welcome to TradingisEZ ("us", "we", or "our"). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about this privacy notice, or our practices with regards to your personal information, please contact us.</p>
           <p>This privacy notice describes how we might use your information if you:</p>
           <ul>
-            <li>Visit our website at [Your Website URL]</li>
+            <li>Visit our website at TradingisEZ.com (or relevant domain)</li>
             <li>Engage with us in other related ways ― including any sales, marketing, or events</li>
           </ul>
           <p>In this privacy notice, if we refer to:</p>
@@ -49,7 +49,7 @@ export default function PrivacyPolicyPage() {
           <p>Our affiliate partners may also use cookies to track referrals from our Website.</p>
           
           <h3 className="text-xl font-semibold mt-6 mb-2">Affiliate Disclosure</h3>
-          <p>Prop Firm Finder participates in affiliate marketing programs. This means we may earn a commission if you click on an affiliate link and make a purchase or sign up for a service. This does not affect the price you pay. Please see our <a href="/affiliate-disclosure">Affiliate Disclosure</a> page for more details.</p>
+          <p>TradingisEZ participates in affiliate marketing programs. This means we may earn a commission if you click on an affiliate link and make a purchase or sign up for a service. This does not affect the price you pay. Please see our <a href="/affiliate-disclosure">Affiliate Disclosure</a> page for more details.</p>
 
           <h3 className="text-xl font-semibold mt-6 mb-2">Changes to This Privacy Policy</h3>
           <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes.</p>

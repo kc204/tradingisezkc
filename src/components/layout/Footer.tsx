@@ -15,7 +15,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
-            <h3 className="text-lg font-semibold text-foreground mb-2">Prop Firm Finder</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-2">TradingisEZ</h3>
             <p className="text-sm">Your trusted resource for finding the best prop firms and trading opportunities.</p>
           </div>
           <div>
@@ -40,7 +40,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="border-t border-border pt-8 text-center text-sm">
-          <p>&copy; {currentYear} Prop Firm Finder. All rights reserved.</p>
+          <p>&copy; {currentYear} TradingisEZ. All rights reserved.</p>
           <p className="mt-1">
             Disclaimer: Trading involves substantial risk of loss and is not suitable for every investor.
           </p>

@@ -2,8 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckSquare, BarChart, Users, Award } from "lucide-react";
 
 export const metadata = {
-  title: 'How We Rate & Review | Prop Firm Finder',
-  description: 'Understand our methodology for rating and reviewing prop firms.',
+  title: 'How We Rate & Review | TradingisEZ',
+  description: 'Understand our methodology for rating and reviewing prop firms on TradingisEZ.',
 };
 
 const ratingCriteria = [
@@ -45,7 +45,7 @@ export default function HowWeRatePage() {
       <header className="text-center py-10 bg-gradient-to-r from-primary to-secondary rounded-lg shadow-lg">
         <BarChart className="w-16 h-16 text-primary-foreground mx-auto mb-4" />
         <h1 className="text-4xl font-bold text-primary-foreground mb-2">How We Rate &amp; Review Prop Firms</h1>
-        <p className="text-lg text-primary-foreground/90">Our commitment to providing fair, transparent, and comprehensive evaluations.</p>
+        <p className="text-lg text-primary-foreground/90">Our commitment to providing fair, transparent, and comprehensive evaluations on TradingisEZ.</p>
       </header>
 
       <Card className="shadow-lg">
@@ -53,7 +53,7 @@ export default function HowWeRatePage() {
           <CardTitle className="text-2xl">Our Methodology</CardTitle>
         </CardHeader>
         <CardContent className="prose dark:prose-invert max-w-none">
-          <p>At Prop Firm Finder, we strive to provide you with the most accurate, unbiased, and comprehensive reviews of proprietary trading firms. Our rating system is designed to help you make informed decisions by highlighting the key aspects that matter most to traders. Here’s a breakdown of our evaluation process:</p>
+          <p>At TradingisEZ, we strive to provide you with the most accurate, unbiased, and comprehensive reviews of proprietary trading firms. Our rating system is designed to help you make informed decisions by highlighting the key aspects that matter most to traders. Here’s a breakdown of our evaluation process:</p>
         </CardContent>
       </Card>
 

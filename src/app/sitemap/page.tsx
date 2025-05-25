@@ -4,8 +4,8 @@ import Link from "next/link";
 import { Map } from "lucide-react";
 
 export const metadata = {
-  title: 'Sitemap | Prop Firm Finder',
-  description: 'Navigate Prop Firm Finder through our sitemap.',
+  title: 'Sitemap | TradingisEZ',
+  description: 'Navigate TradingisEZ through our sitemap.',
 };
 
 const sitemapLinks = [
@@ -43,7 +43,7 @@ export default function SitemapPage() {
       <header className="text-center py-10 bg-gradient-to-r from-primary to-secondary rounded-lg shadow-lg">
         <Map className="w-16 h-16 text-primary-foreground mx-auto mb-4" />
         <h1 className="text-4xl font-bold text-primary-foreground mb-2">Sitemap</h1>
-        <p className="text-lg text-primary-foreground/90">Find your way around Prop Firm Finder.</p>
+        <p className="text-lg text-primary-foreground/90">Find your way around TradingisEZ.</p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

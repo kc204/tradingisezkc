@@ -9,8 +9,8 @@ import Image from 'next/image';
 import { ExternalLink, Star } from 'lucide-react'; 
 
 export const metadata = {
-  title: 'Compare Prop Firms | Prop Firm Finder',
-  description: 'Side-by-side comparison of leading proprietary trading firms.',
+  title: 'Compare Prop Firms | TradingisEZ',
+  description: 'Side-by-side comparison of leading proprietary trading firms on TradingisEZ.',
 };
 
 const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {

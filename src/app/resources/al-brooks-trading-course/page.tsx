@@ -5,8 +5,8 @@ import { Award } from "lucide-react";
 import Link from "next/link";
 
 export const metadata = {
-  title: 'Al Brooks Trading Course | Prop Firm Finder',
-  description: 'Information about the Al Brooks Trading Course and related resources.',
+  title: 'Al Brooks Trading Course | TradingisEZ',
+  description: 'Information about the Al Brooks Trading Course and related resources on TradingisEZ.',
 };
 
 export default function AlBrooksTradingCoursePage() {
@@ -34,7 +34,7 @@ export default function AlBrooksTradingCoursePage() {
             <li>Entry and exit strategies.</li>
             <li>Advanced candlestick patterns and chart formations.</li>
           </ul>
-          <p>While we prepare specific details and potential offers related to the Al Brooks Trading Course, we encourage you to explore our other valuable trading resources.</p>
+          <p>While we prepare specific details and potential offers related to the Al Brooks Trading Course, we encourage you to explore our other valuable trading resources on TradingisEZ.</p>
           
           <div className="mt-6 text-center">
             <Button asChild size="lg">
@@ -43,7 +43,7 @@ export default function AlBrooksTradingCoursePage() {
           </div>
           
            <p className="mt-6 text-sm text-muted-foreground">
-            <strong>Note:</strong> Prop Firm Finder may provide links to external resources, including courses. We may receive affiliate compensation if you purchase through these links, at no extra cost to you. Please see our <Link href="/affiliate-disclosure">Affiliate Disclosure</Link> for more details.
+            <strong>Note:</strong> TradingisEZ may provide links to external resources, including courses. We may receive affiliate compensation if you purchase through these links, at no extra cost to you. Please see our <Link href="/affiliate-disclosure">Affiliate Disclosure</Link> for more details.
           </p>
         </CardContent>
       </Card>

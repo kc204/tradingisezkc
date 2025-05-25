@@ -6,8 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
-  title: 'Trading Tools | Prop Firm Finder',
-  description: 'Discover useful tools to enhance your trading analysis and execution.',
+  title: 'Trading Tools | TradingisEZ',
+  description: 'Discover useful tools to enhance your trading analysis and execution on TradingisEZ.',
 };
 
 export default function ToolsPage() {

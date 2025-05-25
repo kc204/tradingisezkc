@@ -27,10 +27,10 @@ export default function Home() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Unlock Your Trading Potential: Find the Perfect Prop Firm &amp; Get Funded.
+            Unlock Your Trading Potential with TradingisEZ: Get Funded.
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Tired of risking your own capital or sifting through confusing prop firm options? Discover top-rated firms, master the rules, access exclusive deals, and secure your funded account with confidence.
+            Tired of risking your own capital or sifting through confusing prop firm options? TradingisEZ helps you discover top-rated firms, master the rules, access exclusive deals, and secure your funded account with confidence.
           </p>
           <div className="space-x-4">
             <StarBorder<typeof Link>
@@ -83,8 +83,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* StarBorder Demo Section is removed as requested */}
     </div>
   );
 }

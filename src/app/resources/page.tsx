@@ -6,8 +6,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
-  title: 'Trading Resources | Prop Firm Finder',
-  description: 'Explore guides, tools, news, and courses to enhance your trading skills.',
+  title: 'Trading Resources | TradingisEZ',
+  description: 'Explore guides, tools, news, and courses to enhance your trading skills on TradingisEZ.',
 };
 
 const ResourceIcon = ({ type }: { type: string }) => {

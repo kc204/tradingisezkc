@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: FirmDetailPageProps) {
     return { title: 'Firm Not Found' };
   }
   return {
-    title: `${firm.name} Review | Prop Firm Finder`,
+    title: `${firm.name} Review | TradingisEZ`,
     description: `In-depth review of ${firm.name}: funding, rules, profit split, and more. ${firm.briefDescription}`,
   };
 }

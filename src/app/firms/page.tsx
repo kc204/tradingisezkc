@@ -8,8 +8,8 @@ import { mockPropFirms } from '@/lib/mockData';
 // import { Filter, Search } from 'lucide-react'; // No longer needed
 
 export const metadata = {
-  title: 'All Prop Firms | Prop Firm Finder',
-  description: 'Browse and compare all listed proprietary trading firms.',
+  title: 'All Prop Firms | TradingisEZ',
+  description: 'Browse and compare all listed proprietary trading firms on TradingisEZ.',
 };
 
 // FirmSearchFilter component is removed as it's no longer used.

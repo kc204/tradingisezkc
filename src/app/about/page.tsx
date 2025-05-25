@@ -4,8 +4,8 @@ import { Users, Target, Zap, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 
 export const metadata = {
-  title: 'About Us | Prop Firm Finder',
-  description: 'Learn more about Prop Firm Finder and our mission to help traders succeed.',
+  title: 'About Us | TradingisEZ',
+  description: 'Learn more about TradingisEZ and our mission to help traders succeed.',
 };
 
 const AboutPage = () => {
@@ -14,7 +14,7 @@ const AboutPage = () => {
       <section className="text-center py-12 md:py-16 bg-gradient-to-br from-primary/80 to-secondary/80 rounded-xl shadow-xl">
         <div className="container mx-auto px-4">
           <Users className="w-16 h-16 text-primary-foreground mx-auto mb-4" />
-          <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">About Prop Firm Finder</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">About TradingisEZ</h1>
           <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto">
             Empowering traders with the insights, tools, and connections to accelerate your trading careers.
           </p>
@@ -28,7 +28,7 @@ const AboutPage = () => {
           </CardHeader>
           <CardContent className="text-muted-foreground space-y-4 text-base md:text-lg">
             <p>
-              At Prop Firm Finder, we are dedicated to becoming the most comprehensive and trusted resource for traders seeking funding opportunities, reliable tools, and essential education in both traditional and crypto markets. We understand the challenges traders face – from navigating complex prop firm rules to identifying legitimate services in a crowded space.
+              At TradingisEZ, we are dedicated to becoming the most comprehensive and trusted resource for traders seeking funding opportunities, reliable tools, and essential education in both traditional and crypto markets. We understand the challenges traders face – from navigating complex prop firm rules to identifying legitimate services in a crowded space.
             </p>
             <p>
               Our goal is to simplify this journey. We provide clear, unbiased reviews, in-depth guides, and exclusive deals to help you make informed decisions and find the best path to achieving your trading aspirations.

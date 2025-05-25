@@ -7,8 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
-  title: 'Trading News | Prop Firm Finder',
-  description: 'Stay updated with the latest news in the trading and financial markets.',
+  title: 'Trading News | TradingisEZ',
+  description: 'Stay updated with the latest news in the trading and financial markets on TradingisEZ.',
 };
 
 export default function NewsPage() {

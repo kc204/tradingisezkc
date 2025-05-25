@@ -7,8 +7,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, MessageSquare, Send } from "lucide-react";
 
-// Removed metadata export as it's not allowed in client components
-
 const ContactPage = () => {
   // This is a UI-only form for now.
   // For a real app, you'd use react-hook-form, Zod, and a server action.
@@ -25,7 +23,7 @@ const ContactPage = () => {
           <Mail className="w-16 h-16 text-primary-foreground mx-auto mb-4" />
           <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Contact Us</h1>
           <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto">
-            Have questions, feedback, or partnership inquiries? We'd love to hear from you.
+            Have questions, feedback, or partnership inquiries? We'd love to hear from you at TradingisEZ.
           </p>
         </div>
       </section>
@@ -73,7 +71,7 @@ const ContactPage = () => {
       <section className="container mx-auto px-4 text-center">
         <h3 className="text-xl font-semibold text-foreground mb-2">Other Ways to Reach Us</h3>
         <p className="text-muted-foreground">
-          For urgent matters, you can also try reaching out via our (soon to be announced) social media channels.
+          For urgent matters, you can also try reaching out via our (soon to be announced) social media channels for TradingisEZ.
         </p>
         {/* Add social media links here in the future */}
       </section>

@@ -226,7 +226,7 @@ const Header = () => {
           if (mobileMenuOpen) setMobileMenuOpen(false);
           if (openDropdown) setOpenDropdown(null); // Close dropdown if clicking main logo
         }}>
-          Prop Firm Finder
+          TradingisEZ
         </Link>
 
         <nav className="hidden md:flex items-center space-x-2">
@@ -246,7 +246,7 @@ const Header = () => {
             <SheetContent side="right" className="w-[300px] sm:w-[350px] bg-card text-card-foreground p-6">
               <div className="flex justify-between items-center mb-6">
                  <Link href="/" className="text-2xl font-bold text-foreground" onClick={() => setMobileMenuOpen(false)}>
-                    Prop Firm Finder
+                    TradingisEZ
                   </Link>
                 <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
                   <X />
@@ -265,4 +265,3 @@ const Header = () => {
 };
 
 export default Header;
-

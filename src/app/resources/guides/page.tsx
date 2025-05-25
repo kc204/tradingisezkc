@@ -3,8 +3,8 @@ import { mockArticles } from "@/lib/mockData";
 import { BookOpenText } from "lucide-react";
 
 export const metadata = {
-  title: 'Trading Guides | Prop Firm Finder',
-  description: 'In-depth guides to help you navigate the world of trading and prop firms.',
+  title: 'Trading Guides | TradingisEZ',
+  description: 'In-depth guides to help you navigate the world of trading and prop firms on TradingisEZ.',
 };
 
 export default function GuidesPage() {

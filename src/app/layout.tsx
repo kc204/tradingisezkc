@@ -14,8 +14,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Prop Firm Finder',
-  description: 'Find the Perfect Prop Firm &amp; Get Funded. Your comprehensive trading hub.',
+  title: 'TradingisEZ | Your Trading Success Partner',
+  description: 'Find the Perfect Prop Firm & Get Funded with TradingisEZ. Your comprehensive trading hub.',
 };
 
 export default function RootLayout({
