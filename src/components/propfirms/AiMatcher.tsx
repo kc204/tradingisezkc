@@ -51,6 +51,7 @@ const AiMatcher = () => {
       toast({
         title: 'Recommendation Ready!',
         description: 'We found some prop firms for you.',
+        className: 'bg-success text-success-foreground border-green-600', // Example of using success variant
       });
     }
     setIsLoading(false);
@@ -118,11 +119,11 @@ const AiMatcher = () => {
             />
           </CardContent>
           <CardFooter className="flex flex-col items-stretch">
-            <Button type="submit" disabled={isLoading} className="w-full bg-special-accent text-special-accent-foreground hover:bg-special-accent/90">
+            <Button type="submit" disabled={isLoading} className="w-full bg-accent text-accent-foreground hover:bg-accent-hover">
               {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Get Recommendation'}
             </Button>
             {recommendation && (
-              <div className="mt-6 p-4 border rounded-md bg-accent/20">
+              <div className="mt-6 p-4 border rounded-md bg-card"> {/* Use bg-card for recommendation box */}
                 <h4 className="font-semibold text-lg mb-2 text-foreground">Our AI Recommends:</h4>
                 <p className="text-foreground">{recommendation.recommendation}</p>
               </div>

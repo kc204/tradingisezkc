@@ -14,7 +14,7 @@ export default function ToolsPage() {
   const tools = mockTradingResources.filter(r => r.resourceType === 'Tool');
   return (
     <div className="space-y-8">
-       <section className="text-center py-10 bg-gradient-to-r from-primary to-secondary rounded-lg shadow-lg">
+       <section className="text-center py-10 bg-gradient-to-r from-primary to-accent rounded-lg shadow-lg"> {/* Updated gradient with new palette */}
         <div className="flex justify-center items-center mb-4">
           <Wrench className="w-12 h-12 text-primary-foreground mr-3" />
           <h1 className="text-4xl font-bold text-primary-foreground">Trading Tools</h1>
@@ -29,7 +29,7 @@ export default function ToolsPage() {
             <CardHeader>
                <div className="flex items-center mb-2">
                   {tool.logoUrl && (
-                    <div className="w-12 h-12 relative mr-3 rounded-md overflow-hidden flex-shrink-0">
+                     <div className="w-12 h-12 relative mr-3 rounded-md overflow-hidden flex-shrink-0 bg-card p-1"> {/* Added bg-card for better logo visibility */}
                        <Image src={tool.logoUrl} alt={`${tool.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo"/>
                     </div>
                   )}
@@ -40,7 +40,7 @@ export default function ToolsPage() {
               <p className="text-sm mb-4 min-h-[4rem]">{tool.description}</p>
             </CardContent>
             <CardFooter>
-              <Button asChild className="w-full bg-special-accent text-special-accent-foreground hover:bg-special-accent-hover">
+              <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent-hover">
                 <Link href={tool.affiliateLink} target="_blank" rel="noopener noreferrer">
                   Visit {tool.name} <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>

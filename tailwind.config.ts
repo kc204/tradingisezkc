@@ -26,34 +26,34 @@ export default {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
+  				DEFAULT: 'hsl(var(--primary))', // Cyber Purple
   				foreground: 'hsl(var(--primary-foreground))'
   			},
   			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
+  				DEFAULT: 'hsl(var(--secondary))', // Amber/Orange
   				foreground: 'hsl(var(--secondary-foreground))',
-          hover: 'hsl(var(--secondary-hover))',
+          hover: 'hsl(var(--secondary-hover))', // Darker Amber/Orange
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
   				foreground: 'hsl(var(--muted-foreground))'
   			},
   			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
+  				DEFAULT: 'hsl(var(--accent))', // Neon Teal (Primary CTAs)
+  				foreground: 'hsl(var(--accent-foreground))',
+          hover: 'hsl(var(--accent-hover))', // Darker Neon Teal
   			},
-        'special-accent': {
-          DEFAULT: 'hsl(var(--special-accent))',
-          foreground: 'hsl(var(--special-accent-foreground))',
-          hover: 'hsl(var(--special-accent-hover))',
-        },
   			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))',
+  				DEFAULT: 'hsl(var(--destructive))', // Coral Red
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
+        success: {
+          DEFAULT: 'hsl(var(--success))', // Success Green
+          foreground: 'hsl(var(--success-foreground))',
+        },
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
+  			ring: 'hsl(var(--ring))', // Cyber Purple
   			chart: {
   				'1': 'hsl(var(--chart-1))',
   				'2': 'hsl(var(--chart-2))',
@@ -61,10 +61,8 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			},
-  			// Remove sidebar specific colors if not using the sidebar component directly
-        // For now, keeping them as they might be used by shadcn ui internals or future features
-        sidebar: {
-  				DEFAULT: 'hsl(var(--card))', // or a specific sidebar bg
+        sidebar: { // Keeping for potential shadcn internal use or future sidebar
+  				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))',
   				primary: 'hsl(var(--primary))',
   				'primary-foreground': 'hsl(var(--primary-foreground))',

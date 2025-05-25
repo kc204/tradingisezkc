@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { mockTradingResources } from "@/lib/mockData";
 import { BookOpen, Wrench, Newspaper, Award, ExternalLink } from "lucide-react";
 import Image from "next/image";
@@ -23,7 +23,7 @@ const ResourceIcon = ({ type }: { type: string }) => {
 export default function ResourcesPage() {
   return (
     <div className="space-y-10">
-      <section className="text-center py-10 bg-gradient-to-r from-primary to-secondary rounded-lg shadow-lg">
+      <section className="text-center py-10 bg-gradient-to-r from-primary to-accent rounded-lg shadow-lg"> {/* Updated gradient with new palette */}
         <h1 className="text-4xl font-bold text-primary-foreground mb-2">Trading Resources</h1>
         <p className="text-lg text-primary-foreground/90">Your hub for guides, tools, news, and courses to elevate your trading journey.</p>
       </section>
@@ -35,7 +35,7 @@ export default function ResourcesPage() {
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center">
                   {resource.logoUrl && (
-                    <div className="w-12 h-12 relative mr-3 rounded-md overflow-hidden flex-shrink-0">
+                     <div className="w-12 h-12 relative mr-3 rounded-md overflow-hidden flex-shrink-0 bg-card p-1"> {/* Added bg-card for better logo visibility */}
                        <Image src={resource.logoUrl} alt={`${resource.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo"/>
                     </div>
                   )}
@@ -49,7 +49,7 @@ export default function ResourcesPage() {
               <p className="text-sm mb-4 min-h-[4rem]">{resource.description}</p>
             </CardContent>
             <CardFooter>
-              <Button asChild className="w-full bg-special-accent text-special-accent-foreground hover:bg-special-accent-hover">
+              <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent-hover">
                 <Link href={resource.affiliateLink} target="_blank" rel="noopener noreferrer">
                   Visit {resource.name} <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>

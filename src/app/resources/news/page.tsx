@@ -15,7 +15,7 @@ export default function NewsPage() {
   const newsSources = mockTradingResources.filter(r => r.resourceType === 'News');
   return (
     <div className="space-y-8">
-      <section className="text-center py-10 bg-gradient-to-r from-primary to-secondary rounded-lg shadow-lg">
+      <section className="text-center py-10 bg-gradient-to-r from-primary to-secondary rounded-lg shadow-lg"> {/* Consider updating gradient with new palette */}
         <div className="flex justify-center items-center mb-4">
           <Newspaper className="w-12 h-12 text-primary-foreground mr-3" />
           <h1 className="text-4xl font-bold text-primary-foreground">Trading News</h1>
@@ -30,7 +30,7 @@ export default function NewsPage() {
              <CardHeader>
                <div className="flex items-center mb-2">
                   {source.logoUrl && (
-                    <div className="w-12 h-12 relative mr-3 rounded-md overflow-hidden flex-shrink-0">
+                    <div className="w-12 h-12 relative mr-3 rounded-md overflow-hidden flex-shrink-0 bg-card p-1"> {/* Added bg-card for better logo visibility if transparent */}
                        <Image src={source.logoUrl} alt={`${source.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo"/>
                     </div>
                   )}
@@ -41,7 +41,7 @@ export default function NewsPage() {
               <p className="text-sm mb-4 min-h-[4rem]">{source.description}</p>
             </CardContent>
             <CardFooter>
-              <Button asChild className="w-full bg-special-accent text-special-accent-foreground hover:bg-special-accent-hover">
+              <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent-hover">
                 <Link href={source.affiliateLink} target="_blank" rel="noopener noreferrer">
                   Visit {source.name} <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>

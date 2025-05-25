@@ -25,14 +25,14 @@ const FirmCard = ({ firm }: FirmCardProps) => {
               />
           </div>
           {firm.isFeatured && (
-            <Badge variant="default" className="absolute top-4 right-4 bg-special-accent text-special-accent-foreground">
+            <Badge variant="default" className="absolute top-4 right-4 bg-accent text-accent-foreground"> {/* Use accent for featured badge */}
               <TrendingUp className="w-3 h-3 mr-1" /> Featured
             </Badge>
           )}
         </div>
         <CardTitle className="text-xl font-semibold">{firm.name}</CardTitle>
         {firm.offerBadgeLabel && (
-          <Badge variant="secondary" className="mt-1 w-fit">{firm.offerBadgeLabel}</Badge>
+          <Badge variant="secondary" className="mt-1 w-fit">{firm.offerBadgeLabel}</Badge> // Secondary for offer badge (Amber/Orange)
         )}
       </CardHeader>
       <CardContent className="flex-grow">
@@ -44,14 +44,14 @@ const FirmCard = ({ firm }: FirmCardProps) => {
         </div>
         {firm.rating && (
           <div className="flex items-center mt-3 text-sm">
-            <Star className="w-4 h-4 text-yellow-400 fill-yellow-400 mr-1" />
+            <Star className="w-4 h-4 text-yellow-400 fill-current mr-1" /> {/* Keeping yellow for stars, or could use --secondary */}
             <span className="font-semibold">{firm.rating.toFixed(1)}</span>
             <span className="text-muted-foreground ml-1">/ 5.0</span>
           </div>
         )}
       </CardContent>
       <CardFooter className="mt-auto">
-        <Button asChild className="w-full bg-special-accent text-special-accent-foreground hover:bg-special-accent-hover">
+        <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent-hover">
           <Link href={`/firms/${firm.slug}`}>View Details</Link>
         </Button>
       </CardFooter>

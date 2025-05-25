@@ -13,7 +13,7 @@ interface OfferBoxProps {
 
 const OfferBox = ({ firm, className }: OfferBoxProps) => {
   return (
-    <Card className={`shadow-xl border-2 border-primary ${className}`}>
+    <Card className={`shadow-xl border-2 border-primary ${className}`}> {/* Primary border (Cyber Purple) */}
       <CardHeader className="pb-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3">
           <div className='flex items-center mb-2 sm:mb-0'>
@@ -29,7 +29,7 @@ const OfferBox = ({ firm, className }: OfferBoxProps) => {
             <CardTitle className="text-2xl">{firm.name}</CardTitle>
           </div>
           {firm.offerBadgeLabel && (
-            <Badge variant="default" className="bg-special-accent text-special-accent-foreground text-sm px-3 py-1">
+            <Badge variant="default" className="bg-accent text-accent-foreground text-sm px-3 py-1"> {/* Neon Teal for offer badge */}
               🔥 {firm.offerBadgeLabel}
             </Badge>
           )}
@@ -43,7 +43,7 @@ const OfferBox = ({ firm, className }: OfferBoxProps) => {
             <ul className="list-none space-y-1 text-sm">
               {firm.keyInfoSnippets.map((snippet, index) => (
                 <li key={index} className="flex items-center">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" /> {/* Using a generic green, or could map to --success */}
                   <span className="font-medium text-muted-foreground">{snippet.label}:</span>
                   <span className="ml-1 text-foreground">{snippet.value}</span>
                 </li>
@@ -61,7 +61,7 @@ const OfferBox = ({ firm, className }: OfferBoxProps) => {
             </ul>
           </div>
         )}
-        <Button asChild size="lg" className="w-full bg-special-accent text-special-accent-foreground hover:bg-special-accent-hover text-base">
+        <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base"> {/* Neon Teal CTA */}
           <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
             Claim Offer &amp; Visit {firm.name}
             <ExternalLink className="ml-2 h-4 w-4" />

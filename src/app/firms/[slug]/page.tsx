@@ -62,12 +62,12 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
               {firm.rating && (
                 <div className="flex items-center justify-center md:justify-start mb-4">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-6 h-6 ${i < Math.round(firm.rating || 0) ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/50'}`} />
+                    <Star key={i} className={`w-6 h-6 ${i < Math.round(firm.rating || 0) ? 'text-yellow-400 fill-current' : 'text-muted-foreground/50'}`} />
                   ))}
                   <span className="ml-2 text-lg font-semibold text-foreground">{firm.rating.toFixed(1)} / 5.0</span>
                 </div>
               )}
-              <Button asChild size="lg" className="bg-special-accent text-special-accent-foreground hover:bg-special-accent/90">
+              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent-hover">
                 <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
                   Visit {firm.name} <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>
@@ -84,7 +84,7 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
               <CardHeader>
                 <CardTitle className="text-2xl">Full Review</CardTitle>
               </CardHeader>
-              <CardContent className="prose dark:prose-invert max-w-none">
+              <CardContent className="prose max-w-none"> {/* Removed dark:prose-invert as base prose should handle dark theme */}
                 <p>{firm.fullReview}</p> {/* Replace with actual Block Content renderer in real app */}
               </CardContent>
             </Card>
@@ -94,13 +94,13 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
             {firm.pros && firm.pros.length > 0 && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-xl text-green-600 flex items-center"><CheckCircle className="mr-2 h-5 w-5" /> Pros</CardTitle>
+                  <CardTitle className="text-xl text-success flex items-center"><CheckCircle className="mr-2 h-5 w-5" /> Pros</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="list-none space-y-2">
                     {firm.pros.map((pro, index) => (
                       <li key={index} className="flex items-start">
-                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                        <CheckCircle className="w-4 h-4 text-success mr-2 mt-1 flex-shrink-0" />
                         <span>{pro}</span>
                       </li>
                     ))}
@@ -111,13 +111,13 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
             {firm.cons && firm.cons.length > 0 && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-xl text-red-600 flex items-center"><XCircle className="mr-2 h-5 w-5" /> Cons</CardTitle>
+                  <CardTitle className="text-xl text-destructive flex items-center"><XCircle className="mr-2 h-5 w-5" /> Cons</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="list-none space-y-2">
                     {firm.cons.map((con, index) => (
                       <li key={index} className="flex items-start">
-                        <XCircle className="w-4 h-4 text-red-500 mr-2 mt-1 flex-shrink-0" />
+                        <XCircle className="w-4 h-4 text-destructive mr-2 mt-1 flex-shrink-0" />
                         <span>{con}</span>
                       </li>
                     ))}
@@ -129,7 +129,7 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl flex items-center"><Info className="mr-2 h-5 w-5" /> Firm Details</CardTitle>
+              <CardTitle className="text-2xl flex items-center"><Info className="mr-2 h-5 w-5 text-primary" /> Firm Details</CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
               {firm.fundingModels && <p><strong className="text-muted-foreground">Funding Models:</strong> {firm.fundingModels.join(', ')}</p>}
@@ -153,7 +153,7 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Use our AI tool to find firms matching your style.</p>
-              <Button asChild className="w-full">
+              <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent-hover">
                 <Link href="/#ai-matcher">AI Firm Matcher</Link>
               </Button>
             </CardContent>

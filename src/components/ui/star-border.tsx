@@ -13,26 +13,28 @@ interface StarBorderProps<T extends ElementType> {
 export function StarBorder<T extends ElementType = "button">({
   as,
   className,
-  color,
+  color, // This prop will define the animated border color
   speed = "6s",
   children,
   ...props
 }: StarBorderProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof StarBorderProps<T>>) {
   const Component = as || "button"
-  const effectColor = color || "hsl(var(--secondary))"; // Default effect color is #2A9D8F
+  // Animated border effect defaults to Cyber Purple (primary)
+  const effectColor = color || "hsl(var(--primary))"; 
 
   return (
     <Component 
       className={cn(
-        "relative inline-block py-[1px] overflow-hidden group transition-all duration-300 ease-in-out", // Removed rounded-[20px]
+        "relative inline-block py-[1px] overflow-hidden group transition-all duration-300 ease-in-out",
         className
       )} 
       {...props}
     >
-      {/* Single set of animated border elements, color doesn't change on hover, only opacity */}
+      {/* Single set of animated border elements, color comes from effectColor */}
       <div
         className={cn(
           "absolute w-[400%] h-[50%] bottom-[-11px] right-[-350%] rounded-full animate-star-movement-bottom z-0",
+          // Opacity for the animated border effect
           "opacity-30 dark:opacity-75 group-hover:opacity-60 dark:group-hover:opacity-90 transition-opacity duration-300 ease-in-out"
         )}
         style={{
@@ -43,6 +45,7 @@ export function StarBorder<T extends ElementType = "button">({
       <div
         className={cn(
           "absolute w-[400%] h-[50%] top-[-10px] left-[-350%] rounded-full animate-star-movement-top z-0",
+          // Opacity for the animated border effect
           "opacity-30 dark:opacity-75 group-hover:opacity-60 dark:group-hover:opacity-90 transition-opacity duration-300 ease-in-out"
         )}
         style={{
@@ -52,11 +55,11 @@ export function StarBorder<T extends ElementType = "button">({
       />
       
       <div className={cn(
-        "relative z-10 border text-center text-base py-4 px-6 transition-colors duration-300 ease-in-out", // Removed rounded-[20px]
-        // Button face: Default orange background, white text
-        "bg-special-accent text-special-accent-foreground border-transparent",
-        // Button face: Hover darker orange background
-        "group-hover:bg-special-accent-hover"
+        "relative z-10 border text-center text-base py-4 px-6 transition-colors duration-300 ease-in-out",
+        // Button face: Neon Teal background, dark text (accent colors)
+        "bg-accent text-accent-foreground border-transparent",
+        // Button face: Hover darker Neon Teal background
+        "group-hover:bg-accent-hover"
       )}>
         {children}
       </div>
