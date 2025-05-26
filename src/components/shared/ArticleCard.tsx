@@ -1,3 +1,5 @@
+'use client';
+
 import type { Article } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -5,22 +7,31 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CalendarDays, ArrowRight } from 'lucide-react';
+import { useState, useEffect } from 'react'; // Import useState, useEffect
 
 interface ArticleCardProps {
   article: Article;
 }
 
 const ArticleCard = ({ article }: ArticleCardProps) => {
+  const [displayDate, setDisplayDate] = useState<string | null>(null);
+
+  useEffect(() => {
+    // This ensures that toLocaleDateString is called only on the client,
+    // after the initial server render and hydration.
+    setDisplayDate(new Date(article.publishedDate).toLocaleDateString());
+  }, [article.publishedDate]); // Re-run if publishedDate changes
+
   return (
     <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
       {article.featuredImageUrl && (
         <div className="relative w-full h-48">
-          <Image 
-            src={article.featuredImageUrl} 
-            alt={article.title} 
-            layout="fill" 
+          <Image
+            src={article.featuredImageUrl}
+            alt={article.title}
+            layout="fill"
             objectFit="cover"
-            data-ai-hint="article blog" 
+            data-ai-hint="article blog"
           />
         </div>
       )}
@@ -29,7 +40,8 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
           <Badge variant="outline">{article.category}</Badge>
           <div className="flex items-center text-xs text-muted-foreground">
             <CalendarDays className="w-3.5 h-3.5 mr-1" />
-            {new Date(article.publishedDate).toLocaleDateString()}
+            {/* Show the client-formatted date once available, otherwise show the original date string */}
+            {displayDate || article.publishedDate}
           </div>
         </div>
         <CardTitle className="text-lg font-semibold line-clamp-2">{article.title}</CardTitle>
