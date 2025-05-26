@@ -109,8 +109,8 @@ export const mockPropFirms: PropFirm[] = [
   },
   {
     id: '4',
-    slug: 'tradify',
     name: 'Tradify',
+    slug: 'tradify',
     logoUrl: 'https://placehold.co/100x50.png?text=Tradify',
     websiteUrl: 'https://tradify.com/',
     affiliateLink: 'https://tradify.com/onlypropfirms',
@@ -235,7 +235,8 @@ export const mockGlobalOffersTestData: GlobalOffer[] = [
 const alBrooksSampleLessons: VideoLesson[] = [
   {
     lessonTitle: "Brooks Trading Course Sample: 12A Market Cycle",
-    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder for YouTube
+    youtubeVideoId: "_wQ5CRIQ6mc", // Use this ID for click-to-play
+    // videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Old direct embed, remove or ignore if youtubeVideoId is used
     lessonDescription: "Learn the fundamentals of how Al Brooks perceives market structure and its importance in price action trading.",
     lessonKeyTakeaways: ["Key Trendlines", "Support & Resistance", "Market Cycles"],
     lessonCTAText: "Watch Full Series",
@@ -243,7 +244,7 @@ const alBrooksSampleLessons: VideoLesson[] = [
   },
   {
     lessonTitle: "Lesson 2: Bar-by-Bar Analysis Introduction",
-    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder for YouTube
+    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Example for direct embed
     lessonDescription: "An introduction to Al Brooks' detailed bar-by-bar analysis technique for making trading decisions.",
     lessonKeyTakeaways: ["Candlestick signals", "Volume interpretation", "Context is key"],
     lessonCTAText: "Explore More Samples",
@@ -298,7 +299,7 @@ export const mockFreeResources: FreeResourceItem[] = [
     title: "Free Trading Audiobooks with Audible Trial",
     slug: "audiobooks",
     coverImage: "https://placehold.co/600x400.png?text=Trading+Audiobooks",
-    pageIntroduction: "Expand your trading knowledge on the go! Listen to essential trading books for free with an Audible trial. Explore classics on psychology, strategy, and market history.",
+    pageIntroduction: "Expand your trading knowledge on the go! Listen to essential trading books for free. Explore classics on psychology, strategy, and market history.",
     mainAffiliateLink: "#audible-trial-signup", // General Audible trial signup
     mainCTAText: "Start Your Audible Free Trial",
     resourceType: "Audiobook Trial Offer",
@@ -320,6 +321,3 @@ export const mockFreeResources: FreeResourceItem[] = [
     concludingCTASection: "Arm yourself with the knowledge to make an informed decision. Download the checklist now!"
   },
 ];
-
-
-    

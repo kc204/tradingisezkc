@@ -69,6 +69,7 @@ export type FreeResourceType =
 export interface VideoLesson {
   lessonTitle: string;
   videoEmbedCodeOrURL?: string; // For YouTube embeds or similar
+  youtubeVideoId?: string; // For click-to-play YouTube videos
   lessonDescription: string; // Simplified from Block Content
   lessonKeyTakeaways?: string[];
   lessonCTAText?: string;
