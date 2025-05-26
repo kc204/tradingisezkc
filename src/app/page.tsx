@@ -29,7 +29,7 @@ export default function Home() {
     "colorTheme": "dark",
     "isTransparent": false,
     "width": "100%",
-    "height": "100%", // Adjusted for better fit
+    "height": "100%",
     "locale": "en",
     "importanceFilter": "-1,0,1",
     "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
@@ -60,7 +60,7 @@ export default function Home() {
     "isTransparent": false,
     "displayMode": "regular",
     "width": "100%",
-    "height": "100%", // Adjusted for better fit
+    "height": "100%",
     "locale": "en"
   };
   const newsContainerStyles = { height: '700px', width: '100%' };
@@ -134,7 +134,7 @@ export default function Home() {
                   <TabsTrigger value="news">News</TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="economic-calendar" className="relative">
+                <TabsContent value="economic-calendar" className="relative mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 overflow-hidden">
                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 mt-4 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
                     <TradingViewWidget
@@ -150,8 +150,8 @@ export default function Home() {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="charts" className="relative">
-                  <GlowEffect {...glowEffectProps} />
+                <TabsContent value="charts" className="relative mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 overflow-hidden">
+                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 mt-4 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={chartsScriptSrc}
@@ -166,8 +166,8 @@ export default function Home() {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="news" className="relative">
-                  <GlowEffect {...glowEffectProps} />
+                <TabsContent value="news" className="relative mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 overflow-hidden">
+                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 mt-4 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={newsScriptSrc}
