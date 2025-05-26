@@ -234,7 +234,7 @@ export const mockGlobalOffersTestData: GlobalOffer[] = [
 // Mock Data for Free Resources
 const alBrooksSampleLessons: VideoLesson[] = [
   {
-    lessonTitle: "Lesson 1: Understanding Market Structure (Sample)",
+    lessonTitle: "Brooks Trading Course Sample: 12A Market Cycle",
     videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder for YouTube
     lessonDescription: "Learn the fundamentals of how Al Brooks perceives market structure and its importance in price action trading.",
     lessonKeyTakeaways: ["Key Trendlines", "Support & Resistance", "Market Cycles"],
@@ -320,3 +320,6 @@ export const mockFreeResources: FreeResourceItem[] = [
     concludingCTASection: "Arm yourself with the knowledge to make an informed decision. Download the checklist now!"
   },
 ];
+
+
+    
