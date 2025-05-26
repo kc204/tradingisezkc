@@ -38,7 +38,7 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
           <p className="text-sm text-muted-foreground line-clamp-3 mb-3">{book.bookDescription}</p>
         )}
       </CardContent>
-      <CardFooter className="flex flex-col sm:flex-row gap-2 mt-auto pt-3">
+      <CardFooter className="flex flex-col sm:flex-row sm:justify-center gap-2 mt-auto pt-3">
         {book.bookSampleLink && (
           <Button
             asChild
