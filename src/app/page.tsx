@@ -1,5 +1,5 @@
 
-'use client'; // Add this directive
+'use client'; 
 
 import FirmCard from '@/components/propfirms/FirmCard';
 import ArticleCard from '@/components/shared/ArticleCard';
@@ -9,45 +9,33 @@ import { Boxes } from "@/components/ui/background-boxes";
 import { cn } from "@/lib/utils";
 import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState, useEffect } from 'react'; // Import useState and useEffect
+import { useState, useEffect } from 'react';
+import TradingViewWidget from '@/components/shared/TradingViewWidget'; // New Import
 
 export default function Home() {
-  const [isClient, setIsClient] = useState(false); // State for client-side rendering
+  const [isClient, setIsClient] = useState(false); 
 
   useEffect(() => {
-    setIsClient(true); // Set to true once component mounts on client
+    setIsClient(true); 
   }, []);
 
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
   const recentArticles = mockArticles.slice(0, 3);
 
-  const economicCalendarWidgetHtml = `
-<!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container" style="height:600px;width:100%;">
-  <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
-  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-  {
-  "colorTheme": "dark",
-  "isTransparent": false,
-  "width": "100%",
-  "height": "600",
-  "locale": "en",
-  "importanceFilter": "-1,0,1",
-  "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
-}
-  </script>
-</div>
-<!-- TradingView Widget END -->
-  `;
+  // Configurations for TradingView Widgets
+  const economicCalendarScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-events.js";
+  const economicCalendarConfig = {
+    "colorTheme": "dark",
+    "isTransparent": false,
+    "width": "100%",
+    "height": "600",
+    "locale": "en",
+    "importanceFilter": "-1,0,1",
+    "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
+  };
 
-  const chartsWidgetHtml = `
-<!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container" style="height:600px;width:100%;">
-  <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%;"></div>
-  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-  {
+  const chartsScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+  const chartsConfig = {
     "autosize": true,
     "symbol": "BITSTAMP:BTCUSD",
     "interval": "D",
@@ -59,31 +47,24 @@ export default function Home() {
     "allow_symbol_change": true,
     "calendar": false,
     "support_host": "https://www.tradingview.com"
-  }
-  </script>
-</div>
-<!-- TradingView Widget END -->
-  `;
+  };
+  // Note: chartsConfig uses "autosize": true. The widget will try to fill its parent.
+  // We'll wrap it in a div that has a defined height.
+  const chartContainerStyles = { height: '600px', width: '100%' };
 
-  const newsWidgetHtml = `
-<!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container" style="height:700px;width:100%;">
-  <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
-  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-  {
-  "feedMode": "all_symbols",
-  "colorTheme": "dark",
-  "isTransparent": false,
-  "displayMode": "regular",
-  "width": "100%",
-  "height": 700,
-  "locale": "en"
-}
-  </script>
-</div>
-<!-- TradingView Widget END -->
-  `;
+
+  const newsScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-timeline.js";
+  const newsConfig = {
+    "feedMode": "all_symbols",
+    "colorTheme": "dark",
+    "isTransparent": false,
+    "displayMode": "regular",
+    "width": "100%",
+    "height": 700,
+    "locale": "en"
+  };
+  const newsContainerStyles = { height: '700px', width: '100%' };
+
 
   return (
     <div className="space-y-16">
@@ -131,7 +112,7 @@ export default function Home() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-foreground mb-10">Market Outlook</h2>
-          {isClient && ( // Conditionally render Tabs and their content
+          {isClient && ( 
             <Tabs defaultValue="economic-calendar" className="w-full">
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
@@ -139,18 +120,30 @@ export default function Home() {
                 <TabsTrigger value="news">News</TabsTrigger>
               </TabsList>
               <TabsContent value="economic-calendar">
-                <div className="mt-4 rounded-lg bg-card p-1 md:p-2"> {/* Removed overflow-hidden */}
-                  <div dangerouslySetInnerHTML={{ __html: economicCalendarWidgetHtml }} />
+                <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
+                  <TradingViewWidget
+                    scriptSrc={economicCalendarScriptSrc}
+                    config={economicCalendarConfig}
+                    widgetKey="calendar"
+                  />
                 </div>
               </TabsContent>
               <TabsContent value="charts">
-                <div className="mt-4 rounded-lg bg-card p-1 md:p-2"> {/* Removed overflow-hidden */}
-                  <div dangerouslySetInnerHTML={{ __html: chartsWidgetHtml }} />
+                <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
+                  <TradingViewWidget
+                    scriptSrc={chartsScriptSrc}
+                    config={chartsConfig}
+                    widgetKey="charts"
+                  />
                 </div>
               </TabsContent>
               <TabsContent value="news">
-                <div className="mt-4 rounded-lg bg-card p-1 md:p-2"> {/* Removed overflow-hidden */}
-                  <div dangerouslySetInnerHTML={{ __html: newsWidgetHtml }} />
+                <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
+                  <TradingViewWidget
+                    scriptSrc={newsScriptSrc}
+                    config={newsConfig}
+                    widgetKey="news"
+                  />
                 </div>
               </TabsContent>
             </Tabs>
