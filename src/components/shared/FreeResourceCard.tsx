@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { StarBorder } from '@/components/ui/star-border';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, BookOpen, Headphones, Video, FileText, Wrench } from 'lucide-react'; // Changed Tool to Wrench
+import { ArrowRight, BookOpen, Headphones, Video, FileText, Wrench } from 'lucide-react';
 
 interface FreeResourceCardProps {
   resource: FreeResourceItem;
@@ -22,7 +22,7 @@ const ResourceTypeIcon = ({ type }: { type: FreeResourceType }) => {
     case "PDF Guide":
       return <FileText className="w-5 h-5 mr-1.5 text-primary" />;
     case "Free Tool/Trial":
-      return <Wrench className="w-5 h-5 mr-1.5 text-primary" />; // Changed Tool to Wrench
+      return <Wrench className="w-5 h-5 mr-1.5 text-primary" />;
     default:
       return <BookOpen className="w-5 h-5 mr-1.5 text-primary" />;
   }
@@ -30,19 +30,12 @@ const ResourceTypeIcon = ({ type }: { type: FreeResourceType }) => {
 
 
 const FreeResourceCard = ({ resource }: FreeResourceCardProps) => {
-  // Determine the correct link for the resource based on its slug or type
-  let pageLink = `/free-resources/${resource.slug}`; // Default link construction
+  let pageLink = `/free-resources/${resource.slug}`;
 
-  // Special handling for resource types that might have different overview pages
-  // This logic can be expanded if more specific top-level pages exist per type
   if (resource.resourceType === "Audiobook Trial Offer" && resource.slug === "audiobooks") {
     pageLink = "/free-resources/audiobooks";
   } else if (resource.resourceType === "Free Video Course Series" && resource.slug === "al-brooks-course") {
     pageLink = "/free-resources/al-brooks-course";
-  } else if (resource.resourceType === "PDF Guide" && resource.slug === "prop-firm-checklist-pdf") {
-    // Assuming PDF guides might eventually link to a generic /resources/guides or a specific page
-    // For now, let's use the constructed slug, but this could be refined.
-    // Example: pageLink = "/resources/guides/" + resource.slug;
   }
 
 
@@ -84,7 +77,9 @@ const FreeResourceCard = ({ resource }: FreeResourceCardProps) => {
           href={pageLink}
           className="w-full"
         >
-          {resource.mainCTAText || "Learn More"} <ArrowRight className="ml-1.5 h-4 w-4" />
+          <span className="inline-flex items-center justify-center">
+            {resource.mainCTAText || "Learn More"} <ArrowRight className="ml-1.5 h-4 w-4" />
+          </span>
         </StarBorder>
       </CardFooter>
     </Card>

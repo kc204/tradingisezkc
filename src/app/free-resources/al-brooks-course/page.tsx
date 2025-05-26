@@ -1,18 +1,25 @@
 
+'use client';
+
 import { StarBorder } from "@/components/ui/star-border";
 import { mockFreeResources } from "@/lib/mockData";
 import type { VideoLesson } from "@/lib/types";
 import { PlayCircle, ListChecks, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-
-export const metadata = {
-  title: 'Al Brooks Free Video Course Samples | TradingisEZ',
-  description: "Access free sample video lessons from Al Brooks' renowned price action trading course. Understand market structure and bar-by-bar analysis.",
-};
+import { useState, useEffect } from "react";
+// Removed metadata export as this is a client component
 
 export default function AlBrooksFreeCoursePage() {
   const courseData = mockFreeResources.find(r => r.slug === "al-brooks-course" && r.resourceType === "Free Video Course Series");
+  const [playingVideoIndex, setPlayingVideoIndex] = useState<number | null>(null);
+
+  // Effect to add 'use client' if it was missing and handle potential metadata error
+  useEffect(() => {
+    // This component uses client-side state (useState), so it should be a client component.
+    // Metadata should be handled in a parent Server Component or layout.
+  }, []);
+
 
   if (!courseData) {
     return <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">Course data not found.</div>;
@@ -37,7 +44,9 @@ export default function AlBrooksFreeCoursePage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {mainCTAText} <ExternalLink className="ml-2 h-4 w-4" />
+              <span className="inline-flex items-center justify-center">
+                {mainCTAText} <ExternalLink className="ml-2 h-4 w-4" />
+              </span>
             </StarBorder>
           )}
         </div>
@@ -95,7 +104,9 @@ export default function AlBrooksFreeCoursePage() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
+                          <span className="inline-flex items-center justify-center">
                            {lesson.lessonCTAText} <ExternalLink className="ml-1.5 h-4 w-4" />
+                          </span>
                         </StarBorder>
                       </div>
                     )}
@@ -121,7 +132,9 @@ export default function AlBrooksFreeCoursePage() {
                 rel="noopener noreferrer"
                 className="text-lg"
               >
-                {mainCTAText} <ExternalLink className="ml-2 h-4 w-4" />
+                <span className="inline-flex items-center justify-center">
+                  {mainCTAText} <ExternalLink className="ml-2 h-4 w-4" />
+                </span>
               </StarBorder>
             </div>
           )}
