@@ -235,8 +235,7 @@ export const mockGlobalOffersTestData: GlobalOffer[] = [
 const alBrooksSampleLessons: VideoLesson[] = [
   {
     lessonTitle: "Brooks Trading Course Sample: 12A Market Cycle",
-    youtubeVideoId: "_wQ5CRIQ6mc", // Use this ID for click-to-play
-    // videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Old direct embed, remove or ignore if youtubeVideoId is used
+    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Reverted placeholder
     lessonDescription: "Learn the fundamentals of how Al Brooks perceives market structure and its importance in price action trading.",
     lessonKeyTakeaways: ["Key Trendlines", "Support & Resistance", "Market Cycles"],
     lessonCTAText: "Watch Full Series",
@@ -321,3 +320,4 @@ export const mockFreeResources: FreeResourceItem[] = [
     concludingCTASection: "Arm yourself with the knowledge to make an informed decision. Download the checklist now!"
   },
 ];
+

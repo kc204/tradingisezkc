@@ -17,12 +17,6 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'img.youtube.com',
-        port: '',
-        pathname: '/vi/**', // Allows paths like /vi/VIDEO_ID/hqdefault.jpg
-      },
     ],
   },
 };

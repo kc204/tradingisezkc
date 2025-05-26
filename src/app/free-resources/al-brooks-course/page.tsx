@@ -1,20 +1,18 @@
 
-'use client'; // Required for useState
-
-import { useState } from 'react';
 import { StarBorder } from "@/components/ui/star-border";
 import { mockFreeResources } from "@/lib/mockData";
 import type { VideoLesson } from "@/lib/types";
 import { PlayCircle, ListChecks, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import Image from 'next/image';
 
-// Removed metadata export as this is a Client Component
+export const metadata = {
+  title: 'Al Brooks Free Video Course Samples | TradingisEZ',
+  description: "Access free sample video lessons from Al Brooks' renowned price action trading course. Understand market structure and bar-by-bar analysis.",
+};
 
 export default function AlBrooksFreeCoursePage() {
   const courseData = mockFreeResources.find(r => r.slug === "al-brooks-course" && r.resourceType === "Free Video Course Series");
-  const [playingVideoIndex, setPlayingVideoIndex] = useState<number | null>(null);
 
   if (!courseData) {
     return <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">Course data not found.</div>;
@@ -51,37 +49,7 @@ export default function AlBrooksFreeCoursePage() {
             <Card key={index} className="shadow-lg overflow-hidden">
               <div className="grid md:grid-cols-2 gap-0">
                 <div className="bg-muted p-4 md:p-6 flex items-center justify-center aspect-video max-w-xl mx-auto w-full">
-                  {lesson.youtubeVideoId ? (
-                    playingVideoIndex === index ? (
-                      <iframe
-                        className="w-full h-full" // iframe will fill the aspect-video parent
-                        src={`https://www.youtube-nocookie.com/embed/${lesson.youtubeVideoId}?autoplay=1&modestbranding=1&rel=0&controls=1`}
-                        title={lesson.lessonTitle}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
-                      ></iframe>
-                    ) : (
-                      <div
-                        className="relative w-full h-full cursor-pointer flex items-center justify-center"
-                        onClick={() => setPlayingVideoIndex(index)}
-                      >
-                        <Image
-                          src={`https://img.youtube.com/vi/${lesson.youtubeVideoId}/hqdefault.jpg`}
-                          alt={`Play video: ${lesson.lessonTitle}`}
-                          layout="fill"
-                          objectFit="contain"
-                          className="block"
-                          data-ai-hint="video thumbnail"
-                        />
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="#ffffff" className="bg-black/60 rounded-full p-5 opacity-90 hover:opacity-100 transition-opacity">
-                            <path d="M8 5v14l11-7z"/>
-                          </svg>
-                        </div>
-                      </div>
-                    )
-                  ) : lesson.videoEmbedCodeOrURL && lesson.videoEmbedCodeOrURL.includes("youtube.com/embed") ? (
+                  {lesson.videoEmbedCodeOrURL && lesson.videoEmbedCodeOrURL.includes("youtube.com/embed") ? (
                      <iframe
                         className="w-full h-full"
                         src={lesson.videoEmbedCodeOrURL}
