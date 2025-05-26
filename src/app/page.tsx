@@ -1,5 +1,5 @@
 
-'use client'; 
+'use client';
 
 import FirmCard from '@/components/propfirms/FirmCard';
 import ArticleCard from '@/components/shared/ArticleCard';
@@ -10,14 +10,14 @@ import { cn } from "@/lib/utils";
 import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
-import TradingViewWidget from '@/components/shared/TradingViewWidget'; 
+import TradingViewWidget from '@/components/shared/TradingViewWidget';
 import { GlowEffect } from '@/components/ui/glow-effect';
 
 export default function Home() {
-  const [isClient, setIsClient] = useState(false); 
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true); 
+    setIsClient(true);
   }, []);
 
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
@@ -29,7 +29,7 @@ export default function Home() {
     "colorTheme": "dark",
     "isTransparent": false,
     "width": "100%",
-    "height": "100%",
+    "height": "100%", // Changed to 100%
     "locale": "en",
     "importanceFilter": "-1,0,1",
     "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
@@ -60,7 +60,7 @@ export default function Home() {
     "isTransparent": false,
     "displayMode": "regular",
     "width": "100%",
-    "height": "100%",
+    "height": "100%", // Changed to 100%
     "locale": "en"
   };
   const newsContainerStyles = { height: '700px', width: '100%' };
@@ -69,7 +69,7 @@ export default function Home() {
   const tradingViewLinkText = "Track all markets on TradingView";
 
   const glowEffectProps = {
-    colors: ['hsl(var(--accent-primary))'], 
+    colors: ['hsl(var(--accent-primary))'],
     mode: "breathe" as const,
     blur: "strong" as const,
     duration: 10,
@@ -126,7 +126,7 @@ export default function Home() {
             Market Outlook
           </h2>
           <div>
-            {isClient && ( 
+            {isClient && (
               <Tabs defaultValue="economic-calendar" className="w-full">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
@@ -134,7 +134,7 @@ export default function Home() {
                   <TabsTrigger value="news">News</TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="economic-calendar" className="relative mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 overflow-hidden">
+                <TabsContent value="economic-calendar" className="relative mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 mt-4 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
                     <TradingViewWidget
@@ -150,7 +150,7 @@ export default function Home() {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="charts" className="relative mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 overflow-hidden">
+                <TabsContent value="charts" className="relative mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                    <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 mt-4 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
                     <TradingViewWidget
@@ -166,7 +166,7 @@ export default function Home() {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="news" className="relative mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 overflow-hidden">
+                <TabsContent value="news" className="relative mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                    <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 mt-4 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
                     <TradingViewWidget
