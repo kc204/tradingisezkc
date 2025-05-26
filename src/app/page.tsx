@@ -112,69 +112,71 @@ export default function Home() {
 
       {/* Market Outlook Section START */}
       <section className="py-12">
-        <div className="container mx-auto px-4 relative"> {/* Added relative positioning */}
-          <GlowEffect
-            colors={['hsl(var(--accent-primary))', 'hsl(var(--accent))']} // Blue and Orange
-            mode="breathe" 
-            blur="strong" 
-            duration={10} 
-            scale={1.1} 
-            className="opacity-20" 
-          />
-          <h2 className="text-3xl font-bold text-center text-foreground mb-10 relative z-10"> {/* Added relative z-10 */}
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-10">
             Market Outlook
           </h2>
-          {isClient && ( 
-            <Tabs defaultValue="economic-calendar" className="w-full relative z-10"> {/* Added relative z-10 */}
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
-                <TabsTrigger value="charts">Charts</TabsTrigger>
-                <TabsTrigger value="news">News</TabsTrigger>
-              </TabsList>
-              <TabsContent value="economic-calendar">
-                <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
-                  <TradingViewWidget
-                    scriptSrc={economicCalendarScriptSrc}
-                    config={economicCalendarConfig}
-                    widgetKey="calendar"
-                  />
-                </div>
-                <div className="text-center mt-4">
-                  <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                    {tradingViewLinkText}
-                  </Link>
-                </div>
-              </TabsContent>
-              <TabsContent value="charts">
-                <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
-                  <TradingViewWidget
-                    scriptSrc={chartsScriptSrc}
-                    config={chartsConfig}
-                    widgetKey="charts"
-                  />
-                </div>
-                <div className="text-center mt-4">
-                  <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                    {tradingViewLinkText}
-                  </Link>
-                </div>
-              </TabsContent>
-              <TabsContent value="news">
-                <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
-                  <TradingViewWidget
-                    scriptSrc={newsScriptSrc}
-                    config={newsConfig}
-                    widgetKey="news"
-                  />
-                </div>
-                <div className="text-center mt-4">
-                  <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                    {tradingViewLinkText}
-                  </Link>
-                </div>
-              </TabsContent>
-            </Tabs>
-          )}
+          <div className="relative"> {/* New relative container for Tabs and GlowEffect */}
+            <GlowEffect
+              colors={['hsl(var(--accent-primary))', 'hsl(var(--accent))']}
+              mode="breathe" 
+              blur="strong" 
+              duration={10} 
+              scale={1.1} 
+              className="opacity-20" 
+            />
+            {isClient && ( 
+              <Tabs defaultValue="economic-calendar" className="w-full relative z-10">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
+                  <TabsTrigger value="charts">Charts</TabsTrigger>
+                  <TabsTrigger value="news">News</TabsTrigger>
+                </TabsList>
+                <TabsContent value="economic-calendar">
+                  <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
+                    <TradingViewWidget
+                      scriptSrc={economicCalendarScriptSrc}
+                      config={economicCalendarConfig}
+                      widgetKey="calendar"
+                    />
+                  </div>
+                  <div className="text-center mt-4">
+                    <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                      {tradingViewLinkText}
+                    </Link>
+                  </div>
+                </TabsContent>
+                <TabsContent value="charts">
+                  <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
+                    <TradingViewWidget
+                      scriptSrc={chartsScriptSrc}
+                      config={chartsConfig}
+                      widgetKey="charts"
+                    />
+                  </div>
+                  <div className="text-center mt-4">
+                    <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                      {tradingViewLinkText}
+                    </Link>
+                  </div>
+                </TabsContent>
+                <TabsContent value="news">
+                  <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
+                    <TradingViewWidget
+                      scriptSrc={newsScriptSrc}
+                      config={newsConfig}
+                      widgetKey="news"
+                    />
+                  </div>
+                  <div className="text-center mt-4">
+                    <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                      {tradingViewLinkText}
+                    </Link>
+                  </div>
+                </TabsContent>
+              </Tabs>
+            )}
+          </div>
         </div>
       </section>
       {/* Market Outlook Section END */}
