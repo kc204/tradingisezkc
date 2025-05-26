@@ -14,7 +14,7 @@ export const mockPropFirms: PropFirm[] = [
     name: 'Apex Trader Funding',
     logoUrl: 'https://placehold.co/100x50.png?text=ApexTF',
     websiteUrl: 'https://apextraderfunding.com/',
-    affiliateLink: '#',
+    affiliateLink: 'https://apextraderfunding.com/member/aff/go/onlypropfirms?c=DEFAULT',
     briefDescription: 'Popular choice for futures traders, offering straightforward evaluation and scaling.',
     fullReview: 'Apex Trader Funding is well-regarded in the futures trading community for its simple evaluation process and generous profit splits. They primarily focus on futures contracts and offer a variety of account sizes to suit different trader needs. Their Rithmic-based connection is standard for futures platforms.',
     pros: ["Simple 1-step evaluation", "No daily drawdown limit on many accounts", "Trade on actual market data during evaluation", "Quick funding after passing"],
@@ -46,8 +46,8 @@ export const mockPropFirms: PropFirm[] = [
     slug: 'take-profit-trader',
     name: 'Take Profit Trader',
     logoUrl: 'https://placehold.co/100x50.png?text=TPT',
-    websiteUrl: '#',
-    affiliateLink: '#',
+    websiteUrl: 'https://www.takeprofittrader.com/',
+    affiliateLink: 'https://takeprofittrader.com/if/onlypropfirms',
     briefDescription: 'Futures trading prop firm with multiple evaluation options and fast payouts.',
     fullReview: 'Take Profit Trader offers various funding paths for futures traders, including different challenge types and account sizes. They emphasize quick payout processing and provide access to popular futures trading platforms. Their rules are generally straightforward, focusing on consistency and risk management.',
     pros: ['Multiple challenge types (1-step, 2-step)', 'Fast payout process', 'No scaling targets required for payout'],
@@ -80,7 +80,7 @@ export const mockPropFirms: PropFirm[] = [
     name: 'EliteTraderFunding',
     logoUrl: 'https://placehold.co/100x50.png?text=Elite',
     websiteUrl: '#',
-    affiliateLink: '#',
+    affiliateLink: 'https://www.elitetraderfunding.com/?ref=onlypropfirms',
     briefDescription: 'Premium firm for experienced traders seeking large capital and advanced tools.',
     fullReview: 'EliteTraderFunding offers a premium experience geared towards seasoned traders who require significant capital and sophisticated trading tools. Their evaluation processes are rigorous, reflecting the high stakes involved. They often provide dedicated support and access to a wider range of markets and instruments.',
     pros: ['Very high funding limits (up to $5M+ reported)', 'Access to advanced trading platforms and analytics', 'Dedicated account manager for high-tier traders'],
@@ -109,11 +109,11 @@ export const mockPropFirms: PropFirm[] = [
   },
   {
     id: '4',
-    slug: 'tradify-funding',
+    slug: 'tradify',
     name: 'Tradify',
     logoUrl: 'https://placehold.co/100x50.png?text=Tradify',
     websiteUrl: 'https://tradify.com/',
-    affiliateLink: '#',
+    affiliateLink: 'https://tradify.com/onlypropfirms',
     briefDescription: 'Futures prop firm with multiple account types, 100% profit split up to $15K, and flexible trading conditions.',
     fullReview: "Tradify offers a range of account types including Advanced Challenges, Growth Challenges, and Straight to Sim Funded Accounts, catering to different trader preferences. They provide a generous 100% profit split on the first $15,000, then 90% to the trader. Key features include allowing news trading, EAs, and supporting popular platforms like Tradovate, NinjaTrader, and TradingView. After four successful payouts from a Sim Funded account, traders can transition to a Live Funded account with potentially uncapped, same-day payouts. Their detailed rules cover aspects like consistency (35% or 20% depending on account type), daily loss limits (soft breach), and minimum trading days for payouts.",
     pros: [
@@ -224,7 +224,7 @@ export const mockTradingResources: TradingResource[] = [
   },
 ];
 
-export const mockGlobalOffersTestData: GlobalOffer[] = [ 
+export const mockGlobalOffersTestData: GlobalOffer[] = [
   { id: 'g1', text: 'Apex Trader Funding: 50% OFF Lifetime Discount!', affiliateLink: '#', isActive: true },
   { id: 'g2', text: 'Take Profit Trader: Pass Guarantee or Free Retry!', affiliateLink: '#', isActive: true },
   { id: 'g3', text: 'Tradify: Get a 10% bonus on your first payout with code EZ10!', affiliateLink: '#', isActive: true },
@@ -234,16 +234,8 @@ export const mockGlobalOffersTestData: GlobalOffer[] = [
 // Mock Data for Free Resources
 const alBrooksSampleLessons: VideoLesson[] = [
   {
-    lessonTitle: "Lesson 1: Understanding Market Structure (Sample 12A Market Cycle)",
-    hlsStreamURL: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/playlist.m3u8",
-    posterImageURL: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/thumbnail_4a0d12bb.jpg",
-    captionTracks: [
-      { kind: "captions", label: "English", src: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/captions/EN.vtt?ver=1", srclang: "en", default: true },
-      { kind: "captions", label: "Español", src: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/captions/ES.vtt?ver=1", srclang: "es" },
-      { kind: "captions", label: "Português", src: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/captions/PT.vtt?ver=1", srclang: "pt" },
-      { kind: "captions", label: "简体中文", src: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/captions/CN.vtt?ver=2", srclang: "cn" },
-      { kind: "captions", label: "繁體中文", src: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/captions/HK.vtt?ver=1", srclang: "hk" },
-    ],
+    lessonTitle: "Lesson 1: Understanding Market Structure (Sample)",
+    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder for YouTube
     lessonDescription: "Learn the fundamentals of how Al Brooks perceives market structure and its importance in price action trading.",
     lessonKeyTakeaways: ["Key Trendlines", "Support & Resistance", "Market Cycles"],
     lessonCTAText: "Watch Full Series",

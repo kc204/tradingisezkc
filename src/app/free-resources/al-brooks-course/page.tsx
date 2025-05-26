@@ -50,28 +50,7 @@ export default function AlBrooksFreeCoursePage() {
             <Card key={index} className="shadow-lg overflow-hidden">
               <div className="grid md:grid-cols-2 gap-0">
                 <div className="bg-muted p-4 md:p-6 flex items-center justify-center aspect-video">
-                  {lesson.hlsStreamURL ? (
-                    <video 
-                      controls 
-                      playsInline 
-                      crossOrigin="anonymous" 
-                      poster={lesson.posterImageURL} 
-                      src={lesson.hlsStreamURL}
-                      className="w-full h-full object-contain"
-                    >
-                      {lesson.captionTracks?.map(track => (
-                        <track 
-                          key={track.srclang}
-                          kind={track.kind as "subtitles" | "captions" | "descriptions" | "chapters" | "metadata"} // Type assertion
-                          label={track.label} 
-                          src={track.src} 
-                          srcLang={track.srclang} // Note: attribute is srcLang in JSX
-                          default={track.default} 
-                        />
-                      ))}
-                      Your browser does not support the video tag.
-                    </video>
-                  ) : lesson.videoEmbedCodeOrURL && lesson.videoEmbedCodeOrURL.includes("youtube.com/embed") ? (
+                  {lesson.videoEmbedCodeOrURL && lesson.videoEmbedCodeOrURL.includes("youtube.com/embed") ? (
                      <iframe
                         className="w-full h-full"
                         src={lesson.videoEmbedCodeOrURL}
@@ -81,7 +60,7 @@ export default function AlBrooksFreeCoursePage() {
                         allowFullScreen
                       ></iframe>
                   ) : (
-                    <div className="w-full h-full bg-black text-white flex flex-col items-center justify-center text-center">
+                    <div className="w-full h-full bg-black text-white flex flex-col items-center justify-center text-center"> {/* Updated to flex-col for better layout */}
                       <PlayCircle className="w-12 h-12 mb-2 opacity-50" />
                       <p>Video: {lesson.lessonTitle}<br/> 
                          {lesson.videoEmbedCodeOrURL ? `(Embed: ${lesson.videoEmbedCodeOrURL})` : '(Video source not available)'}
