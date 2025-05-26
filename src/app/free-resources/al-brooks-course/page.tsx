@@ -49,7 +49,18 @@ export default function AlBrooksFreeCoursePage() {
             <Card key={index} className="shadow-lg overflow-hidden">
               <div className="grid md:grid-cols-2 gap-0">
                 <div className="bg-muted p-4 md:p-6 flex items-center justify-center aspect-video max-w-xl mx-auto w-full">
-                  {lesson.videoEmbedCodeOrURL && lesson.videoEmbedCodeOrURL.includes("youtube.com/embed") ? (
+                  {lesson.videoEmbedCodeOrURL && lesson.videoEmbedCodeOrURL.includes("iframe.mediadelivery.net/embed") ? (
+                     <div style={{position:"relative", paddingBottom:"56.25%", height:0, overflow:"hidden", width: "100%"}}>
+                        <iframe
+                            src={lesson.videoEmbedCodeOrURL}
+                            style={{position:"absolute", top:0, left:0, width:"100%", height:"100%", border:0}}
+                            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                            allowFullScreen
+                            loading="lazy"
+                            title={lesson.lessonTitle}
+                        ></iframe>
+                     </div>
+                  ) : lesson.videoEmbedCodeOrURL && lesson.videoEmbedCodeOrURL.includes("youtube.com/embed") ? (
                      <iframe
                         className="w-full h-full"
                         src={lesson.videoEmbedCodeOrURL}
