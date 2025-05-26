@@ -3,7 +3,7 @@ import type { GlobalOffer, PropFirm, Article, TradingResource } from './types';
 
 export const mockGlobalOffers: GlobalOffer[] = [
   { id: '1', text: 'VISIBLE OFFER TEXT TEST', affiliateLink: '#', isActive: true },
-  { id: '2', text: 'FundYourDreams: Pass guarantee or free retry!', affiliateLink: '#', isActive: true },
+  { id: '2', text: 'Take Profit Trader: Up to 90% profit split!', affiliateLink: '#', isActive: true },
   { id: '3', text: 'NewFirmX: 10% bonus on payout with code FINDER10', affiliateLink: '#', isActive: true },
 ];
 
@@ -13,8 +13,8 @@ export const mockPropFirms: PropFirm[] = [
     slug: 'apex-trader-funding',
     name: 'Apex Trader Funding',
     logoUrl: 'https://placehold.co/100x50.png?text=ApexTF',
-    websiteUrl: 'https://apextraderfunding.com/', // Example, replace with actual if known
-    affiliateLink: '#', // Replace with actual affiliate link
+    websiteUrl: 'https://apextraderfunding.com/',
+    affiliateLink: '#', 
     briefDescription: 'Popular choice for futures traders, offering straightforward evaluation and scaling.',
     fullReview: 'Apex Trader Funding is well-regarded in the futures trading community for its simple evaluation process and generous profit splits. They primarily focus on futures contracts and offer a variety of account sizes to suit different trader needs. Their Rithmic-based connection is standard for futures platforms.',
     pros: ["Simple 1-step evaluation", "No daily drawdown limit on many accounts", "Trade on actual market data during evaluation", "Quick funding after passing"],
@@ -36,43 +36,43 @@ export const mockPropFirms: PropFirm[] = [
     isFeatured: true,
     minAccountSize: 25000,
     maxAccountSize: 300000,
-    minChallengeCost: 137, // Example monthly cost for smallest account
-    maxChallengeCost: 657, // Example monthly cost for largest account
+    minChallengeCost: 137, 
+    maxChallengeCost: 657, 
     activationFee: 'None (for PA accounts)',
     challengeType: '1-Step Evaluation',
   },
   {
     id: '2',
-    slug: 'fund-your-dreams',
-    name: 'FundYourDreams',
-    logoUrl: 'https://placehold.co/100x50.png?text=FYD',
-    websiteUrl: '#',
-    affiliateLink: '#',
-    briefDescription: 'A newer firm with competitive pricing and a focus on trader growth. Excellent for beginners.',
-    fullReview: 'Detailed review content for FundYourDreams...',
-    pros: ['Affordable challenges', 'Supportive community', 'Regular promotions'],
-    cons: ['Lower max funding compared to some', 'Newer reputation'],
-    keyFeatures: ['Scaling plan', 'No time limits on challenges', 'Weekend holding allowed'],
+    slug: 'take-profit-trader',
+    name: 'Take Profit Trader',
+    logoUrl: 'https://placehold.co/100x50.png?text=TPT',
+    websiteUrl: '#', // Replace with actual if known
+    affiliateLink: '#', // Replace with actual affiliate link
+    briefDescription: 'Futures trading prop firm with multiple evaluation options and fast payouts.',
+    fullReview: 'Take Profit Trader offers various funding paths for futures traders, including different challenge types and account sizes. They emphasize quick payout processing and provide access to popular futures trading platforms. Their rules are generally straightforward, focusing on consistency and risk management.',
+    pros: ['Multiple challenge types (1-step, 2-step)', 'Fast payout process', 'No scaling targets required for payout'],
+    cons: ['Relatively newer in the space', 'Some rules can be strict depending on challenge type'],
+    keyFeatures: ['Payouts in as little as 5 days', 'NinjaTrader and Tradovate support', 'End-of-Day drawdown option'],
      keyInfoSnippets: [
-      { label: 'Profit Split', value: 'Up to 85%' },
-      { label: 'Max Drawdown', value: '12% overall' },
-      { label: 'Platforms', value: 'MT5' },
+      { label: 'Profit Split', value: 'Up to 90%' },
+      { label: 'Max Drawdown', value: 'Varies (EOD or Trailing)' },
+      { label: 'Platforms', value: 'NinjaTrader, Tradovate' },
     ],
-    offerBadgeLabel: 'Hot Offer',
-    fundingModels: ['2-Step Challenge'],
-    profitSplit: '80% - 85%',
-    drawdownRules: '6% daily, 12% overall',
-    profitTarget: '10% (Phase 1), 5% (Phase 2)',
-    tradableInstruments: ['Forex', 'Metals', 'Indices'],
-    platforms: ['MT5'],
-    rating: 4.5,
+    offerBadgeLabel: 'Fast Payouts',
+    fundingModels: ['1-Step Challenge', '2-Step Challenge'],
+    profitSplit: '80% - 90%',
+    drawdownRules: 'Varies by challenge: EOD or Trailing Drawdown',
+    profitTarget: '6% - 10% (varies)',
+    tradableInstruments: ['Futures'],
+    platforms: ['NinjaTrader', 'Tradovate', 'TradingView (via Tradovate)'],
+    rating: 4.6,
     isFeatured: true,
-    minAccountSize: 5000,
-    maxAccountSize: 300000,
-    minChallengeCost: 49,
-    maxChallengeCost: 299,
-    activationFee: '$99',
-    challengeType: '2-Step',
+    minAccountSize: 25000,
+    maxAccountSize: 150000,
+    minChallengeCost: 150, // Example cost
+    maxChallengeCost: 360, // Example cost
+    activationFee: 'None (for PA accounts)', // Or specific fee if known
+    challengeType: '1-Step, 2-Step',
   },
   {
     id: '3',
