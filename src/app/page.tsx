@@ -3,8 +3,7 @@
 
 import FirmCard from '@/components/propfirms/FirmCard';
 import ArticleCard from '@/components/shared/ArticleCard';
-import { mockArticles, mockPropFirms, mockFreeResources } from '@/lib/mockData'; // Added mockFreeResources
-import FreeResourceCard from '@/components/shared/FreeResourceCard'; // Added FreeResourceCard
+import { mockArticles, mockPropFirms } from '@/lib/mockData';
 import Link from 'next/link';
 import { Boxes } from "@/components/ui/background-boxes";
 import { cn } from "@/lib/utils";
@@ -23,7 +22,6 @@ export default function Home() {
   }, []);
 
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
-  const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0,3); // Get featured free resources
   const recentArticles = mockArticles.slice(0, 3);
 
   // Configurations for TradingView Widgets
@@ -72,7 +70,7 @@ export default function Home() {
   const tradingViewLinkText = "Track all markets on TradingView";
 
   const glowEffectProps = {
-    colors: ['hsl(var(--accent-primary))'], // Using only blue for the glow
+    colors: ['hsl(var(--accent-primary))'], 
     mode: "breathe" as const,
     blur: "strong" as const,
     duration: 10,
@@ -129,98 +127,72 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-center text-foreground mb-10 relative z-10">
             Market Outlook
           </h2>
-          <div className="relative mt-4"> {/* Wrapper for Tabs to contain glow positioning context */}
-            {isClient && (
-              <Tabs defaultValue="economic-calendar" className="w-full">
-                <TabsList className="grid w-full grid-cols-3 relative z-20">
-                  <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
-                  <TabsTrigger value="charts">Charts</TabsTrigger>
-                  <TabsTrigger value="news">News</TabsTrigger>
-                </TabsList>
+          {isClient && (
+            <Tabs defaultValue="economic-calendar" className="w-full">
+              <TabsList className="grid w-full grid-cols-3 relative z-20">
+                <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
+                <TabsTrigger value="charts">Charts</TabsTrigger>
+                <TabsTrigger value="news">News</TabsTrigger>
+              </TabsList>
 
-                <TabsContent value="economic-calendar" className="relative">
-                  <div className="relative mt-4"> {/* New wrapper for glow and content */}
-                    <GlowEffect {...glowEffectProps} />
-                    <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
-                      <TradingViewWidget
-                        scriptSrc={economicCalendarScriptSrc}
-                        config={economicCalendarConfig}
-                        widgetKey="calendar"
-                      />
-                       <div className="text-center mt-4">
-                        <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                          {tradingViewLinkText}
-                        </Link>
-                      </div>
+              <TabsContent value="economic-calendar" className="relative">
+                <div className="relative mt-4">
+                  <GlowEffect {...glowEffectProps} />
+                  <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
+                    <TradingViewWidget
+                      scriptSrc={economicCalendarScriptSrc}
+                      config={economicCalendarConfig}
+                      widgetKey="calendar"
+                    />
+                     <div className="text-center mt-4">
+                      <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                        {tradingViewLinkText}
+                      </Link>
                     </div>
                   </div>
-                </TabsContent>
+                </div>
+              </TabsContent>
 
-                <TabsContent value="charts" className="relative">
-                  <div className="relative mt-4"> {/* New wrapper for glow and content */}
-                    <GlowEffect {...glowEffectProps} />
-                    <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
-                      <TradingViewWidget
-                        scriptSrc={chartsScriptSrc}
-                        config={chartsConfig}
-                        widgetKey="charts"
-                      />
-                       <div className="text-center mt-4">
-                        <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                          {tradingViewLinkText}
-                        </Link>
-                      </div>
-                    </div>
-                   </div>
-                </TabsContent>
-
-                <TabsContent value="news" className="relative">
-                   <div className="relative mt-4"> {/* New wrapper for glow and content */}
-                    <GlowEffect {...glowEffectProps} />
-                    <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
-                      <TradingViewWidget
-                        scriptSrc={newsScriptSrc}
-                        config={newsConfig}
-                        widgetKey="news"
-                      />
-                      <div className="text-center mt-4">
-                        <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                          {tradingViewLinkText}
-                        </Link>
-                      </div>
+              <TabsContent value="charts" className="relative">
+                <div className="relative mt-4">
+                  <GlowEffect {...glowEffectProps} />
+                  <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
+                    <TradingViewWidget
+                      scriptSrc={chartsScriptSrc}
+                      config={chartsConfig}
+                      widgetKey="charts"
+                    />
+                     <div className="text-center mt-4">
+                      <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                        {tradingViewLinkText}
+                      </Link>
                     </div>
                   </div>
-                </TabsContent>
-              </Tabs>
-            )}
-          </div>
+                 </div>
+              </TabsContent>
+
+              <TabsContent value="news" className="relative">
+                 <div className="relative mt-4">
+                  <GlowEffect {...glowEffectProps} />
+                  <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
+                    <TradingViewWidget
+                      scriptSrc={newsScriptSrc}
+                      config={newsConfig}
+                      widgetKey="news"
+                    />
+                    <div className="text-center mt-4">
+                      <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                        {tradingViewLinkText}
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
+            </Tabs>
+          )}
         </div>
       </section>
       {/* Market Outlook Section END */}
-
-      {/* Explore Our Free Resources Section START */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-10">Explore Our Free Resources</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredFreeResources.map(resource => (
-              <FreeResourceCard key={resource.id} resource={resource} />
-            ))}
-          </div>
-          {featuredFreeResources.length === 0 && (
-            <p className="text-center text-muted-foreground">More free resources coming soon!</p>
-          )}
-          <div className="text-center mt-10">
-            <StarBorder<typeof Link>
-              as={Link}
-              href="/resources" // Link to main resources page for now
-            >
-              View All Resources
-            </StarBorder>
-          </div>
-        </div>
-      </section>
-      {/* Explore Our Free Resources Section END */}
 
       {/* Recent Articles & Guides Section */}
       <section className="py-12 bg-card rounded-xl">

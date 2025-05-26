@@ -1,5 +1,5 @@
 
-import type { GlobalOffer, PropFirm, Article, TradingResource, FreeResourceItem } from './types';
+import type { GlobalOffer, PropFirm, Article, TradingResource } from './types';
 
 export const mockGlobalOffers: GlobalOffer[] = [
   { id: '1', text: 'VISIBLE OFFER TEXT TEST', affiliateLink: '#', isActive: true },
@@ -224,61 +224,4 @@ export const mockGlobalOffersTestData: GlobalOffer[] = [
   { id: 'g1', text: 'Apex Trader Funding: 50% OFF Lifetime Discount!', affiliateLink: '#', isActive: true },
   { id: 'g2', text: 'Take Profit Trader: Pass Guarantee or Free Retry!', affiliateLink: '#', isActive: true },
   { id: 'g3', text: 'Tradify: Get a 10% bonus on your first payout with code EZ10!', affiliateLink: '#', isActive: true },
-];
-
-export const mockFreeResources: FreeResourceItem[] = [
-  {
-    id: 'fr1',
-    title: 'Master Price Action Trading: Free Video Series',
-    slug: 'master-price-action-video-series',
-    author: 'TradingisEZ Academy',
-    coverImage: 'https://placehold.co/600x400.png',
-    pageIntroduction: 'Learn the core concepts of price action trading with this comprehensive free video course. Understand market structure, candlestick patterns, and key entry/exit signals.',
-    mainAffiliateLink: '#resource-video-series-detail', // Placeholder link
-    mainCTAText: 'Start Learning Now',
-    resourceType: 'Free Video Course Series',
-    isFeatured: true,
-    videoLessons: [
-      { lessonTitle: 'Introduction to Price Action', videoEmbedCodeOrURL: 'https://www.youtube.com/embed/example1', lessonDescription: 'Understanding the basics.' },
-      { lessonTitle: 'Key Candlestick Patterns', videoEmbedCodeOrURL: 'https://www.youtube.com/embed/example2', lessonDescription: 'Identifying powerful signals.' },
-    ],
-  },
-  {
-    id: 'fr2',
-    title: 'Audible Plus Free Trial: Trading Audiobooks',
-    slug: 'audible-plus-free-trial-trading',
-    coverImage: 'https://placehold.co/600x400.png',
-    pageIntroduction: 'Get a free trial of Audible Plus and explore thousands of trading audiobooks, podcasts, and Audible Originals. Listen to market wisdom on the go!',
-    mainAffiliateLink: 'https://www.amazon.com/hz/audible/mlp/membership/plus', // Example actual link
-    mainCTAText: 'Claim Your Free Trial',
-    resourceType: 'Audiobook Trial Offer',
-    isFeatured: true,
-    bookListings: [
-      { bookTitle: 'Market Wizards', bookAuthor: 'Jack D. Schwager', bookCoverImage: 'https://placehold.co/150x225.png', bookAudibleAffiliateLink: '#' },
-      { bookTitle: 'Trading in the Zone', bookAuthor: 'Mark Douglas', bookCoverImage: 'https://placehold.co/150x225.png', bookAudibleAffiliateLink: '#' },
-    ],
-  },
-  {
-    id: 'fr3',
-    title: 'Ultimate Prop Firm Checklist PDF',
-    slug: 'prop-firm-checklist-pdf',
-    author: 'TradingisEZ Team',
-    coverImage: 'https://placehold.co/600x400.png',
-    pageIntroduction: 'Download our free PDF guide to help you choose the right prop firm. Covers key criteria, red flags, and questions to ask before committing.',
-    mainAffiliateLink: '#download-pdf-link', // Placeholder link
-    mainCTAText: 'Download Free PDF',
-    resourceType: 'PDF Guide',
-    isFeatured: true,
-  },
-    {
-    id: 'fr4',
-    title: 'TradingView Basic Account (Free)',
-    slug: 'tradingview-basic-free',
-    coverImage: 'https://placehold.co/600x400.png',
-    pageIntroduction: 'Access powerful charting tools, real-time data for many markets, and a vibrant community with a free TradingView Basic account.',
-    mainAffiliateLink: 'https://www.tradingview.com/gopro/?share_your_love=TradingisEZ', // Example Affiliate
-    mainCTAText: 'Get Free Charts',
-    resourceType: 'Free Tool/Trial',
-    isFeatured: false, // Example of not featured
-  }
 ];
