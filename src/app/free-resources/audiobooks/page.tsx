@@ -24,7 +24,7 @@ export default function FreeAudiobooksPage() {
             {audiobookOffer?.title ? audiobookOffer.title.replace(" with Audible Trial", "") : "Free Trading Audiobooks"}
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
-            {audiobookOffer?.pageIntroduction || "Expand your trading knowledge on the go! Listen to essential trading books for free with an Audible trial. Explore classics on psychology, strategy, and market history."}
+            {audiobookOffer?.pageIntroduction ? audiobookOffer.pageIntroduction.replace(" with an Audible trial", "") : "Expand your trading knowledge on the go! Listen to essential trading books for free. Explore classics on psychology, strategy, and market history."}
           </p>
           {audiobookOffer?.mainAffiliateLink && audiobookOffer.mainCTAText && (
             <StarBorder<typeof Link>
