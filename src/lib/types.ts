@@ -68,7 +68,16 @@ export type FreeResourceType =
 
 export interface VideoLesson {
   lessonTitle: string;
-  videoEmbedCodeOrURL: string; // For simplicity, using string. Could be more complex for actual embeds.
+  videoEmbedCodeOrURL?: string; // For YouTube embeds or similar
+  hlsStreamURL?: string; // For HLS streams
+  posterImageURL?: string; // Poster image for HLS videos
+  captionTracks?: Array<{ // For video captions/subtitles
+    kind: string;
+    label: string;
+    src: string;
+    srclang: string;
+    default?: boolean;
+  }>;
   lessonDescription: string; // Simplified from Block Content
   lessonKeyTakeaways?: string[];
   lessonCTAText?: string;

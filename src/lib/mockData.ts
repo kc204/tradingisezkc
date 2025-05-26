@@ -29,7 +29,7 @@ export const mockPropFirms: PropFirm[] = [
     fundingModels: ['1-Step Evaluation'],
     profitSplit: '90% (first $25k), then 80%',
     drawdownRules: 'Trailing Threshold Drawdown (varies by account size)',
-    profitTarget: '6% - 7% (varies by account size)',
+    profitTarget: '6% - 7%',
     tradableInstruments: ['Futures (E-mini, Micro, etc.)'],
     platforms: ['NinjaTrader', 'Rithmic', 'Tradovate', 'TradingView (via Tradovate)'],
     rating: 4.7,
@@ -62,7 +62,7 @@ export const mockPropFirms: PropFirm[] = [
     fundingModels: ['1-Step Challenge', '2-Step Challenge'],
     profitSplit: '80% - 90%',
     drawdownRules: 'Varies by challenge: EOD or Trailing Drawdown',
-    profitTarget: '6% - 10% (varies)',
+    profitTarget: '6% - 10%',
     tradableInstruments: ['Futures'],
     platforms: ['NinjaTrader', 'Tradovate', 'TradingView (via Tradovate)'],
     rating: 4.6,
@@ -95,7 +95,7 @@ export const mockPropFirms: PropFirm[] = [
     fundingModels: ['Instant Funding (Pro Tier)', 'Multi-Step Challenge (Standard)'],
     profitSplit: '70% - 90% (tier-dependent)',
     drawdownRules: 'Typically 4-5% daily, 8-10% static overall (varies by program)',
-    profitTarget: 'Varies; e.g., 10% for Phase 1, 5% for Phase 2',
+    profitTarget: '10% / 5%',
     tradableInstruments: ['Forex', 'Indices', 'Commodities', 'Crypto', 'Options', 'Futures'],
     platforms: ['Proprietary Platform', 'MetaTrader 5 (MT5)', 'Quantower', 'cTrader'],
     rating: 4.9,
@@ -112,8 +112,8 @@ export const mockPropFirms: PropFirm[] = [
     slug: 'tradify-funding',
     name: 'Tradify',
     logoUrl: 'https://placehold.co/100x50.png?text=Tradify',
-    websiteUrl: 'https://tradify.com/', // Actual URL if known
-    affiliateLink: '#', // Actual affiliate link
+    websiteUrl: 'https://tradify.com/',
+    affiliateLink: '#',
     briefDescription: 'Futures prop firm with multiple account types, 100% profit split up to $15K, and flexible trading conditions.',
     fullReview: "Tradify offers a range of account types including Advanced Challenges, Growth Challenges, and Straight to Sim Funded Accounts, catering to different trader preferences. They provide a generous 100% profit split on the first $15,000, then 90% to the trader. Key features include allowing news trading, EAs, and supporting popular platforms like Tradovate, NinjaTrader, and TradingView. After four successful payouts from a Sim Funded account, traders can transition to a Live Funded account with potentially uncapped, same-day payouts. Their detailed rules cover aspects like consistency (35% or 20% depending on account type), daily loss limits (soft breach), and minimum trading days for payouts.",
     pros: [
@@ -146,18 +146,18 @@ export const mockPropFirms: PropFirm[] = [
     offerBadgeLabel: '100% up to $15K',
     fundingModels: ["Advanced Challenge", "Growth Challenge", "Straight to Sim Funded"],
     profitSplit: '100% on first $15,000, then 90/10',
-    drawdownRules: 'Intraday trailing (Advanced), EOD trailing (Growth, Sim) - varies by account size (e.g., $2K for $50K Advanced)',
-    profitTarget: '6% (Challenges) / None (Direct Sim)',
+    drawdownRules: 'Intraday trailing (Advanced), EOD trailing (Growth, Sim) - e.g., $2K for $50K Advanced',
+    profitTarget: '6%',
     tradableInstruments: ['Futures (CME, COMEX, NYMEX, CBOT, Coinbase Derivatives)'],
     platforms: ['Tradovate', 'NinjaTrader', 'TradingView'],
     rating: 4.3,
     isFeatured: true,
-    minAccountSize: 25000, // For Straight to Sim
+    minAccountSize: 25000,
     maxAccountSize: 150000,
     minChallengeCost: 69, // Monthly for Advanced $50K
     maxChallengeCost: 729, // One-time for Straight to Sim $150K
     activationFee: '$125 (Advanced Challenges only)',
-    challengeType: 'Evaluation Challenges (Advanced, Growth), Direct Sim Funding',
+    challengeType: 'Evaluation Challenges, Direct Sim Funding',
   },
 ];
 
@@ -234,19 +234,27 @@ export const mockGlobalOffersTestData: GlobalOffer[] = [
 // Mock Data for Free Resources
 const alBrooksSampleLessons: VideoLesson[] = [
   {
-    lessonTitle: "Lesson 1: Understanding Market Structure",
-    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
+    lessonTitle: "Lesson 1: Understanding Market Structure (Sample 12A Market Cycle)",
+    hlsStreamURL: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/playlist.m3u8",
+    posterImageURL: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/thumbnail_4a0d12bb.jpg",
+    captionTracks: [
+      { kind: "captions", label: "English", src: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/captions/EN.vtt?ver=1", srclang: "en", default: true },
+      { kind: "captions", label: "Español", src: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/captions/ES.vtt?ver=1", srclang: "es" },
+      { kind: "captions", label: "Português", src: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/captions/PT.vtt?ver=1", srclang: "pt" },
+      { kind: "captions", label: "简体中文", src: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/captions/CN.vtt?ver=2", srclang: "cn" },
+      { kind: "captions", label: "繁體中文", src: "https://vz-765849c6-956.b-cdn.net/8de01d6a-4342-4f79-8376-49e553f98f44/captions/HK.vtt?ver=1", srclang: "hk" },
+    ],
     lessonDescription: "Learn the fundamentals of how Al Brooks perceives market structure and its importance in price action trading.",
     lessonKeyTakeaways: ["Key Trendlines", "Support & Resistance", "Market Cycles"],
-    lessonCTAText: "Watch Lesson 1",
+    lessonCTAText: "Watch Full Series",
     lessonCTALink: "#",
   },
   {
     lessonTitle: "Lesson 2: Bar-by-Bar Analysis Introduction",
-    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
+    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder for YouTube
     lessonDescription: "An introduction to Al Brooks' detailed bar-by-bar analysis technique for making trading decisions.",
     lessonKeyTakeaways: ["Candlestick signals", "Volume interpretation", "Context is key"],
-    lessonCTAText: "Watch Lesson 2",
+    lessonCTAText: "Explore More Samples",
     lessonCTALink: "#",
   },
 ];
