@@ -62,7 +62,7 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Headphones className="mr-1.5 h-4 w-4" /> Listen on Audible
+            <Headphones className="mr-1.5 h-4 w-4" /> Listen to whole book for free on Audible
           </Link>
         </Button>
       </CardFooter>
