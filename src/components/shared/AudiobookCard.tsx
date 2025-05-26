@@ -5,7 +5,7 @@ import type { BookListing } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { StarBorder } from '@/components/ui/star-border';
+import { Button } from '@/components/ui/button'; // Import Button
 import { Headphones, PlayCircle } from 'lucide-react';
 
 interface AudiobookCardProps {
@@ -40,25 +40,31 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
       </CardContent>
       <CardFooter className="flex flex-col sm:flex-row gap-2 mt-auto pt-3">
         {book.bookSampleLink && (
-          <StarBorder<typeof Link>
-            as={Link}
-            href={book.bookSampleLink}
+          <Button
+            asChild
+            className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto"
+          >
+            <Link
+              href={book.bookSampleLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <PlayCircle className="mr-1.5 h-4 w-4" /> Hear Sample
+            </Link>
+          </Button>
+        )}
+        <Button
+          asChild
+          className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto"
+        >
+          <Link
+            href={book.bookAudibleAffiliateLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto flex-1" // Ensure it uses special-accent by default if StarBorder has it
           >
-            <PlayCircle className="mr-1.5 h-4 w-4" /> Hear Sample
-          </StarBorder>
-        )}
-        <StarBorder<typeof Link>
-          as={Link}
-          href={book.bookAudibleAffiliateLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full sm:w-auto flex-1" // Ensure it uses special-accent by default
-        >
-          <Headphones className="mr-1.5 h-4 w-4" /> Listen on Audible
-        </StarBorder>
+            <Headphones className="mr-1.5 h-4 w-4" /> Listen on Audible
+          </Link>
+        </Button>
       </CardFooter>
     </Card>
   );
