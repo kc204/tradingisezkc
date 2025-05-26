@@ -10,11 +10,7 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from 'next/image';
 
-
-export const metadata = {
-  title: 'Al Brooks Free Video Course Samples | TradingisEZ',
-  description: "Access free sample video lessons from Al Brooks' renowned price action trading course. Understand market structure and bar-by-bar analysis.",
-};
+// Removed metadata export as this is a Client Component
 
 export default function AlBrooksFreeCoursePage() {
   const courseData = mockFreeResources.find(r => r.slug === "al-brooks-course" && r.resourceType === "Free Video Course Series");
