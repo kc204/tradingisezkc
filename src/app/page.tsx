@@ -1,4 +1,6 @@
 
+'use client'; // Add this directive
+
 import FirmCard from '@/components/propfirms/FirmCard';
 import ArticleCard from '@/components/shared/ArticleCard';
 import { mockArticles, mockPropFirms } from '@/lib/mockData';
@@ -7,8 +9,15 @@ import { Boxes } from "@/components/ui/background-boxes";
 import { cn } from "@/lib/utils";
 import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState, useEffect } from 'react'; // Import useState and useEffect
 
 export default function Home() {
+  const [isClient, setIsClient] = useState(false); // State for client-side rendering
+
+  useEffect(() => {
+    setIsClient(true); // Set to true once component mounts on client
+  }, []);
+
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
   const recentArticles = mockArticles.slice(0, 3);
 
@@ -122,28 +131,30 @@ export default function Home() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-foreground mb-10">Market Outlook</h2>
-          <Tabs defaultValue="economic-calendar" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
-              <TabsTrigger value="charts">Charts</TabsTrigger>
-              <TabsTrigger value="news">News</TabsTrigger>
-            </TabsList>
-            <TabsContent value="economic-calendar">
-              <div className="mt-4 rounded-lg overflow-hidden bg-card p-1 md:p-2">
-                <div dangerouslySetInnerHTML={{ __html: economicCalendarWidgetHtml }} />
-              </div>
-            </TabsContent>
-            <TabsContent value="charts">
-              <div className="mt-4 rounded-lg overflow-hidden bg-card p-1 md:p-2">
-                <div dangerouslySetInnerHTML={{ __html: chartsWidgetHtml }} />
-              </div>
-            </TabsContent>
-            <TabsContent value="news">
-              <div className="mt-4 rounded-lg overflow-hidden bg-card p-1 md:p-2">
-                <div dangerouslySetInnerHTML={{ __html: newsWidgetHtml }} />
-              </div>
-            </TabsContent>
-          </Tabs>
+          {isClient && ( // Conditionally render Tabs and their content
+            <Tabs defaultValue="economic-calendar" className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
+                <TabsTrigger value="charts">Charts</TabsTrigger>
+                <TabsTrigger value="news">News</TabsTrigger>
+              </TabsList>
+              <TabsContent value="economic-calendar">
+                <div className="mt-4 rounded-lg overflow-hidden bg-card p-1 md:p-2">
+                  <div dangerouslySetInnerHTML={{ __html: economicCalendarWidgetHtml }} />
+                </div>
+              </TabsContent>
+              <TabsContent value="charts">
+                <div className="mt-4 rounded-lg overflow-hidden bg-card p-1 md:p-2">
+                  <div dangerouslySetInnerHTML={{ __html: chartsWidgetHtml }} />
+                </div>
+              </TabsContent>
+              <TabsContent value="news">
+                <div className="mt-4 rounded-lg overflow-hidden bg-card p-1 md:p-2">
+                  <div dangerouslySetInnerHTML={{ __html: newsWidgetHtml }} />
+                </div>
+              </TabsContent>
+            </Tabs>
+          )}
         </div>
       </section>
       {/* Market Outlook Section END */}
