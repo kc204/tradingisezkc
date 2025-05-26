@@ -11,6 +11,7 @@ import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
 import TradingViewWidget from '@/components/shared/TradingViewWidget'; 
+import { GlowEffect } from '@/components/ui/glow-effect';
 
 export default function Home() {
   const [isClient, setIsClient] = useState(false); 
@@ -111,10 +112,20 @@ export default function Home() {
 
       {/* Market Outlook Section START */}
       <section className="py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-10">Market Outlook</h2>
+        <div className="container mx-auto px-4 relative"> {/* Added relative positioning */}
+          <GlowEffect
+            colors={['hsl(var(--accent-primary))', 'hsl(var(--cta-main))', 'hsl(var(--accent-secondary))']}
+            mode="breathe" // Or 'flowHorizontal', 'static'
+            blur="strong" // e.g., 'medium', 'strong', 'stronger'
+            duration={10} // Slower, more subtle animation
+            scale={1.1} // Slightly larger glow area
+            className="opacity-20" // Adjust for desired subtlety
+          />
+          <h2 className="text-3xl font-bold text-center text-foreground mb-10 relative z-10"> {/* Added relative z-10 */}
+            Market Outlook
+          </h2>
           {isClient && ( 
-            <Tabs defaultValue="economic-calendar" className="w-full">
+            <Tabs defaultValue="economic-calendar" className="w-full relative z-10"> {/* Added relative z-10 */}
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
                 <TabsTrigger value="charts">Charts</TabsTrigger>
