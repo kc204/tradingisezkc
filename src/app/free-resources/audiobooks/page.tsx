@@ -7,7 +7,7 @@ import { Headphones } from "lucide-react";
 import Link from "next/link";
 
 export const metadata = {
-  title: 'Free Trading Audiobooks with Audible Trial | TradingisEZ',
+  title: 'Free Trading Audiobooks | TradingisEZ',
   description: 'Discover essential trading audiobooks available for free with an Audible trial. Expand your knowledge on trading psychology, strategy, and market history.',
 };
 
@@ -21,7 +21,7 @@ export default function FreeAudiobooksPage() {
         <div className="container mx-auto px-4">
           <Headphones className="w-16 h-16 text-primary mx-auto mb-4" />
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            {audiobookOffer?.title || "Free Trading Audiobooks"}
+            {audiobookOffer?.title ? audiobookOffer.title.replace(" with Audible Trial", "") : "Free Trading Audiobooks"}
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
             {audiobookOffer?.pageIntroduction || "Expand your trading knowledge on the go! Listen to essential trading books for free with an Audible trial. Explore classics on psychology, strategy, and market history."}
@@ -67,3 +67,4 @@ export default function FreeAudiobooksPage() {
     </div>
   );
 }
+
