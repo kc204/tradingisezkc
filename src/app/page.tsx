@@ -114,8 +114,8 @@ export default function Home() {
       <section className="py-12">
         <div className="container mx-auto px-4 relative"> {/* Added relative positioning */}
           <GlowEffect
-            colors={['hsl(var(--accent-primary))']}
-            mode="static" 
+            colors={['hsl(var(--accent-primary))', 'hsl(var(--accent))']} // Blue and Orange
+            mode="breathe" 
             blur="strong" 
             duration={10} 
             scale={1.1} 
