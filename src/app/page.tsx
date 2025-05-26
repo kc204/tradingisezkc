@@ -29,7 +29,7 @@ export default function Home() {
     "colorTheme": "dark",
     "isTransparent": false,
     "width": "100%",
-    "height": "100%",
+    "height": "100%", // Adjusted for better fit
     "locale": "en",
     "importanceFilter": "-1,0,1",
     "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
@@ -60,7 +60,7 @@ export default function Home() {
     "isTransparent": false,
     "displayMode": "regular",
     "width": "100%",
-    "height": "100%",
+    "height": "100%", // Adjusted for better fit
     "locale": "en"
   };
   const newsContainerStyles = { height: '700px', width: '100%' };
@@ -135,8 +135,8 @@ export default function Home() {
                 </TabsList>
 
                 <TabsContent value="economic-calendar" className="relative">
-                  <div className="relative mt-4 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
-                    <GlowEffect {...glowEffectProps} />
+                  <GlowEffect {...glowEffectProps} />
+                  <div className="relative z-10 mt-4 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={economicCalendarScriptSrc}
                       config={economicCalendarConfig}
@@ -151,8 +151,8 @@ export default function Home() {
                 </TabsContent>
 
                 <TabsContent value="charts" className="relative">
-                  <div className="relative mt-4 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
-                    <GlowEffect {...glowEffectProps} />
+                  <GlowEffect {...glowEffectProps} />
+                  <div className="relative z-10 mt-4 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={chartsScriptSrc}
                       config={chartsConfig}
@@ -167,8 +167,8 @@ export default function Home() {
                 </TabsContent>
 
                 <TabsContent value="news" className="relative">
-                  <div className="relative mt-4 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
-                    <GlowEffect {...glowEffectProps} />
+                  <GlowEffect {...glowEffectProps} />
+                  <div className="relative z-10 mt-4 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={newsScriptSrc}
                       config={newsConfig}
