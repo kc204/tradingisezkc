@@ -64,6 +64,8 @@ export default function Home() {
   };
   const newsContainerStyles = { height: '700px', width: '100%' };
 
+  const tradingViewAffiliateLink = "https://www.tradingview.com/?aff_id=152856";
+  const tradingViewLinkText = "Track all markets on TradingView";
 
   return (
     <div className="space-y-16">
@@ -126,6 +128,11 @@ export default function Home() {
                     widgetKey="calendar"
                   />
                 </div>
+                <div className="text-center mt-4">
+                  <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                    {tradingViewLinkText}
+                  </Link>
+                </div>
               </TabsContent>
               <TabsContent value="charts">
                 <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
@@ -135,6 +142,11 @@ export default function Home() {
                     widgetKey="charts"
                   />
                 </div>
+                <div className="text-center mt-4">
+                  <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                    {tradingViewLinkText}
+                  </Link>
+                </div>
               </TabsContent>
               <TabsContent value="news">
                 <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
@@ -143,6 +155,11 @@ export default function Home() {
                     config={newsConfig}
                     widgetKey="news"
                   />
+                </div>
+                <div className="text-center mt-4">
+                  <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                    {tradingViewLinkText}
+                  </Link>
                 </div>
               </TabsContent>
             </Tabs>
