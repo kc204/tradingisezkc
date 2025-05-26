@@ -29,7 +29,7 @@ export default function Home() {
     "colorTheme": "dark",
     "isTransparent": false,
     "width": "100%",
-    "height": "100%", // Changed to 100%
+    "height": "100%",
     "locale": "en",
     "importanceFilter": "-1,0,1",
     "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
@@ -60,7 +60,7 @@ export default function Home() {
     "isTransparent": false,
     "displayMode": "regular",
     "width": "100%",
-    "height": "100%", // Changed to 100%
+    "height": "100%",
     "locale": "en"
   };
   const newsContainerStyles = { height: '700px', width: '100%' };
@@ -134,50 +134,56 @@ export default function Home() {
                   <TabsTrigger value="news">News</TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="economic-calendar" className="relative mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                  <GlowEffect {...glowEffectProps} />
-                  <div className="relative z-10 mt-4 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
-                    <TradingViewWidget
-                      scriptSrc={economicCalendarScriptSrc}
-                      config={economicCalendarConfig}
-                      widgetKey="calendar"
-                    />
-                    <div className="text-center mt-4">
-                      <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                        {tradingViewLinkText}
-                      </Link>
+                <TabsContent value="economic-calendar" className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                  <div className="relative mt-4"> {/* New wrapper div */}
+                    <GlowEffect {...glowEffectProps} />
+                    <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
+                      <TradingViewWidget
+                        scriptSrc={economicCalendarScriptSrc}
+                        config={economicCalendarConfig}
+                        widgetKey="calendar"
+                      />
+                      <div className="text-center mt-4">
+                        <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                          {tradingViewLinkText}
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </TabsContent>
 
-                <TabsContent value="charts" className="relative mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                   <GlowEffect {...glowEffectProps} />
-                  <div className="relative z-10 mt-4 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
-                    <TradingViewWidget
-                      scriptSrc={chartsScriptSrc}
-                      config={chartsConfig}
-                      widgetKey="charts"
-                    />
-                     <div className="text-center mt-4">
-                      <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                        {tradingViewLinkText}
-                      </Link>
+                <TabsContent value="charts" className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                   <div className="relative mt-4"> {/* New wrapper div */}
+                    <GlowEffect {...glowEffectProps} />
+                    <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
+                      <TradingViewWidget
+                        scriptSrc={chartsScriptSrc}
+                        config={chartsConfig}
+                        widgetKey="charts"
+                      />
+                       <div className="text-center mt-4">
+                        <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                          {tradingViewLinkText}
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </TabsContent>
 
-                <TabsContent value="news" className="relative mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                   <GlowEffect {...glowEffectProps} />
-                  <div className="relative z-10 mt-4 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
-                    <TradingViewWidget
-                      scriptSrc={newsScriptSrc}
-                      config={newsConfig}
-                      widgetKey="news"
-                    />
-                    <div className="text-center mt-4">
-                      <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                        {tradingViewLinkText}
-                      </Link>
+                <TabsContent value="news" className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                   <div className="relative mt-4"> {/* New wrapper div */}
+                    <GlowEffect {...glowEffectProps} />
+                    <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
+                      <TradingViewWidget
+                        scriptSrc={newsScriptSrc}
+                        config={newsConfig}
+                        widgetKey="news"
+                      />
+                      <div className="text-center mt-4">
+                        <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                          {tradingViewLinkText}
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </TabsContent>
