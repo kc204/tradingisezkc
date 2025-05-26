@@ -29,7 +29,7 @@ export default function Home() {
     "colorTheme": "dark",
     "isTransparent": false,
     "width": "100%",
-    "height": "100%",
+    "height": "100%", // Set to 100% to fill container
     "locale": "en",
     "importanceFilter": "-1,0,1",
     "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
@@ -60,7 +60,7 @@ export default function Home() {
     "isTransparent": false,
     "displayMode": "regular",
     "width": "100%",
-    "height": "100%",
+    "height": "100%", // Set to 100% to fill container
     "locale": "en"
   };
   const newsContainerStyles = { height: '700px', width: '100%' };
@@ -69,7 +69,7 @@ export default function Home() {
   const tradingViewLinkText = "Track all markets on TradingView";
 
   const glowEffectProps = {
-    colors: ['hsl(var(--accent-primary))', 'hsl(var(--accent))'],
+    colors: ['hsl(var(--accent-primary))'], // Only blue color
     mode: "breathe" as const,
     blur: "strong" as const,
     duration: 10,
@@ -127,7 +127,7 @@ export default function Home() {
           </h2>
           <div>
             {isClient && ( 
-              <Tabs defaultValue="economic-calendar" className="w-full relative z-10">
+              <Tabs defaultValue="economic-calendar" className="w-full">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
                   <TabsTrigger value="charts">Charts</TabsTrigger>
