@@ -38,11 +38,11 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
           <p className="text-sm text-muted-foreground line-clamp-3 mb-3">{book.bookDescription}</p>
         )}
       </CardContent>
-      <CardFooter className="flex flex-col sm:flex-row sm:justify-center sm:items-stretch gap-2 mt-auto pt-3">
+      <CardFooter className="flex flex-col sm:flex-row sm:justify-center gap-2 mt-auto pt-3">
         {book.bookSampleLink && (
           <Button
             asChild
-            className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto whitespace-normal h-auto"
+            className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto"
           >
             <Link
               href={book.bookSampleLink}
@@ -55,7 +55,7 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
         )}
         <Button
           asChild
-          className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto whitespace-normal h-auto"
+          className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto"
         >
           <Link
             href={book.bookAudibleAffiliateLink}
@@ -63,7 +63,7 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
             rel="noopener noreferrer"
           >
             <Headphones className="mr-1.5 h-4 w-4" />
-            Listen to whole book for free on Audible
+            Listen full free on Audible
           </Link>
         </Button>
       </CardFooter>
