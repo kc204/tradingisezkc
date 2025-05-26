@@ -235,7 +235,7 @@ export const mockGlobalOffersTestData: GlobalOffer[] = [
 const alBrooksSampleLessons: VideoLesson[] = [
   {
     lessonTitle: "Brooks Trading Course Sample: 12A Market Cycle",
-    videoEmbedCodeOrURL: "https://iframe.mediadelivery.net/embed/765849c6-956/8de01d6a-4342-4f79-8376-49e553f98f44", // Updated Video URL
+    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Reverted
     lessonDescription: "Learn the fundamentals of how Al Brooks perceives market structure and its importance in price action trading.",
     lessonKeyTakeaways: ["Key Trendlines", "Support & Resistance", "Market Cycles"],
     lessonCTAText: "Watch Full Series",
