@@ -20,7 +20,6 @@ const TradingViewWidget: React.FC<TradingViewWidgetProps> = ({
     const currentContainer = containerRef.current;
     
     // Check if the script is already appended to this specific container to prevent duplicates
-    // This check assumes the script src is unique enough for this.
     if (currentContainer && !currentContainer.querySelector(`script[src="${scriptSrc}"]`)) {
       const script = document.createElement('script');
       script.type = 'text/javascript';
@@ -44,8 +43,8 @@ const TradingViewWidget: React.FC<TradingViewWidgetProps> = ({
   }, [scriptSrc, config, widgetKey]); // Re-run if these props change
 
   // This div acts as a container where the TradingView script will inject the widget.
-  // The height/width of the widget itself is usually controlled by the 'config' object.
-  return <div ref={containerRef} id={`tv-widget-container-${widgetKey}`} className="tradingview-widget-container-wrapper" />;
+  // Added h-full and w-full to ensure it attempts to fill its parent.
+  return <div ref={containerRef} id={`tv-widget-container-${widgetKey}`} className="tradingview-widget-container-wrapper h-full w-full" />;
 };
 
 export default TradingViewWidget;
