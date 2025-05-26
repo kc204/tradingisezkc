@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, X, ChevronDown } from 'lucide-react'; // Removed Moon, Sun
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -11,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
-// Removed: import { useTheme } from 'next-themes';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -32,18 +31,26 @@ const navLinks = [
       { href: '/resources/guides', label: 'Guides' },
       { href: '/resources/tools', label: 'Tools' },
       { href: '/resources/news', label: 'News' },
-      { href: '/resources/al-brooks-trading-course', label: 'Al Brooks Course' },
+      { href: '/resources/al-brooks-trading-course', label: 'Al Brooks Course Info' }, // Kept distinct from free course
+    ],
+  },
+  {
+    href: '/free-resources',
+    label: 'Free Resources',
+    dropdown: [
+      { href: '/free-resources', label: 'Overview' },
+      { href: '/free-resources/audiobooks', label: 'Audiobooks' },
+      { href: '/free-resources/al-brooks-course', label: 'Al Brooks Free Course' },
     ],
   },
   { href: '/about', label: 'About Us' },
 ];
 
 const SCROLL_DELTA_THRESHOLD = 5;
-const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64; // Approx GlobalOfferBar height (2.25rem * 16px/rem = 36px, + padding)
+const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64; 
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // Removed: const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -74,9 +81,9 @@ const Header = () => {
         if (currentScrollY < HEADER_ALWAYS_VISIBLE_THRESHOLD) {
           setIsVisible(true);
         } else if (currentScrollY > lastScrollY.current) {
-          setIsVisible(false); // Hide header
+          setIsVisible(false); 
         } else {
-          setIsVisible(true); // Show header
+          setIsVisible(true); 
         }
         lastScrollY.current = currentScrollY;
       };
@@ -108,11 +115,9 @@ const Header = () => {
       clearHoverTimeout();
       hoverTimeoutRef.current = setTimeout(() => {
         setOpenDropdown(null);
-      }, 100); // Small delay before closing on mouse leave
+      }, 100); 
     }
   };
-
-  // ThemeToggle component removed
 
   const renderNavLinks = (isMobileLink: boolean) =>
     navLinks.map((link) =>
@@ -125,7 +130,6 @@ const Header = () => {
               if (isOpen) {
                 setOpenDropdown(link.label);
               } else {
-                // Only close if it's the currently open one, to avoid closing due to focus changes
                 if (openDropdown === link.label) {
                   setOpenDropdown(null);
                 }
@@ -139,9 +143,9 @@ const Header = () => {
               className={`text-header-foreground hover:bg-primary/80 hover:text-white ${isMobileLink ? 'w-full justify-start text-foreground hover:text-foreground' : 'group'}`}
               onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)}
               onMouseLeave={() => handleMouseLeave(isMobileLink)}
-              onClick={() => { // Handles click for both mobile and desktop (toggle for desktop)
+              onClick={() => { 
                 if (isMobileLink) {
-                  // Mobile sheet dropdowns are handled by Radix UI state or custom state if needed
+                  // Mobile sheet dropdowns are handled by Radix UI state
                 } else {
                   setOpenDropdown(openDropdown === link.label ? null : link.label);
                 }
@@ -154,12 +158,12 @@ const Header = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="bg-header-background text-popover-foreground" 
+            className="bg-header-background" 
             onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)} 
             onMouseLeave={() => handleMouseLeave(isMobileLink)} 
           >
             {link.dropdown.map((item) => (
-              <DropdownMenuItem key={item.label} asChild className="text-foreground hover:bg-accent hover:text-accent-foreground">
+              <DropdownMenuItem key={item.label} asChild className="text-popover-foreground hover:bg-accent hover:text-accent-foreground">
                 <Link
                   href={item.href}
                   onClick={() => {
@@ -195,8 +199,8 @@ const Header = () => {
     <header
       className={cn(
         "bg-header-background text-header-foreground shadow-lg sticky z-40",
-        "top-[2.25rem]", // Adjusted to be consistent
-        "transition-[transform,opacity] duration-300 ease-out", // Changed easing
+        "top-[2.25rem]", 
+        "transition-[transform,opacity] duration-300 ease-out", 
         isVisible
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-full pointer-events-none"
@@ -212,11 +216,9 @@ const Header = () => {
 
         <nav className="hidden md:flex items-center space-x-2">
           {renderNavLinks(false)}
-          {/* ThemeToggle removed from here */}
         </nav>
 
         <div className="md:hidden flex items-center">
-          {/* ThemeToggle removed from here */}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="ml-2 text-header-foreground hover:bg-primary/80 hover:text-white">

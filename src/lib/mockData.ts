@@ -1,5 +1,5 @@
 
-import type { GlobalOffer, PropFirm, Article, TradingResource } from './types';
+import type { GlobalOffer, PropFirm, Article, TradingResource, FreeResourceItem, VideoLesson, BookListing } from './types';
 
 export const mockGlobalOffers: GlobalOffer[] = [
   { id: '1', text: 'VISIBLE OFFER TEXT TEST', affiliateLink: '#', isActive: true },
@@ -112,48 +112,52 @@ export const mockPropFirms: PropFirm[] = [
     slug: 'tradify-funding',
     name: 'Tradify',
     logoUrl: 'https://placehold.co/100x50.png?text=Tradify',
-    websiteUrl: '#', // Replace with actual if known
-    affiliateLink: '#', // Replace with actual affiliate link
+    websiteUrl: 'https://tradify.com/', // Actual URL if known
+    affiliateLink: '#', // Actual affiliate link
     briefDescription: 'Futures prop firm with multiple account types, 100% profit split up to $15K, and flexible trading conditions.',
-    fullReview: "Tradify offers a range of account types including Advanced Challenges, Growth Challenges, and Straight to Sim Funded Accounts, catering to different trader preferences. They provide a generous 100% profit split on the first $15,000, then 90% to the trader. Key features include allowing news trading, EAs, and supporting popular platforms like Tradovate, NinjaTrader, and TradingView. After four successful payouts from a Sim Funded account, traders can transition to a Live Funded account with potentially uncapped, same-day payouts.",
+    fullReview: "Tradify offers a range of account types including Advanced Challenges, Growth Challenges, and Straight to Sim Funded Accounts, catering to different trader preferences. They provide a generous 100% profit split on the first $15,000, then 90% to the trader. Key features include allowing news trading, EAs, and supporting popular platforms like Tradovate, NinjaTrader, and TradingView. After four successful payouts from a Sim Funded account, traders can transition to a Live Funded account with potentially uncapped, same-day payouts. Their detailed rules cover aspects like consistency (35% or 20% depending on account type), daily loss limits (soft breach), and minimum trading days for payouts.",
     pros: [
       "Multiple account types (Advanced, Growth, Straight to Sim)",
       "100% profit split on first $15,000, then 90%",
       "Supports Tradovate, NinjaTrader, TradingView",
       "News trading and EAs allowed",
-      "Transition to Live Funded accounts with favorable terms"
+      "Transition to Live Funded accounts with favorable terms (e.g., no consistency rule, uncapped same-day payouts after 7 PM EST)"
     ],
     cons: [
-      "Consistency rules apply (35% or 20% depending on account)",
+      "Consistency rules apply during Sim Funded stage (35% or 20%)",
       "Activation fee for Advanced Challenge accounts ($125)",
-      "Minimum trading day requirements for payouts and Live transition"
+      "Minimum trading day requirements for payouts and Live transition (10 days between payouts, 5 profitable days with profit thresholds)",
+      "Initial withdrawal limits on Live Funded accounts (50% after 10 days, 100% after 20 days)"
     ],
     keyFeatures: [
-      '100% profit split up to $15K',
+      '100% profit split up to $15K, then 90/10',
       'News trading and EAs permitted',
       'Supports Tradovate, NinjaTrader, TradingView',
-      'Transition to Live accounts after 4 payouts'
+      'Transition to Live accounts after 4 payouts',
+      'Maximum of 7 active funded accounts',
+      'Copy trading allowed'
     ],
     keyInfoSnippets: [
       { label: 'Profit Split', value: '100% (first $15k), then 90%' },
       { label: 'Platforms', value: 'Tradovate, NinjaTrader, TradingView' },
-      { label: 'Max Accounts', value: '7 active funded' }
+      { label: 'Max Accounts', value: '7 active funded' },
+      { label: 'Tradable Instruments', value: 'Futures (CME, COMEX, NYMEX, CBOT, Coinbase Derivatives)'}
     ],
     offerBadgeLabel: '100% up to $15K',
     fundingModels: ["Advanced Challenge", "Growth Challenge", "Straight to Sim Funded"],
     profitSplit: '100% on first $15,000, then 90/10',
-    drawdownRules: 'Intraday trailing (Advanced), EOD trailing (Growth, Sim)',
+    drawdownRules: 'Intraday trailing (Advanced), EOD trailing (Growth, Sim) - varies by account size (e.g., $2K for $50K Advanced)',
     profitTarget: '6% (Challenges) / None (Direct Sim)',
     tradableInstruments: ['Futures (CME, COMEX, NYMEX, CBOT, Coinbase Derivatives)'],
     platforms: ['Tradovate', 'NinjaTrader', 'TradingView'],
     rating: 4.3,
     isFeatured: true,
-    minAccountSize: 25000,
+    minAccountSize: 25000, // For Straight to Sim
     maxAccountSize: 150000,
     minChallengeCost: 69, // Monthly for Advanced $50K
     maxChallengeCost: 729, // One-time for Straight to Sim $150K
-    activationFee: '$125 (Advanced) / None (Others)',
-    challengeType: 'Evaluation Challenges, Direct Funding',
+    activationFee: '$125 (Advanced Challenges only)',
+    challengeType: 'Evaluation Challenges (Advanced, Growth), Direct Sim Funding',
   },
 ];
 
@@ -224,4 +228,95 @@ export const mockGlobalOffersTestData: GlobalOffer[] = [
   { id: 'g1', text: 'Apex Trader Funding: 50% OFF Lifetime Discount!', affiliateLink: '#', isActive: true },
   { id: 'g2', text: 'Take Profit Trader: Pass Guarantee or Free Retry!', affiliateLink: '#', isActive: true },
   { id: 'g3', text: 'Tradify: Get a 10% bonus on your first payout with code EZ10!', affiliateLink: '#', isActive: true },
+];
+
+
+// Mock Data for Free Resources
+const alBrooksSampleLessons: VideoLesson[] = [
+  {
+    lessonTitle: "Lesson 1: Understanding Market Structure",
+    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
+    lessonDescription: "Learn the fundamentals of how Al Brooks perceives market structure and its importance in price action trading.",
+    lessonKeyTakeaways: ["Key Trendlines", "Support & Resistance", "Market Cycles"],
+    lessonCTAText: "Watch Lesson 1",
+    lessonCTALink: "#",
+  },
+  {
+    lessonTitle: "Lesson 2: Bar-by-Bar Analysis Introduction",
+    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
+    lessonDescription: "An introduction to Al Brooks' detailed bar-by-bar analysis technique for making trading decisions.",
+    lessonKeyTakeaways: ["Candlestick signals", "Volume interpretation", "Context is key"],
+    lessonCTAText: "Watch Lesson 2",
+    lessonCTALink: "#",
+  },
+];
+
+const sampleBookListings: BookListing[] = [
+  {
+    bookTitle: "Trading in the Zone",
+    bookAuthor: "Mark Douglas",
+    bookCoverImage: "https://placehold.co/300x450.png?text=Trading+In+Zone",
+    bookDescription: "Master the mental game of trading with this classic guide to trading psychology.",
+    bookAudibleAffiliateLink: "#audible-trading-in-zone",
+    bookSampleLink: "#audible-sample-trading-in-zone",
+  },
+  {
+    bookTitle: "Reminiscences of a Stock Operator",
+    bookAuthor: "Edwin Lefèvre",
+    bookCoverImage: "https://placehold.co/300x450.png?text=Stock+Operator",
+    bookDescription: "A fictionalized biography of Jesse Livermore, one of the greatest stock traders of all time.",
+    bookAudibleAffiliateLink: "#audible-stock-operator",
+    bookSampleLink: "#audible-sample-stock-operator",
+  },
+  {
+    bookTitle: "Market Wizards: Interviews with Top Traders",
+    bookAuthor: "Jack D. Schwager",
+    bookCoverImage: "https://placehold.co/300x450.png?text=Market+Wizards",
+    bookDescription: "Insights from the minds of Wall Street's most successful traders.",
+    bookAudibleAffiliateLink: "#audible-market-wizards",
+    bookSampleLink: "#audible-sample-market-wizards",
+  },
+];
+
+export const mockFreeResources: FreeResourceItem[] = [
+  {
+    id: "fr1",
+    title: "Al Brooks Price Action: Free Video Lessons",
+    slug: "al-brooks-course",
+    author: "Al Brooks",
+    coverImage: "https://placehold.co/600x400.png?text=Al+Brooks+Course",
+    pageIntroduction: "Get a taste of Al Brooks' renowned price action trading methodology with these free sample video lessons. Understand how a professional trader reads charts bar by bar.",
+    mainAffiliateLink: "#al-brooks-full-course", // Link to the full paid course
+    mainCTAText: "Access Full Al Brooks Course",
+    resourceType: "Free Video Course Series",
+    isFeatured: true,
+    videoLessons: alBrooksSampleLessons,
+    concludingCTASection: "Ready to dive deeper? The full Al Brooks Trading Course offers comprehensive insights into mastering price action. Click here to learn more and enroll!"
+  },
+  {
+    id: "fr2",
+    title: "Free Trading Audiobooks with Audible Trial",
+    slug: "audiobooks",
+    coverImage: "https://placehold.co/600x400.png?text=Trading+Audiobooks",
+    pageIntroduction: "Expand your trading knowledge on the go! Listen to essential trading books for free with an Audible trial. Explore classics on psychology, strategy, and market history.",
+    mainAffiliateLink: "#audible-trial-signup", // General Audible trial signup
+    mainCTAText: "Start Your Audible Free Trial",
+    resourceType: "Audiobook Trial Offer",
+    isFeatured: true,
+    bookListings: sampleBookListings,
+    concludingCTASection: "Your first audiobook is free with an Audible trial. Sign up today and start listening to these invaluable trading resources!"
+  },
+  {
+    id: "fr3",
+    title: "Ultimate Prop Firm Checklist (PDF Guide)",
+    slug: "prop-firm-checklist-pdf",
+    author: "TradingisEZ Team",
+    coverImage: "https://placehold.co/600x400.png?text=PDF+Checklist",
+    pageIntroduction: "Download our free PDF checklist to help you evaluate and choose the right proprietary trading firm. Covers key criteria, red flags, and questions to ask.",
+    mainAffiliateLink: "#", // Link to the PDF download or a landing page for it
+    mainCTAText: "Download Free PDF Guide",
+    resourceType: "PDF Guide",
+    isFeatured: false, // Or true, depending on whether you want it on homepage
+    concludingCTASection: "Arm yourself with the knowledge to make an informed decision. Download the checklist now!"
+  },
 ];

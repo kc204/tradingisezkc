@@ -57,3 +57,45 @@ export type TradingResource = {
   description: string;
   resourceType: 'Guide' | 'Tool' | 'News' | 'Course';
 };
+
+// New Types for Free Resources
+
+export type FreeResourceType =
+  | "Free Video Course Series"
+  | "Audiobook Trial Offer"
+  | "PDF Guide"
+  | "Free Tool/Trial";
+
+export interface VideoLesson {
+  lessonTitle: string;
+  videoEmbedCodeOrURL: string; // For simplicity, using string. Could be more complex for actual embeds.
+  lessonDescription: string; // Simplified from Block Content
+  lessonKeyTakeaways?: string[];
+  lessonCTAText?: string;
+  lessonCTALink?: string;
+}
+
+export interface BookListing {
+  bookTitle: string;
+  bookAuthor?: string;
+  bookCoverImage?: string;
+  bookDescription?: string;
+  bookAudibleAffiliateLink: string;
+  bookSampleLink?: string; // Link to Audible sample player/page
+}
+
+export interface FreeResourceItem {
+  id: string;
+  title: string;
+  slug: string;
+  author?: string;
+  coverImage?: string;
+  pageIntroduction?: string; // Simplified from Block Content
+  mainAffiliateLink?: string; // Required for some types, so optional here
+  mainCTAText?: string;
+  resourceType: FreeResourceType;
+  isFeatured?: boolean;
+  concludingCTASection?: string; // Simplified from Block Content
+  videoLessons?: VideoLesson[];
+  bookListings?: BookListing[];
+}

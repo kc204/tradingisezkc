@@ -3,7 +3,8 @@
 
 import FirmCard from '@/components/propfirms/FirmCard';
 import ArticleCard from '@/components/shared/ArticleCard';
-import { mockArticles, mockPropFirms } from '@/lib/mockData';
+import FreeResourceCard from '@/components/shared/FreeResourceCard'; // Added
+import { mockArticles, mockPropFirms, mockFreeResources } from '@/lib/mockData'; // Added mockFreeResources
 import Link from 'next/link';
 import { Boxes } from "@/components/ui/background-boxes";
 import { cn } from "@/lib/utils";
@@ -23,8 +24,8 @@ export default function Home() {
 
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
   const recentArticles = mockArticles.slice(0, 3);
+  const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3); // Added
 
-  // Configurations for TradingView Widgets
   const economicCalendarScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-events.js";
   const economicCalendarConfig = {
     "colorTheme": "dark",
@@ -119,10 +120,10 @@ export default function Home() {
             </StarBorder>
           </div>
         </div>
-      </section> {/* Featured Prop Firms Section END */}
+      </section>
 
       {/* Market Outlook Section START */}
-      <section className="py-12">
+       <section className="py-12">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-foreground mb-10 relative z-10">
             Market Outlook
@@ -135,8 +136,8 @@ export default function Home() {
                 <TabsTrigger value="news">News</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="economic-calendar" className="relative">
-                <div className="relative mt-4">
+              <TabsContent value="economic-calendar">
+                <div className="relative mt-4"> {/* Wrapper for glow and card */}
                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
                     <TradingViewWidget
@@ -153,8 +154,8 @@ export default function Home() {
                 </div>
               </TabsContent>
 
-              <TabsContent value="charts" className="relative">
-                <div className="relative mt-4">
+              <TabsContent value="charts">
+                <div className="relative mt-4"> {/* Wrapper for glow and card */}
                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
                     <TradingViewWidget
@@ -171,8 +172,8 @@ export default function Home() {
                  </div>
               </TabsContent>
 
-              <TabsContent value="news" className="relative">
-                 <div className="relative mt-4">
+              <TabsContent value="news">
+                 <div className="relative mt-4"> {/* Wrapper for glow and card */}
                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
                     <TradingViewWidget
@@ -193,6 +194,30 @@ export default function Home() {
         </div>
       </section>
       {/* Market Outlook Section END */}
+
+      {/* Featured Free Resources Section START */}
+      {featuredFreeResources.length > 0 && (
+        <section className="py-12 bg-card rounded-xl">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-foreground mb-10">Explore Our Free Resources</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredFreeResources.map(resource => (
+                <FreeResourceCard key={resource.id} resource={resource} />
+              ))}
+            </div>
+            <div className="text-center mt-10">
+              <StarBorder<typeof Link>
+                as={Link}
+                href="/free-resources"
+              >
+                View All Free Resources
+              </StarBorder>
+            </div>
+          </div>
+        </section>
+      )}
+      {/* Featured Free Resources Section END */}
+
 
       {/* Recent Articles & Guides Section */}
       <section className="py-12 bg-card rounded-xl">

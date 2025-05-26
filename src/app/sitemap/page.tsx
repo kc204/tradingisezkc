@@ -14,26 +14,30 @@ const sitemapLinks = [
     { href: "/firms", label: "All Prop Firms" },
     { href: "/compare", label: "Compare Firms" },
     { href: "/resources", label: "Trading Resources" },
+    { href: "/free-resources", label: "Free Resources" }, // Added
     { href: "/about", label: "About Us" },
-    // { href: "/contact", label: "Contact Us" }, // Removed from main navigation
   ]},
   { category: "Prop Firms (Examples - Dynamic in real app)", links: [
-    // In a real app, these would be dynamically generated from your firm data
-    { href: "/firms/top-prop-firm", label: "TopPropFirm Review" },
-    { href: "/firms/fund-your-dreams", label: "FundYourDreams Review" },
+    { href: "/firms/apex-trader-funding", label: "Apex Trader Funding Review" },
+    { href: "/firms/take-profit-trader", label: "Take Profit Trader Review" },
   ]},
   { category: "Trading Resources", links: [
     { href: "/resources/guides", label: "Trading Guides" },
     { href: "/resources/tools", label: "Trading Tools" },
     { href: "/resources/news", label: "Trading News" },
-    { href: "/resources/al-brooks-trading-course", label: "Al Brooks Course" },
+    { href: "/resources/al-brooks-trading-course", label: "Al Brooks Course Info" },
+  ]},
+  { category: "Free Resources", links: [ // New Category
+    { href: "/free-resources", label: "Overview" },
+    { href: "/free-resources/audiobooks", label: "Free Audiobooks (Audible Trial)" },
+    { href: "/free-resources/al-brooks-course", label: "Al Brooks Free Video Course" },
   ]},
   { category: "Legal & Information", links: [
     { href: "/privacy-policy", label: "Privacy Policy" },
     { href: "/terms-of-service", label: "Terms of Service" },
     { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
-    { href: "/how-we-rate", label: "How We Rate &amp; Review" },
-    { href: "/contact", label: "Contact Us Page (Still accessible directly)" }, // Clarify it's still a page
+    { href: "/how-we-rate", label: "How We Rate & Review" },
+    { href: "/contact", label: "Contact Us Page (Still accessible directly)" }, 
   ]},
 ];
 
