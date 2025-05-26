@@ -84,7 +84,7 @@ export default function Home() {
             as={Link}
             href="/compare"
           >
-            Compare All Firms
+            Compare All Prop Firms
           </StarBorder>
         </div>
       </div>
