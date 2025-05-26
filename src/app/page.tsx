@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
-import TradingViewWidget from '@/components/shared/TradingViewWidget'; // New Import
+import TradingViewWidget from '@/components/shared/TradingViewWidget'; 
 
 export default function Home() {
   const [isClient, setIsClient] = useState(false); 
@@ -33,6 +33,7 @@ export default function Home() {
     "importanceFilter": "-1,0,1",
     "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
   };
+  const economicCalendarContainerStyles = { height: '600px', width: '100%' };
 
   const chartsScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
   const chartsConfig = {
@@ -48,8 +49,6 @@ export default function Home() {
     "calendar": false,
     "support_host": "https://www.tradingview.com"
   };
-  // Note: chartsConfig uses "autosize": true. The widget will try to fill its parent.
-  // We'll wrap it in a div that has a defined height.
   const chartContainerStyles = { height: '600px', width: '100%' };
 
 
