@@ -84,7 +84,7 @@ export default function Home() {
             as={Link}
             href="/compare"
           >
-            Find Your Firm Now
+            Compare All Firms
           </StarBorder>
         </div>
       </div>
@@ -190,3 +190,4 @@ export default function Home() {
     </div>
   );
 }
+
