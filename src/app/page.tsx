@@ -29,7 +29,7 @@ export default function Home() {
     "colorTheme": "dark",
     "isTransparent": false,
     "width": "100%",
-    "height": "600",
+    "height": "100%", // Changed to 100% to fill container
     "locale": "en",
     "importanceFilter": "-1,0,1",
     "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
@@ -60,13 +60,22 @@ export default function Home() {
     "isTransparent": false,
     "displayMode": "regular",
     "width": "100%",
-    "height": 700,
+    "height": "100%", // Changed to 100% to fill container
     "locale": "en"
   };
   const newsContainerStyles = { height: '700px', width: '100%' };
 
   const tradingViewAffiliateLink = "https://www.tradingview.com/?aff_id=152856";
   const tradingViewLinkText = "Track all markets on TradingView";
+
+  const glowEffectProps = {
+    colors: ['hsl(var(--accent-primary))', 'hsl(var(--accent))'],
+    mode: "breathe" as const,
+    blur: "strong" as const,
+    duration: 10,
+    scale: 1.1,
+    className: "opacity-20",
+  };
 
   return (
     <div className="space-y-16">
@@ -113,18 +122,11 @@ export default function Home() {
       {/* Market Outlook Section START */}
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-10">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-10 relative z-10">
             Market Outlook
           </h2>
-          <div className="relative"> {/* New relative container for Tabs and GlowEffect */}
-            <GlowEffect
-              colors={['hsl(var(--accent-primary))', 'hsl(var(--accent))']}
-              mode="breathe" 
-              blur="strong" 
-              duration={10} 
-              scale={1.1} 
-              className="opacity-20" 
-            />
+          <div> {/* Removed relative positioning from this div */}
+            {/* GlowEffect removed from here */}
             {isClient && ( 
               <Tabs defaultValue="economic-calendar" className="w-full relative z-10">
                 <TabsList className="grid w-full grid-cols-3">
@@ -133,7 +135,8 @@ export default function Home() {
                   <TabsTrigger value="news">News</TabsTrigger>
                 </TabsList>
                 <TabsContent value="economic-calendar">
-                  <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
+                  <div className="mt-4 rounded-lg bg-card p-1 md:p-2 relative" style={economicCalendarContainerStyles}>
+                    <GlowEffect {...glowEffectProps} />
                     <TradingViewWidget
                       scriptSrc={economicCalendarScriptSrc}
                       config={economicCalendarConfig}
@@ -147,7 +150,8 @@ export default function Home() {
                   </div>
                 </TabsContent>
                 <TabsContent value="charts">
-                  <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
+                  <div className="mt-4 rounded-lg bg-card p-1 md:p-2 relative" style={chartContainerStyles}>
+                    <GlowEffect {...glowEffectProps} />
                     <TradingViewWidget
                       scriptSrc={chartsScriptSrc}
                       config={chartsConfig}
@@ -161,7 +165,8 @@ export default function Home() {
                   </div>
                 </TabsContent>
                 <TabsContent value="news">
-                  <div className="mt-4 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
+                  <div className="mt-4 rounded-lg bg-card p-1 md:p-2 relative" style={newsContainerStyles}>
+                     <GlowEffect {...glowEffectProps} />
                     <TradingViewWidget
                       scriptSrc={newsScriptSrc}
                       config={newsConfig}
