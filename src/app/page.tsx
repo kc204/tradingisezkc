@@ -82,7 +82,7 @@ export default function Home() {
         <div className="mt-8 relative z-20">
           <StarBorder<typeof Link>
             as={Link}
-            href="/firms"
+            href="/compare"
           >
             Find Your Firm Now
           </StarBorder>
