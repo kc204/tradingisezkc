@@ -139,17 +139,17 @@ export default function Home() {
                 <TabsTrigger value="news">News</TabsTrigger>
               </TabsList>
               <TabsContent value="economic-calendar">
-                <div className="mt-4 rounded-lg overflow-hidden bg-card p-1 md:p-2">
+                <div className="mt-4 rounded-lg bg-card p-1 md:p-2"> {/* Removed overflow-hidden */}
                   <div dangerouslySetInnerHTML={{ __html: economicCalendarWidgetHtml }} />
                 </div>
               </TabsContent>
               <TabsContent value="charts">
-                <div className="mt-4 rounded-lg overflow-hidden bg-card p-1 md:p-2">
+                <div className="mt-4 rounded-lg bg-card p-1 md:p-2"> {/* Removed overflow-hidden */}
                   <div dangerouslySetInnerHTML={{ __html: chartsWidgetHtml }} />
                 </div>
               </TabsContent>
               <TabsContent value="news">
-                <div className="mt-4 rounded-lg overflow-hidden bg-card p-1 md:p-2">
+                <div className="mt-4 rounded-lg bg-card p-1 md:p-2"> {/* Removed overflow-hidden */}
                   <div dangerouslySetInnerHTML={{ __html: newsWidgetHtml }} />
                 </div>
               </TabsContent>
