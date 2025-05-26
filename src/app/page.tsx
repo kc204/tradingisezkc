@@ -6,11 +6,75 @@ import Link from 'next/link';
 import { Boxes } from "@/components/ui/background-boxes";
 import { cn } from "@/lib/utils";
 import { StarBorder } from "@/components/ui/star-border";
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
   const recentArticles = mockArticles.slice(0, 3);
+
+  const economicCalendarWidgetHtml = `
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container" style="height:600px;width:100%;">
+  <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+  {
+  "colorTheme": "dark",
+  "isTransparent": false,
+  "width": "100%",
+  "height": "600",
+  "locale": "en",
+  "importanceFilter": "-1,0,1",
+  "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+  `;
+
+  const chartsWidgetHtml = `
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container" style="height:600px;width:100%;">
+  <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%;"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+  {
+    "autosize": true,
+    "symbol": "BITSTAMP:BTCUSD",
+    "interval": "D",
+    "timezone": "Etc/UTC",
+    "theme": "dark",
+    "style": "1",
+    "locale": "en",
+    "enable_publishing": false,
+    "allow_symbol_change": true,
+    "calendar": false,
+    "support_host": "https://www.tradingview.com"
+  }
+  </script>
+</div>
+<!-- TradingView Widget END -->
+  `;
+
+  const newsWidgetHtml = `
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container" style="height:700px;width:100%;">
+  <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+  {
+  "feedMode": "all_symbols",
+  "colorTheme": "dark",
+  "isTransparent": false,
+  "displayMode": "regular",
+  "width": "100%",
+  "height": 700,
+  "locale": "en"
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+  `;
 
   return (
     <div className="space-y-16">
@@ -52,10 +116,40 @@ export default function Home() {
             </StarBorder>
           </div>
         </div>
+      </section> {/* Featured Prop Firms Section END */}
+
+      {/* Market Outlook Section START */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-10">Market Outlook</h2>
+          <Tabs defaultValue="economic-calendar" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
+              <TabsTrigger value="charts">Charts</TabsTrigger>
+              <TabsTrigger value="news">News</TabsTrigger>
+            </TabsList>
+            <TabsContent value="economic-calendar">
+              <div className="mt-4 rounded-lg overflow-hidden bg-card p-1 md:p-2">
+                <div dangerouslySetInnerHTML={{ __html: economicCalendarWidgetHtml }} />
+              </div>
+            </TabsContent>
+            <TabsContent value="charts">
+              <div className="mt-4 rounded-lg overflow-hidden bg-card p-1 md:p-2">
+                <div dangerouslySetInnerHTML={{ __html: chartsWidgetHtml }} />
+              </div>
+            </TabsContent>
+            <TabsContent value="news">
+              <div className="mt-4 rounded-lg overflow-hidden bg-card p-1 md:p-2">
+                <div dangerouslySetInnerHTML={{ __html: newsWidgetHtml }} />
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
       </section>
+      {/* Market Outlook Section END */}
 
       {/* Recent Articles & Guides Section */}
-      <section className="py-12 bg-card rounded-xl"> {/* Changed bg-muted/50 to bg-card for better theme consistency */}
+      <section className="py-12 bg-card rounded-xl">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-foreground mb-10">Latest Insights &amp; Guides</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
