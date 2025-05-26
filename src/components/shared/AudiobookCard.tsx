@@ -5,7 +5,7 @@ import type { BookListing } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button'; // Import Button
+import { Button } from '@/components/ui/button';
 import { Headphones, PlayCircle } from 'lucide-react';
 
 interface AudiobookCardProps {
@@ -38,11 +38,11 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
           <p className="text-sm text-muted-foreground line-clamp-3 mb-3">{book.bookDescription}</p>
         )}
       </CardContent>
-      <CardFooter className="flex flex-col sm:flex-row sm:justify-center gap-2 mt-auto pt-3">
+      <CardFooter className="flex flex-col sm:flex-row sm:justify-center sm:items-stretch gap-2 mt-auto pt-3">
         {book.bookSampleLink && (
           <Button
             asChild
-            className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto"
+            className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto whitespace-normal h-auto"
           >
             <Link
               href={book.bookSampleLink}
@@ -55,14 +55,15 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
         )}
         <Button
           asChild
-          className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto"
+          className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto whitespace-normal h-auto"
         >
           <Link
             href={book.bookAudibleAffiliateLink}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Headphones className="mr-1.5 h-4 w-4" /> Listen to whole book for free on Audible
+            <Headphones className="mr-1.5 h-4 w-4" />
+            Listen to whole book for free on Audible
           </Link>
         </Button>
       </CardFooter>
