@@ -26,7 +26,8 @@ export default function FreeAudiobooksPage() {
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
             {audiobookOffer?.pageIntroduction ? audiobookOffer.pageIntroduction.replace(" with an Audible trial", "") : "Expand your trading knowledge on the go! Listen to essential trading books for free. Explore classics on psychology, strategy, and market history."}
           </p>
-          {audiobookOffer?.mainAffiliateLink && audiobookOffer.mainCTAText && (
+          {/* The button below was removed as per user request */}
+          {/* {audiobookOffer?.mainAffiliateLink && audiobookOffer.mainCTAText && (
             <StarBorder<typeof Link>
               as={Link}
               href={audiobookOffer.mainAffiliateLink}
@@ -35,7 +36,7 @@ export default function FreeAudiobooksPage() {
             >
               {audiobookOffer.mainCTAText}
             </StarBorder>
-          )}
+          )} */}
         </div>
       </section>
 
@@ -67,4 +68,3 @@ export default function FreeAudiobooksPage() {
     </div>
   );
 }
-
