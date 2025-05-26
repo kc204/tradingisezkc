@@ -138,32 +138,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
 
 export default function ComparePage() {
-  const existingFirms = mockPropFirms.slice(0, 3); 
-
-  const placeholderFirms: PropFirm[] = Array.from({ length: 10 }, (_, i) => ({
-    id: `placeholder-${i + 1}`,
-    slug: `placeholder-firm-${i + 1}`,
-    name: ``, // Empty name for placeholder rows
-    logoUrl: '', // No logo for placeholder
-    websiteUrl: '',
-    affiliateLink: '',
-    briefDescription: '',
-    minAccountSize: undefined,
-    maxAccountSize: undefined,
-    minChallengeCost: undefined,
-    maxChallengeCost: undefined,
-    activationFee: '',
-    profitSplit: '',
-    challengeType: '',
-    drawdownRules: '',
-    profitTarget: '',
-    platforms: [],
-    rating: undefined,
-    fundingModels: [],
-    tradableInstruments: [],
-  }));
-
-  const firmsToCompare = [...existingFirms, ...placeholderFirms];
+  const firmsToCompare = mockPropFirms; // Use all mock firms
 
   return (
     <div className="space-y-8">
