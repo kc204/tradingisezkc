@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, X, ChevronDown } from 'lucide-react'; 
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet'; // Added SheetTrigger
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -36,8 +36,8 @@ const mainSiteNavLinks = [
   { href: '/about', label: 'About Us' },
 ];
 
-const SCROLL_DELTA_THRESHOLD = 5;
-const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64; 
+const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64; // If scrollY is less than this, header is visible
+const SCROLL_DELTA_THRESHOLD = 5; // Minimum scroll change to react
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -51,7 +51,7 @@ const Header = () => {
   const navLinks = mainSiteNavLinks;
 
   useEffect(() => {
-    setMounted(true);
+    setMounted(true); // For dropdown hover logic
     return () => {
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current);
@@ -61,21 +61,39 @@ const Header = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      // Initialize lastScrollY with the current scroll position on mount
       lastScrollY.current = window.scrollY;
+      
+      // Set initial visibility based on load scroll position
+      // This helps if the page loads already scrolled down.
+      if (window.scrollY > HEADER_ALWAYS_VISIBLE_THRESHOLD) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
 
       const handleScroll = () => {
         const currentScrollY = window.scrollY;
 
         if (Math.abs(currentScrollY - lastScrollY.current) < SCROLL_DELTA_THRESHOLD) {
+          // Not enough scroll to trigger a change, but ensure it's visible if near top
+           if (currentScrollY < HEADER_ALWAYS_VISIBLE_THRESHOLD && !isVisible) {
+            setIsVisible(true);
+          }
           return;
         }
 
         if (currentScrollY < HEADER_ALWAYS_VISIBLE_THRESHOLD) {
           setIsVisible(true);
-        } else if (currentScrollY > lastScrollY.current) {
-          setIsVisible(false); 
         } else {
-          setIsVisible(true); 
+          // Scrolled past the threshold
+          if (currentScrollY > lastScrollY.current) {
+            // Scrolling Down
+            setIsVisible(false);
+          } else {
+            // Scrolling Up
+            setIsVisible(true);
+          }
         }
         lastScrollY.current = currentScrollY;
       };
@@ -85,7 +103,50 @@ const Header = () => {
         window.removeEventListener('scroll', handleScroll);
       };
     }
-  }, []);
+  }, [isVisible]); // Re-run effect if isVisible changes, to correctly capture it in closure.
+                  // This dependency might cause too many re-registrations.
+                  // Let's remove it and define handleScroll inside useEffect to capture state.
+
+  // More stable useEffect for scroll listener
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    lastScrollY.current = window.scrollY;
+    // Set initial visibility more robustly
+    if (window.scrollY > HEADER_ALWAYS_VISIBLE_THRESHOLD) {
+      setIsVisible(false);
+    } else {
+      setIsVisible(true);
+    }
+
+    const handleScrollLogic = () => {
+      const currentScrollY = window.scrollY;
+      const localLastScrollY = lastScrollY.current;
+
+      if (Math.abs(currentScrollY - localLastScrollY) < SCROLL_DELTA_THRESHOLD) {
+        if (currentScrollY < HEADER_ALWAYS_VISIBLE_THRESHOLD) {
+          // If not visible and should be, update.
+          // Using functional update to avoid needing isVisible in deps for this specific case.
+          setIsVisible(prev => prev ? true : true);
+        }
+        return;
+      }
+      
+      if (currentScrollY < HEADER_ALWAYS_VISIBLE_THRESHOLD) {
+        setIsVisible(true);
+      } else {
+        if (currentScrollY > localLastScrollY) { // Scrolling Down
+          setIsVisible(false);
+        } else { // Scrolling Up
+          setIsVisible(true);
+        }
+      }
+      lastScrollY.current = currentScrollY;
+    };
+    
+    window.addEventListener('scroll', handleScrollLogic, { passive: true });
+    return () => window.removeEventListener('scroll', handleScrollLogic);
+  }, []); // Empty dependency array: run once on mount/unmount
 
 
   const clearHoverTimeout = () => {
@@ -107,13 +168,13 @@ const Header = () => {
       clearHoverTimeout();
       hoverTimeoutRef.current = setTimeout(() => {
         setOpenDropdown(null);
-      }, 100); 
+      }, 100);
     }
   };
 
   const renderNavLinks = (isMobileLink: boolean) =>
     navLinks.map((link) =>
-      link.dropdown ? ( 
+      link.dropdown ? (
         <DropdownMenu
           key={link.label}
           open={!isMobileLink && mounted && openDropdown === link.label}
@@ -138,7 +199,7 @@ const Header = () => {
               )}
               onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)}
               onMouseLeave={() => handleMouseLeave(isMobileLink)}
-              onClick={() => { 
+              onClick={() => {
                 if (isMobileLink) {
                   // Mobile sheet dropdowns are handled by Radix UI state
                 } else {
@@ -153,9 +214,9 @@ const Header = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="bg-popover" 
-            onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)} 
-            onMouseLeave={() => handleMouseLeave(isMobileLink)} 
+            className="bg-popover"
+            onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)}
+            onMouseLeave={() => handleMouseLeave(isMobileLink)}
           >
             {link.dropdown.map((item) => (
               <DropdownMenuItem key={item.label} asChild className="text-popover-foreground hover:bg-accent hover:text-accent-foreground">
@@ -164,8 +225,8 @@ const Header = () => {
                   onClick={() => {
                     if (isMobileLink) setMobileMenuOpen(false);
                     if (!isMobileLink && mounted) {
-                      clearHoverTimeout(); 
-                      setOpenDropdown(null); 
+                      clearHoverTimeout();
+                      setOpenDropdown(null);
                     }
                   }}
                 >
@@ -176,10 +237,10 @@ const Header = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Button 
-          key={link.label} 
-          variant="ghost" 
-          asChild 
+        <Button
+          key={link.label}
+          variant="ghost"
+          asChild
           className={cn(
             "text-header-foreground hover:bg-primary/80 hover:text-white",
             isMobileLink ? 'w-full justify-start text-foreground hover:text-foreground' : ''
@@ -187,9 +248,9 @@ const Header = () => {
           >
           <Link href={link.href} onClick={() => {
             if (isMobileLink) setMobileMenuOpen(false);
-            if (!isMobileLink && mounted) { 
-               clearHoverTimeout(); 
-               setOpenDropdown(null); 
+            if (!isMobileLink && mounted) {
+               clearHoverTimeout();
+               setOpenDropdown(null);
             }
           }}>
             {link.label}
@@ -202,22 +263,22 @@ const Header = () => {
     <header
       className={cn(
         "bg-header-background text-header-foreground shadow-lg sticky z-40",
-        "top-[2.25rem]", 
-        "transition-[transform,opacity] duration-300 ease-out", 
+        "top-[2.25rem]",
+        "transition-[transform,opacity] duration-300 ease-out",
         isVisible
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-full pointer-events-none"
       )}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           className={cn(
             "text-2xl font-bold text-header-foreground"
             )}
             onClick={() => {
             if (mobileMenuOpen) setMobileMenuOpen(false);
-            if (openDropdown) setOpenDropdown(null); 
+            if (openDropdown) setOpenDropdown(null);
           }}>
           TradingisEZ
         </Link>
