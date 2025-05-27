@@ -30,13 +30,13 @@ export function DegenEntryModal({ isOpen, onClose, onEnterDegenMode }: DegenEntr
         <AlertDialogHeader>
           <AlertDialogTitle className="font-press-start text-[hsl(var(--degen-lime-green-hsl))]">Yo Degen!</AlertDialogTitle>
           <AlertDialogDescription className="text-[hsl(var(--degen-text-main-hsl))] space-y-2">
-            <p>18+ Recommended / Enter at Your Own Risk!</p>
-            <p className="font-bold text-[hsl(var(--degen-hot-pink-hsl))]">WARNING / DISCLAIMER:</p>
-            <p>
+            <div>18+ Recommended / Enter at Your Own Risk!</div>
+            <div className="font-bold text-[hsl(var(--degen-hot-pink-hsl))]">WARNING / DISCLAIMER:</div>
+            <div>
               You're about to dive into the deep end. This ain't financial advice (NFA),
               we ain't responsible if you get rekt. It's all for the lulz and alpha leaks.
               Proceed with caution & a sense of humor. WAGMI?
-            </p>
+            </div>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="mt-4">
