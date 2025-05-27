@@ -1,49 +1,29 @@
 
 'use client';
 
-import { useDegenMode } from '@/contexts/DegenModeContext';
-import { Button } from '@/components/ui/button'; // Using ShadCN button for base
+// This component no longer manages its own Header/Footer.
+// It's now a content wrapper for pages within the Degen Mode.
+// The global Header/Footer will adapt to Degen Mode styling.
+
 import { cn } from '@/lib/utils';
-import { LogOut } from 'lucide-react'; // Example icon
 
 interface DegenPageWrapperProps {
   children: React.ReactNode;
 }
 
 export default function DegenPageWrapper({ children }: DegenPageWrapperProps) {
-  const { setIsDegenMode } = useDegenMode();
-
   return (
+    // This div primarily sets Degen-specific styling for the content area
+    // of Degen pages. The overall page background, header, and footer
+    // styling is handled by the .degen-mode class on <html> and
+    // conditional styling within the Header and Footer components.
     <div className={cn(
-      "min-h-screen flex flex-col font-pixelify",
-      "bg-[hsl(var(--degen-bg-main-hsl))] text-[hsl(var(--degen-text-main-hsl))]"
+      "font-pixelify" // Ensures Degen font for content
+      // Add any Degen-specific content area styling here if needed,
+      // e.g., specific padding, borders for the content block itself.
+      // The main background is already applied by .degen-mode on <html>.
     )}>
-      <header className="p-4 flex justify-between items-center border-b-2 border-[hsl(var(--degen-electric-blue-hsl))]">
-        <h1 className="font-press-start text-xl text-[hsl(var(--degen-lime-green-hsl))]">
-          TradingisEZ <span className="text-[hsl(var(--degen-hot-pink-hsl))]">[DEGEN MODE]</span>
-        </h1>
-        <Button
-          onClick={() => setIsDegenMode(false)}
-          variant="outline"
-          className={cn(
-            "font-pixelify text-sm py-2 px-4",
-            "bg-transparent text-[hsl(var(--degen-electric-blue-hsl))]",
-            "border-2 border-[hsl(var(--degen-electric-blue-hsl))] hover:bg-[hsl(var(--degen-electric-blue-hsl))] hover:text-[hsl(var(--degen-bg-main-hsl))]"
-          )}
-        >
-          <LogOut className="mr-2 h-4 w-4" />
-          Return to Sanity
-        </Button>
-      </header>
-      
-      <main className="flex-grow container mx-auto px-4 py-8">
-        {children}
-      </main>
-
-      <footer className="p-4 text-center text-xs border-t-2 border-[hsl(var(--degen-electric-blue-hsl))]">
-        <p>NFA/DYOR. Stay SAFU. Don't get rekt. But WAGMI if you do it right (maybe).</p>
-        <p className="mt-1 text-[hsl(var(--degen-hot-pink-hsl))]">DEGEN MODE IS FOR ENTERTAINMENT & SPECULATIVE INFO ONLY.</p>
-      </footer>
+      {children}
     </div>
   );
 }
