@@ -43,7 +43,6 @@
 
     --primary: hsl(var(--accent-primary-hsl));
     --primary-foreground: hsl(var(--accent-primary-foreground-hsl));
-    /* --primary-hover is managed by Tailwind hover:bg-primary/90 or similar, or could be explicitly defined if needed */
 
     --secondary: hsl(var(--accent-secondary-hsl));
     --secondary-foreground: hsl(var(--accent-secondary-foreground-hsl));
@@ -53,7 +52,6 @@
 
     --accent: hsl(var(--cta-main-hsl));
     --accent-foreground: hsl(var(--cta-main-foreground-hsl));
-    /* --accent-hover is managed by Tailwind hover:bg-accent-hover or could be explicitly defined */
 
     --destructive: hsl(var(--error-state-hsl));
     --destructive-foreground: hsl(var(--error-state-foreground-hsl));
