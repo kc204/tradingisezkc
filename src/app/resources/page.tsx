@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { mockTradingResources } from "@/lib/mockData";
 import { BookOpen, Wrench, Newspaper, Award, ExternalLink } from "lucide-react";
@@ -59,12 +60,6 @@ export default function ResourcesPage() {
         ))}
       </div>
       
-      <section className="py-12 text-center">
-        <h2 className="text-2xl font-semibold mb-4">Looking for Al Brooks Trading Course?</h2>
-        <p className="text-muted-foreground mb-6">While not directly integrated, many resources here complement advanced trading strategies.</p>
-        {/* You can add a specific link or section for Al Brooks if available */}
-      </section>
-
     </div>
   );
 }

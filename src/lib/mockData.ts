@@ -114,6 +114,7 @@ export const mockPropFirms: PropFirm[] = [
     logoUrl: 'https://placehold.co/100x50.png?text=Tradify',
     websiteUrl: 'https://tradify.com/',
     affiliateLink: 'https://tradify.com/onlypropfirms',
+    isFeatured: true,
     briefDescription: 'Futures prop firm with multiple account types, 100% profit split up to $15K, and flexible trading conditions.',
     fullReview: "Tradify offers a range of account types including Advanced Challenges, Growth Challenges, and Straight to Sim Funded Accounts, catering to different trader preferences. They provide a generous 100% profit split on the first $15,000, then 90% to the trader. Key features include allowing news trading, EAs, and supporting popular platforms like Tradovate, NinjaTrader, and TradingView. After four successful payouts from a Sim Funded account, traders can transition to a Live Funded account with potentially uncapped, same-day payouts. Their detailed rules cover aspects like consistency (35% or 20% depending on account type), daily loss limits (soft breach), and minimum trading days for payouts.",
     pros: [
@@ -151,9 +152,8 @@ export const mockPropFirms: PropFirm[] = [
     tradableInstruments: ['Futures (CME, COMEX, NYMEX, CBOT, Coinbase Derivatives)'],
     platforms: ['Tradovate', 'NinjaTrader', 'TradingView'],
     rating: 4.3,
-    isFeatured: true,
-    minAccountSize: 25000,
-    maxAccountSize: 150000,
+    minAccountSize: 25000, // For Straight to Sim
+    maxAccountSize: 150000, // For Challenge accounts
     minChallengeCost: 69, // Monthly for Advanced $50K
     maxChallengeCost: 729, // One-time for Straight to Sim $150K
     activationFee: '$125 (Advanced Challenges only)',
@@ -193,16 +193,6 @@ export const mockArticles: Article[] = [
 
 export const mockTradingResources: TradingResource[] = [
   {
-    id: 'tr1',
-    name: 'TradingView',
-    slug: 'tradingview',
-    logoUrl: 'https://placehold.co/100x50.png?text=TV',
-    websiteUrl: '#',
-    affiliateLink: '#',
-    description: 'The best charting platform and social network for traders and investors.',
-    resourceType: 'Tool',
-  },
-  {
     id: 'tr2',
     name: 'Babypips School of Pipsology',
     slug: 'babypips',
@@ -211,16 +201,6 @@ export const mockTradingResources: TradingResource[] = [
     affiliateLink: '#',
     description: 'Free online course to learn Forex trading from beginner to advanced.',
     resourceType: 'Course',
-  },
-  {
-    id: 'tr3',
-    name: 'CoinDesk',
-    slug: 'coindesk',
-    logoUrl: 'https://placehold.co/100x50.png?text=CD',
-    websiteUrl: '#',
-    affiliateLink: '#',
-    description: 'Leading news source for cryptocurrency, blockchain and digital assets.',
-    resourceType: 'News',
   },
 ];
 
@@ -235,7 +215,7 @@ export const mockGlobalOffersTestData: GlobalOffer[] = [
 const alBrooksSampleLessons: VideoLesson[] = [
   {
     lessonTitle: "Brooks Trading Course Sample: 12A Market Cycle",
-    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Reverted
+    videoEmbedCodeOrURL: "https://www.youtube.com/embed/_wQ5CRIQ6mc", 
     lessonDescription: "Learn the fundamentals of how Al Brooks perceives market structure and its importance in price action trading.",
     lessonKeyTakeaways: ["Key Trendlines", "Support & Resistance", "Market Cycles"],
     lessonCTAText: "Watch Full Series",
