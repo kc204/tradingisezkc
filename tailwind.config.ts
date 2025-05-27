@@ -13,8 +13,11 @@ export default {
   	extend: {
       fontFamily: {
         sans: ["var(--font-plus-jakarta-sans)", ...fontFamily.sans],
+        'press-start': ['var(--font-press-start-2p)', ...fontFamily.mono],
+        'pixelify': ['var(--font-pixelify-sans)', ...fontFamily.sans],
       },
   		colors: {
+        // Main Theme Colors (Dynamic Blue & Action Orange)
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -55,7 +58,6 @@ export default {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))', 
-        // Explicitly define header colors for Tailwind utilities
         'header-background': 'hsl(var(--header-background))',
         'header-foreground': 'hsl(var(--header-foreground))',
   			chart: {
@@ -74,7 +76,12 @@ export default {
   				'accent-foreground': 'hsl(var(--accent-foreground))', 
   				border: 'hsl(var(--border))', 
   				ring: 'hsl(var(--ring))' 
-  			}
+  			},
+        // Degen Mode Colors (for direct use if needed, primarily use CSS vars)
+        'degen-electric-blue': '#00FFFF',
+        'degen-hot-pink': '#FF00FF',
+        'degen-lime-green': '#00FF00',
+        'degen-bright-orange': '#FFA500',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
