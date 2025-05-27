@@ -24,14 +24,14 @@ export default function Home() {
 
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
   const recentArticles = mockArticles.slice(0, 3);
-  const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3); // Added
+  const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3); 
 
   const economicCalendarScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-events.js";
   const economicCalendarConfig = {
     "colorTheme": "dark",
     "isTransparent": false,
     "width": "100%",
-    "height": "100%",
+    "height": "100%", // Adjusted for better fit
     "locale": "en",
     "importanceFilter": "-1,0,1",
     "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
@@ -62,7 +62,7 @@ export default function Home() {
     "isTransparent": false,
     "displayMode": "regular",
     "width": "100%",
-    "height": "100%", 
+    "height": "100%", // Adjusted for better fit
     "locale": "en"
   };
   const newsContainerStyles = { height: '700px', width: '100%' };
@@ -84,6 +84,14 @@ export default function Home() {
     <div className="space-y-16">
       {/* Hero Section with BackgroundBoxes */}
       <div className="h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg">
+        <GlowEffect
+          colors={['hsl(var(--accent-primary))']} 
+          mode="breathe"
+          blur="stronger" 
+          duration={7}
+          scale={1.1} 
+          className="opacity-15" 
+        />
         <div className="absolute inset-0 w-full h-full bg-background z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
         <Boxes />
         <h1 className={cn("md:text-4xl text-xl text-foreground relative z-20 text-center px-4")}>
@@ -136,8 +144,8 @@ export default function Home() {
                 <TabsTrigger value="news">News</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="economic-calendar">
-                <div className="relative mt-4"> {/* Wrapper for glow and card */}
+              <TabsContent value="economic-calendar" className="relative">
+                 <div className="relative mt-4">
                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
                     <TradingViewWidget
@@ -154,8 +162,8 @@ export default function Home() {
                 </div>
               </TabsContent>
 
-              <TabsContent value="charts">
-                <div className="relative mt-4"> {/* Wrapper for glow and card */}
+              <TabsContent value="charts" className="relative">
+                 <div className="relative mt-4"> 
                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
                     <TradingViewWidget
@@ -172,8 +180,8 @@ export default function Home() {
                  </div>
               </TabsContent>
 
-              <TabsContent value="news">
-                 <div className="relative mt-4"> {/* Wrapper for glow and card */}
+              <TabsContent value="news" className="relative">
+                 <div className="relative mt-4"> 
                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
                     <TradingViewWidget
