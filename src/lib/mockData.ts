@@ -17,26 +17,25 @@ const apexAccountTiers: AccountTier[] = [
 
 const tptAccountTiers: AccountTier[] = [
   // Evaluation Accounts
-  { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, activationFee: undefined, resetFee: 75, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: 2 }, // $500 DLL
-  { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, activationFee: undefined, resetFee: 75, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.2 }, // $1100 DLL
-  { id: 'tpt-eval-75k', name: '$75K Evaluation', size: 75000, evaluationFee: 245, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: 2.13 }, // $1600 DLL
-  { id: 'tpt-eval-100k', name: '$100K Evaluation', size: 100000, evaluationFee: 330, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2 }, // $2200 DLL
-  { id: 'tpt-eval-150k', name: '$150K Evaluation', size: 150000, evaluationFee: 360, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2 }, // $3300 DLL
+  { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, activationFee: undefined, resetFee: 75, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: 2 }, // $500 DLL from $25K * 6% DD = $1500 possible loss. Daily Loss = $25k * 2% = $500
+  { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, activationFee: undefined, resetFee: 75, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.2 }, // $1100 DLL from $50k * 4% DD = $2000 possible loss. Daily Loss = $50k * 2.2% = $1100
+  { id: 'tpt-eval-75k', name: '$75K Evaluation', size: 75000, evaluationFee: 245, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: 2.13 }, // $1600 DLL approx from $75k * 3.33% DD = $2497.5. Daily Loss = $75k * 2.13% = $1597.5
+  { id: 'tpt-eval-100k', name: '$100K Evaluation', size: 100000, evaluationFee: 330, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2 }, // $2200 DLL from $100k * 3% DD = $3000. Daily Loss = $100k * 2.2% = $2200
+  { id: 'tpt-eval-150k', name: '$150K Evaluation', size: 150000, evaluationFee: 360, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2 }, // $3300 DLL from $150k * 3% DD = $4500. Daily Loss = $150k * 2.2% = $3300
   // Note: Activation fees apply when choosing PRO or PRO+ after evaluation.
-  // These tiers represent the initial evaluation. The calculator can show PRO/PRO+ costs.
 ];
 
 const myFundedFuturesAccountTiers: AccountTier[] = [
   // Starter Plan
-  { id: 'mff-starter-50k', name: '$50K Starter Plan', size: 50000, evaluationFee: 92, activationFee: 0, resetFee: 92, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: 2.4 },
+  { id: 'mff-starter-50k', name: '$50K Starter Plan', size: 50000, evaluationFee: 92, activationFee: 0, resetFee: 97, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: 2.4 }, // $3k target, $2.5k max loss, $1.2k daily loss
   // Starter Plus Plan
-  { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 92, activationFee: 0, resetFee: 127, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: null }, // Assuming $92 fee, reset fee is 127 for 50k
+  { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 92, activationFee: 0, resetFee: 127, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: null },
   // Expert Plan
-  { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 227, activationFee: 0, resetFee: 227, profitTargetPercentage: 8, drawdownPercentage: 4, dailyLossLimitPercentage: null },
-  { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 344, activationFee: 0, resetFee: 344, profitTargetPercentage: 8, drawdownPercentage: 3, dailyLossLimitPercentage: null },
-  { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 477, activationFee: 0, resetFee: 477, profitTargetPercentage: 8, drawdownPercentage: 3, dailyLossLimitPercentage: null },
+  { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 227, activationFee: 0, resetFee: 227, profitTargetPercentage: 8, drawdownPercentage: 4, dailyLossLimitPercentage: null }, // $4k target
+  { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 344, activationFee: 0, resetFee: 344, profitTargetPercentage: 8, drawdownPercentage: 3, dailyLossLimitPercentage: null }, // $8k target
+  { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 477, activationFee: 0, resetFee: 477, profitTargetPercentage: 8, drawdownPercentage: 3, dailyLossLimitPercentage: null }, // $12k target
   // Milestone Plan (One-time payment for evaluationFee)
-  { id: 'mff-milestone-25k', name: '$25K Milestone Plan', size: 25000, evaluationFee: 200, activationFee: 0, resetFee: 200, profitTargetPercentage: null, drawdownPercentage: 5, dailyLossLimitPercentage: null }, // Placeholder one-time fee & reset
+  { id: 'mff-milestone-25k', name: '$25K Milestone Plan', size: 25000, evaluationFee: 200, activationFee: 0, resetFee: 200, profitTargetPercentage: null, drawdownPercentage: 5, dailyLossLimitPercentage: null },
   { id: 'mff-milestone-50k', name: '$50K Milestone Plan', size: 50000, evaluationFee: 445, activationFee: 0, resetFee: 445, profitTargetPercentage: null, drawdownPercentage: 5, dailyLossLimitPercentage: null },
   { id: 'mff-milestone-100k', name: '$100K Milestone Plan', size: 100000, evaluationFee: 555, activationFee: 0, resetFee: 555, profitTargetPercentage: null, drawdownPercentage: 5, dailyLossLimitPercentage: null },
   { id: 'mff-milestone-150k', name: '$150K Milestone Plan', size: 150000, evaluationFee: 665, activationFee: 0, resetFee: 665, profitTargetPercentage: null, drawdownPercentage: 5, dailyLossLimitPercentage: null },
@@ -45,18 +44,18 @@ const myFundedFuturesAccountTiers: AccountTier[] = [
 
 const tradifyAccountTiers: AccountTier[] = [
   // Advanced Challenge
-  { id: 'tradify-adv-50k', name: '$50K Advanced Challenge', size: 50000, evaluationFee: 99, activationFee: 125, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null },
-  { id: 'tradify-adv-100k', name: '$100K Advanced Challenge', size: 100000, evaluationFee: 179, activationFee: 125, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null },
-  { id: 'tradify-adv-150k', name: '$150K Advanced Challenge', size: 150000, evaluationFee: 229, activationFee: 125, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null },
+  { id: 'tradify-adv-50k', name: '$50K Advanced Challenge', size: 50000, evaluationFee: 99, activationFee: 125, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null }, // $3k target, $2k IDD
+  { id: 'tradify-adv-100k', name: '$100K Advanced Challenge', size: 100000, evaluationFee: 179, activationFee: 125, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null }, // $6k target, $4k IDD
+  { id: 'tradify-adv-150k', name: '$150K Advanced Challenge', size: 150000, evaluationFee: 229, activationFee: 125, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null }, // $9k target, $6k IDD
   // Growth Challenge
-  { id: 'tradify-growth-50k', name: '$50K Growth Challenge', size: 50000, evaluationFee: 139, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
-  { id: 'tradify-growth-100k', name: '$100K Growth Challenge', size: 100000, evaluationFee: 179, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
-  { id: 'tradify-growth-150k', name: '$150K Growth Challenge', size: 150000, evaluationFee: 339, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
+  { id: 'tradify-growth-50k', name: '$50K Growth Challenge', size: 50000, evaluationFee: 139, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 }, // $3k target, $2k EOD DD, $1.25k soft DLL
+  { id: 'tradify-growth-100k', name: '$100K Growth Challenge', size: 100000, evaluationFee: 179, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 }, // $6k target, $4k EOD DD, $2.5k soft DLL
+  { id: 'tradify-growth-150k', name: '$150K Growth Challenge', size: 150000, evaluationFee: 339, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 }, // $9k target, $6k EOD DD, $3.75k soft DLL
   // Straight to Sim Funded
-  { id: 'tradify-sim-25k', name: '$25K Straight to Sim', size: 25000, evaluationFee: 375, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: null },
-  { id: 'tradify-sim-50k', name: '$50K Straight to Sim', size: 50000, evaluationFee: 549, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
-  { id: 'tradify-sim-100k', name: '$100K Straight to Sim', size: 100000, evaluationFee: 629, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
-  { id: 'tradify-sim-150k', name: '$150K Straight to Sim', size: 150000, evaluationFee: 700, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
+  { id: 'tradify-sim-25k', name: '$25K Straight to Sim', size: 25000, evaluationFee: 375, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: null }, // $1k EOD DD, no DLL
+  { id: 'tradify-sim-50k', name: '$50K Straight to Sim', size: 50000, evaluationFee: 549, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 }, // $2k EOD DD, $1.25k soft DLL
+  { id: 'tradify-sim-100k', name: '$100K Straight to Sim', size: 100000, evaluationFee: 629, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 }, // $4k EOD DD, $2.5k soft DLL
+  { id: 'tradify-sim-150k', name: '$150K Straight to Sim', size: 150000, evaluationFee: 700, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 }, // $6k EOD DD, $3.75k soft DLL
 ];
 
 
@@ -103,7 +102,7 @@ export const mockPropFirms: PropFirm[] = [
     websiteUrl: 'https://www.takeprofittrader.com/',
     affiliateLink: 'https://takeprofittrader.com/if/onlypropfirms',
     briefDescription: 'Futures prop firm with one-step evaluations and choice of PRO or PRO+ funded accounts.',
-    fullReview: `Take Profit Trader (TPT) offers a one-step evaluation for futures traders. Account sizes range from $25K to $150K with corresponding fees. Upon passing (min 5 trading days, 50% consistency rule, EOD trailing drawdown, daily loss limits), traders choose between a PRO account (simulated, $130 one-time activation, 80% split, trailing DD) or a PRO+ account (live, $135/month data fee, 90% split, no trailing DD). Both have news trading restrictions and no copy trading. Withdrawals via Plaid, PayPal, Wise (min $250, or $50 fee). Supports Tradovate, NinjaTrader, TradingView with CQG/Rithmic data and free licenses.`,
+    fullReview: `Take Profit Trader (TPT) offers a one-step evaluation for futures traders. Account sizes range from $25K to $150K with corresponding fees ($150-$360). Upon passing (min 5 trading days, 50% consistency rule, EOD trailing drawdown, daily loss limits), traders choose between a PRO account (simulated, $130 one-time activation, 80% split, trailing DD) or a PRO+ account (live, $135/month data fee, 90% split, no trailing DD). Both have news trading restrictions and no copy trading. Withdrawals via Plaid, PayPal, Wise (min $250, or $50 fee if less). Supports Tradovate, NinjaTrader, TradingView with CQG/Rithmic data and free licenses.`,
     pros: [
         'One-step evaluation process',
         'Choice of PRO (sim) or PRO+ (live) funded accounts',
@@ -129,13 +128,13 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Profit Split', value: '80% (PRO) / 90% (PRO+)' },
       { label: 'Max Drawdown', value: 'Trailing (Eval & PRO) / None (PRO+)' },
       { label: 'Platforms', value: 'NinjaTrader, Tradovate, TradingView' },
-      { label: 'Activation Fee', value: '$130 (PRO) / $135 monthly data (PRO+)'}
+      { label: 'Activation Fee', value: '$130 (PRO) / $135 monthly (PRO+ data)'}
     ],
     offerBadgeLabel: 'PRO or PRO+ Funded',
     fundingModels: ['1-Step Evaluation'],
     profitSplit: '80% (PRO) / 90% (PRO+)',
     drawdownRules: 'Trailing (Evaluation & PRO) / No Trailing Drawdown (PRO+)',
-    profitTarget: '6% (Evaluation)', // e.g., $1500 for $25K
+    profitTarget: '6% (Evaluation, e.g., $25K account: $1,500; $50K: $3,000; $75K: $4,500; $100K: $6,000; $150K: $9,000)',
     tradableInstruments: ['Futures'],
     platforms: ['Tradovate', 'NinjaTrader', 'TradingView'],
     rating: 4.6,
@@ -153,15 +152,15 @@ export const mockPropFirms: PropFirm[] = [
     slug: 'my-funded-futures',
     name: 'My Funded Futures',
     logoUrl: 'https://placehold.co/100x50.png?text=MFF',
-    websiteUrl: '#', // Placeholder
-    affiliateLink: '#', // Placeholder
+    websiteUrl: 'https://myfundedfutures.com/', // Placeholder
+    affiliateLink: 'https://myfundedfutures.com/?aff_id=1030', // Placeholder
     briefDescription: 'Futures prop firm with various plans (Starter, Expert, Milestone) and EOD trailing drawdown.',
-    fullReview: `My Funded Futures offers several plans for futures traders, including Starter, Starter Plus, Expert, and Milestone, all featuring an End-of-Day (EOD) trailing drawdown.
-    The Starter Plan ($50K account) has a monthly fee (approx. $92 with discounts), requires a $3K profit target, and has a $2.5K max loss. It features a 40% consistency rule in the funded stage and payouts after 5 winning days. No activation fee.
-    The Starter Plus Plan ($50K) is similar but removes the daily loss limit and consistency rule for payouts.
-    The Expert Plan (up to $150K) has higher monthly fees, larger profit targets, and a percentage-based trailing drawdown (3-4%). It has no daily loss limit or consistency rule, with bi-weekly payouts.
-    The Milestone Plan (up to $150K) involves a one-time payment, no daily loss cap, and a daily profit cap of 20%. It offers micro scaling and a path to a live account at phase 5.
-    Profit split is 100% of the first $10,000, then 90/10. Reset fees vary by plan and account size. Platforms include TradingView, NinjaTrader, and Tradovate.`,
+    fullReview: `My Funded Futures offers several plans for futures traders, all featuring an End-of-Day (EOD) trailing drawdown.
+    Starter Plan ($50K account, ~$92/month): $3K profit target, $2.5K max loss, $1.2K daily loss. 40% consistency rule in funded stage, payouts after 5 winning days. No activation fee.
+    Starter Plus Plan ($50K, similar monthly fee): No daily loss limit or consistency rule for payouts.
+    Expert Plan ($50K-$150K, $227-$477/month): Higher profit targets (e.g., $4K for $50K), 3-4% trailing drawdown. No daily loss limit or consistency rule, bi-weekly payouts. Inactivity rule (1 trade/7 days).
+    Milestone Plan ($25K-$150K, one-time fee): No daily loss cap, daily profit cap of 20%. Live account at phase 5.
+    Profit split: 100% of first $10K, then 90/10. Reset fees vary. Supports TradingView, NinjaTrader, Tradovate.`,
     pros: [
         'Multiple account plans (Starter, Expert, Milestone)',
         '100% profit split on first $10,000, then 90/10',
@@ -192,11 +191,11 @@ export const mockPropFirms: PropFirm[] = [
     offerBadgeLabel: '100% up to $10K Profit',
     fundingModels: ['Monthly Subscription (Starter, Expert)', 'One-Time Payment (Milestone)'],
     profitSplit: '100% on first $10,000, then 90/10',
-    drawdownRules: 'EOD Trailing Drawdown (varies by plan, e.g. 3-5%)',
-    profitTarget: 'Varies by plan (e.g., Starter: 6%, Expert: 8%)',
+    drawdownRules: 'EOD Trailing Drawdown (varies by plan, e.g. $50K Starter: $2,500; $50K Expert: 4%; $100K Expert: 3%)',
+    profitTarget: 'Varies (e.g., $50K Starter: $3,000; $50K Expert: $4,000; $100K Expert: $8,000; $150K Expert: $12,000)',
     tradableInstruments: ['Futures'],
     platforms: ['TradingView', 'NinjaTrader', 'Tradovate'],
-    rating: 4.5, // Placeholder
+    rating: 4.5,
     isFeatured: false,
     minAccountSize: 25000, // From Milestone Plan
     maxAccountSize: 150000,
@@ -211,28 +210,29 @@ export const mockPropFirms: PropFirm[] = [
     name: 'Tradify',
     slug: 'tradify',
     logoUrl: 'https://placehold.co/100x50.png?text=Tradify',
-    websiteUrl: 'https://tradify.com/', // Placeholder
-    affiliateLink: 'https://tradify.com/onlypropfirms', // Placeholder
+    websiteUrl: 'https://tradify.com/', // Placeholder - use actual if known
+    affiliateLink: 'https://tradify.com/onlypropfirms', // Placeholder - use actual if known
     isFeatured: true,
-    briefDescription: 'Futures prop firm with multiple account types (Advanced, Growth, Sim Funded), 100% profit split up to $15K, and flexible trading conditions.',
-    fullReview: `Tradify offers three main account paths for futures traders: Advanced Challenge, Growth Challenge, and Straight to Sim Funded.
-    1. Advanced Challenge: Features account sizes of $50K, $100K, $150K with monthly fees ($99-$229). It uses an intraday trailing drawdown (e.g., $2K for $50K) and requires a 6% profit target. A $125 activation fee is due upon passing. Max contracts scale with account size (5-15 minis).
-    2. Growth Challenge: Similar account sizes and monthly fees as Advanced. Key difference is an end-of-day trailing drawdown and no activation fee. It includes a soft daily loss limit.
-    3. Straight to Sim Funded: Offers instant funding for sizes $25K-$150K with one-time fees ($375-$700, often discounted). Uses EOD trailing drawdown and a 20% consistency rule. No daily loss limit for $25K, soft for others. Requires 10 min trading days for payout.
-    All plans boast a 100% profit split on the first $15,000, then 90/10. Payouts are twice monthly with specific minimums and profitable day requirements. After four Sim payouts, traders can transition to a Live Funded account with potentially better terms (e.g., no consistency rule, same-day payouts). Tradify supports Tradovate, NinjaTrader, TradingView, allows news trading, EAs, up to 7 active accounts, and copy trading.`,
+    briefDescription: 'Futures prop firm with Advanced (IDD), Growth (EOD DD) Challenges, and Straight to Sim Funded accounts. Offers 100% profit split up to $15K.',
+    fullReview: `Tradify offers three main account paths: Advanced Challenge (intraday trailing drawdown, 35% consistency, $125 activation), Growth Challenge (end-of-day trailing drawdown, 35% consistency, no activation fee), and Straight to Sim Funded (instant funding, EOD trailing, 20% consistency).
+    Advanced Challenge: $50K ($99/mo), $100K ($179/mo), $150K ($229/mo). 6% profit target (e.g., $3K for $50K). Max contracts 5-15 minis.
+    Growth Challenge: Fees & targets same as Advanced. Soft daily loss limit.
+    Straight to Sim: $25K ($375 one-time), $50K ($549), $100K ($629), $150K ($700). No profit target for funding. Requires 10 min trading days for payout.
+    All plans: 100% profit split on first $15,000, then 90/10. Payouts twice monthly (1st-4th, 15th-18th for Challenges; 1st-4th, 11th-14th, 21st-24th for Sim) with minimums ($500-$1500 for Challenges, tiered for Sim) and profitable day requirements. After four Sim payouts, possible transition to a Live Funded account with better terms (no consistency rule, same-day payouts, 100% up to $15k then 90/10). Supports Tradovate, NinjaTrader, TradingView; allows news trading, EAs, up to 7 active accounts, and copy trading. Futures (CME, COMEX, NYMEX, CBOT, Coinbase Derivatives).`,
     pros: [
-      "Multiple account types (Advanced, Growth, Straight to Sim)",
-      "100% profit split on first $15,000, then 90%",
+      "Multiple account types (Advanced Challenge, Growth Challenge, Straight to Sim)",
+      "100% profit split on first $15,000, then 90/10",
       "Supports Tradovate, NinjaTrader, TradingView",
       "News trading and EAs allowed",
       "Up to 7 active funded accounts, copy trading permitted",
       "Transition to Live Funded accounts with favorable terms",
-      "End-of-day drawdown option available (Growth & Sim)"
+      "End-of-day drawdown option available (Growth & Sim)",
+      "Instant funding option (Straight to Sim)"
     ],
     cons: [
       "Consistency rules apply (35% for Challenges, 20% for Sim)",
       "Activation fee for Advanced Challenge accounts ($125)",
-      "Monthly fees for Challenge accounts",
+      "Monthly fees for Challenge accounts (Advanced & Growth)",
       "Tiered payout structure and specific requirements for Straight to Sim accounts",
       "Minimum trading day requirements for payouts for Sim accounts (10 days)"
     ],
@@ -250,20 +250,20 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Profit Split', value: '100% (first $15k), then 90%' },
       { label: 'Platforms', value: 'Tradovate, NinjaTrader, TradingView' },
       { label: 'Max Accounts', value: '7 active funded' },
-      { label: 'Funding Types', value: 'Challenges, Instant Sim'}
+      { label: 'Funding Types', value: 'Challenges (IDD/EOD), Instant Sim'}
     ],
     offerBadgeLabel: '100% up to $15K',
-    fundingModels: ["Advanced Challenge", "Growth Challenge", "Straight to Sim Funded"],
+    fundingModels: ["Advanced Challenge (Intraday DD)", "Growth Challenge (EOD DD)", "Straight to Sim Funded (EOD DD)"],
     profitSplit: '100% on first $15,000, then 90/10',
-    drawdownRules: 'Intraday trailing (Advanced), EOD trailing (Growth, Sim)',
-    profitTarget: '6% (Challenges), Varies by tier (Sim Funded)',
+    drawdownRules: 'Advanced: Intraday trailing. Growth: End-of-day trailing. Sim: End-of-day trailing. (e.g., $50K Adv: $2K IDD; $50K Growth: $2K EOD; $25K Sim: $1K EOD)',
+    profitTarget: 'Challenges: 6% (e.g., $50K: $3,000). Sim Funded: None for initial funding, payout tiers have profit goals.',
     tradableInstruments: ['Futures (CME, COMEX, NYMEX, CBOT, Coinbase Derivatives)'],
     platforms: ['Tradovate', 'NinjaTrader', 'TradingView'],
-    rating: 4.5,
-    minAccountSize: 25000,
+    rating: 4.5, // Placeholder, adjust as needed
+    minAccountSize: 25000, // From Straight to Sim
     maxAccountSize: 150000,
     minChallengeCost: 99, // Lowest monthly fee for $50K Advanced Challenge
-    maxChallengeCost: 700, // Highest one-time fee for $150K Sim
+    maxChallengeCost: 700, // Highest one-time fee for $150K Sim (before discount)
     activationFee: '$125 (Advanced Challenge), None (Growth/Sim)',
     challengeType: 'Evaluation Challenges (Advanced/Growth), Direct Sim Funding',
     accountTiers: tradifyAccountTiers,
@@ -334,11 +334,11 @@ export const mockGlobalOffersTestData: GlobalOffer[] = [
 const alBrooksSampleLessons: VideoLesson[] = [
   {
     lessonTitle: "Brooks Trading Course Sample: 12A Market Cycle",
-    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
+    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder for first lesson
     lessonDescription: "Learn the fundamentals of how Al Brooks perceives market structure and its importance in price action trading.",
     lessonKeyTakeaways: ["Key Trendlines", "Support & Resistance", "Market Cycles"],
     lessonCTAText: "Watch Full Series",
-    lessonCTALink: "#",
+    lessonCTALink: "#", // To be updated with the actual full course link
   },
   {
     lessonTitle: "Lesson 2: Bar-by-Bar Analysis Introduction",
@@ -346,7 +346,7 @@ const alBrooksSampleLessons: VideoLesson[] = [
     lessonDescription: "An introduction to Al Brooks' detailed bar-by-bar analysis technique for making trading decisions.",
     lessonKeyTakeaways: ["Candlestick signals", "Volume interpretation", "Context is key"],
     lessonCTAText: "Explore More Samples",
-    lessonCTALink: "#",
+    lessonCTALink: "#", // Could link to a page with more samples or full course
   },
 ];
 
@@ -385,7 +385,7 @@ export const mockFreeResources: FreeResourceItem[] = [
     author: "Al Brooks",
     coverImage: "https://placehold.co/600x400.png?text=Al+Brooks+Course",
     pageIntroduction: "Get a taste of Al Brooks' renowned price action trading methodology with these free sample video lessons. Understand how a professional trader reads charts bar by bar.",
-    mainAffiliateLink: "#al-brooks-full-course", // Link to the full paid course
+    mainAffiliateLink: "https://www.brookstradingcourse.com/buy-the-brooks-price-action-trading-course/ref/uuc5l/", // Link to the full paid course
     mainCTAText: "Access Full Al Brooks Course",
     resourceType: "Free Video Course Series",
     isFeatured: true,
@@ -419,6 +419,3 @@ export const mockFreeResources: FreeResourceItem[] = [
     concludingCTASection: "Arm yourself with the knowledge to make an informed decision. Download the checklist now!"
   },
 ];
-
-
-    
