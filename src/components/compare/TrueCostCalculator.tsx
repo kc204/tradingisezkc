@@ -10,6 +10,8 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
+import Link from 'next/link';
+import { ExternalLink } from 'lucide-react';
 
 interface TrueCostCalculatorProps {
   firms?: PropFirm[]; // Used on compare page
@@ -147,13 +149,13 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
 
         <div className="flex items-center space-x-2 pt-2">
           <Checkbox
-            id={`include-reset-${isSingleFirmMode ? singleFirm?.id : ''}`} // Unique ID for checkbox
+            id={`include-reset-${isSingleFirmMode && activeFirm ? activeFirm.id : ''}`} // Unique ID for checkbox
             checked={includeResetFee}
             onCheckedChange={(checked) => setIncludeResetFee(Boolean(checked))}
             disabled={!canIncludeReset}
           />
           <Label
-            htmlFor={`include-reset-${isSingleFirmMode ? singleFirm?.id : ''}`}
+            htmlFor={`include-reset-${isSingleFirmMode && activeFirm ? activeFirm.id : ''}`}
             className={`text-sm font-medium ${!canIncludeReset ? 'text-muted-foreground/50 cursor-not-allowed' : 'text-foreground cursor-pointer'}`}
           >
             Include one typical Reset Fee (if applicable: {selectedTier?.resetFee ? `$${selectedTier.resetFee}` : 'N/A'})
@@ -161,7 +163,7 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
         </div>
       </CardContent>
 
-      {calculatedCosts && selectedTier && (
+      {calculatedCosts && selectedTier && activeFirm && (
         <CardFooter className="flex flex-col items-start space-y-4 border-t border-border pt-6">
           <h3 className="text-lg font-semibold text-foreground">Estimated Cost Breakdown:</h3>
           <div className="w-full space-y-2 text-sm">
@@ -189,6 +191,14 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
             <span className="font-semibold text-accent">Total Estimated Upfront Cost:</span>
             <span className="font-bold text-accent">${calculatedCosts.totalCost.toLocaleString()}</span>
           </div>
+          {activeFirm.affiliateLink && (
+            <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover mt-4">
+              <Link href={activeFirm.affiliateLink} target="_blank" rel="noopener noreferrer">
+                Visit {activeFirm.name}
+                <ExternalLink className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          )}
         </CardFooter>
       )}
       {!selectedTier && activeFirm && (
