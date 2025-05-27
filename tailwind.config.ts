@@ -28,12 +28,12 @@ export default {
   			primary: {
   				DEFAULT: 'hsl(var(--primary))', 
   				foreground: 'hsl(var(--primary-foreground))',
-          hover: 'hsl(var(--primary-hover))',
+          hover: 'hsl(var(--accent-primary-hover-hsl))',
   			},
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))', 
   				foreground: 'hsl(var(--secondary-foreground))',
-          hover: 'hsl(var(--secondary-hover))', 
+          hover: 'hsl(var(--accent-secondary-hover-hsl))', 
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
@@ -42,21 +42,21 @@ export default {
   			accent: {
   				DEFAULT: 'hsl(var(--accent))', 
   				foreground: 'hsl(var(--accent-foreground))',
-          hover: 'hsl(var(--accent-hover))', 
+          hover: 'hsl(var(--cta-main-hover-hsl))', 
   			},
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))', 
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
         success: {
-          DEFAULT: 'hsl(var(--success))', 
-          foreground: 'hsl(var(--success-foreground))',
+          DEFAULT: 'hsl(var(--success-state-hsl))', 
+          foreground: 'hsl(var(--success-state-foreground-hsl))',
         },
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))', 
-        'header-background': 'hsl(var(--header-background))',
-        'header-foreground': 'hsl(var(--header-foreground))',
+        'header-background': 'hsl(var(--header-background-hsl))',
+        'header-foreground': 'hsl(var(--header-foreground-hsl))',
   			chart: {
   				'1': 'hsl(var(--chart-1))',
   				'2': 'hsl(var(--chart-2))',

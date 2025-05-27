@@ -167,7 +167,7 @@ const Header = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="bg-popover border-border text-popover-foreground"
+            className="bg-popover text-popover-foreground" 
             onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)}
             onMouseLeave={() => handleMouseLeave(isMobileLink)}
           >
@@ -220,9 +220,9 @@ const Header = () => {
     <header
       className={cn(
         "shadow-lg sticky z-40",
-        "top-[2.25rem]", // Adjusted to account for global offer bar height
+        "top-[2.25rem]", 
         "transition-[transform,opacity] duration-300 ease-out",
-        "bg-header-background text-header-foreground", // Ensure header uses its specific colors
+        "bg-header-background text-header-foreground", 
         isVisible
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-full pointer-events-none"
@@ -231,7 +231,7 @@ const Header = () => {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link
           href="/"
-          className="text-2xl font-bold text-header-foreground" // Ensure logo uses header foreground
+          className="text-2xl font-bold text-header-foreground" 
           onClick={() => {
             if (mobileMenuOpen) setMobileMenuOpen(false);
             if (openDropdown) setOpenDropdown(null);

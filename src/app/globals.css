@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -30,7 +29,7 @@
     --success-state-foreground-hsl: 0 0% 96%; /* #F5F5F5 */
 
     --header-background-hsl: var(--bg-main-hsl); /* #111111 */
-    --header-foreground-hsl: var(--text-main-hsl);   /* #F5F5F5 - Bright Off-White */
+    --header-foreground-hsl: 0 0% 96%;   /* #F5F5F5 - Bright Off-White */
 
     /* Main Theme ShadCN Semantic Mapping */
     --background: hsl(var(--bg-main-hsl));
@@ -44,18 +43,17 @@
 
     --primary: hsl(var(--accent-primary-hsl));
     --primary-foreground: hsl(var(--accent-primary-foreground-hsl));
-    --primary-hover: hsl(var(--accent-primary-hover-hsl));
+    /* --primary-hover is managed by Tailwind hover:bg-primary/90 or similar, or could be explicitly defined if needed */
 
     --secondary: hsl(var(--accent-secondary-hsl));
     --secondary-foreground: hsl(var(--accent-secondary-foreground-hsl));
-    --secondary-hover: hsl(var(--accent-secondary-hover-hsl));
     
     --muted: hsl(var(--bg-card-hsl)); /* Muted often uses card background */
     --muted-foreground: hsl(var(--text-muted-hsl));
 
     --accent: hsl(var(--cta-main-hsl));
     --accent-foreground: hsl(var(--cta-main-foreground-hsl));
-    --accent-hover: hsl(var(--cta-main-hover-hsl)); 
+    /* --accent-hover is managed by Tailwind hover:bg-accent-hover or could be explicitly defined */
 
     --destructive: hsl(var(--error-state-hsl));
     --destructive-foreground: hsl(var(--error-state-foreground-hsl));
@@ -86,15 +84,12 @@
     --popover-foreground: hsl(var(--text-main-hsl));
     --primary: hsl(var(--accent-primary-hsl));
     --primary-foreground: hsl(var(--accent-primary-foreground-hsl));
-    --primary-hover: hsl(var(--accent-primary-hover-hsl));
     --secondary: hsl(var(--accent-secondary-hsl));
     --secondary-foreground: hsl(var(--accent-secondary-foreground-hsl));
-    --secondary-hover: hsl(var(--accent-secondary-hover-hsl));
     --muted: hsl(var(--bg-card-hsl));
     --muted-foreground: hsl(var(--text-muted-hsl));
     --accent: hsl(var(--cta-main-hsl));
     --accent-foreground: hsl(var(--cta-main-foreground-hsl));
-    --accent-hover: hsl(var(--cta-main-hover-hsl));
     --destructive: hsl(var(--error-state-hsl));
     --destructive-foreground: hsl(var(--error-state-foreground-hsl));
     --success: hsl(var(--success-state-hsl));
@@ -151,4 +146,3 @@
     --tw-prose-td-borders: hsl(var(--border));
   }
 }
-    
