@@ -27,6 +27,12 @@ export default function AlBrooksFreeCoursePage() {
 
   const { title, pageIntroduction, mainAffiliateLink, mainCTAText, videoLessons, concludingCTASection } = courseData;
 
+  const getYouTubeVideoId = (url: string): string | null => {
+    const regex = /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/ ]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  };
+
   return (
     <div className="space-y-12">
       <section className="text-center py-12 md:py-16 bg-background rounded-xl shadow-xl">
@@ -54,67 +60,84 @@ export default function AlBrooksFreeCoursePage() {
 
       {videoLessons && videoLessons.length > 0 && (
         <section className="container mx-auto px-4 space-y-8">
-          {videoLessons.map((lesson, index) => (
-            <Card key={index} className="shadow-lg overflow-hidden">
-              <div className="grid md:grid-cols-2 gap-0">
-                <div className="bg-muted p-4 md:p-6 flex items-center justify-center aspect-video max-w-xl mx-auto w-full">
-                  {lesson.videoEmbedCodeOrURL && lesson.videoEmbedCodeOrURL.includes("youtube.com/embed") ? (
-                     <iframe
-                        className="w-full h-full"
-                        src={lesson.videoEmbedCodeOrURL}
-                        title={lesson.lessonTitle}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                  ) : (
-                    <div className="w-full h-full bg-black text-white flex flex-col items-center justify-center text-center">
-                      <PlayCircle className="w-12 h-12 mb-2 opacity-50" />
-                      <p>Video: {lesson.lessonTitle}<br/> 
-                         {lesson.videoEmbedCodeOrURL ? `(Embed: ${lesson.videoEmbedCodeOrURL})` : '(Video source not available)'}
-                      </p>
-                    </div>
-                  )}
-                </div>
-                <div className="p-6">
-                  <CardHeader className="p-0 mb-3">
-                    <CardTitle className="text-2xl text-foreground">{lesson.lessonTitle}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-0 space-y-4">
-                    {lesson.lessonDescription && (
-                      <p className="text-muted-foreground" dangerouslySetInnerHTML={{ __html: lesson.lessonDescription.replace(/\n/g, '<br />') }} />
-                    )}
-                    {lesson.lessonKeyTakeaways && lesson.lessonKeyTakeaways.length > 0 && (
-                      <div>
-                        <h4 className="font-semibold text-foreground mb-1.5 flex items-center">
-                          <ListChecks className="w-5 h-5 mr-2 text-primary" /> Key Takeaways:
-                        </h4>
-                        <ul className="list-disc list-inside text-muted-foreground space-y-1 text-sm pl-2">
-                          {lesson.lessonKeyTakeaways.map((takeaway, i) => (
-                            <li key={i}>{takeaway}</li>
-                          ))}
-                        </ul>
+          {videoLessons.map((lesson, index) => {
+            const videoId = lesson.videoEmbedCodeOrURL ? getYouTubeVideoId(lesson.videoEmbedCodeOrURL) : null;
+            const isYouTubeVideo = !!videoId;
+            
+            return (
+              <Card key={index} className="shadow-lg overflow-hidden">
+                <div className="grid md:grid-cols-2 gap-0">
+                  <div className="bg-muted p-4 md:p-6 flex items-center justify-center aspect-video max-w-xl mx-auto w-full">
+                    {isYouTubeVideo ? (
+                       <iframe
+                          className="w-full h-full"
+                          src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=0&modestbranding=1&rel=0&controls=1`}
+                          title={lesson.lessonTitle}
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                    ) : lesson.videoEmbedCodeOrURL && lesson.videoEmbedCodeOrURL.includes("iframe.mediadelivery.net") ? (
+                       // Logic for mediadelivery.net or other direct iframe embeds if needed in future
+                       // For now, this assumes if not YouTube, it might be a direct iframe or placeholder
+                       <iframe
+                          className="w-full h-full"
+                          src={lesson.videoEmbedCodeOrURL}
+                          title={lesson.lessonTitle}
+                          frameBorder="0"
+                          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                          allowFullScreen
+                          loading="lazy"
+                       ></iframe>
+                    ) : (
+                      <div className="w-full h-full bg-black text-white flex flex-col items-center justify-center text-center">
+                        <PlayCircle className="w-12 h-12 mb-2 opacity-50" />
+                        <p>Video: {lesson.lessonTitle}<br/> 
+                           {lesson.videoEmbedCodeOrURL ? `(Embed: ${lesson.videoEmbedCodeOrURL})` : '(Video source not available)'}
+                        </p>
                       </div>
                     )}
-                    {lesson.lessonCTAText && lesson.lessonCTALink && (
-                      <div className="mt-6">
-                        <StarBorder<typeof Link>
-                          as={Link}
-                          href={lesson.lessonCTALink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <span className="inline-flex items-center justify-center">
-                           {lesson.lessonCTAText} <ExternalLink className="ml-1.5 h-4 w-4" />
-                          </span>
-                        </StarBorder>
-                      </div>
-                    )}
-                  </CardContent>
+                  </div>
+                  <div className="p-6">
+                    <CardHeader className="p-0 mb-3">
+                      <CardTitle className="text-2xl text-foreground">{lesson.lessonTitle}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0 space-y-4">
+                      {lesson.lessonDescription && (
+                        <p className="text-muted-foreground" dangerouslySetInnerHTML={{ __html: lesson.lessonDescription.replace(/\n/g, '<br />') }} />
+                      )}
+                      {lesson.lessonKeyTakeaways && lesson.lessonKeyTakeaways.length > 0 && (
+                        <div>
+                          <h4 className="font-semibold text-foreground mb-1.5 flex items-center">
+                            <ListChecks className="w-5 h-5 mr-2 text-primary" /> Key Takeaways:
+                          </h4>
+                          <ul className="list-disc list-inside text-muted-foreground space-y-1 text-sm pl-2">
+                            {lesson.lessonKeyTakeaways.map((takeaway, i) => (
+                              <li key={i}>{takeaway}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {lesson.lessonCTAText && lesson.lessonCTALink && (
+                        <div className="mt-6">
+                           <StarBorder<typeof Link>
+                            as={Link}
+                            href={lesson.lessonCTALink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <span className="inline-flex items-center justify-center">
+                             {lesson.lessonCTAText} <ExternalLink className="ml-1.5 h-4 w-4" />
+                            </span>
+                          </StarBorder>
+                        </div>
+                      )}
+                    </CardContent>
+                  </div>
                 </div>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            );
+          })}
         </section>
       )}
 
