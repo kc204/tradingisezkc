@@ -5,9 +5,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 import { DegenModeProvider } from '@/contexts/DegenModeContext';
-import GlobalOfferBar from '@/components/layout/GlobalOfferBar';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
+import AppContentWrapper from '@/components/layout/AppContentWrapper'; // Changed this
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -39,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${plusJakartaSans.variable} ${pressStart2P.variable} ${pixelifySans.variable}`}>
-      <body className="font-sans antialiased flex flex-col min-h-screen">
+      <body>
         <DegenModeProvider>
           <ThemeProvider
             attribute="class"
@@ -47,12 +45,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <GlobalOfferBar />
-            <Header />
-            <main className='flex-grow container mx-auto px-4 py-8'>
-              {children}
-            </main>
-            <Footer />
+            <AppContentWrapper>{children}</AppContentWrapper>
             <Toaster />
           </ThemeProvider>
         </DegenModeProvider>

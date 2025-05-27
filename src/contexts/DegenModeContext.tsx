@@ -6,6 +6,7 @@ import React, { createContext, useContext, useState, useEffect, type ReactNode }
 interface DegenModeContextType {
   isDegenMode: boolean;
   setIsDegenMode: (isDegen: boolean) => void;
+  isMounted: boolean; // Expose isMounted
 }
 
 const DegenModeContext = createContext<DegenModeContextType | undefined>(undefined);
@@ -21,12 +22,12 @@ export const DegenModeProvider = ({ children }: { children: ReactNode }) => {
     if (storedDegenMode === 'true') {
       setIsDegenModeState(true);
     } else {
-      setIsDegenModeState(false); // Explicitly set to false if not 'true' or null
+      setIsDegenModeState(false);
     }
   }, []);
 
   useEffect(() => {
-    if (!isMounted) return; // Prevent running on server or before initial client mount
+    if (!isMounted) return;
 
     if (isDegenMode) {
       document.documentElement.classList.add('degen-mode');
@@ -38,14 +39,12 @@ export const DegenModeProvider = ({ children }: { children: ReactNode }) => {
   }, [isDegenMode, isMounted]);
 
   const setIsDegenMode = (isDegen: boolean) => {
-    if (isMounted) { // Only allow state changes if mounted
+    if (isMounted) {
       setIsDegenModeState(isDegen);
     }
   };
   
-  // Provide a default value during SSR or before hydration, then the actual value
-  const value = isMounted ? { isDegenMode, setIsDegenMode } : { isDegenMode: false, setIsDegenMode: () => {} };
-
+  const value = { isDegenMode, setIsDegenMode, isMounted };
 
   return (
     <DegenModeContext.Provider value={value}>
@@ -57,9 +56,9 @@ export const DegenModeProvider = ({ children }: { children: ReactNode }) => {
 export const useDegenMode = () => {
   const context = useContext(DegenModeContext);
   if (context === undefined) {
-    // Provide a default non-degen state if context is not yet available
-    // This helps prevent errors during SSR or initial client render before context is fully set up
-    return { isDegenMode: false, setIsDegenMode: () => console.warn("DegenModeContext not yet available") };
+    // Default values if context is not yet available (e.g. during SSR for a component that might use it early)
+    // AppContentWrapper will handle the !isMounted case more gracefully.
+    return { isDegenMode: false, setIsDegenMode: () => console.warn("DegenModeContext not yet available"), isMounted: false };
   }
   return context;
 };

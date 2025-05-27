@@ -52,7 +52,7 @@
 
     --accent: var(--cta-main);
     --accent-foreground: var(--cta-main-foreground);
-    --accent-hover: var(--accent-hover);
+    --accent-hover: var(--cta-main-hover); /* Corrected from accent-hover to cta-main-hover */
 
     --destructive: var(--error-state);
     --destructive-foreground: var(--error-state-foreground);
@@ -67,7 +67,7 @@
     --radius: 0.5rem;
 
     --header-background: hsl(var(--bg-main));
-    --header-foreground: hsl(0 0% 100%); 
+    --header-foreground: hsl(0 0% 100%); /* Pure White */
 
     --chart-1: hsl(var(--accent-primary)); 
     --chart-2: hsl(var(--cta-main));      
@@ -130,7 +130,7 @@
 
     --accent: var(--cta-main);
     --accent-foreground: var(--cta-main-foreground);
-    --accent-hover: var(--accent-hover);
+    --accent-hover: var(--cta-main-hover); /* Corrected from accent-hover to cta-main-hover */
 
     --destructive: var(--error-state);
     --destructive-foreground: var(--error-state-foreground);
@@ -143,7 +143,7 @@
     --ring: var(--accent-primary);
 
     --header-background: hsl(var(--bg-main));
-    --header-foreground: hsl(0 0% 100%);
+    --header-foreground: hsl(0 0% 100%); /* Pure White */
 
     --chart-1: hsl(var(--accent-primary));
     --chart-2: hsl(var(--cta-main));
@@ -152,30 +152,32 @@
     --chart-5: hsl(var(--text-muted));
   }
 
+  /* Degen Mode Global Styles Applied to HTML tag */
   .degen-mode {
+    /* Override main theme variables for Degen Mode */
     --background: hsl(var(--degen-bg-main-hsl));
     --foreground: hsl(var(--degen-text-main-hsl));
-    --card: hsl(var(--degen-bg-main-hsl)); /* Cards might be borderless or use neon borders */
+    --card: hsl(var(--degen-bg-main-hsl)); 
     --card-foreground: hsl(var(--degen-text-main-hsl));
     --popover: hsl(var(--degen-bg-main-hsl));
     --popover-foreground: hsl(var(--degen-text-main-hsl));
     --primary: hsl(var(--degen-electric-blue-hsl));
     --primary-foreground: hsl(var(--degen-text-main-hsl));
-    --primary-hover: hsl(var(--degen-electric-blue-hsl)); /* Consider a brighter/pulsing hover */
+    --primary-hover: hsl(var(--degen-electric-blue-hsl)); 
     --secondary: hsl(var(--degen-hot-pink-hsl));
     --secondary-foreground: hsl(var(--degen-text-main-hsl));
     --secondary-hover: hsl(var(--degen-hot-pink-hsl));
     --muted: hsl(var(--degen-bg-main-hsl));
-    --muted-foreground: hsl(var(--degen-text-main-hsl)); /* Degen muted might still be bright */
+    --muted-foreground: hsl(var(--degen-text-main-hsl)); 
     --accent: hsl(var(--degen-lime-green-hsl));
-    --accent-foreground: hsl(var(--degen-bg-main-hsl)); /* Contrast for green */
+    --accent-foreground: hsl(var(--degen-bg-main-hsl)); 
     --accent-hover: hsl(var(--degen-lime-green-hsl));
     --destructive: hsl(var(--degen-hot-pink-hsl));
     --destructive-foreground: hsl(var(--degen-text-main-hsl));
     --success: hsl(var(--degen-lime-green-hsl));
     --success-foreground: hsl(var(--degen-bg-main-hsl));
-    --border: hsl(var(--degen-electric-blue-hsl)); /* Neon borders */
-    --input: hsl(var(--degen-bg-main-hsl)); /* Inputs might be border-only */
+    --border: hsl(var(--degen-electric-blue-hsl)); 
+    --input: hsl(var(--degen-bg-main-hsl)); 
     --input-foreground: hsl(var(--degen-text-main-hsl));
     --ring: hsl(var(--degen-hot-pink-hsl));
     --header-background: hsl(var(--degen-bg-main-hsl));
@@ -191,27 +193,33 @@
     @apply bg-background text-foreground font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  /* Base Degen Mode body styles - these are applied when .degen-mode is on <html> */
   .degen-mode body {
-    @apply font-pixelify bg-[hsl(var(--degen-bg-main-hsl))] text-[hsl(var(--degen-text-main-hsl))];
+    /* These will automatically use the overridden Degen CSS variables */
+    @apply bg-background text-foreground font-pixelify;
   }
 
-  header a, header button {
+  header a, header button { /* For main site header */
     @apply text-header-foreground;
   }
-   header [data-radix-collection-item] > button {
+   header [data-radix-collection-item] > button { /* For main site Radix dropdown trigger */
     @apply text-header-foreground;
   }
+
   p {
     @apply text-muted-foreground;
   }
+  /* Degen mode specific paragraph styling */
   .degen-mode p {
-    @apply text-[hsl(var(--degen-text-main-hsl))];
+     @apply text-foreground; /* Uses Degen's overridden --foreground */
   }
+
   h1, h2, h3, h4, h5, h6, strong, dt {
     @apply text-foreground;
   }
+  /* Degen mode specific heading styling */
   .degen-mode h1, .degen-mode h2, .degen-mode h3, .degen-mode h4, .degen-mode h5, .degen-mode h6 {
-    @apply font-press-start text-[hsl(var(--degen-lime-green-hsl))]; /* Example neon for headers */
+    @apply font-press-start text-[hsl(var(--degen-lime-green-hsl))]; 
   }
   .degen-mode strong, .degen-mode dt {
     @apply text-[hsl(var(--degen-hot-pink-hsl))];
@@ -220,10 +228,13 @@
   a { 
     @apply text-primary; 
   }
+  /* Degen mode specific link styling */
   .degen-mode a {
     @apply text-[hsl(var(--degen-electric-blue-hsl))] hover:text-[hsl(var(--degen-lime-green-hsl))];
   }
-  .dark .prose {
+
+  /* Prose styling for main site */
+  .prose { 
     --tw-prose-body: hsl(var(--muted-foreground));
     --tw-prose-headings: hsl(var(--foreground));
     --tw-prose-lead: hsl(var(--muted-foreground));
@@ -240,46 +251,24 @@
     --tw-prose-pre-bg: hsl(var(--card));
     --tw-prose-th-borders: hsl(var(--border));
     --tw-prose-td-borders: hsl(var(--border));
-    --tw-prose-invert-body: hsl(var(--muted-foreground));
-    --tw-prose-invert-headings: hsl(var(--foreground));
-    --tw-prose-invert-lead: hsl(var(--muted-foreground));
-    --tw-prose-invert-links: hsl(var(--primary));
-    --tw-prose-invert-bold: hsl(var(--foreground));
-    --tw-prose-invert-counters: hsl(var(--muted-foreground));
-    --tw-prose-invert-bullets: hsl(var(--border));
-    --tw-prose-invert-hr: hsl(var(--border));
-    --tw-prose-invert-quotes: hsl(var(--foreground));
-    --tw-prose-invert-quote-borders: hsl(var(--border));
-    --tw-prose-invert-captions: hsl(var(--muted-foreground));
-    --tw-prose-invert-code: hsl(var(--foreground));
-    --tw-prose-invert-pre-code: hsl(var(--card-foreground));
-    --tw-prose-invert-pre-bg: hsl(var(--card));
-    --tw-prose-invert-th-borders: hsl(var(--border));
-    --tw-prose-invert-td-borders: hsl(var(--border));
   }
-  .prose { 
+  /* Invert prose for dark mode (which is default for main site) */
+  .dark .prose { /* This selector applies to the default dark theme */
     --tw-prose-body: hsl(var(--muted-foreground));
     --tw-prose-headings: hsl(var(--foreground));
     --tw-prose-links: hsl(var(--primary));
     --tw-prose-bold: hsl(var(--foreground));
-    --tw-prose-counters: hsl(var(--muted-foreground));
-    --tw-prose-bullets: hsl(var(--border));
-    --tw-prose-hr: hsl(var(--border));
-    --tw-prose-quotes: hsl(var(--foreground));
-    --tw-prose-quote-borders: hsl(var(--border));
-    --tw-prose-captions: hsl(var(--muted-foreground));
-    --tw-prose-code: hsl(var(--foreground));
-    --tw-prose-pre-code: hsl(var(--card-foreground));
-    --tw-prose-pre-bg: hsl(var(--card));
-    --tw-prose-th-borders: hsl(var(--border));
-    --tw-prose-td-borders: hsl(var(--border));
+    /* etc. for all prose variables, ensuring they use the dark theme's main variables */
   }
 
+  /* Degen mode specific prose styling */
   .degen-mode .prose {
     --tw-prose-body: hsl(var(--degen-text-main-hsl));
     --tw-prose-headings: hsl(var(--degen-lime-green-hsl));
     --tw-prose-links: hsl(var(--degen-electric-blue-hsl));
     --tw-prose-bold: hsl(var(--degen-hot-pink-hsl));
+    --tw-prose-pre-code: hsl(var(--degen-text-main-hsl));
+    --tw-prose-pre-bg: hsl(var(--degen-bg-main-hsl)); /* or a slightly different degen card bg */
     /* Add other prose overrides for degen mode as needed */
   }
 }

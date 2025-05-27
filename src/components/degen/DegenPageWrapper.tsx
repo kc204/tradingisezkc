@@ -1,27 +1,21 @@
 
 'use client';
 
-// This component no longer manages its own Header/Footer.
-// It's now a content wrapper for pages within the Degen Mode.
-// The global Header/Footer will adapt to Degen Mode styling.
-
 import { cn } from '@/lib/utils';
 
 interface DegenPageWrapperProps {
   children: React.ReactNode;
 }
 
+// This component now primarily styles the *content area* within DegenAppLayout.
+// DegenAppLayout handles the overall page structure (header, footer, background).
 export default function DegenPageWrapper({ children }: DegenPageWrapperProps) {
   return (
-    // This div primarily sets Degen-specific styling for the content area
-    // of Degen pages. The overall page background, header, and footer
-    // styling is handled by the .degen-mode class on <html> and
-    // conditional styling within the Header and Footer components.
     <div className={cn(
-      "font-pixelify" // Ensures Degen font for content
-      // Add any Degen-specific content area styling here if needed,
-      // e.g., specific padding, borders for the content block itself.
-      // The main background is already applied by .degen-mode on <html>.
+      "font-pixelify" 
+      // Add any Degen-specific *content area* styling here, 
+      // e.g., specific padding if different from DegenAppLayout's main area.
+      // For now, it's simple to ensure the Degen font propagates correctly.
     )}>
       {children}
     </div>
