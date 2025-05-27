@@ -12,24 +12,30 @@ interface DegenModeContextType {
 const DegenModeContext = createContext<DegenModeContextType | undefined>(undefined);
 
 export const DegenModeProvider = ({ children }: { children: ReactNode }) => {
+  // Default to false. Client-side useEffect will update from localStorage.
   const [isDegenMode, setIsDegenModeState] = useState<boolean>(false);
 
   useEffect(() => {
-    // Initialize state from localStorage on client mount
+    // This effect runs once on the client after the component mounts.
+    // It initializes the degen mode state from localStorage.
+    let initialDegenMode = false;
     try {
       const storedDegenMode = localStorage.getItem('degenMode');
-      if (storedDegenMode !== null) {
-        setIsDegenModeState(JSON.parse(storedDegenMode));
+      if (storedDegenMode === 'true') { // Explicitly check for the string 'true'
+        initialDegenMode = true;
       }
+      // For any other value ('false', null, undefined, or corrupted data),
+      // initialDegenMode will remain false.
     } catch (error) {
       console.error("Error reading degenMode from localStorage:", error);
-      // Default to false if localStorage is inaccessible or value is corrupted
-      setIsDegenModeState(false);
+      // initialDegenMode remains false in case of error.
     }
-  }, []);
+    setIsDegenModeState(initialDegenMode);
+  }, []); // Empty dependency array ensures this runs once on client mount.
 
   useEffect(() => {
-    // Sync state to localStorage and HTML class
+    // This effect runs whenever isDegenMode changes.
+    // It syncs the state to localStorage and applies/removes the 'degen-mode' class.
     try {
       if (typeof window !== 'undefined' && document.documentElement) {
         if (isDegenMode) {
@@ -43,7 +49,7 @@ export const DegenModeProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Error syncing degenMode to localStorage/class:", error);
     }
-  }, [isDegenMode]);
+  }, [isDegenMode]); // This effect depends on isDegenMode.
 
   const setIsDegenMode = (isDegen: boolean) => {
     setIsDegenModeState(isDegen);
