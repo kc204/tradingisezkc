@@ -1,5 +1,5 @@
 
-'use client';
+'use client'; // Needs to be client for TradingView widget state
 
 import FirmCard from '@/components/propfirms/FirmCard';
 import ArticleCard from '@/components/shared/ArticleCard';
@@ -12,52 +12,9 @@ import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
 import TradingViewWidget from '@/components/shared/TradingViewWidget';
-import { useDegenMode } from '@/contexts/DegenModeContext';
-import { Button } from '@/components/ui/button';
-import { GlowEffect } from '@/components/ui/glow-effect';
-
-// Component for Degen Mode Homepage Content
-function DegenHomePageContent() {
-  return (
-    <div className="text-center space-y-10 py-10">
-      <h1 className="text-5xl md:text-6xl text-[hsl(var(--degen-lime-green-hsl))] leading-tight">
-        ENTER THE<br />DEGEN DIMENSION
-      </h1>
-      <p className="text-xl md:text-2xl text-[hsl(var(--degen-text-main-hsl))] max-w-2xl mx-auto">
-        You've found the rabbit hole. Normal rules don't apply here. Explore the chaos. NFA/DYOR.
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-        {[
-          { href: '/degen/trenches', label: 'The Trenches' },
-          { href: '/degen/memewatch', label: 'Memewatch' },
-          { href: '/degen/how-to-ape', label: 'How to Ape' },
-          { href: '/degen/glossary', label: 'Degen Glossary' },
-        ].map(link => (
-          <Button
-            key={link.href}
-            asChild
-            className={cn(
-              "font-pixelify text-lg py-3 px-6", // font-pixelify relies on global .degen-mode styles
-              "bg-transparent text-[hsl(var(--degen-electric-blue-hsl))]",
-              "border-2 border-[hsl(var(--degen-electric-blue-hsl))] hover:bg-[hsl(var(--degen-electric-blue-hsl))] hover:text-[hsl(var(--degen-bg-main-hsl))]"
-            )}
-          >
-            <Link href={link.href}>{link.label}</Link>
-          </Button>
-        ))}
-      </div>
-      <p className="text-sm text-[hsl(var(--degen-hot-pink-hsl))]">
-        Remember: Fortune favors the bold... and sometimes reks them.
-      </p>
-    </div>
-  );
-}
-
+// import { GlowEffect } from '@/components/ui/glow-effect'; // GlowEffect was part of recent changes, remove
 
 export default function Home() {
-  const { isDegenMode, isMounted } = useDegenMode();
-
-  // Original homepage state and data
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
   const recentArticles = mockArticles.slice(0, 3);
   const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3);
@@ -107,24 +64,11 @@ export default function Home() {
   const tradingViewAffiliateLink = "https://www.tradingview.com/?aff_id=152856";
   const tradingViewLinkText = "Track all markets on TradingView";
 
-  const glowEffectProps = {
-    colors: ['hsl(var(--accent-primary))'], 
-    mode: "breathe" as const,
-    blur: "strong" as const,
-    duration: 10,
-    scale: 1.1,
-    className: "opacity-20",
-  };
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
-  if (!isMounted) {
-    return null; 
-  }
-
-  if (isDegenMode) {
-    return <DegenHomePageContent />;
-  }
-
-  // Normal Homepage Content
   return (
     <div className="space-y-16">
       {/* Hero Section with BackgroundBoxes */}
@@ -173,7 +117,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-center text-foreground mb-10 relative z-10">
             Market Outlook
           </h2>
-          {isMounted && ( 
+          {isClient && ( 
             <Tabs defaultValue="economic-calendar" className="w-full">
               <TabsList className="grid w-full grid-cols-3 relative z-20">
                 <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
@@ -182,9 +126,9 @@ export default function Home() {
               </TabsList>
 
               <TabsContent value="economic-calendar">
-                <div className="relative mt-4">
-                  <GlowEffect {...glowEffectProps} />
-                  <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
+                <div className="relative mt-4"> {/* Wrapper for glow and content */}
+                  {/* No GlowEffect here */}
+                  <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}> {/* Ensure content is on top */}
                     <TradingViewWidget
                       scriptSrc={economicCalendarScriptSrc}
                       config={economicCalendarConfig}
@@ -200,8 +144,8 @@ export default function Home() {
               </TabsContent>
 
               <TabsContent value="charts">
-                 <div className="relative mt-4"> 
-                  <GlowEffect {...glowEffectProps} />
+                 <div className="relative mt-4">
+                  {/* No GlowEffect here */}
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={chartsScriptSrc}
@@ -218,8 +162,8 @@ export default function Home() {
               </TabsContent>
 
               <TabsContent value="news">
-                 <div className="relative mt-4"> 
-                  <GlowEffect {...glowEffectProps} />
+                 <div className="relative mt-4">
+                  {/* No GlowEffect here */}
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={newsScriptSrc}
@@ -285,5 +229,3 @@ export default function Home() {
     </div>
   );
 }
-
-    

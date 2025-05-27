@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, X, ChevronDown } from 'lucide-react'; // Removed LogOut
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -13,7 +13,8 @@ import {
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
-// Removed useDegenMode import
+
+// No DegenMode context import
 
 const mainSiteNavLinks = [
   { href: '/', label: 'Home' },
@@ -25,25 +26,21 @@ const mainSiteNavLinks = [
       { href: '/compare', label: 'Compare Firms' },
     ],
   },
-  {
-    href: '/free-resources',
-    label: 'Free Resources',
+  { href: '/free-resources', label: 'Free Resources',
     dropdown: [
-      { href: '/free-resources', label: 'Overview' },
-      { href: '/free-resources/audiobooks', label: 'Audiobooks' },
-      { href: '/free-resources/al-brooks-course', label: 'Al Brooks Free Course' },
-    ],
+        { href: '/free-resources', label: 'Overview' },
+        { href: '/free-resources/audiobooks', label: 'Audiobooks' },
+        { href: '/free-resources/al-brooks-course', label: 'Al Brooks Free Course' },
+      ],
   },
   { href: '/about', label: 'About Us' },
 ];
 
-// Degen nav links are removed as this Header is only for the main site now.
 
 const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64;
 const SCROLL_DELTA_THRESHOLD = 5;
 
 const Header = () => {
-  // Removed isDegenMode and setIsDegenMode from useDegenMode
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -52,8 +49,9 @@ const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
 
-  const currentNavLinks = mainSiteNavLinks; // Always use main site links
-  const logoText = "TradingisEZ"; // Always use main site logo text
+  // No isDegenMode logic
+  const currentNavLinks = mainSiteNavLinks;
+  const logoText = "TradingisEZ";
 
   useEffect(() => {
     setMounted(true);
@@ -76,7 +74,7 @@ const Header = () => {
       }
     };
     
-    initializeScrollState(); // Call on mount
+    initializeScrollState(); 
 
     const handleScrollLogic = () => {
       const currentScrollY = window.scrollY;
@@ -129,8 +127,8 @@ const Header = () => {
     }
   };
 
-  const renderNavLinks = (isMobileLink: boolean) => // Removed linksToRender param
-    currentNavLinks.map((link) => // Use currentNavLinks
+  const renderNavLinks = (isMobileLink: boolean) =>
+    currentNavLinks.map((link) =>
       link.dropdown ? (
         <DropdownMenu
           key={link.label}
@@ -151,8 +149,8 @@ const Header = () => {
             <Button
               variant="ghost"
               className={cn(
-                "data-[state=open]:bg-primary data-[state=open]:text-primary-foreground", // Simplified active state
-                isMobileLink ? 'w-full justify-start text-foreground hover:text-foreground' 
+                "data-[state=open]:bg-primary data-[state=open]:text-primary-foreground",
+                isMobileLink ? 'w-full justify-start text-foreground hover:text-foreground'
                              : 'text-header-foreground hover:text-white hover:bg-primary/80 group'
               )}
               onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)}
@@ -172,17 +170,15 @@ const Header = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className={cn("bg-popover border-border text-popover-foreground")} // Simplified, Degen styles handled by .degen-mode global
+            className="bg-popover border-border text-popover-foreground"
             onMouseEnter={() => handleMouseEnter(link.label, isMobileLink)}
             onMouseLeave={() => handleMouseLeave(isMobileLink)}
           >
             {link.dropdown.map((item) => (
-              <DropdownMenuItem 
-                key={item.label} 
-                asChild 
-                className={cn(
-                  "text-popover-foreground hover:bg-accent hover:text-accent-foreground" // Simplified
-                )}
+              <DropdownMenuItem
+                key={item.label}
+                asChild
+                className="text-popover-foreground hover:bg-accent hover:text-accent-foreground"
               >
                 <Link
                   href={item.href}
@@ -206,7 +202,7 @@ const Header = () => {
           variant="ghost"
           asChild
           className={cn(
-            isMobileLink ? 'w-full justify-start text-foreground hover:text-foreground' 
+            isMobileLink ? 'w-full justify-start text-foreground hover:text-foreground'
                          : 'text-header-foreground hover:text-white hover:bg-primary/80'
           )}
         >
@@ -227,9 +223,9 @@ const Header = () => {
     <header
       className={cn(
         "shadow-lg sticky z-40",
-        "top-[2.25rem]", 
+        "top-[2.25rem]",
         "transition-[transform,opacity] duration-300 ease-out",
-        "bg-header-background text-header-foreground", 
+        "bg-header-background text-header-foreground",
         isVisible
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-full pointer-events-none"
@@ -238,9 +234,7 @@ const Header = () => {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link
           href="/"
-          className={cn(
-            "text-2xl font-bold text-header-foreground" // Simplified
-          )}
+          className="text-2xl font-bold text-header-foreground"
           onClick={() => {
             if (mobileMenuOpen) setMobileMenuOpen(false);
             if (openDropdown) setOpenDropdown(null);
@@ -251,47 +245,39 @@ const Header = () => {
 
         <nav className="hidden md:flex items-center space-x-1">
           {renderNavLinks(false)}
-          {/* Removed Degen "Return to Sanity" button */}
         </nav>
 
         <div className="md:hidden flex items-center">
-          {/* Removed Degen "Return to Sanity" button for mobile */}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className={cn(
-                  "ml-2 text-header-foreground hover:bg-primary/80 hover:text-white" // Simplified
-                )}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="ml-2 text-header-foreground hover:bg-primary/80 hover:text-white"
               >
                 <Menu />
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent 
-              side="right" 
-              className={cn(
-                "w-[300px] sm:w-[350px] p-6 bg-card text-card-foreground border-border" // Simplified
-              )}
+            <SheetContent
+              side="right"
+              className="w-[300px] sm:w-[350px] p-6 bg-card text-card-foreground border-border"
             >
               <SheetTitle className="sr-only">Main Menu</SheetTitle>
               <div className="flex justify-between items-center mb-6">
-                 <Link 
-                  href="/" 
-                  className={cn(
-                    "text-2xl font-bold text-foreground" // Simplified
-                    )} 
+                 <Link
+                  href="/"
+                  className="text-2xl font-bold text-foreground"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                     {logoText}
                   </Link>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={() => setMobileMenuOpen(false)} 
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setMobileMenuOpen(false)}
                   aria-label="Close menu"
-                  className={cn("text-card-foreground")} // Simplified
+                  className="text-card-foreground"
                 >
                   <X />
                 </Button>

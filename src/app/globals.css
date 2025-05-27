@@ -70,22 +70,11 @@
 
     --radius: 0.5rem;
 
-    --header-background: hsl(var(--header-background-hsl));
-    --header-foreground: hsl(var(--header-foreground-hsl));
-
     --chart-1: hsl(var(--accent-primary-hsl)); 
     --chart-2: hsl(var(--cta-main-hsl));      
     --chart-3: hsl(var(--accent-secondary-hsl));
     --chart-4: hsl(var(--success-state-hsl));  
     --chart-5: hsl(var(--text-muted-hsl));    
-
-    /* Degen Mode HSL Variables (globally defined) */
-    --degen-bg-main-hsl: 0 0% 0%; /* True Black */
-    --degen-text-main-hsl: 0 0% 100%; /* White */
-    --degen-electric-blue-hsl: 221 92% 60%; 
-    --degen-hot-pink-hsl: 330 100% 50%; 
-    --degen-lime-green-hsl: 90 100% 50%; 
-    --degen-bright-orange-hsl: 27 95% 53%;
   }
 
   .dark {
@@ -114,43 +103,11 @@
     --border: hsl(var(--divider-hsl));
     --input: hsl(240 4% 13%);
     --ring: hsl(var(--accent-primary-hsl));
-    --header-background: hsl(var(--header-background-hsl));
-    --header-foreground: hsl(var(--header-foreground-hsl));
     --chart-1: hsl(var(--accent-primary-hsl));
     --chart-2: hsl(var(--cta-main-hsl));
     --chart-3: hsl(var(--accent-secondary-hsl));
     --chart-4: hsl(var(--success-state-hsl));
     --chart-5: hsl(var(--text-muted-hsl));
-  }
-
-  /* Degen Mode Semantic Variable Overrides */
-  .degen-mode {
-    --background: hsl(var(--degen-bg-main-hsl));
-    --foreground: hsl(var(--degen-text-main-hsl));
-    --card: hsl(var(--degen-bg-main-hsl)); 
-    --card-foreground: hsl(var(--degen-text-main-hsl));
-    --popover: hsl(var(--degen-bg-main-hsl));
-    --popover-foreground: hsl(var(--degen-text-main-hsl));
-    --primary: hsl(var(--degen-electric-blue-hsl));
-    --primary-foreground: hsl(var(--degen-text-main-hsl));
-    --primary-hover: hsl(var(--degen-electric-blue-hsl)); 
-    --secondary: hsl(var(--degen-hot-pink-hsl));
-    --secondary-foreground: hsl(var(--degen-text-main-hsl));
-    --secondary-hover: hsl(var(--degen-hot-pink-hsl));
-    --muted: hsl(var(--degen-bg-main-hsl));
-    --muted-foreground: hsl(var(--degen-text-main-hsl)); 
-    --accent: hsl(var(--degen-lime-green-hsl));
-    --accent-foreground: hsl(var(--degen-bg-main-hsl)); 
-    --accent-hover: hsl(var(--degen-lime-green-hsl));
-    --destructive: hsl(var(--degen-hot-pink-hsl));
-    --destructive-foreground: hsl(var(--degen-text-main-hsl));
-    --success: hsl(var(--degen-lime-green-hsl));
-    --success-foreground: hsl(var(--degen-bg-main-hsl));
-    --border: hsl(var(--degen-electric-blue-hsl)); 
-    --input: hsl(var(--degen-bg-main-hsl)); 
-    --ring: hsl(var(--degen-hot-pink-hsl));
-    --header-background: hsl(var(--degen-bg-main-hsl));
-    --header-foreground: hsl(var(--degen-text-main-hsl));
   }
 }
 
@@ -159,28 +116,23 @@
     @apply border-border; 
   }
 
-  /* Default body styling for the main site */
   body {
     @apply bg-background text-foreground font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   
-  /* Default paragraph styling for main site */
   p {
     @apply text-muted-foreground; 
   }
   
-  /* Default heading styling for main site */
   h1, h2, h3, h4, h5, h6, strong, dt {
     @apply text-foreground; 
   }
 
-  /* Default link styling for main site */
   a { 
     @apply text-primary; 
   }
   
-  /* Prose styling for main site */
   .prose { 
     --tw-prose-body: hsl(var(--muted-foreground));
     --tw-prose-headings: hsl(var(--foreground));
@@ -198,31 +150,6 @@
     --tw-prose-pre-bg: hsl(var(--card));
     --tw-prose-th-borders: hsl(var(--border));
     --tw-prose-td-borders: hsl(var(--border));
-  }
-
-  /* === DEGEN MODE SPECIFIC BASE STYLES === */
-  .degen-mode body {
-    @apply font-pixelify bg-background text-foreground; /* Uses Degen vars through .degen-mode */
-  }
-  .degen-mode p {
-     @apply font-pixelify text-foreground; /* Uses Degen vars */
-  }
-  .degen-mode h1, .degen-mode h2, .degen-mode h3, .degen-mode h4, .degen-mode h5, .degen-mode h6 {
-    @apply font-press-start text-[hsl(var(--degen-lime-green-hsl))]; 
-  }
-  .degen-mode strong, .degen-mode dt {
-    @apply font-press-start text-[hsl(var(--degen-hot-pink-hsl))]; /* Adjusted for Degen style */
-  }
-  .degen-mode a {
-    @apply text-[hsl(var(--degen-electric-blue-hsl))] hover:text-[hsl(var(--degen-lime-green-hsl))];
-  }
-  .degen-mode .prose {
-    --tw-prose-body: hsl(var(--degen-text-main-hsl)); 
-    --tw-prose-headings: hsl(var(--degen-lime-green-hsl)); 
-    --tw-prose-links: hsl(var(--degen-electric-blue-hsl));
-    --tw-prose-bold: hsl(var(--degen-hot-pink-hsl));
-    --tw-prose-pre-code: hsl(var(--degen-text-main-hsl));
-    --tw-prose-pre-bg: hsl(var(--degen-bg-main-hsl)); 
   }
 }
     
