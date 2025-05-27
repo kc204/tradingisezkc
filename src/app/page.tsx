@@ -12,17 +12,18 @@ import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
 import TradingViewWidget from '@/components/shared/TradingViewWidget';
-import { useDegenMode } from '@/contexts/DegenModeContext'; // Import DegenMode hook
-import { Button } from '@/components/ui/button'; // For Degen mode links
+import { useDegenMode } from '@/contexts/DegenModeContext';
+import { Button } from '@/components/ui/button';
+import { GlowEffect } from '@/components/ui/glow-effect';
 
 // Component for Degen Mode Homepage Content
 function DegenHomePageContent() {
   return (
     <div className="text-center space-y-10 py-10">
-      <h1 className="text-5xl md:text-6xl text-[hsl(var(--degen-lime-green-hsl))]">
-        ENTER THE DEGEN DIMENSION
+      <h1 className="text-5xl md:text-6xl text-[hsl(var(--degen-lime-green-hsl))] font-press-start leading-tight">
+        ENTER THE<br />DEGEN DIMENSION
       </h1>
-      <p className="text-xl md:text-2xl text-[hsl(var(--degen-text-main-hsl))] max-w-2xl mx-auto">
+      <p className="text-xl md:text-2xl text-[hsl(var(--degen-text-main-hsl))] max-w-2xl mx-auto font-pixelify">
         You've found the rabbit hole. Normal rules don't apply here. Explore the chaos. NFA/DYOR.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -36,7 +37,7 @@ function DegenHomePageContent() {
             key={link.href}
             asChild
             className={cn(
-              "font-pixelify text-lg py-3 px-6",
+              "font-pixelify text-lg py-3 px-6", // Ensure font-pixelify
               "bg-transparent text-[hsl(var(--degen-electric-blue-hsl))]",
               "border-2 border-[hsl(var(--degen-electric-blue-hsl))] hover:bg-[hsl(var(--degen-electric-blue-hsl))] hover:text-[hsl(var(--degen-bg-main-hsl))]"
             )}
@@ -45,7 +46,7 @@ function DegenHomePageContent() {
           </Button>
         ))}
       </div>
-      <p className="text-sm text-[hsl(var(--degen-hot-pink-hsl))]">
+      <p className="text-sm text-[hsl(var(--degen-hot-pink-hsl))] font-pixelify">
         Remember: Fortune favors the bold... and sometimes reks them.
       </p>
     </div>
@@ -68,8 +69,8 @@ export default function Home() {
 
   const economicCalendarScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-events.js";
   const economicCalendarConfig = {
-    "colorTheme": "dark", // Will be overridden by Degen or main theme via CSS vars if possible
-    "isTransparent": true, // Make transparent to pick up bg-card
+    "colorTheme": "dark",
+    "isTransparent": true,
     "width": "100%",
     "height": "100%",
     "locale": "en",
@@ -84,23 +85,23 @@ export default function Home() {
     "symbol": "BITSTAMP:BTCUSD",
     "interval": "D",
     "timezone": "Etc/UTC",
-    "theme": "dark", // Will be overridden by Degen or main theme
+    "theme": "dark",
     "style": "1",
     "locale": "en",
     "enable_publishing": false,
     "allow_symbol_change": true,
     "calendar": false,
     "support_host": "https://www.tradingview.com",
-    "backgroundColor": "rgba(0,0,0,0)", // Transparent BG
-    "gridColor": "rgba(255,255,255,0.1)", // Example, adjust with CSS vars
+    "backgroundColor": "rgba(0,0,0,0)",
+    "gridColor": "rgba(255,255,255,0.1)",
   };
   const chartContainerStyles = { height: '600px', width: '100%' };
 
   const newsScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-timeline.js";
   const newsConfig = {
     "feedMode": "all_symbols",
-    "colorTheme": "dark", // Will be overridden
-    "isTransparent": true, // Make transparent
+    "colorTheme": "dark",
+    "isTransparent": true,
     "displayMode": "regular",
     "width": "100%",
     "height": "100%",
@@ -112,7 +113,7 @@ export default function Home() {
   const tradingViewLinkText = "Track all markets on TradingView";
 
   const glowEffectProps = {
-    colors: ['hsl(var(--accent-primary))'],
+    colors: ['hsl(var(--accent-primary))'], // Only blue
     mode: "breathe" as const,
     blur: "strong" as const,
     duration: 10,
@@ -121,7 +122,7 @@ export default function Home() {
   };
 
   if (!isMounted) {
-    return null; // Or a loading spinner
+    return null; 
   }
 
   if (isDegenMode) {
@@ -185,9 +186,9 @@ export default function Home() {
                 <TabsTrigger value="news">News</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="economic-calendar" className="relative">
-                <div className="relative mt-4"> {/* Wrapper for glow and content */}
-                   {/* <GlowEffect {...glowEffectProps} /> */}
+              <TabsContent value="economic-calendar">
+                <div className="relative mt-4">
+                  <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={economicCalendarScriptSrc}
@@ -203,9 +204,9 @@ export default function Home() {
                 </div>
               </TabsContent>
 
-              <TabsContent value="charts" className="relative">
-                 <div className="relative mt-4">  {/* Wrapper for glow and content */}
-                  {/* <GlowEffect {...glowEffectProps} /> */}
+              <TabsContent value="charts">
+                 <div className="relative mt-4">
+                  <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={chartsScriptSrc}
@@ -221,9 +222,9 @@ export default function Home() {
                  </div>
               </TabsContent>
 
-              <TabsContent value="news" className="relative">
-                 <div className="relative mt-4">  {/* Wrapper for glow and content */}
-                  {/* <GlowEffect {...glowEffectProps} /> */}
+              <TabsContent value="news">
+                 <div className="relative mt-4">
+                  <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={newsScriptSrc}
@@ -289,5 +290,4 @@ export default function Home() {
     </div>
   );
 }
-
     
