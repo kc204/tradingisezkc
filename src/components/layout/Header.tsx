@@ -25,16 +25,6 @@ const navLinks = [
     ],
   },
   {
-    href: '/resources',
-    label: 'Trading Resources',
-    dropdown: [
-      { href: '/resources/guides', label: 'Guides' },
-      { href: '/resources/tools', label: 'Tools' },
-      { href: '/resources/news', label: 'News' },
-      { href: '/resources/al-brooks-trading-course', label: 'Al Brooks Course Info' }, // Kept distinct from free course
-    ],
-  },
-  {
     href: '/free-resources',
     label: 'Free Resources',
     dropdown: [
@@ -227,7 +217,7 @@ const Header = () => {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[350px] bg-card text-card-foreground p-6">
-              <SheetTitle className="sr-only">Main Menu</SheetTitle>
+               <SheetTitle className="sr-only">Main Menu</SheetTitle>
               <div className="flex justify-between items-center mb-6">
                  <Link href="/" className="text-2xl font-bold text-foreground" onClick={() => setMobileMenuOpen(false)}>
                     TradingisEZ
