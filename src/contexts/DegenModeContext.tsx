@@ -12,30 +12,27 @@ interface DegenModeContextType {
 const DegenModeContext = createContext<DegenModeContextType | undefined>(undefined);
 
 export const DegenModeProvider = ({ children }: { children: ReactNode }) => {
-  // Default to false. Client-side useEffect will update from localStorage.
+  // Initialize isDegenMode to false. It will be updated by useEffect on the client.
+  // This ensures server-render and initial client render (pre-useEffect) show non-degen.
   const [isDegenMode, setIsDegenModeState] = useState<boolean>(false);
 
   useEffect(() => {
-    // This effect runs once on the client after the component mounts.
-    // It initializes the degen mode state from localStorage.
-    let initialDegenMode = false;
+    // This effect runs ONLY on the client, after hydration.
+    let initialClientDegenMode = false;
     try {
-      const storedDegenMode = localStorage.getItem('degenMode');
-      if (storedDegenMode === 'true') { // Explicitly check for the string 'true'
-        initialDegenMode = true;
+      if (typeof window !== 'undefined' && localStorage.getItem('degenMode') === 'true') {
+        initialClientDegenMode = true;
       }
-      // For any other value ('false', null, undefined, or corrupted data),
-      // initialDegenMode will remain false.
-    } catch (error) {
-      console.error("Error reading degenMode from localStorage:", error);
-      // initialDegenMode remains false in case of error.
+    } catch (e) {
+      console.error("Error reading degenMode from localStorage on init:", e);
+      // Keep initialClientDegenMode as false in case of error
     }
-    setIsDegenModeState(initialDegenMode);
-  }, []); // Empty dependency array ensures this runs once on client mount.
+    // Update the state based on localStorage. This might trigger a re-render.
+    setIsDegenModeState(initialClientDegenMode);
+  }, []); // Empty array means this runs once on mount.
 
   useEffect(() => {
-    // This effect runs whenever isDegenMode changes.
-    // It syncs the state to localStorage and applies/removes the 'degen-mode' class.
+    // This effect runs whenever isDegenMode state changes, to sync to DOM and localStorage.
     try {
       if (typeof window !== 'undefined' && document.documentElement) {
         if (isDegenMode) {
@@ -46,10 +43,10 @@ export const DegenModeProvider = ({ children }: { children: ReactNode }) => {
           localStorage.setItem('degenMode', 'false');
         }
       }
-    } catch (error) {
-      console.error("Error syncing degenMode to localStorage/class:", error);
+    } catch (e) {
+      console.error("Error syncing degenMode to DOM/localStorage:", e);
     }
-  }, [isDegenMode]); // This effect depends on isDegenMode.
+  }, [isDegenMode]); // Runs when isDegenMode state changes.
 
   const setIsDegenMode = (isDegen: boolean) => {
     setIsDegenModeState(isDegen);
