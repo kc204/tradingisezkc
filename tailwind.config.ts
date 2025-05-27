@@ -13,7 +13,8 @@ export default {
   	extend: {
       fontFamily: {
         sans: ["var(--font-plus-jakarta-sans)", ...fontFamily.sans],
-        // Removed Degen fonts
+        'press-start': ['var(--font-press-start-2p)', ...fontFamily.mono],
+        'pixelify': ['var(--font-pixelify-sans)', ...fontFamily.sans],
       },
   		colors: {
         // Main Theme Colors (Dynamic Blue & Action Orange)
@@ -76,7 +77,10 @@ export default {
   				border: 'hsl(var(--border))', 
   				ring: 'hsl(var(--ring))' 
   			},
-        // Degen Mode Colors REMOVED
+        // Degen Mode specific utility colors if needed, e.g.
+        'degen-electric-blue': 'hsl(var(--degen-electric-blue-hsl))',
+        'degen-hot-pink': 'hsl(var(--degen-hot-pink-hsl))',
+        'degen-lime-green': 'hsl(var(--degen-lime-green-hsl))',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

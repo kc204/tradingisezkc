@@ -2,11 +2,13 @@
 'use client';
 
 import Link from 'next/link';
-// Removed Degen Mode related imports: useState, DegenEntryModal, useDegenMode, Button
+import { useState } from 'react';
+import DegenEntryModal from '@/components/degen/DegenEntryModal';
+import { Button } from '@/components/ui/button'; // Keep for potential Degen trigger styling
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  // Removed Degen Mode state and handlers
+  const [isDegenModalOpen, setIsDegenModalOpen] = useState(false);
 
   const footerLinks = [
     { href: '/privacy-policy', label: 'Privacy Policy' },
@@ -30,7 +32,7 @@ const Footer = () => {
               <ul className="space-y-1">
                 <li><Link href="/firms" className="text-sm hover:text-primary">All Prop Firms</Link></li>
                 <li><Link href="/compare" className="text-sm hover:text-primary">Compare Firms</Link></li>
-                <li><Link href="/resources" className="text-sm hover:text-primary">Trading Resources</Link></li>
+                <li><Link href="/free-resources" className="text-sm hover:text-primary">Free Resources</Link></li>
               </ul>
             </div>
             <div>
@@ -51,11 +53,20 @@ const Footer = () => {
             <p className="mt-1">
               Disclaimer: Trading involves substantial risk of loss and is not suitable for every investor.
             </p>
-            {/* Removed Degen Mode trigger button */}
+            <div className="mt-4">
+              <Button
+                variant="ghost"
+                onClick={() => setIsDegenModalOpen(true)}
+                className="text-xs text-muted-foreground hover:text-primary"
+                aria-label="Access Degen Zone"
+              >
+                🚀 Neon Astronaut Launch Codes?
+              </Button>
+            </div>
           </div>
         </div>
       </footer>
-      {/* Removed DegenEntryModal instance */}
+      <DegenEntryModal isOpen={isDegenModalOpen} onClose={() => setIsDegenModalOpen(false)} />
     </>
   );
 };

@@ -36,8 +36,8 @@
     --card: var(--bg-card);
     --card-foreground: var(--text-main);
 
-    --popover: hsl(var(--bg-main)); 
-    --popover-foreground: hsl(var(--text-main)); 
+    --popover: 240 14% 7%; /* Should match header/main bg for seamless Degen dropdowns */
+    --popover-foreground: var(--text-main); 
 
     --primary: var(--accent-primary);
     --primary-foreground: var(--accent-primary-foreground);
@@ -52,7 +52,7 @@
 
     --accent: var(--cta-main);
     --accent-foreground: var(--cta-main-foreground);
-    --accent-hover: var(--cta-main-hover);
+    --accent-hover: var(--accent-hover);
 
     --destructive: var(--error-state);
     --destructive-foreground: var(--error-state-foreground);
@@ -75,7 +75,13 @@
     --chart-4: hsl(var(--success-state));  
     --chart-5: hsl(var(--text-muted));    
 
-    /* Degen Mode Variables REMOVED */
+    /* Degen Mode HSL Variables */
+    --degen-bg-main-hsl: 0 0% 0%; /* True Black */
+    --degen-text-main-hsl: 0 0% 100%; /* White */
+    --degen-electric-blue-hsl: 221 92% 60%; /* Same as accent-primary */
+    --degen-hot-pink-hsl: 330 100% 50%; /* Example Hot Pink */
+    --degen-lime-green-hsl: 90 100% 50%; /* Example Lime Green */
+    --degen-bright-orange-hsl: 27 95% 53%; /* Same as cta-main */
   }
 
   .dark {
@@ -146,9 +152,35 @@
     --chart-5: hsl(var(--text-muted));
   }
 
-  /* .degen-mode block REMOVED */
-  /* .degen-mode body block REMOVED */
-  /* .degen-mode h1, ..., a, button blocks REMOVED */
+  .degen-mode {
+    --background: hsl(var(--degen-bg-main-hsl));
+    --foreground: hsl(var(--degen-text-main-hsl));
+    --card: hsl(var(--degen-bg-main-hsl)); /* Cards might be borderless or use neon borders */
+    --card-foreground: hsl(var(--degen-text-main-hsl));
+    --popover: hsl(var(--degen-bg-main-hsl));
+    --popover-foreground: hsl(var(--degen-text-main-hsl));
+    --primary: hsl(var(--degen-electric-blue-hsl));
+    --primary-foreground: hsl(var(--degen-text-main-hsl));
+    --primary-hover: hsl(var(--degen-electric-blue-hsl)); /* Consider a brighter/pulsing hover */
+    --secondary: hsl(var(--degen-hot-pink-hsl));
+    --secondary-foreground: hsl(var(--degen-text-main-hsl));
+    --secondary-hover: hsl(var(--degen-hot-pink-hsl));
+    --muted: hsl(var(--degen-bg-main-hsl));
+    --muted-foreground: hsl(var(--degen-text-main-hsl)); /* Degen muted might still be bright */
+    --accent: hsl(var(--degen-lime-green-hsl));
+    --accent-foreground: hsl(var(--degen-bg-main-hsl)); /* Contrast for green */
+    --accent-hover: hsl(var(--degen-lime-green-hsl));
+    --destructive: hsl(var(--degen-hot-pink-hsl));
+    --destructive-foreground: hsl(var(--degen-text-main-hsl));
+    --success: hsl(var(--degen-lime-green-hsl));
+    --success-foreground: hsl(var(--degen-bg-main-hsl));
+    --border: hsl(var(--degen-electric-blue-hsl)); /* Neon borders */
+    --input: hsl(var(--degen-bg-main-hsl)); /* Inputs might be border-only */
+    --input-foreground: hsl(var(--degen-text-main-hsl));
+    --ring: hsl(var(--degen-hot-pink-hsl));
+    --header-background: hsl(var(--degen-bg-main-hsl));
+    --header-foreground: hsl(var(--degen-text-main-hsl));
+  }
 }
 
 @layer base {
@@ -159,6 +191,10 @@
     @apply bg-background text-foreground font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  .degen-mode body {
+    @apply font-pixelify bg-[hsl(var(--degen-bg-main-hsl))] text-[hsl(var(--degen-text-main-hsl))];
+  }
+
   header a, header button {
     @apply text-header-foreground;
   }
@@ -168,11 +204,24 @@
   p {
     @apply text-muted-foreground;
   }
+  .degen-mode p {
+    @apply text-[hsl(var(--degen-text-main-hsl))];
+  }
   h1, h2, h3, h4, h5, h6, strong, dt {
     @apply text-foreground;
   }
+  .degen-mode h1, .degen-mode h2, .degen-mode h3, .degen-mode h4, .degen-mode h5, .degen-mode h6 {
+    @apply font-press-start text-[hsl(var(--degen-lime-green-hsl))]; /* Example neon for headers */
+  }
+  .degen-mode strong, .degen-mode dt {
+    @apply text-[hsl(var(--degen-hot-pink-hsl))];
+  }
+
   a { 
     @apply text-primary; 
+  }
+  .degen-mode a {
+    @apply text-[hsl(var(--degen-electric-blue-hsl))] hover:text-[hsl(var(--degen-lime-green-hsl))];
   }
   .dark .prose {
     --tw-prose-body: hsl(var(--muted-foreground));
@@ -225,7 +274,12 @@
     --tw-prose-th-borders: hsl(var(--border));
     --tw-prose-td-borders: hsl(var(--border));
   }
-  /* .degen-mode .prose REMOVED */
-}
 
-    
+  .degen-mode .prose {
+    --tw-prose-body: hsl(var(--degen-text-main-hsl));
+    --tw-prose-headings: hsl(var(--degen-lime-green-hsl));
+    --tw-prose-links: hsl(var(--degen-electric-blue-hsl));
+    --tw-prose-bold: hsl(var(--degen-hot-pink-hsl));
+    /* Add other prose overrides for degen mode as needed */
+  }
+}
