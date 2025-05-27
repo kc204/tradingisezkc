@@ -6,6 +6,16 @@ export interface GlobalOffer {
   isActive: boolean;
 }
 
+export interface AccountTier {
+  id: string;
+  name?: string; // e.g., "$50K Advanced Challenge" or "100K Evaluation"
+  size: number; // e.g., 50000, 100000
+  evaluationFee: number;
+  activationFee?: number; // Optional, as not all tiers/firms have it
+  resetFee?: number; // Optional, typical cost for one reset
+  // Future: could include tier-specific profit split, drawdown, etc.
+}
+
 export interface PropFirm {
   id: string;
   slug: string;
@@ -32,8 +42,9 @@ export interface PropFirm {
   maxAccountSize?: number;
   minChallengeCost?: number;
   maxChallengeCost?: number;
-  activationFee?: string; // e.g., "Free", "$99", "N/A"
+  activationFee?: string; // General activation fee info for display in table, e.g., "Free", "$99", "N/A"
   challengeType?: string; // e.g., 1-step, 2-step
+  accountTiers?: AccountTier[]; // Detailed tiers for the calculator
 }
 
 export interface Article {
@@ -58,7 +69,7 @@ export type TradingResource = {
   resourceType: 'Guide' | 'Tool' | 'News' | 'Course';
 };
 
-// New Types for Free Resources
+// Types for Free Resources
 
 export type FreeResourceType =
   | "Free Video Course Series"
@@ -99,4 +110,3 @@ export interface FreeResourceItem {
   videoLessons?: VideoLesson[];
   bookListings?: BookListing[];
 }
-

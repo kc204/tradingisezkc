@@ -6,7 +6,8 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { ExternalLink, Star } from 'lucide-react'; 
+import { ExternalLink, Star } from 'lucide-react';
+import TrueCostCalculator from '@/components/compare/TrueCostCalculator'; // Import the calculator
 
 export const metadata = {
   title: 'Compare Prop Firms | TradingisEZ',
@@ -15,8 +16,8 @@ export const metadata = {
 
 const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
   const featuresToCompare = [
-    { 
-      label: 'Account Sizes', 
+    {
+      label: 'Account Sizes',
       getValue: (f: PropFirm) => {
         const min = f.minAccountSize;
         const max = f.maxAccountSize;
@@ -29,7 +30,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
           return `Up to $${max.toLocaleString()}`;
         }
         return f.id.startsWith('placeholder-') ? '' : '-';
-      } 
+      }
     },
     {
       label: 'Evaluation Cost',
@@ -47,8 +48,8 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
         return f.id.startsWith('placeholder-') ? '' : '-';
       }
     },
-    { 
-      label: 'Activation Fee', 
+    {
+      label: 'Activation Fee',
       getValue: (f: PropFirm) => f.activationFee || (f.id.startsWith('placeholder-') ? '' : '-')
     },
     { label: 'Profit Split', getValue: (f: PropFirm) => f.profitSplit || (f.id.startsWith('placeholder-') ? '' : '-') },
@@ -71,7 +72,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                 className={`w-4 h-4 ${i < roundedRating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/30'}`}
               />
             ))}
-            <span className="ml-1.5">{f.rating.toFixed(1)}/5</span>
+            <span className="ml-1.5 text-sm text-foreground">{f.rating.toFixed(1)}/5</span>
           </div>
         );
       }
@@ -80,15 +81,15 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
   return (
     <div className="w-full overflow-x-auto">
-      <Table className="min-w-[2000px]"> {/* Adjusted min-width if necessary */}
+      <Table className="min-w-[2000px]">
         <TableHeader>
           <TableRow>
-            <TableHead className="sticky left-0 bg-card z-10 min-w-[200px]">Firm</TableHead>
+            <TableHead className="sticky left-0 bg-card z-10 min-w-[200px] text-foreground">Firm</TableHead>
             {featuresToCompare.map(feature => (
-              <TableHead key={feature.label} className="text-center min-w-[150px]">{feature.label}</TableHead>
+              <TableHead key={feature.label} className="text-center min-w-[150px] whitespace-nowrap text-foreground">{feature.label}</TableHead>
             ))}
-            <TableHead className="text-center min-w-[150px]">Website</TableHead>
-            <TableHead className="text-center min-w-[150px]">Details</TableHead>
+            <TableHead className="text-center min-w-[150px] text-foreground">Website</TableHead>
+            <TableHead className="text-center min-w-[150px] text-foreground">Details</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -102,13 +103,13 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                     </div>
                   ) : firm.id.startsWith('placeholder-') ? (
                     <div className="w-16 h-8 flex items-center justify-center text-muted-foreground text-xs"></div>
-                  ) : null}
-                  <span>{firm.name}</span>
+                  ) : <div className="w-16 h-8"></div>} {/* Fallback for missing logo */}
+                  <span className="text-foreground">{firm.name}</span>
                 </div>
                 {firm.offerBadgeLabel && !firm.id.startsWith('placeholder-') && <Badge variant="secondary" className="mt-1">{firm.offerBadgeLabel}</Badge>}
               </TableCell>
               {featuresToCompare.map(feature => (
-                <TableCell key={`${firm.id}-${feature.label}`} className="text-center">
+                <TableCell key={`${firm.id}-${feature.label}`} className="text-center text-sm text-muted-foreground">
                   {feature.getValue(firm)}
                 </TableCell>
               ))}
@@ -119,14 +120,14 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                       Visit Website <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
                     </Link>
                   </Button>
-                ) : ''}
+                ) : firm.id.startsWith('placeholder-') ? '' : '-'}
               </TableCell>
               <TableCell className="text-center">
                  {firm.slug && !firm.id.startsWith('placeholder-') ? (
                     <Button asChild variant="outline" size="sm">
                     <Link href={`/firms/${firm.slug}`}>View Details</Link>
                     </Button>
-                 ) : ''}
+                 ) : firm.id.startsWith('placeholder-') ? '' : '-'}
               </TableCell>
             </TableRow>
           ))}
@@ -138,7 +139,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
 
 export default function ComparePage() {
-  const firmsToCompare = mockPropFirms; // Use all mock firms
+  const firmsToCompare = mockPropFirms; 
 
   return (
     <div className="space-y-8">
@@ -152,6 +153,11 @@ export default function ComparePage() {
       ) : (
         <p className="text-center text-muted-foreground text-lg py-10">No firms available for comparison.</p>
       )}
+
+      {/* New True Cost Calculator Section */}
+      <section className="py-8">
+        <TrueCostCalculator firms={firmsToCompare} />
+      </section>
       
       <div className="text-center mt-8">
         <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent-hover">

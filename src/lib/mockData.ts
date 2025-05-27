@@ -1,11 +1,40 @@
 
-import type { GlobalOffer, PropFirm, Article, TradingResource, FreeResourceItem, VideoLesson, BookListing } from './types';
+import type { GlobalOffer, PropFirm, Article, TradingResource, FreeResourceItem, VideoLesson, BookListing, AccountTier } from './types';
 
 export const mockGlobalOffers: GlobalOffer[] = [
   { id: '1', text: 'VISIBLE OFFER TEXT TEST', affiliateLink: '#', isActive: true },
   { id: '2', text: 'Take Profit Trader: Up to 90% profit split!', affiliateLink: '#', isActive: true },
   { id: '3', text: 'NewFirmX: 10% bonus on payout with code FINDER10', affiliateLink: '#', isActive: true },
 ];
+
+const apexAccountTiers: AccountTier[] = [
+  { id: 'apex-25k', size: 25000, name: '$25K Account', evaluationFee: 137, activationFee: 0, resetFee: 80 },
+  { id: 'apex-50k', size: 50000, name: '$50K Account', evaluationFee: 167, activationFee: 0, resetFee: 80 },
+  { id: 'apex-100k', size: 100000, name: '$100K Account', evaluationFee: 207, activationFee: 0, resetFee: 100 },
+  { id: 'apex-150k', size: 150000, name: '$150K Account', evaluationFee: 297, activationFee: 0, resetFee: 100 },
+  { id: 'apex-300k', size: 300000, name: '$300K Account', evaluationFee: 657, activationFee: 0, resetFee: 100 },
+];
+
+const tptAccountTiers: AccountTier[] = [
+  { id: 'tpt-25k', size: 25000, name: '$25K Challenge', evaluationFee: 150, activationFee: 140, resetFee: 75 },
+  { id: 'tpt-50k', size: 50000, name: '$50K Challenge', evaluationFee: 200, activationFee: 140, resetFee: 75 },
+  { id: 'tpt-100k', size: 100000, name: '$100K Challenge', evaluationFee: 300, activationFee: 240, resetFee: 100 },
+  { id: 'tpt-150k', size: 150000, name: '$150K Challenge', evaluationFee: 360, activationFee: 240, resetFee: 100 },
+];
+
+const eliteAccountTiers: AccountTier[] = [
+  { id: 'elite-25k', size: 25000, name: '$25K Standard', evaluationFee: 250, activationFee: 99, resetFee: 125 },
+  { id: 'elite-100k', size: 100000, name: '$100K Standard', evaluationFee: 500, activationFee: 199, resetFee: 250 },
+  { id: 'elite-500k', size: 500000, name: '$500K Pro Instant', evaluationFee: 0, activationFee: 2500, resetFee: 0 }, // Example Instant
+];
+
+const tradifyAccountTiers: AccountTier[] = [
+    { id: 'tradify-50k-adv', size: 50000, name: '$50K Advanced Challenge', evaluationFee: 69, activationFee: 125, resetFee: 50 },
+    { id: 'tradify-100k-adv', size: 100000, name: '$100K Advanced Challenge', evaluationFee: 99, activationFee: 125, resetFee: 70 },
+    { id: 'tradify-50k-growth', size: 50000, name: '$50K Growth Challenge', evaluationFee: 139, activationFee: 0, resetFee: 60 },
+    { id: 'tradify-25k-sim', size: 25000, name: '$25K Straight to Sim', evaluationFee: 349, activationFee: 0, resetFee: 0 }, // One-time fee, no typical reset
+];
+
 
 export const mockPropFirms: PropFirm[] = [
   {
@@ -40,6 +69,7 @@ export const mockPropFirms: PropFirm[] = [
     maxChallengeCost: 657,
     activationFee: 'None (for PA accounts)',
     challengeType: '1-Step Evaluation',
+    accountTiers: apexAccountTiers,
   },
   {
     id: '2',
@@ -71,8 +101,9 @@ export const mockPropFirms: PropFirm[] = [
     maxAccountSize: 150000,
     minChallengeCost: 150,
     maxChallengeCost: 360,
-    activationFee: 'None (for PA accounts)',
+    activationFee: '$140 (common for PA)', // Example generic activation fee
     challengeType: '1-Step, 2-Step',
+    accountTiers: tptAccountTiers,
   },
   {
     id: '3',
@@ -106,6 +137,7 @@ export const mockPropFirms: PropFirm[] = [
     maxChallengeCost: 2500,
     activationFee: 'Varies (may be included or separate)',
     challengeType: '3-Step, Instant Funding',
+    accountTiers: eliteAccountTiers,
   },
   {
     id: '4',
@@ -158,6 +190,7 @@ export const mockPropFirms: PropFirm[] = [
     maxChallengeCost: 729, // One-time for Straight to Sim $150K
     activationFee: '$125 (Advanced Challenges only)',
     challengeType: 'Evaluation Challenges, Direct Sim Funding',
+    accountTiers: tradifyAccountTiers,
   },
 ];
 
@@ -192,6 +225,16 @@ export const mockArticles: Article[] = [
 ];
 
 export const mockTradingResources: TradingResource[] = [
+   {
+    id: 'tr1',
+    name: 'TradingView',
+    slug: 'tradingview',
+    logoUrl: 'https://placehold.co/100x50.png?text=TV',
+    websiteUrl: '#',
+    affiliateLink: '#',
+    description: 'Popular charting platform and social network for traders and investors.',
+    resourceType: 'Tool',
+  },
   {
     id: 'tr2',
     name: 'Babypips School of Pipsology',
@@ -201,6 +244,16 @@ export const mockTradingResources: TradingResource[] = [
     affiliateLink: '#',
     description: 'Free online course to learn Forex trading from beginner to advanced.',
     resourceType: 'Course',
+  },
+   {
+    id: 'tr3',
+    name: 'CoinDesk',
+    slug: 'coindesk',
+    logoUrl: 'https://placehold.co/100x50.png?text=CD',
+    websiteUrl: '#',
+    affiliateLink: '#',
+    description: 'Leading news site specializing in Bitcoin and digital currencies.',
+    resourceType: 'News',
   },
 ];
 
@@ -215,7 +268,7 @@ export const mockGlobalOffersTestData: GlobalOffer[] = [
 const alBrooksSampleLessons: VideoLesson[] = [
   {
     lessonTitle: "Brooks Trading Course Sample: 12A Market Cycle",
-    videoEmbedCodeOrURL: "https://www.youtube.com/embed/_wQ5CRIQ6mc", 
+    videoEmbedCodeOrURL: "https://www.youtube.com/embed/_wQ5CRIQ6mc",
     lessonDescription: "Learn the fundamentals of how Al Brooks perceives market structure and its importance in price action trading.",
     lessonKeyTakeaways: ["Key Trendlines", "Support & Resistance", "Market Cycles"],
     lessonCTAText: "Watch Full Series",
@@ -223,7 +276,7 @@ const alBrooksSampleLessons: VideoLesson[] = [
   },
   {
     lessonTitle: "Lesson 2: Bar-by-Bar Analysis Introduction",
-    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Example for direct embed
+    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     lessonDescription: "An introduction to Al Brooks' detailed bar-by-bar analysis technique for making trading decisions.",
     lessonKeyTakeaways: ["Candlestick signals", "Volume interpretation", "Context is key"],
     lessonCTAText: "Explore More Samples",
@@ -296,7 +349,7 @@ export const mockFreeResources: FreeResourceItem[] = [
     mainAffiliateLink: "#", // Link to the PDF download or a landing page for it
     mainCTAText: "Download Free PDF Guide",
     resourceType: "PDF Guide",
-    isFeatured: false, // Or true, depending on whether you want it on homepage
+    isFeatured: true, 
     concludingCTASection: "Arm yourself with the knowledge to make an informed decision. Download the checklist now!"
   },
 ];
