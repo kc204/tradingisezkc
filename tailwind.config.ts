@@ -15,7 +15,6 @@ export default {
         sans: ["var(--font-plus-jakarta-sans)", ...fontFamily.sans],
       },
   		colors: {
-        // Main Theme Colors (Dynamic Blue & Action Orange)
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

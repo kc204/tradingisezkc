@@ -2,7 +2,6 @@
 'use client';
 
 import Link from 'next/link';
-// No Degen imports
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -50,11 +49,9 @@ const Footer = () => {
             <p className="mt-1">
               Disclaimer: Trading involves substantial risk of loss and is not suitable for every investor.
             </p>
-            {/* No Degen Mode trigger */}
           </div>
         </div>
       </footer>
-      {/* No DegenEntryModal */}
     </>
   );
 };

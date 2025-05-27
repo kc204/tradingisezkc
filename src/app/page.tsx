@@ -1,5 +1,5 @@
 
-'use client'; // Needs to be client for TradingView widget state
+'use client'; 
 
 import FirmCard from '@/components/propfirms/FirmCard';
 import ArticleCard from '@/components/shared/ArticleCard';
@@ -12,7 +12,6 @@ import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
 import TradingViewWidget from '@/components/shared/TradingViewWidget';
-// import { GlowEffect } from '@/components/ui/glow-effect'; // GlowEffect was part of recent changes, remove
 
 export default function Home() {
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
@@ -76,7 +75,7 @@ export default function Home() {
         <div className="absolute inset-0 w-full h-full bg-background z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
         <Boxes />
         <h1 className={cn("md:text-4xl text-xl text-foreground relative z-20 text-center px-4")}>
-          Unlock Your Trading Potential: Find the Perfect Prop Firm & Get Funded.
+          Unlock Your Trading Potential: Find the Perfect Prop Firm &amp; Get Funded.
         </h1>
         <p className="text-center mt-4 text-muted-foreground relative z-20 max-w-2xl px-4">
           Tired of risking your own capital or sifting through confusing prop firm options? Discover top-rated firms, master the rules, access exclusive deals, and secure your funded account with confidence.
@@ -125,10 +124,12 @@ export default function Home() {
                 <TabsTrigger value="news">News</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="economic-calendar">
-                <div className="relative mt-4"> {/* Wrapper for glow and content */}
-                  {/* No GlowEffect here */}
-                  <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}> {/* Ensure content is on top */}
+              <TabsContent value="economic-calendar" className="relative">
+                <div className="relative mt-4">
+                  <div className="absolute inset-0">
+                    {/* Glow effect was here - removed for this rollback */}
+                  </div>
+                  <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={economicCalendarScriptSrc}
                       config={economicCalendarConfig}
@@ -143,9 +144,11 @@ export default function Home() {
                 </div>
               </TabsContent>
 
-              <TabsContent value="charts">
+              <TabsContent value="charts" className="relative">
                  <div className="relative mt-4">
-                  {/* No GlowEffect here */}
+                  <div className="absolute inset-0">
+                    {/* Glow effect was here - removed for this rollback */}
+                  </div>
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={chartsScriptSrc}
@@ -161,9 +164,11 @@ export default function Home() {
                  </div>
               </TabsContent>
 
-              <TabsContent value="news">
+              <TabsContent value="news" className="relative">
                  <div className="relative mt-4">
-                  {/* No GlowEffect here */}
+                  <div className="absolute inset-0">
+                    {/* Glow effect was here - removed for this rollback */}
+                  </div>
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={newsScriptSrc}

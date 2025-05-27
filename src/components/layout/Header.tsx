@@ -14,8 +14,6 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/s
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
-// No DegenMode context import
-
 const mainSiteNavLinks = [
   { href: '/', label: 'Home' },
   {
@@ -49,7 +47,6 @@ const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
 
-  // No isDegenMode logic
   const currentNavLinks = mainSiteNavLinks;
   const logoText = "TradingisEZ";
 

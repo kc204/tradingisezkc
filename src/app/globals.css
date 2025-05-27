@@ -39,7 +39,7 @@
     --card: hsl(var(--bg-card-hsl));
     --card-foreground: hsl(var(--text-main-hsl));
 
-    --popover: hsl(var(--bg-card-hsl)); /* Popovers match card background */
+    --popover: hsl(var(--bg-main-hsl)); /* Popovers match header/main background */
     --popover-foreground: hsl(var(--text-main-hsl)); 
 
     --primary: hsl(var(--accent-primary-hsl));
@@ -82,7 +82,7 @@
     --foreground: hsl(var(--text-main-hsl));
     --card: hsl(var(--bg-card-hsl));
     --card-foreground: hsl(var(--text-main-hsl));
-    --popover: hsl(var(--bg-card-hsl));
+    --popover: hsl(var(--bg-main-hsl));
     --popover-foreground: hsl(var(--text-main-hsl));
     --primary: hsl(var(--accent-primary-hsl));
     --primary-foreground: hsl(var(--accent-primary-foreground-hsl));
