@@ -4,7 +4,7 @@ import type { GlobalOffer, PropFirm, Article, TradingResource, FreeResourceItem,
 export const mockGlobalOffers: GlobalOffer[] = [
   { id: '1', text: 'VISIBLE OFFER TEXT TEST', affiliateLink: '#', isActive: true },
   { id: '2', text: 'Take Profit Trader: Up to 90% profit split!', affiliateLink: '#', isActive: true },
-  { id: '3', text: 'NewFirmX: 10% bonus on payout with code FINDER10', affiliateLink: '#', isActive: true },
+  { id: '3', text: 'Tradify: 10% bonus on payout with code FINDER10', affiliateLink: '#', isActive: true },
 ];
 
 const apexAccountTiers: AccountTier[] = [
@@ -29,10 +29,19 @@ const eliteAccountTiers: AccountTier[] = [
 ];
 
 const tradifyAccountTiers: AccountTier[] = [
-    { id: 'tradify-50k-adv', size: 50000, name: '$50K Advanced Challenge', evaluationFee: 69, activationFee: 125, resetFee: 50 },
-    { id: 'tradify-100k-adv', size: 100000, name: '$100K Advanced Challenge', evaluationFee: 99, activationFee: 125, resetFee: 70 },
-    { id: 'tradify-50k-growth', size: 50000, name: '$50K Growth Challenge', evaluationFee: 139, activationFee: 0, resetFee: 60 },
-    { id: 'tradify-25k-sim', size: 25000, name: '$25K Straight to Sim', evaluationFee: 349, activationFee: 0, resetFee: 0 }, // One-time fee, no typical reset
+  // Advanced Challenge
+  { id: 'tradify-50k-adv', name: '$50K Advanced Challenge', size: 50000, evaluationFee: 99, activationFee: 125, resetFee: 100 }, // Assuming monthly fee as eval, reset fee plausible
+  { id: 'tradify-100k-adv', name: '$100K Advanced Challenge', size: 100000, evaluationFee: 179, activationFee: 125, resetFee: 100 },
+  { id: 'tradify-150k-adv', name: '$150K Advanced Challenge', size: 150000, evaluationFee: 229, activationFee: 125, resetFee: 100 },
+  // Growth Challenge
+  { id: 'tradify-50k-growth', name: '$50K Growth Challenge', size: 50000, evaluationFee: 99, activationFee: 0, resetFee: 100 }, // Assuming monthly fee as eval
+  { id: 'tradify-100k-growth', name: '$100K Growth Challenge', size: 100000, evaluationFee: 179, activationFee: 0, resetFee: 100 },
+  { id: 'tradify-150k-growth', name: '$150K Growth Challenge', size: 150000, evaluationFee: 229, activationFee: 0, resetFee: 100 },
+  // Straight to Sim Funded
+  { id: 'tradify-25k-sim', name: '$25K Straight to Sim', size: 25000, evaluationFee: 375, activationFee: 0, resetFee: 0 }, // One-time fee, no typical "reset"
+  { id: 'tradify-50k-sim', name: '$50K Straight to Sim', size: 50000, evaluationFee: 549, activationFee: 0, resetFee: 0 },
+  { id: 'tradify-100k-sim', name: '$100K Straight to Sim', size: 100000, evaluationFee: 629, activationFee: 0, resetFee: 0 },
+  { id: 'tradify-150k-sim', name: '$150K Straight to Sim', size: 150000, evaluationFee: 700, activationFee: 0, resetFee: 0 },
 ];
 
 
@@ -65,8 +74,8 @@ export const mockPropFirms: PropFirm[] = [
     isFeatured: true,
     minAccountSize: 25000,
     maxAccountSize: 300000,
-    minChallengeCost: 137,
-    maxChallengeCost: 657,
+    minChallengeCost: 137, // Smallest PA eval
+    maxChallengeCost: 657, // Largest PA eval
     activationFee: 'None (for PA accounts)',
     challengeType: '1-Step Evaluation',
     accountTiers: apexAccountTiers,
@@ -101,7 +110,7 @@ export const mockPropFirms: PropFirm[] = [
     maxAccountSize: 150000,
     minChallengeCost: 150,
     maxChallengeCost: 360,
-    activationFee: '$140 (common for PA)', // Example generic activation fee
+    activationFee: '$140 (common for PA)', 
     challengeType: '1-Step, 2-Step',
     accountTiers: tptAccountTiers,
   },
@@ -144,23 +153,29 @@ export const mockPropFirms: PropFirm[] = [
     name: 'Tradify',
     slug: 'tradify',
     logoUrl: 'https://placehold.co/100x50.png?text=Tradify',
-    websiteUrl: 'https://tradify.com/',
-    affiliateLink: 'https://tradify.com/onlypropfirms',
+    websiteUrl: 'https://tradify.com/', // Placeholder
+    affiliateLink: 'https://tradify.com/onlypropfirms', // Placeholder
     isFeatured: true,
     briefDescription: 'Futures prop firm with multiple account types, 100% profit split up to $15K, and flexible trading conditions.',
-    fullReview: "Tradify offers a range of account types including Advanced Challenges, Growth Challenges, and Straight to Sim Funded Accounts, catering to different trader preferences. They provide a generous 100% profit split on the first $15,000, then 90% to the trader. Key features include allowing news trading, EAs, and supporting popular platforms like Tradovate, NinjaTrader, and TradingView. After four successful payouts from a Sim Funded account, traders can transition to a Live Funded account with potentially uncapped, same-day payouts. Their detailed rules cover aspects like consistency (35% or 20% depending on account type), daily loss limits (soft breach), and minimum trading days for payouts.",
+    fullReview: `Tradify offers a versatile range of funding options for futures traders, including Advanced Challenges (intraday drawdown, $125 activation fee), Growth Challenges (end-of-day drawdown, no activation fee), and Straight to Sim Funded Accounts (instant funding, one-time fee). All account types feature a generous 100% profit split on the first $15,000 earned, transitioning to 90% thereafter.
+    Key advantages include permission for news trading and EAs, support for popular platforms like Tradovate, NinjaTrader, and TradingView, and the ability to manage up to 7 active funded accounts with copy trading allowed.
+    The Advanced Challenge requires passing an evaluation with an intraday trailing drawdown and a 35% consistency rule. The Growth Challenge also has an evaluation but uses a less strict end-of-day drawdown, maintaining the 35% consistency rule.
+    Straight to Sim accounts provide immediate funding with an end-of-day drawdown and a looser 20% consistency rule. Payouts for Sim accounts have specific tiers and minimum trading day requirements.
+    After four successful payouts from a Sim Funded account, traders can be evaluated for a Live Funded account, which offers potentially uncapped, same-day payouts and removes the consistency rule, though contract limits are discussed with a risk manager.`,
     pros: [
-      "Multiple account types (Advanced, Growth, Straight to Sim)",
+      "Multiple account types (Advanced Challenge, Growth Challenge, Straight to Sim)",
       "100% profit split on first $15,000, then 90%",
       "Supports Tradovate, NinjaTrader, TradingView",
       "News trading and EAs allowed",
-      "Transition to Live Funded accounts with favorable terms (e.g., no consistency rule, uncapped same-day payouts after 7 PM EST)"
+      "Up to 7 active funded accounts, copy trading permitted",
+      "Transition to Live Funded accounts with favorable terms"
     ],
     cons: [
-      "Consistency rules apply during Sim Funded stage (35% or 20%)",
+      "Consistency rules apply (35% for Challenges, 20% for Sim Funded)",
       "Activation fee for Advanced Challenge accounts ($125)",
-      "Minimum trading day requirements for payouts and Live transition (10 days between payouts, 5 profitable days with profit thresholds)",
-      "Initial withdrawal limits on Live Funded accounts (50% after 10 days, 100% after 20 days)"
+      "Monthly fees for challenge accounts",
+      "Tiered payout structure for Straight to Sim accounts",
+      "Minimum trading day requirements for payouts"
     ],
     keyFeatures: [
       '100% profit split up to $15K, then 90/10',
@@ -179,16 +194,16 @@ export const mockPropFirms: PropFirm[] = [
     offerBadgeLabel: '100% up to $15K',
     fundingModels: ["Advanced Challenge", "Growth Challenge", "Straight to Sim Funded"],
     profitSplit: '100% on first $15,000, then 90/10',
-    drawdownRules: 'Intraday trailing (Advanced), EOD trailing (Growth, Sim) - e.g., $2K for $50K Advanced',
-    profitTarget: '6%',
+    drawdownRules: 'Intraday trailing (Advanced), EOD trailing (Growth, Sim)',
+    profitTarget: '6% (Challenges), N/A (Sim Funded)',
     tradableInstruments: ['Futures (CME, COMEX, NYMEX, CBOT, Coinbase Derivatives)'],
     platforms: ['Tradovate', 'NinjaTrader', 'TradingView'],
-    rating: 4.3,
-    minAccountSize: 25000, // For Straight to Sim
-    maxAccountSize: 150000, // For Challenge accounts
-    minChallengeCost: 69, // Monthly for Advanced $50K
-    maxChallengeCost: 729, // One-time for Straight to Sim $150K
-    activationFee: '$125 (Advanced Challenges only)',
+    rating: 4.5, // Placeholder rating
+    minAccountSize: 25000, // Smallest Sim account
+    maxAccountSize: 150000, // Largest Challenge/Sim account
+    minChallengeCost: 99, // Lowest monthly fee for $50K Advanced/Growth
+    maxChallengeCost: 700, // Highest one-time fee for $150K Sim
+    activationFee: '$125 (Advanced), $0 (Growth/Sim)',
     challengeType: 'Evaluation Challenges, Direct Sim Funding',
     accountTiers: tradifyAccountTiers,
   },
@@ -231,7 +246,7 @@ export const mockTradingResources: TradingResource[] = [
     slug: 'tradingview',
     logoUrl: 'https://placehold.co/100x50.png?text=TV',
     websiteUrl: '#',
-    affiliateLink: '#',
+    affiliateLink: 'https://www.tradingview.com/?aff_id=152856',
     description: 'Popular charting platform and social network for traders and investors.',
     resourceType: 'Tool',
   },
@@ -244,16 +259,6 @@ export const mockTradingResources: TradingResource[] = [
     affiliateLink: '#',
     description: 'Free online course to learn Forex trading from beginner to advanced.',
     resourceType: 'Course',
-  },
-   {
-    id: 'tr3',
-    name: 'CoinDesk',
-    slug: 'coindesk',
-    logoUrl: 'https://placehold.co/100x50.png?text=CD',
-    websiteUrl: '#',
-    affiliateLink: '#',
-    description: 'Leading news site specializing in Bitcoin and digital currencies.',
-    resourceType: 'News',
   },
 ];
 
@@ -353,3 +358,4 @@ export const mockFreeResources: FreeResourceItem[] = [
     concludingCTASection: "Arm yourself with the knowledge to make an informed decision. Download the checklist now!"
   },
 ];
+
