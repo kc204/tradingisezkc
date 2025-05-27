@@ -20,10 +20,10 @@ import { GlowEffect } from '@/components/ui/glow-effect';
 function DegenHomePageContent() {
   return (
     <div className="text-center space-y-10 py-10">
-      <h1 className="text-5xl md:text-6xl text-[hsl(var(--degen-lime-green-hsl))] font-press-start leading-tight">
+      <h1 className="text-5xl md:text-6xl text-[hsl(var(--degen-lime-green-hsl))] leading-tight">
         ENTER THE<br />DEGEN DIMENSION
       </h1>
-      <p className="text-xl md:text-2xl text-[hsl(var(--degen-text-main-hsl))] max-w-2xl mx-auto font-pixelify">
+      <p className="text-xl md:text-2xl text-[hsl(var(--degen-text-main-hsl))] max-w-2xl mx-auto">
         You've found the rabbit hole. Normal rules don't apply here. Explore the chaos. NFA/DYOR.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -37,7 +37,7 @@ function DegenHomePageContent() {
             key={link.href}
             asChild
             className={cn(
-              "font-pixelify text-lg py-3 px-6", 
+              "font-pixelify text-lg py-3 px-6", // font-pixelify relies on global .degen-mode styles
               "bg-transparent text-[hsl(var(--degen-electric-blue-hsl))]",
               "border-2 border-[hsl(var(--degen-electric-blue-hsl))] hover:bg-[hsl(var(--degen-electric-blue-hsl))] hover:text-[hsl(var(--degen-bg-main-hsl))]"
             )}
@@ -46,7 +46,7 @@ function DegenHomePageContent() {
           </Button>
         ))}
       </div>
-      <p className="text-sm text-[hsl(var(--degen-hot-pink-hsl))] font-pixelify">
+      <p className="text-sm text-[hsl(var(--degen-hot-pink-hsl))]">
         Remember: Fortune favors the bold... and sometimes reks them.
       </p>
     </div>
@@ -87,8 +87,8 @@ export default function Home() {
     "allow_symbol_change": true,
     "calendar": false,
     "support_host": "https://www.tradingview.com",
-    "backgroundColor": "rgba(0,0,0,0)", // Matches --bg-card
-    "gridColor": "rgba(255,255,255,0.05)", // Subtler grid lines
+    "backgroundColor": "rgba(0,0,0,0)", 
+    "gridColor": "rgba(255,255,255,0.05)", 
   };
   const chartContainerStyles = { height: '600px', width: '100%' };
 
@@ -108,7 +108,7 @@ export default function Home() {
   const tradingViewLinkText = "Track all markets on TradingView";
 
   const glowEffectProps = {
-    colors: ['hsl(var(--accent-primary))'], // Only blue
+    colors: ['hsl(var(--accent-primary))'], 
     mode: "breathe" as const,
     blur: "strong" as const,
     duration: 10,
@@ -173,7 +173,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-center text-foreground mb-10 relative z-10">
             Market Outlook
           </h2>
-          {isMounted && ( // Use isMounted here for client-side only rendering of Tabs
+          {isMounted && ( 
             <Tabs defaultValue="economic-calendar" className="w-full">
               <TabsList className="grid w-full grid-cols-3 relative z-20">
                 <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
@@ -181,8 +181,8 @@ export default function Home() {
                 <TabsTrigger value="news">News</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="economic-calendar" className="relative">
-                <div className="relative mt-4"> {/* Wrapper for glow positioning */}
+              <TabsContent value="economic-calendar">
+                <div className="relative mt-4">
                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
                     <TradingViewWidget
@@ -199,8 +199,8 @@ export default function Home() {
                 </div>
               </TabsContent>
 
-              <TabsContent value="charts" className="relative">
-                 <div className="relative mt-4">  {/* Wrapper for glow positioning */}
+              <TabsContent value="charts">
+                 <div className="relative mt-4"> 
                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
                     <TradingViewWidget
@@ -217,8 +217,8 @@ export default function Home() {
                  </div>
               </TabsContent>
 
-              <TabsContent value="news" className="relative">
-                 <div className="relative mt-4">  {/* Wrapper for glow positioning */}
+              <TabsContent value="news">
+                 <div className="relative mt-4"> 
                   <GlowEffect {...glowEffectProps} />
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
                     <TradingViewWidget
