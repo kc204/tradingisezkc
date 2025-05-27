@@ -3,8 +3,8 @@
 
 import FirmCard from '@/components/propfirms/FirmCard';
 import ArticleCard from '@/components/shared/ArticleCard';
-import FreeResourceCard from '@/components/shared/FreeResourceCard'; // Added
-import { mockArticles, mockPropFirms, mockFreeResources } from '@/lib/mockData'; // Added mockFreeResources
+import FreeResourceCard from '@/components/shared/FreeResourceCard';
+import { mockArticles, mockPropFirms, mockFreeResources } from '@/lib/mockData';
 import Link from 'next/link';
 import { Boxes } from "@/components/ui/background-boxes";
 import { cn } from "@/lib/utils";
@@ -12,23 +12,64 @@ import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
 import TradingViewWidget from '@/components/shared/TradingViewWidget';
-// import { GlowEffect } from '@/components/ui/glow-effect'; // Removed GlowEffect import
+import { useDegenMode } from '@/contexts/DegenModeContext'; // Import DegenMode hook
+import { Button } from '@/components/ui/button'; // For Degen mode links
+
+// Component for Degen Mode Homepage Content
+function DegenHomePageContent() {
+  return (
+    <div className="text-center space-y-10 py-10">
+      <h1 className="text-5xl md:text-6xl text-[hsl(var(--degen-lime-green-hsl))]">
+        ENTER THE DEGEN DIMENSION
+      </h1>
+      <p className="text-xl md:text-2xl text-[hsl(var(--degen-text-main-hsl))] max-w-2xl mx-auto">
+        You've found the rabbit hole. Normal rules don't apply here. Explore the chaos. NFA/DYOR.
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        {[
+          { href: '/degen/trenches', label: 'The Trenches' },
+          { href: '/degen/memewatch', label: 'Memewatch' },
+          { href: '/degen/how-to-ape', label: 'How to Ape' },
+          { href: '/degen/glossary', label: 'Degen Glossary' },
+        ].map(link => (
+          <Button
+            key={link.href}
+            asChild
+            className={cn(
+              "font-pixelify text-lg py-3 px-6",
+              "bg-transparent text-[hsl(var(--degen-electric-blue-hsl))]",
+              "border-2 border-[hsl(var(--degen-electric-blue-hsl))] hover:bg-[hsl(var(--degen-electric-blue-hsl))] hover:text-[hsl(var(--degen-bg-main-hsl))]"
+            )}
+          >
+            <Link href={link.href}>{link.label}</Link>
+          </Button>
+        ))}
+      </div>
+      <p className="text-sm text-[hsl(var(--degen-hot-pink-hsl))]">
+        Remember: Fortune favors the bold... and sometimes reks them.
+      </p>
+    </div>
+  );
+}
+
 
 export default function Home() {
+  const { isDegenMode, isMounted } = useDegenMode();
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  // Original homepage state and data
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
   const recentArticles = mockArticles.slice(0, 3);
-  const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3); 
+  const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3);
 
   const economicCalendarScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-events.js";
   const economicCalendarConfig = {
-    "colorTheme": "dark",
-    "isTransparent": false,
+    "colorTheme": "dark", // Will be overridden by Degen or main theme via CSS vars if possible
+    "isTransparent": true, // Make transparent to pick up bg-card
     "width": "100%",
     "height": "100%",
     "locale": "en",
@@ -43,22 +84,23 @@ export default function Home() {
     "symbol": "BITSTAMP:BTCUSD",
     "interval": "D",
     "timezone": "Etc/UTC",
-    "theme": "dark",
+    "theme": "dark", // Will be overridden by Degen or main theme
     "style": "1",
     "locale": "en",
     "enable_publishing": false,
     "allow_symbol_change": true,
     "calendar": false,
-    "support_host": "https://www.tradingview.com"
+    "support_host": "https://www.tradingview.com",
+    "backgroundColor": "rgba(0,0,0,0)", // Transparent BG
+    "gridColor": "rgba(255,255,255,0.1)", // Example, adjust with CSS vars
   };
   const chartContainerStyles = { height: '600px', width: '100%' };
-
 
   const newsScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-timeline.js";
   const newsConfig = {
     "feedMode": "all_symbols",
-    "colorTheme": "dark",
-    "isTransparent": false,
+    "colorTheme": "dark", // Will be overridden
+    "isTransparent": true, // Make transparent
     "displayMode": "regular",
     "width": "100%",
     "height": "100%",
@@ -70,7 +112,7 @@ export default function Home() {
   const tradingViewLinkText = "Track all markets on TradingView";
 
   const glowEffectProps = {
-    colors: ['hsl(var(--accent-primary))'], 
+    colors: ['hsl(var(--accent-primary))'],
     mode: "breathe" as const,
     blur: "strong" as const,
     duration: 10,
@@ -78,19 +120,19 @@ export default function Home() {
     className: "opacity-20",
   };
 
+  if (!isMounted) {
+    return null; // Or a loading spinner
+  }
 
+  if (isDegenMode) {
+    return <DegenHomePageContent />;
+  }
+
+  // Normal Homepage Content
   return (
     <div className="space-y-16">
       {/* Hero Section with BackgroundBoxes */}
       <div className="h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg">
-        {/* <GlowEffect
-          colors={['hsl(var(--accent-primary))']} 
-          mode="breathe"
-          blur="stronger" 
-          duration={7}
-          scale={1.1} 
-          className="opacity-15" 
-        /> */} {/* Removed GlowEffect instance */}
         <div className="absolute inset-0 w-full h-full bg-background z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
         <Boxes />
         <h1 className={cn("md:text-4xl text-xl text-foreground relative z-20 text-center px-4")}>
@@ -130,7 +172,7 @@ export default function Home() {
       </section>
 
       {/* Market Outlook Section START */}
-       <section className="py-12">
+      <section className="py-12">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-foreground mb-10 relative z-10">
             Market Outlook
@@ -144,8 +186,8 @@ export default function Home() {
               </TabsList>
 
               <TabsContent value="economic-calendar" className="relative">
-                 <div className="relative mt-4">
-                  {/* <GlowEffect {...glowEffectProps} /> */}
+                <div className="relative mt-4"> {/* Wrapper for glow and content */}
+                   {/* <GlowEffect {...glowEffectProps} /> */}
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
                     <TradingViewWidget
                       scriptSrc={economicCalendarScriptSrc}
@@ -162,7 +204,7 @@ export default function Home() {
               </TabsContent>
 
               <TabsContent value="charts" className="relative">
-                 <div className="relative mt-4"> 
+                 <div className="relative mt-4">  {/* Wrapper for glow and content */}
                   {/* <GlowEffect {...glowEffectProps} /> */}
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
                     <TradingViewWidget
@@ -180,7 +222,7 @@ export default function Home() {
               </TabsContent>
 
               <TabsContent value="news" className="relative">
-                 <div className="relative mt-4"> 
+                 <div className="relative mt-4">  {/* Wrapper for glow and content */}
                   {/* <GlowEffect {...glowEffectProps} /> */}
                   <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
                     <TradingViewWidget
@@ -225,7 +267,6 @@ export default function Home() {
       )}
       {/* Featured Free Resources Section END */}
 
-
       {/* Recent Articles & Guides Section */}
       <section className="py-12 bg-card rounded-xl">
         <div className="container mx-auto px-4">
@@ -248,3 +289,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
