@@ -75,13 +75,7 @@
     --chart-4: hsl(var(--success-state));  
     --chart-5: hsl(var(--text-muted));    
 
-    /* Degen Mode Variables */
-    --degen-bg-main-hsl: 0 0% 0%; /* True Black */
-    --degen-text-main-hsl: 0 0% 100%; /* White */
-    --degen-electric-blue-hsl: 180 100% 50%; /* #00FFFF */
-    --degen-hot-pink-hsl: 300 100% 50%; /* #FF00FF */
-    --degen-lime-green-hsl: 120 100% 50%; /* #00FF00 */
-    --degen-bright-orange-hsl: 39 100% 50%; /* #FFA500 */
+    /* Degen Mode Variables REMOVED */
   }
 
   .dark {
@@ -152,82 +146,9 @@
     --chart-5: hsl(var(--text-muted));
   }
 
-  .degen-mode {
-    /* Degen variable overrides */
-    --background: hsl(var(--degen-bg-main-hsl));
-    --foreground: hsl(var(--degen-text-main-hsl));
-    --card: hsl(var(--degen-bg-main-hsl));
-    --card-foreground: hsl(var(--degen-text-main-hsl));
-    --popover: hsl(var(--degen-bg-main-hsl));
-    --popover-foreground: hsl(var(--degen-text-main-hsl));
-    
-    --primary: hsl(var(--degen-electric-blue-hsl));
-    --primary-foreground: hsl(var(--degen-text-main-hsl));
-    --primary-hover: 180 100% 45%; /* Darker Electric Blue */
-    
-    --secondary: hsl(var(--degen-hot-pink-hsl));
-    --secondary-foreground: hsl(var(--degen-text-main-hsl));
-    --secondary-hover: 300 100% 45%; /* Darker Hot Pink */
-    
-    --accent: hsl(var(--degen-lime-green-hsl));
-    --accent-foreground: hsl(var(--degen-bg-main-hsl)); /* Black text on lime */
-    --accent-hover: 120 100% 45%; /* Darker Lime Green */
-    
-    --muted: hsl(var(--degen-bg-main-hsl));
-    --muted-foreground: hsl(var(--degen-text-main-hsl));
-    
-    --destructive: hsl(var(--degen-hot-pink-hsl)); /* Use a neon for error */
-    --destructive-foreground: hsl(var(--degen-text-main-hsl));
-    
-    --success: hsl(var(--degen-lime-green-hsl));
-    --success-foreground: hsl(var(--degen-bg-main-hsl));
-
-    --border: hsl(var(--degen-electric-blue-hsl)); /* Neon borders */
-    --input: hsl(var(--degen-bg-main-hsl));
-    --ring: hsl(var(--degen-hot-pink-hsl));
-
-    --header-background: hsl(var(--degen-bg-main-hsl));
-    --header-foreground: hsl(var(--degen-text-main-hsl));
-  }
-
-  .degen-mode body { 
-    background-color: hsl(var(--background)); 
-    color: hsl(var(--foreground)); 
-  }
-
-  .degen-mode h1,
-  .degen-mode h2,
-  .degen-mode h3,
-  .degen-mode h4,
-  .degen-mode h5,
-  .degen-mode h6 {
-    font-family: var(--font-press-start-2p);
-    color: hsl(var(--primary)); 
-  }
-
-  .degen-mode p {
-    font-family: var(--font-pixelify-sans);
-    color: hsl(var(--foreground));
-  }
-  .degen-mode a {
-    color: hsl(var(--secondary)); 
-    text-decoration: underline;
-    text-decoration-style: dotted;
-  }
-  .degen-mode a:hover {
-    color: hsl(var(--secondary-hover));
-  }
-
-  .degen-mode button, .degen-mode .button { 
-    font-family: var(--font-pixelify-sans);
-    border-width: 1px;
-    border-style: solid;
-    text-transform: uppercase;
-  }
-  /* Degen mode for ShadCN Button variants */
-  .degen-mode .bg-primary { background-color: hsl(var(--primary)) !important; color: hsl(var(--primary-foreground)) !important; }
-  .degen-mode .bg-accent { background-color: hsl(var(--accent)) !important; color: hsl(var(--accent-foreground)) !important; }
-  
+  /* .degen-mode block REMOVED */
+  /* .degen-mode body block REMOVED */
+  /* .degen-mode h1, ..., a, button blocks REMOVED */
 }
 
 @layer base {
@@ -304,20 +225,7 @@
     --tw-prose-th-borders: hsl(var(--border));
     --tw-prose-td-borders: hsl(var(--border));
   }
-  /* Degen mode specific prose */
-  .degen-mode .prose {
-    --tw-prose-body: hsl(var(--foreground)); /* White */
-    --tw-prose-headings: hsl(var(--primary)); /* Electric Blue */
-    --tw-prose-links: hsl(var(--secondary)); /* Hot Pink */
-    --tw-prose-bold: hsl(var(--foreground)); /* White */
-    --tw-prose-bullets: hsl(var(--primary)); 
-    --tw-prose-hr: hsl(var(--border));
-    --tw-prose-quotes: hsl(var(--foreground));
-    --tw-prose-quote-borders: hsl(var(--border));
-    --tw-prose-code: hsl(var(--accent)); /* Lime green */
-    --tw-prose-pre-code: hsl(var(--accent));
-    --tw-prose-pre-bg: #1A1A1A; /* Darker than degen main bg for code blocks */
-  }
+  /* .degen-mode .prose REMOVED */
 }
 
     

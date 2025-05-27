@@ -2,15 +2,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
-import { DegenEntryModal } from '@/components/degen/DegenEntryModal';
-import { useDegenMode } from '@/contexts/DegenModeContext';
-import { Button } from '../ui/button';
+// Removed Degen Mode related imports: useState, DegenEntryModal, useDegenMode, Button
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const { setIsDegenMode } = useDegenMode();
-  const [isDegenModalOpen, setIsDegenModalOpen] = useState(false);
+  // Removed Degen Mode state and handlers
 
   const footerLinks = [
     { href: '/privacy-policy', label: 'Privacy Policy' },
@@ -19,11 +15,6 @@ const Footer = () => {
     { href: '/sitemap', label: 'Sitemap' },
     { href: '/how-we-rate', label: 'How We Rate & Review' },
   ];
-
-  const handleEnterDegenMode = () => {
-    setIsDegenMode(true);
-    setIsDegenModalOpen(false);
-  };
 
   return (
     <>
@@ -60,25 +51,11 @@ const Footer = () => {
             <p className="mt-1">
               Disclaimer: Trading involves substantial risk of loss and is not suitable for every investor.
             </p>
-            <div className="mt-4">
-              {/* Neon Astronaut Easter Egg Trigger */}
-              <Button
-                variant="ghost"
-                onClick={() => setIsDegenModalOpen(true)}
-                className="text-xs text-muted-foreground hover:text-primary degen-footer-trigger"
-                aria-label="Activate Degen Mode"
-              >
-                <span role="img" aria-label="Neon Astronaut">🚀</span> (Degen Zone?)
-              </Button>
-            </div>
+            {/* Removed Degen Mode trigger button */}
           </div>
         </div>
       </footer>
-      <DegenEntryModal 
-        isOpen={isDegenModalOpen} 
-        onClose={() => setIsDegenModalOpen(false)} 
-        onEnterDegenMode={handleEnterDegenMode} 
-      />
+      {/* Removed DegenEntryModal instance */}
     </>
   );
 };
