@@ -1,3 +1,4 @@
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -8,6 +9,7 @@ import OfferBox from '@/components/propfirms/OfferBox';
 import { CheckCircle, ExternalLink, Info, Star, XCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
+import TrueCostCalculator from '@/components/compare/TrueCostCalculator'; // Import the calculator
 
 interface FirmDetailPageProps {
   params: { slug: string };
@@ -147,17 +149,7 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
 
         <aside className="lg:col-span-1 space-y-8 lg:sticky lg:top-24">
           <OfferBox firm={firm} />
-          <Card>
-            <CardHeader>
-              <CardTitle>Need help choosing?</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Use our AI tool to find firms matching your style.</p>
-              <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent-hover">
-                <Link href="/#ai-matcher">AI Firm Matcher</Link>
-              </Button>
-            </CardContent>
-          </Card>
+          <TrueCostCalculator singleFirm={firm} /> 
         </aside>
       </div>
     </div>

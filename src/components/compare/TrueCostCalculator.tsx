@@ -7,12 +7,13 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button'; // For a potential "Calculate" button, though auto-calc is implemented
-import { Input } from '@/components/ui/input'; // Not used yet, but could be for custom reset fee
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 
 interface TrueCostCalculatorProps {
-  firms: PropFirm[];
+  firms?: PropFirm[]; // Used on compare page
+  singleFirm?: PropFirm; // Used on firm detail page
 }
 
 interface CalculatedCosts {
@@ -22,33 +23,49 @@ interface CalculatedCosts {
   totalCost: number;
 }
 
-export default function TrueCostCalculator({ firms }: TrueCostCalculatorProps) {
-  const [selectedFirmId, setSelectedFirmId] = useState<string | null>(null);
+export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostCalculatorProps) {
+  const isSingleFirmMode = !!singleFirm;
+
+  const [selectedFirmIdForMultiMode, setSelectedFirmIdForMultiMode] = useState<string | null>(
+    !isSingleFirmMode && firms.length > 0 ? firms[0].id : null
+  );
   const [selectedTierId, setSelectedTierId] = useState<string | null>(null);
   const [includeResetFee, setIncludeResetFee] = useState(false);
   const [calculatedCosts, setCalculatedCosts] = useState<CalculatedCosts | null>(null);
 
-  const selectedFirm = useMemo(() => {
-    return firms.find(f => f.id === selectedFirmId) || null;
-  }, [firms, selectedFirmId]);
+  const activeFirm = useMemo(() => {
+    if (isSingleFirmMode) return singleFirm;
+    return firms.find(f => f.id === selectedFirmIdForMultiMode) || null;
+  }, [isSingleFirmMode, singleFirm, firms, selectedFirmIdForMultiMode]);
 
   const availableTiers = useMemo(() => {
-    return selectedFirm?.accountTiers || [];
-  }, [selectedFirm]);
+    return activeFirm?.accountTiers || [];
+  }, [activeFirm]);
 
   const selectedTier = useMemo(() => {
     return availableTiers.find(t => t.id === selectedTierId) || null;
   }, [availableTiers, selectedTierId]);
 
+  // Effect to reset tier and costs if firm changes in multi-firm mode
   useEffect(() => {
-    // Reset tier and costs if firm changes
-    setSelectedTierId(null);
-    setCalculatedCosts(null);
-    setIncludeResetFee(false);
-  }, [selectedFirmId]);
+    if (!isSingleFirmMode) {
+      setSelectedTierId(null);
+      setCalculatedCosts(null);
+      setIncludeResetFee(false);
+    }
+  }, [selectedFirmIdForMultiMode, isSingleFirmMode]);
+
+  // Effect to reset tier selection when singleFirm prop changes (or on initial load in singleFirmMode)
+  useEffect(() => {
+    if (isSingleFirmMode) {
+      setSelectedTierId(null); // Force re-selection of tier for the current single firm
+      setCalculatedCosts(null);
+      setIncludeResetFee(false);
+    }
+  }, [singleFirm, isSingleFirmMode]); // React to changes in singleFirm prop
 
   useEffect(() => {
-    if (selectedFirm && selectedTier) {
+    if (activeFirm && selectedTier) {
       let evalFee = selectedTier.evaluationFee || 0;
       let activFee = selectedTier.activationFee || 0;
       let rstFee = 0;
@@ -67,25 +84,27 @@ export default function TrueCostCalculator({ firms }: TrueCostCalculatorProps) {
     } else {
       setCalculatedCosts(null);
     }
-  }, [selectedFirm, selectedTier, includeResetFee]);
+  }, [activeFirm, selectedTier, includeResetFee]);
 
   const canIncludeReset = selectedTier?.resetFee !== undefined && selectedTier.resetFee > 0;
 
   return (
-    <Card className="w-full max-w-2xl mx-auto shadow-xl mt-12">
+    <Card className="w-full shadow-xl mt-8"> {/* Max-width controlled by parent */}
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-foreground">True Cost of Funding Calculator</CardTitle>
-        <CardDescription className="text-muted-foreground">
-          Select a firm and account tier to estimate your initial upfront costs, including optional reset fees.
+        <CardTitle className="text-xl font-bold text-foreground">
+          {isSingleFirmMode && activeFirm ? `${activeFirm.name} - Cost Calculator` : "True Cost of Funding Calculator"}
+        </CardTitle>
+        <CardDescription className="text-muted-foreground text-sm">
+          {isSingleFirmMode && activeFirm ? `Estimate initial costs for ${activeFirm.name} account tiers.` : "Select a firm and account tier to estimate your initial upfront costs, including optional reset fees."}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {!isSingleFirmMode && firms.length > 0 && (
           <div>
             <Label htmlFor="firm-select" className="mb-2 block text-sm font-medium text-foreground">Select Prop Firm</Label>
             <Select
-              value={selectedFirmId || undefined}
-              onValueChange={(value) => setSelectedFirmId(value)}
+              value={selectedFirmIdForMultiMode || undefined}
+              onValueChange={(value) => setSelectedFirmIdForMultiMode(value)}
             >
               <SelectTrigger id="firm-select" className="w-full">
                 <SelectValue placeholder="Choose a firm..." />
@@ -99,37 +118,42 @@ export default function TrueCostCalculator({ firms }: TrueCostCalculatorProps) {
               </SelectContent>
             </Select>
           </div>
+        )}
 
-          <div>
-            <Label htmlFor="tier-select" className="mb-2 block text-sm font-medium text-foreground">Select Account Tier</Label>
-            <Select
-              value={selectedTierId || undefined}
-              onValueChange={(value) => setSelectedTierId(value)}
-              disabled={!selectedFirmId || availableTiers.length === 0}
-            >
-              <SelectTrigger id="tier-select" className="w-full">
-                <SelectValue placeholder="Choose an account tier..." />
-              </SelectTrigger>
-              <SelectContent>
-                {availableTiers.map((tier) => (
-                  <SelectItem key={tier.id} value={tier.id}>
-                    {tier.name || `$${tier.size.toLocaleString()} Account`}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+        <div>
+          <Label htmlFor="tier-select" className="mb-2 block text-sm font-medium text-foreground">
+            {isSingleFirmMode && activeFirm ? `Select ${activeFirm.name} Account Tier` : "Select Account Tier"}
+          </Label>
+          <Select
+            value={selectedTierId || undefined}
+            onValueChange={(value) => setSelectedTierId(value)}
+            disabled={!activeFirm || availableTiers.length === 0}
+          >
+            <SelectTrigger id="tier-select" className="w-full">
+              <SelectValue placeholder="Choose an account tier..." />
+            </SelectTrigger>
+            <SelectContent>
+              {availableTiers.map((tier) => (
+                <SelectItem key={tier.id} value={tier.id}>
+                  {tier.name || `$${tier.size.toLocaleString()} Account`}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {activeFirm && availableTiers.length === 0 && (
+             <p className="text-xs text-muted-foreground mt-1">No specific account tiers data available for {activeFirm.name} for cost calculation.</p>
+          )}
         </div>
 
         <div className="flex items-center space-x-2 pt-2">
           <Checkbox
-            id="include-reset"
+            id={`include-reset-${isSingleFirmMode ? singleFirm?.id : ''}`} // Unique ID for checkbox
             checked={includeResetFee}
             onCheckedChange={(checked) => setIncludeResetFee(Boolean(checked))}
             disabled={!canIncludeReset}
           />
           <Label
-            htmlFor="include-reset"
+            htmlFor={`include-reset-${isSingleFirmMode ? singleFirm?.id : ''}`}
             className={`text-sm font-medium ${!canIncludeReset ? 'text-muted-foreground/50 cursor-not-allowed' : 'text-foreground cursor-pointer'}`}
           >
             Include one typical Reset Fee (if applicable: {selectedTier?.resetFee ? `$${selectedTier.resetFee}` : 'N/A'})
@@ -139,7 +163,7 @@ export default function TrueCostCalculator({ firms }: TrueCostCalculatorProps) {
 
       {calculatedCosts && selectedTier && (
         <CardFooter className="flex flex-col items-start space-y-4 border-t border-border pt-6">
-          <h3 className="text-xl font-semibold text-foreground">Estimated Cost Breakdown:</h3>
+          <h3 className="text-lg font-semibold text-foreground">Estimated Cost Breakdown:</h3>
           <div className="w-full space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Evaluation Fee:</span>
@@ -167,16 +191,21 @@ export default function TrueCostCalculator({ firms }: TrueCostCalculatorProps) {
           </div>
         </CardFooter>
       )}
-      {!selectedTier && selectedFirmId && (
+      {!selectedTier && activeFirm && (
         <CardFooter>
             <p className="text-sm text-muted-foreground">Please select an account tier to see cost details.</p>
         </CardFooter>
       )}
-       {!selectedFirmId && (
+       {!activeFirm && !isSingleFirmMode && (
         <CardFooter>
             <p className="text-sm text-muted-foreground">Please select a firm to begin.</p>
         </CardFooter>
       )}
+       {isSingleFirmMode && !activeFirm && (
+         <CardFooter>
+            <p className="text-sm text-muted-foreground">Firm data not available for calculator.</p>
+        </CardFooter>
+       )}
     </Card>
   );
 }
