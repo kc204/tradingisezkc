@@ -12,8 +12,7 @@ import { useState, useEffect } from "react";
 
 export default function AlBrooksFreeCoursePage() {
   const courseData = mockFreeResources.find(r => r.slug === "al-brooks-course" && r.resourceType === "Free Video Course Series");
-  const [playingVideoIndex, setPlayingVideoIndex] = useState<number | null>(null);
-
+  
   // Effect to add 'use client' if it was missing and handle potential metadata error
   useEffect(() => {
     // This component uses client-side state (useState), so it should be a client component.
@@ -78,17 +77,15 @@ export default function AlBrooksFreeCoursePage() {
                           allowFullScreen
                         ></iframe>
                     ) : lesson.videoEmbedCodeOrURL && lesson.videoEmbedCodeOrURL.includes("iframe.mediadelivery.net") ? (
-                       // Logic for mediadelivery.net or other direct iframe embeds if needed in future
-                       // For now, this assumes if not YouTube, it might be a direct iframe or placeholder
-                       <iframe
-                          className="w-full h-full"
-                          src={lesson.videoEmbedCodeOrURL}
-                          title={lesson.lessonTitle}
-                          frameBorder="0"
-                          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-                          allowFullScreen
-                          loading="lazy"
-                       ></iframe>
+                       <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', width: '100%'}}>
+                         <iframe
+                            src={lesson.videoEmbedCodeOrURL}
+                            style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border:0}}
+                            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                            allowFullScreen
+                            loading="lazy"
+                         ></iframe>
+                       </div>
                     ) : (
                       <div className="w-full h-full bg-black text-white flex flex-col items-center justify-center text-center">
                         <PlayCircle className="w-12 h-12 mb-2 opacity-50" />
