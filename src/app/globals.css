@@ -38,7 +38,7 @@
     --card: hsl(var(--bg-card-hsl));
     --card-foreground: hsl(var(--text-main-hsl));
 
-    --popover: hsl(var(--bg-main-hsl)); /* Popovers match header/main background */
+    --popover: hsl(var(--bg-main-hsl)); 
     --popover-foreground: hsl(var(--text-main-hsl)); 
 
     --primary: hsl(var(--accent-primary-hsl));
@@ -47,7 +47,7 @@
     --secondary: hsl(var(--accent-secondary-hsl));
     --secondary-foreground: hsl(var(--accent-secondary-foreground-hsl));
     
-    --muted: hsl(var(--bg-card-hsl)); /* Muted often uses card background */
+    --muted: hsl(var(--bg-card-hsl)); 
     --muted-foreground: hsl(var(--text-muted-hsl));
 
     --accent: hsl(var(--cta-main-hsl));
@@ -60,7 +60,7 @@
     --success-foreground: hsl(var(--success-state-foreground-hsl));
 
     --border: hsl(var(--divider-hsl));
-    --input: hsl(240 4% 13%); /* #212121 a bit lighter for inputs */
+    --input: hsl(240 4% 13%); 
     --ring: hsl(var(--accent-primary-hsl)); 
 
     --radius: 0.5rem;
