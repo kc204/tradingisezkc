@@ -30,39 +30,39 @@
     --success-state-foreground: 0 0% 96%; /* #F5F5F5 */
 
     /* ShadCN Semantic Mapping */
-    --background: var(--bg-main);
-    --foreground: var(--text-main);
+    --background: hsl(var(--bg-main));
+    --foreground: hsl(var(--text-main));
 
-    --card: var(--bg-card);
-    --card-foreground: var(--text-main);
+    --card: hsl(var(--bg-card));
+    --card-foreground: hsl(var(--text-main));
 
-    --popover: hsl(var(--bg-main)); /* Should match header/main bg for seamless Degen dropdowns */
-    --popover-foreground: var(--text-main); 
+    --popover: hsl(var(--bg-main));
+    --popover-foreground: hsl(var(--text-main)); 
 
-    --primary: var(--accent-primary);
-    --primary-foreground: var(--accent-primary-foreground);
-    --primary-hover: var(--accent-primary-hover);
+    --primary: hsl(var(--accent-primary));
+    --primary-foreground: hsl(var(--accent-primary-foreground));
+    --primary-hover: hsl(var(--accent-primary-hover));
 
-    --secondary: var(--accent-secondary);
-    --secondary-foreground: var(--accent-secondary-foreground);
-    --secondary-hover: var(--accent-secondary-hover);
+    --secondary: hsl(var(--accent-secondary));
+    --secondary-foreground: hsl(var(--accent-secondary-foreground));
+    --secondary-hover: hsl(var(--accent-secondary-hover));
     
-    --muted: var(--bg-card); 
-    --muted-foreground: var(--text-muted);
+    --muted: hsl(var(--bg-card)); 
+    --muted-foreground: hsl(var(--text-muted));
 
-    --accent: var(--cta-main);
-    --accent-foreground: var(--cta-main-foreground);
-    --accent-hover: var(--cta-main-hover); 
+    --accent: hsl(var(--cta-main));
+    --accent-foreground: hsl(var(--cta-main-foreground));
+    --accent-hover: hsl(var(--cta-main-hover)); 
 
-    --destructive: var(--error-state);
-    --destructive-foreground: var(--error-state-foreground);
+    --destructive: hsl(var(--error-state));
+    --destructive-foreground: hsl(var(--error-state-foreground));
     
-    --success: var(--success-state);
-    --success-foreground: var(--success-state-foreground);
+    --success: hsl(var(--success-state));
+    --success-foreground: hsl(var(--success-state-foreground));
 
-    --border: var(--divider);
-    --input: 240 4% 13%; /* #212121 */
-    --ring: var(--accent-primary); 
+    --border: hsl(var(--divider));
+    --input: hsl(240 4% 13%); /* #212121 */
+    --ring: hsl(var(--accent-primary)); 
 
     --radius: 0.5rem;
 
@@ -79,8 +79,8 @@
     --degen-bg-main-hsl: 0 0% 0%; /* True Black */
     --degen-text-main-hsl: 0 0% 100%; /* White */
     --degen-electric-blue-hsl: 221 92% 60%; /* Same as accent-primary */
-    --degen-hot-pink-hsl: 330 100% 50%; /* Example Hot Pink */
-    --degen-lime-green-hsl: 90 100% 50%; /* Example Lime Green */
+    --degen-hot-pink-hsl: 330 100% 50%; 
+    --degen-lime-green-hsl: 90 100% 50%; 
     --degen-bright-orange-hsl: 27 95% 53%; /* Same as cta-main */
   }
 
@@ -109,38 +109,38 @@
     --success-state: 145 63% 42%;
     --success-state-foreground: 0 0% 96%;
 
-    --background: var(--bg-main);
-    --foreground: var(--text-main);
-    --card: var(--bg-card);
-    --card-foreground: var(--text-main);
+    --background: hsl(var(--bg-main));
+    --foreground: hsl(var(--text-main));
+    --card: hsl(var(--bg-card));
+    --card-foreground: hsl(var(--text-main));
     
     --popover: hsl(var(--bg-main));
     --popover-foreground: hsl(var(--text-main)); 
     
-    --primary: var(--accent-primary);
-    --primary-foreground: var(--accent-primary-foreground);
-    --primary-hover: var(--accent-primary-hover);
+    --primary: hsl(var(--accent-primary));
+    --primary-foreground: hsl(var(--accent-primary-foreground));
+    --primary-hover: hsl(var(--accent-primary-hover));
 
-    --secondary: var(--accent-secondary);
-    --secondary-foreground: var(--accent-secondary-foreground);
-    --secondary-hover: var(--accent-secondary-hover);
+    --secondary: hsl(var(--accent-secondary));
+    --secondary-foreground: hsl(var(--accent-secondary-foreground));
+    --secondary-hover: hsl(var(--accent-secondary-hover));
 
-    --muted: var(--bg-card);
-    --muted-foreground: var(--text-muted);
+    --muted: hsl(var(--bg-card));
+    --muted-foreground: hsl(var(--text-muted));
 
-    --accent: var(--cta-main);
-    --accent-foreground: var(--cta-main-foreground);
-    --accent-hover: var(--cta-main-hover);
+    --accent: hsl(var(--cta-main));
+    --accent-foreground: hsl(var(--cta-main-foreground));
+    --accent-hover: hsl(var(--cta-main-hover));
 
-    --destructive: var(--error-state);
-    --destructive-foreground: var(--error-state-foreground);
+    --destructive: hsl(var(--error-state));
+    --destructive-foreground: hsl(var(--error-state-foreground));
 
-    --success: var(--success-state);
-    --success-foreground: var(--success-state-foreground);
+    --success: hsl(var(--success-state));
+    --success-foreground: hsl(var(--success-state-foreground));
 
-    --border: var(--divider);
-    --input: 240 4% 13%;
-    --ring: var(--accent-primary);
+    --border: hsl(var(--divider));
+    --input: hsl(240 4% 13%);
+    --ring: hsl(var(--accent-primary));
 
     --header-background: hsl(var(--bg-main));
     --header-foreground: hsl(0 0% 100%); /* Pure White */
@@ -222,7 +222,7 @@
     @apply font-press-start text-[hsl(var(--degen-lime-green-hsl))]; 
   }
   .degen-mode strong, .degen-mode dt {
-    @apply text-[hsl(var(--degen-hot-pink-hsl))]; /* Degen strong/dt can use pixelify or press-start if desired */
+    @apply text-[hsl(var(--degen-hot-pink-hsl))]; 
   }
 
   a { 
@@ -272,3 +272,5 @@
     /* Add other prose overrides for degen mode as needed */
   }
 }
+
+    
