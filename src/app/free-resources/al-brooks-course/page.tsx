@@ -8,22 +8,24 @@ import { PlayCircle, ListChecks, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, useEffect } from "react";
-// Removed metadata export as this is a client component
 
 export default function AlBrooksFreeCoursePage() {
+  const [isMounted, setIsMounted] = useState(false);
+  // Find courseData once. It should be stable on the client after mockFreeResources is imported.
   const courseData = mockFreeResources.find(r => r.slug === "al-brooks-course" && r.resourceType === "Free Video Course Series");
-  
-  // Effect to add 'use client' if it was missing and handle potential metadata error
+
   useEffect(() => {
-    // This component uses client-side state (useState), so it should be a client component.
-    // Metadata should be handled in a parent Server Component or layout.
+    setIsMounted(true);
   }, []);
 
-
-  if (!courseData) {
-    return <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">Course data not found.</div>;
+  if (!isMounted || !courseData) {
+    // Render a loading state or null during SSR and initial client render before mount
+    // to prevent hydration mismatch for dynamic parts.
+    // This ensures that the content generating href and src attributes is only rendered client-side.
+    return <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">Loading course content...</div>;
   }
 
+  // Destructure after ensuring courseData exists and component is mounted
   const { title, pageIntroduction, mainAffiliateLink, mainCTAText, videoLessons, concludingCTASection } = courseData;
 
   const getYouTubeVideoId = (url: string): string | null => {
@@ -45,7 +47,7 @@ export default function AlBrooksFreeCoursePage() {
           {mainAffiliateLink && mainCTAText && (
             <StarBorder<typeof Link>
               as={Link}
-              href={mainAffiliateLink}
+              href={mainAffiliateLink} 
               target="_blank"
               rel="noopener noreferrer"
             >
