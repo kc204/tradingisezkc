@@ -220,9 +220,9 @@ const Header = () => {
     <header
       className={cn(
         "shadow-lg sticky z-40",
-        "top-[2.25rem]",
+        "top-[2.25rem]", // Adjusted to account for global offer bar height
         "transition-[transform,opacity] duration-300 ease-out",
-        "bg-header-background text-header-foreground",
+        "bg-header-background text-header-foreground", // Ensure header uses its specific colors
         isVisible
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-full pointer-events-none"
@@ -231,7 +231,7 @@ const Header = () => {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link
           href="/"
-          className="text-2xl font-bold text-header-foreground"
+          className="text-2xl font-bold text-header-foreground" // Ensure logo uses header foreground
           onClick={() => {
             if (mobileMenuOpen) setMobileMenuOpen(false);
             if (openDropdown) setOpenDropdown(null);
@@ -260,7 +260,7 @@ const Header = () => {
               side="right"
               className="w-[300px] sm:w-[350px] p-6 bg-card text-card-foreground border-border"
             >
-              <SheetTitle className="sr-only">Main Menu</SheetTitle>
+              <SheetTitle className="sr-only">Main Menu</SheetTitle> 
               <div className="flex justify-between items-center mb-6">
                  <Link
                   href="/"

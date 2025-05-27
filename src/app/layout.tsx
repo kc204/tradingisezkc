@@ -29,8 +29,8 @@ export default function RootLayout({
       <body>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark" // Force dark theme consistent with the palette
-          enableSystem={false} // Disable system preference to ensure dark theme
+          defaultTheme="dark" // Ensure dark theme is default
+          enableSystem={false} // Disable system preference to enforce dark theme
           disableTransitionOnChange
         >
           <GlobalOfferBar />
