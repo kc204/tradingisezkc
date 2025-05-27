@@ -7,11 +7,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
+// Button and Link imports are removed if no longer used after removing the CTA button.
+// Let's keep Link and ExternalLink for now in case they are used elsewhere or might be added back.
+// import { Button } from '@/components/ui/button';
+// import Link from 'next/link';
+// import { ExternalLink } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import Link from 'next/link';
-import { ExternalLink } from 'lucide-react';
+
 
 interface TrueCostCalculatorProps {
   firms?: PropFirm[]; // Used on compare page
@@ -191,14 +194,7 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
             <span className="font-semibold text-accent">Total Estimated Upfront Cost:</span>
             <span className="font-bold text-accent">${calculatedCosts.totalCost.toLocaleString()}</span>
           </div>
-          {activeFirm.affiliateLink && (
-            <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover mt-4">
-              <Link href={activeFirm.affiliateLink} target="_blank" rel="noopener noreferrer">
-                Visit {activeFirm.name}
-                <ExternalLink className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          )}
+          {/* The "Visit Firm" button that was here has been removed for this rollback */}
         </CardFooter>
       )}
       {!selectedTier && activeFirm && (
