@@ -2,12 +2,15 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Press_Start_2P, Pixelify_Sans } from 'next/font/google';
 import './globals.css';
-import { Toaster } from '@/components/ui/toaster';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import GlobalOfferBar from '@/components/layout/GlobalOfferBar';
+// Toaster is now rendered inside AppContent to ensure it's within ThemeProvider
+// import { Toaster } from '@/components/ui/toaster'; 
+// Header, Footer, GlobalOfferBar are now rendered conditionally in AppContent
+// import Header from '@/components/layout/Header';
+// import Footer from '@/components/layout/Footer';
+// import GlobalOfferBar from '@/components/layout/GlobalOfferBar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { DegenModeProvider } from '@/contexts/DegenModeContext';
+import AppContent from '@/components/layout/AppContent'; // Import the new AppContent
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -47,13 +50,8 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <GlobalOfferBar />
-            <Header />
-            <main className="flex-grow container mx-auto px-4 py-8">
-              {children}
-            </main>
-            <Footer />
-            <Toaster />
+            <AppContent>{children}</AppContent>
+            {/* GlobalOfferBar, Header, main, Footer, Toaster are now inside AppContent */}
           </ThemeProvider>
         </DegenModeProvider>
       </body>
