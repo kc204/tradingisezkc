@@ -29,8 +29,8 @@
     --success-state-hsl: 145 63% 42%; /* #16A34A */
     --success-state-foreground-hsl: 0 0% 96%; /* #F5F5F5 */
 
-    --header-background-hsl: 240 14% 7%; /* #111111 */
-    --header-foreground-hsl: 0 0% 96%;   /* #F5F5F5 - Bright Off-White */
+    --header-background-hsl: var(--bg-main-hsl); /* #111111 */
+    --header-foreground-hsl: var(--text-main-hsl);   /* #F5F5F5 - Bright Off-White */
 
     /* Main Theme ShadCN Semantic Mapping */
     --background: hsl(var(--bg-main-hsl));
@@ -39,8 +39,8 @@
     --card: hsl(var(--bg-card-hsl));
     --card-foreground: hsl(var(--text-main-hsl));
 
-    --popover: hsl(var(--header-background-hsl)); /* Matches header for seamless dropdown */
-    --popover-foreground: hsl(var(--header-foreground-hsl)); 
+    --popover: hsl(var(--bg-card-hsl)); /* Popovers match card background */
+    --popover-foreground: hsl(var(--text-main-hsl)); 
 
     --primary: hsl(var(--accent-primary-hsl));
     --primary-foreground: hsl(var(--accent-primary-foreground-hsl));
@@ -50,7 +50,7 @@
     --secondary-foreground: hsl(var(--accent-secondary-foreground-hsl));
     --secondary-hover: hsl(var(--accent-secondary-hover-hsl));
     
-    --muted: hsl(var(--bg-card-hsl)); 
+    --muted: hsl(var(--bg-card-hsl)); /* Muted often uses card background */
     --muted-foreground: hsl(var(--text-muted-hsl));
 
     --accent: hsl(var(--cta-main-hsl));
@@ -82,8 +82,8 @@
     --foreground: hsl(var(--text-main-hsl));
     --card: hsl(var(--bg-card-hsl));
     --card-foreground: hsl(var(--text-main-hsl));
-    --popover: hsl(var(--header-background-hsl));
-    --popover-foreground: hsl(var(--header-foreground-hsl));
+    --popover: hsl(var(--bg-card-hsl));
+    --popover-foreground: hsl(var(--text-main-hsl));
     --primary: hsl(var(--accent-primary-hsl));
     --primary-foreground: hsl(var(--accent-primary-foreground-hsl));
     --primary-hover: hsl(var(--accent-primary-hover-hsl));
