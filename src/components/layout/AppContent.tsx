@@ -19,7 +19,7 @@ export default function AppContent({ children }: { children: ReactNode }) {
       <main
         className={cn(
           'flex-grow',
-          !isDegenMode && 'container mx-auto px-4 py-8'
+          !isDegenMode && 'container mx-auto px-4 py-8' // Main site container styling
         )}
       >
         {children}
