@@ -74,10 +74,7 @@ export default function TrueCostCalculator({ firms }: TrueCostCalculatorProps) {
   return (
     <Card className="w-full max-w-2xl mx-auto shadow-xl mt-12">
       <CardHeader>
-        <CardTitle className="text-2xl md:text-3xl text-foreground">True Cost of Funding Calculator</CardTitle>
-        <CardDescription className="text-muted-foreground">
-          Estimate the initial financial commitment for different prop firms and account sizes.
-        </CardDescription>
+        {/* CardTitle and CardDescription removed from here */}
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
