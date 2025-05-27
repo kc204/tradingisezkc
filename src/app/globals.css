@@ -36,7 +36,7 @@
     --card: hsl(var(--bg-card));
     --card-foreground: hsl(var(--text-main));
 
-    --popover: hsl(var(--bg-main));
+    --popover: hsl(var(--bg-main)); /* Degen Modal and other popovers use main Degen bg */
     --popover-foreground: hsl(var(--text-main)); 
 
     --primary: hsl(var(--accent-primary));
@@ -114,7 +114,7 @@
     --card: hsl(var(--bg-card));
     --card-foreground: hsl(var(--text-main));
     
-    --popover: hsl(var(--bg-main));
+    --popover: hsl(var(--bg-main)); /* Degen Modal and other popovers use main Degen bg */
     --popover-foreground: hsl(var(--text-main)); 
     
     --primary: hsl(var(--accent-primary));
@@ -178,7 +178,6 @@
     --success-foreground: hsl(var(--degen-bg-main-hsl));
     --border: hsl(var(--degen-electric-blue-hsl)); 
     --input: hsl(var(--degen-bg-main-hsl)); 
-    /* --input-foreground: hsl(var(--degen-text-main-hsl)); Input foreground not typically defined, inherits from --foreground */
     --ring: hsl(var(--degen-hot-pink-hsl));
     --header-background: hsl(var(--degen-bg-main-hsl));
     --header-foreground: hsl(var(--degen-text-main-hsl));
@@ -190,13 +189,13 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans; /* Default styles for main site */
     font-feature-settings: "rlig" 1, "calt" 1;
   }
-  /* Base Degen Mode body styles - these are applied when .degen-mode is on <html> */
-  .degen-mode body {
-    /* These will automatically use the overridden Degen CSS variables */
-    @apply bg-background text-foreground font-pixelify; /* Default Degen body font */
+  
+  .degen-mode body { /* Styles ONLY for Degen Mode body */
+    @apply font-pixelify; /* Degen font for body text */
+    /* Background and foreground for .degen-mode body will use the overridden CSS variables */
   }
 
   header a, header button { /* For main site header */
@@ -206,14 +205,16 @@
     @apply text-header-foreground;
   }
 
+  /* Default paragraph styling for main site */
   p {
-    @apply text-muted-foreground;
+    @apply text-muted-foreground; 
   }
   /* Degen mode specific paragraph styling */
   .degen-mode p {
-     @apply text-foreground font-pixelify; /* Uses Degen's overridden --foreground and pixelify font */
+     @apply text-foreground font-pixelify; 
   }
 
+  /* Default heading styling for main site */
   h1, h2, h3, h4, h5, h6, strong, dt {
     @apply text-foreground;
   }
@@ -225,6 +226,7 @@
     @apply text-[hsl(var(--degen-hot-pink-hsl))]; 
   }
 
+  /* Default link styling for main site */
   a { 
     @apply text-primary; 
   }
@@ -263,8 +265,8 @@
 
   /* Degen mode specific prose styling */
   .degen-mode .prose {
-    --tw-prose-body: hsl(var(--degen-text-main-hsl)); /* Uses pixelify font via .degen-mode body */
-    --tw-prose-headings: hsl(var(--degen-lime-green-hsl)); /* Uses press-start font via .degen-mode h* */
+    --tw-prose-body: hsl(var(--degen-text-main-hsl)); 
+    --tw-prose-headings: hsl(var(--degen-lime-green-hsl)); 
     --tw-prose-links: hsl(var(--degen-electric-blue-hsl));
     --tw-prose-bold: hsl(var(--degen-hot-pink-hsl));
     --tw-prose-pre-code: hsl(var(--degen-text-main-hsl));
@@ -272,5 +274,4 @@
     /* Add other prose overrides for degen mode as needed */
   }
 }
-
     
