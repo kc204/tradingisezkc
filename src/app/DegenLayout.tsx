@@ -4,22 +4,21 @@ import type { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { useDegenMode } from '@/contexts/DegenModeContext';
 import { LogOut } from 'lucide-react';
-// useRouter is not needed if the button only toggles the mode and doesn't navigate
-// import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation'; // Import useRouter
 
 export default function DegenLayout({ children }: { children: ReactNode }) {
   const { setIsDegenMode } = useDegenMode();
-  // const router = useRouter(); // Not strictly required by this prompt's "toggleDegenMode()"
+  const router = useRouter(); // Initialize useRouter
 
   const handleExit = () => {
     setIsDegenMode(false);
-    // If navigation is also desired here, uncomment the router lines and router.push('/');
+    router.push('/'); // Navigate to homepage
   };
 
   return (
     <div className="min-h-screen bg-black text-white font-pixelify flex flex-col">
-      <header className="p-4 border-b border-[hsl(var(--degen-neon-blue))]/50 flex items-center justify-between"> {/* Using HSL vars */}
-        <h1 className="text-xl md:text-2xl font-press-start text-[hsl(var(--degen-neon-lime))]">TradingisEZ [DEGEN ZONE]</h1>
+      <header className="p-4 border-b border-[hsl(var(--degen-neon-blue))]/50 flex items-center justify-between">
+        <h1 className="text-xl md:text-2xl font-press-start text-[var(--degen-direct-neon-lime-green)]">TradingisEZ [DEGEN ZONE]</h1>
         <Button
           variant="outline"
           size="sm"
