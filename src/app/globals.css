@@ -63,12 +63,12 @@
   }
 
   .dark {
-    /* Explicitly define for .dark class - NOW WITHOUT hsl() WRAPPER */
+    /* Explicitly define for .dark class - Using existing setup */
     --background: var(--bg-main-hsl);
     --foreground: var(--text-main-hsl);
     --card: var(--bg-card-hsl);
     --card-foreground: var(--text-main-hsl);
-    --popover: var(--bg-card-hsl); /* Popover matching card background */
+    --popover: var(--bg-card-hsl);
     --popover-foreground: var(--text-main-hsl);
     --primary: var(--accent-primary-hsl);
     --primary-foreground: var(--accent-primary-foreground-hsl);
@@ -83,13 +83,51 @@
     --success: var(--success-state-hsl);
     --success-foreground: var(--success-state-foreground-hsl);
     --border: var(--divider-hsl);
-    --input: 0 0% 13%; /* Changed to just HSL values */
+    --input: 0 0% 13%;
     --ring: var(--accent-primary-hsl);
     --chart-1: var(--accent-primary-hsl);
     --chart-2: var(--cta-main-hsl);
     --chart-3: var(--accent-secondary-hsl);
     --chart-4: var(--success-state-hsl);
     --chart-5: var(--text-muted-hsl);
+  }
+
+  /* ======================================== */
+  /* DEGEN MODE STYLES            */
+  /* ======================================== */
+  .degen-mode {
+    /* Degen HSL Definitions */
+    --degen-bg: 0 0% 0%; /* True Black */
+    --degen-text: 0 0% 100%; /* True White */
+    --degen-neon-pink: 300 100% 50%;
+    --degen-neon-lime: 120 100% 50%;
+    --degen-neon-blue: 180 100% 50%;
+    --degen-grey: 0 0% 10%;
+    --degen-grey-fg: 0 0% 60%;
+    --degen-red: 0 100% 50%;
+
+    /* Override ShadCN vars ONLY in Degen Mode */
+    --background: var(--degen-bg);
+    --foreground: var(--degen-text);
+    --card: var(--degen-bg);
+    --card-foreground: var(--degen-text);
+    --popover: var(--degen-bg);
+    --popover-foreground: var(--degen-text);
+    --primary: var(--degen-neon-pink);
+    --primary-foreground: var(--degen-bg);
+    --secondary: var(--degen-neon-lime);
+    --secondary-foreground: var(--degen-bg);
+    --muted: var(--degen-grey);
+    --muted-foreground: var(--degen-grey-fg);
+    --accent: var(--degen-neon-blue);
+    --accent-foreground: var(--degen-bg);
+    --destructive: var(--degen-red);
+    --destructive-foreground: var(--degen-text);
+    --border: var(--degen-neon-blue);
+    --input: var(--degen-grey);
+    --ring: var(--degen-neon-pink);
+
+    /* You can add more Degen-specific chart/other vars here if needed */
   }
 }
 
@@ -103,6 +141,12 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   
+  /* Apply Degen body styles when active */
+  .degen-mode body {
+      background-color: hsl(var(--degen-bg)) !important; /* Ensure black bg */
+      color: hsl(var(--degen-text)) !important; /* Ensure white text */
+  }
+
   p {
     @apply text-muted-foreground; 
   }
@@ -114,8 +158,20 @@
   a { 
     @apply text-primary hover:text-primary/80; 
   }
+
+  /* Apply Degen link styles when active */
+  .degen-mode a {
+      color: hsl(var(--degen-neon-blue));
+      text-decoration: none; /* Often remove underlines for neon look */
+  }
+  .degen-mode a:hover {
+      color: hsl(var(--degen-neon-lime));
+      text-shadow: 0 0 5px hsl(var(--degen-neon-lime)); /* Add a glow effect */
+  }
   
   .prose { 
+    /* These .prose styles will likely need Degen-specific overrides */
+    /* if you plan to use Tailwind Typography in Degen mode */
     --tw-prose-body: hsl(var(--muted-foreground));
     --tw-prose-headings: hsl(var(--foreground));
     --tw-prose-lead: hsl(var(--muted-foreground));
@@ -132,5 +188,11 @@
     --tw-prose-pre-bg: hsl(var(--card));
     --tw-prose-th-borders: hsl(var(--border));
     --tw-prose-td-borders: hsl(var(--border));
+  }
+
+  /* Example: Degen override for prose links */
+  .degen-mode .prose {
+      --tw-prose-links: hsl(var(--degen-neon-blue));
+      /* Add more .prose overrides as needed */
   }
 }
