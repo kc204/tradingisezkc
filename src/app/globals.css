@@ -29,15 +29,15 @@
     --success-state-hsl: 145 63% 42%; /* #16A34A */
     --success-state-foreground-hsl: 0 0% 96%; /* #F5F5F5 */
 
-    --header-background-hsl: var(--bg-main-hsl); 
-    --header-foreground-hsl: 0 0% 96%; /* #F5F5F5 */
+    --header-background-hsl: var(--bg-main-hsl);
+    --header-foreground-hsl: 0 0% 100%; /* Pure White for header text */
 
-    /* Default to dark theme vars for ShadCN */
+    /* ShadCN Semantic Variables - Default to Dark Theme (Dynamic Blue & Action Orange) */
     --background: var(--bg-main-hsl);
     --foreground: var(--text-main-hsl);
     --card: var(--bg-card-hsl);
     --card-foreground: var(--text-main-hsl);
-    --popover: var(--bg-main-hsl); 
+    --popover: var(--bg-main-hsl); /* Matches header bg for seamless dropdowns */
     --popover-foreground: var(--text-main-hsl);
     --primary: var(--accent-primary-hsl);
     --primary-foreground: var(--accent-primary-foreground-hsl);
@@ -62,7 +62,7 @@
     --chart-4: var(--success-state-hsl);   
     --chart-5: var(--text-muted-hsl);
 
-    /* Degen Mode Base HSL Color Parts */
+    /* Degen Mode Base HSL Color Parts (defined globally for access) */
     --degen-bg-main-hsl: 0 0% 0%; /* True Black */
     --degen-text-main-hsl: 0 0% 100%; /* True White */
     --degen-neon-pink-hsl: 300 100% 50%;
@@ -72,18 +72,19 @@
     --degen-grey-fg-hsl: 0 0% 60%;
     --degen-red-hsl: 0 100% 50%;
 
-    /* Degen Mode Direct Neon Full HSL Colors */
+    /* Degen Mode Direct Neon Full HSL Colors (defined globally for easy use with var()) */
     --degen-direct-neon-electric-blue: hsl(var(--degen-neon-blue-hsl));
     --degen-direct-neon-hot-pink: hsl(var(--degen-neon-pink-hsl));
     --degen-direct-neon-lime-green: hsl(var(--degen-neon-lime-hsl));
   }
 
   .dark { /* This ensures the dark theme applies when 'dark' class is on html */
+    /* Same as :root because "Dynamic Blue & Action Orange" is a dark theme by default */
     --background: var(--bg-main-hsl);
     --foreground: var(--text-main-hsl);
     --card: var(--bg-card-hsl);
     --card-foreground: var(--text-main-hsl);
-    --popover: var(--bg-main-hsl);
+    --popover: var(--bg-main-hsl); /* Matches header bg */
     --popover-foreground: var(--text-main-hsl);
     --primary: var(--accent-primary-hsl);
     --primary-foreground: var(--accent-primary-foreground-hsl);
@@ -147,49 +148,21 @@
     @apply border-border; 
   }
 
+  /* Default site styles (non-Degen Mode) */
   body {
     @apply bg-background text-foreground font-sans; 
   }
   
-  .degen-mode body {
-      @apply bg-background text-foreground font-pixelify; 
-  }
-
   p {
     @apply text-muted-foreground; 
-  }
-  .degen-mode p {
-    @apply text-foreground font-pixelify; 
   }
   
   h1, h2, h3, h4, h5, h6, strong, dt {
     @apply text-foreground; 
   }
-  .degen-mode h1, .degen-mode h2, .degen-mode h3 { /* More specific for Degen Headings */
-    @apply font-press-start text-foreground;
-  }
-  /* Text shadow for Degen headings using direct neon variables */
-  .degen-mode h1[class*="text-[var(--degen-direct-neon-"],
-  .degen-mode h2[class*="text-[var(--degen-direct-neon-"],
-  .degen-mode h3[class*="text-[var(--degen-direct-neon-"] {
-    text-shadow: 0 0 3px currentColor, 0 0 5px currentColor;
-  }
-   /* Specific glow for Degen title in modal if it has a specific class or direct style */
-  .degen-mode .degen-modal-title-glow { /* Example class if needed */
-    text-shadow: 0 0 5px var(--degen-direct-neon-lime-green), 0 0 10px var(--degen-direct-neon-lime-green);
-  }
-
 
   a { 
     @apply text-primary hover:text-primary/80; 
-  }
-  .degen-mode a {
-      color: var(--degen-direct-neon-electric-blue); /* Degen links are neon blue */
-      text-decoration: none;
-  }
-  .degen-mode a:hover {
-      color: var(--degen-direct-neon-lime-green);
-      text-shadow: 0 0 5px var(--degen-direct-neon-lime-green),  0 0 8px var(--degen-direct-neon-lime-green);
   }
   
   .prose { 
@@ -211,6 +184,43 @@
     --tw-prose-td-borders: hsl(var(--border));
   }
 
+  /* DEGEN MODE Specific Global Styles */
+  .degen-mode body {
+      /* These will use the Degen overridden --background & --foreground vars */
+      @apply bg-background text-foreground font-pixelify; 
+  }
+
+  .degen-mode p {
+    /* Ensure Degen paragraphs get the Degen text color and font */
+    @apply text-foreground font-pixelify; 
+  }
+  
+  .degen-mode h1, .degen-mode h2, .degen-mode h3 {
+    /* Ensure Degen headings get the Degen text color and font */
+    @apply font-press-start text-foreground;
+    /* Apply text-shadow for glow effect */
+    text-shadow: 0 0 3px currentColor, 0 0 5px currentColor;
+  }
+  /* More specific glow for headings that might use direct neon vars if needed */
+  .degen-mode h1[class*="text-[var(--degen-direct-neon-"],
+  .degen-mode h2[class*="text-[var(--degen-direct-neon-"],
+  .degen-mode h3[class*="text-[var(--degen-direct-neon-"] {
+    text-shadow: 0 0 3px currentColor, 0 0 5px currentColor;
+  }
+   /* Specific glow for Degen title in modal if it has a specific class or direct style */
+  .degen-mode .degen-modal-title-glow { /* Example class if needed */
+    text-shadow: 0 0 5px var(--degen-direct-neon-lime-green), 0 0 10px var(--degen-direct-neon-lime-green);
+  }
+
+  .degen-mode a {
+      color: var(--degen-direct-neon-electric-blue); /* Degen links are neon blue */
+      text-decoration: none;
+  }
+  .degen-mode a:hover {
+      color: var(--degen-direct-neon-lime-green);
+      text-shadow: 0 0 5px var(--degen-direct-neon-lime-green),  0 0 8px var(--degen-direct-neon-lime-green);
+  }
+  
   .degen-mode .prose {
       --tw-prose-body: hsl(var(--degen-text-main-hsl));
       --tw-prose-headings: hsl(var(--degen-text-main-hsl));
@@ -262,4 +272,3 @@
     }
   }
 }
-
