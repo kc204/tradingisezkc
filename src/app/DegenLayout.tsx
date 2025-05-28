@@ -5,15 +5,15 @@ import type { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { useDegenMode } from '@/contexts/DegenModeContext';
 import { LogOut } from 'lucide-react';
-import { useRouter } from 'next/navigation'; // Import useRouter
+import { useRouter } from 'next/navigation'; 
 
 export default function DegenLayout({ children }: { children: ReactNode }) {
   const { setIsDegenMode } = useDegenMode();
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter(); 
 
   const handleExit = () => {
     setIsDegenMode(false);
-    router.push('/'); // Navigate to homepage
+    router.push('/'); 
   };
 
   return (
@@ -30,8 +30,7 @@ export default function DegenLayout({ children }: { children: ReactNode }) {
           Return to Sanity
         </Button>
       </header>
-      <main className="flex-grow p-4 md:p-8">
-        {/* The "WELCOME TO THE DEGEN DIMENSION" heading is now part of /degen/page.tsx */}
+      <main className="flex-grow p-4 md:p-8 relative degen-scanlines-overlay"> {/* Added relative and overlay class */}
         {children}
       </main>
       <footer className="p-4 mt-auto border-t border-[hsl(var(--degen-neon-blue))]/50 text-center text-xs text-gray-500 font-pixelify">
