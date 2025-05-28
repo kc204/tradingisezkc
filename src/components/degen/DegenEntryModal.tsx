@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation'; // <-- Import useRouter
+import { useRouter } from 'next/navigation';
 import { useDegenMode } from '@/contexts/DegenModeContext';
 import {
   AlertDialog,
@@ -16,29 +16,29 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 
-interface DegenEntryPopupProps {
+interface DegenEntryModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const DegenEntryModal: React.FC<DegenEntryPopupProps> = ({ isOpen, onClose }) => {
+export const DegenEntryModal: React.FC<DegenEntryModalProps> = ({ isOpen, onClose }) => {
   const { setIsDegenMode } = useDegenMode();
-  const router = useRouter(); // <-- Get router instance
+  const router = useRouter();
 
   const handleEnterDegenMode = () => {
     setIsDegenMode(true);
-    router.push('/degen'); // <-- Navigate to /degen
-    // onClose(); // AlertDialogAction handles closing via onOpenChange
+    router.push('/degen');
+    // AlertDialogAction will trigger onOpenChange, which calls onClose
   };
 
   return (
     <AlertDialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <AlertDialogContent className="bg-[hsl(var(--degen-bg-main-hsl))] text-[hsl(var(--degen-text-main-hsl))] border-2 border-[hsl(var(--degen-neon-pink-hsl))] font-pixelify shadow-lg shadow-[hsl(var(--degen-neon-pink-hsl))] max-w-md rounded-none">
         <AlertDialogHeader>
-          <AlertDialogTitle className="font-press-start text-[hsl(var(--degen-neon-lime-hsl))] text-2xl text-center">
+          <AlertDialogTitle className="font-press-start text-[hsl(var(--degen-lime-green-hsl))] text-2xl text-center">
             Yo Degen!
           </AlertDialogTitle>
-          <AlertDialogDescription className="text-[hsl(var(--degen-text-main-hsl))] space-y-3 mt-2 text-sm text-center">
+          <AlertDialogDescription className="text-[hsl(var(--degen-text-main-hsl))] mt-2 text-sm text-center">
             <span className="block">18+ Recommended / Enter at Your Own Risk!</span>
             <span className="block font-bold text-[hsl(var(--degen-neon-pink-hsl))] text-md mt-3">
               WARNING / DISCLAIMER:
@@ -53,7 +53,7 @@ export const DegenEntryModal: React.FC<DegenEntryPopupProps> = ({ isOpen, onClos
         <AlertDialogFooter className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
           <AlertDialogCancel
             asChild
-            onClick={onClose}
+            onClick={onClose} 
           >
             <Button
               variant="outline"
