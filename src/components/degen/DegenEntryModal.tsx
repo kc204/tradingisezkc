@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -39,12 +38,13 @@ export const DegenEntryModal: React.FC<DegenEntryModalProps> = ({ isOpen, onClos
     }}>
       <AlertDialogContent className="bg-black text-white border-2 border-[hsl(var(--degen-neon-pink))] font-pixelify max-w-md rounded-none shadow-[0_0_10px_hsl(var(--degen-neon-pink)),_0_0_20px_hsl(var(--degen-neon-pink)),_0_0_30px_hsl(var(--degen-neon-pink)_/_0.7)]">
         <AlertDialogHeader>
-          <AlertDialogTitle className="font-press-start text-[hsl(var(--degen-lime-green-hsl))] text-2xl text-center">
+          <AlertDialogTitle className="font-press-start text-[hsl(var(--degen-neon-lime))] text-2xl text-center"> {/* Corrected var */}
             Yo Degen!
           </AlertDialogTitle>
-          <AlertDialogDescription className="text-[hsl(var(--degen-text-main-hsl))] space-y-3 mt-2 text-sm text-center">
+          {/* text-white is inherited from AlertDialogContent, or use --degen-text explicitly if needed */}
+          <AlertDialogDescription className="space-y-3 mt-2 text-sm text-center text-white"> 
             <span className="block">18+ Recommended / Enter at Your Own Risk!</span>
-            <span className="block font-bold text-[hsl(var(--degen-hot-pink-hsl))] text-md mt-3">
+            <span className="block font-bold text-[hsl(var(--degen-neon-pink))] text-md mt-3"> {/* Corrected var */}
               WARNING / DISCLAIMER:
             </span>
             <span className="block mt-1">
@@ -66,12 +66,12 @@ export const DegenEntryModal: React.FC<DegenEntryModalProps> = ({ isOpen, onClos
             </Button>
           </AlertDialogCancel>
           <AlertDialogAction
-             asChild
-             onClick={handleEnterDegenMode}
+            asChild
+            onClick={handleEnterDegenMode}
           >
             <Button
               variant="default"
-              className="font-pixelify bg-[hsl(var(--degen-lime-green-hsl))] text-black hover:bg-white hover:shadow-[0_0_15px_hsl(var(--degen-lime-green-hsl))] rounded-none w-full sm:w-auto"
+              className="font-pixelify bg-[hsl(var(--degen-neon-lime))] text-black hover:bg-white hover:shadow-[0_0_15px_hsl(var(--degen-neon-lime))] rounded-none w-full sm:w-auto" // Corrected var
             >
               Enter Degen Zone
             </Button>

@@ -4,12 +4,17 @@ import type { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { useDegenMode } from '@/contexts/DegenModeContext';
 import { LogOut } from 'lucide-react';
+// useRouter is not needed if the button only toggles the mode and doesn't navigate
+// import { useRouter } from 'next/navigation'; 
 
 export default function DegenLayout({ children }: { children: ReactNode }) {
   const { setIsDegenMode } = useDegenMode();
+  // const router = useRouter(); // Not strictly required by this prompt's "toggleDegenMode()"
 
-  // We are removing useRouter and the handleExit function
-  // We go back to calling setIsDegenMode directly
+  const handleExit = () => {
+    setIsDegenMode(false);
+    // If navigation is also desired here, uncomment the router lines and router.push('/');
+  };
 
   return (
     <div className="min-h-screen bg-black text-white font-pixelify flex flex-col">
@@ -18,7 +23,7 @@ export default function DegenLayout({ children }: { children: ReactNode }) {
         <Button
           variant="outline"
           size="sm"
-          onClick={() => setIsDegenMode(false)} // <-- Reverted to simple state change
+          onClick={handleExit} 
           className="font-pixelify text-[hsl(var(--degen-neon-pink))] border-[hsl(var(--degen-neon-pink))] hover:bg-[hsl(var(--degen-neon-pink))] hover:text-black rounded-none"
         >
           <LogOut className="mr-2 h-4 w-4" />
