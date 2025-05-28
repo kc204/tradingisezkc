@@ -1,7 +1,7 @@
 
 'use client';
 
-import type React from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useDegenMode } from '@/contexts/DegenModeContext';
 import {
@@ -27,22 +27,22 @@ export const DegenEntryModal: React.FC<DegenEntryModalProps> = ({ isOpen, onClos
 
   const handleEnterDegenMode = () => {
     setIsDegenMode(true);
+    onClose(); // Close the modal
     router.push('/degen');
-    // AlertDialogAction will trigger onOpenChange, which calls onClose via its parent
   };
 
   return (
     <AlertDialog open={isOpen} onOpenChange={(openState) => {
-      if (!openState) { // If the dialog is attempting to close
+      if (!openState) {
         onClose();
       }
     }}>
-      <AlertDialogContent className="bg-[hsl(var(--degen-bg-main-hsl))] text-[hsl(var(--degen-text-main-hsl))] border-2 border-[hsl(var(--degen-neon-pink-hsl))] font-pixelify shadow-lg shadow-[hsl(var(--degen-neon-pink-hsl))] max-w-md rounded-none">
+      <AlertDialogContent className="bg-black text-white border-2 border-[hsl(var(--degen-neon-pink))] font-pixelify max-w-md rounded-none shadow-[0_0_10px_hsl(var(--degen-neon-pink)),_0_0_20px_hsl(var(--degen-neon-pink)),_0_0_30px_hsl(var(--degen-neon-pink)_/_0.7)]">
         <AlertDialogHeader>
           <AlertDialogTitle className="font-press-start text-[hsl(var(--degen-lime-green-hsl))] text-2xl text-center">
             Yo Degen!
           </AlertDialogTitle>
-          <AlertDialogDescription className="text-[hsl(var(--degen-text-main-hsl))] mt-2 text-sm text-center">
+          <AlertDialogDescription className="text-[hsl(var(--degen-text-main-hsl))] space-y-3 mt-2 text-sm text-center">
             <span className="block">18+ Recommended / Enter at Your Own Risk!</span>
             <span className="block font-bold text-[hsl(var(--degen-hot-pink-hsl))] text-md mt-3">
               WARNING / DISCLAIMER:
@@ -57,22 +57,21 @@ export const DegenEntryModal: React.FC<DegenEntryModalProps> = ({ isOpen, onClos
         <AlertDialogFooter className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
           <AlertDialogCancel
             asChild
-            // Removed onClick={onClose} from here
           >
             <Button
               variant="outline"
-              className="font-pixelify text-[hsl(var(--degen-neon-blue-hsl))] border-[hsl(var(--degen-neon-blue-hsl))] hover:bg-[hsl(var(--degen-neon-blue-hsl))] hover:text-black rounded-none w-full sm:w-auto bg-transparent"
+              className="font-pixelify text-[hsl(var(--degen-neon-blue))] border-[hsl(var(--degen-neon-blue))] hover:bg-[hsl(var(--degen-neon-blue))] hover:text-black rounded-none w-full sm:w-auto bg-transparent"
             >
               Nah, Keep Me Safe
             </Button>
           </AlertDialogCancel>
           <AlertDialogAction
-            asChild
-            onClick={handleEnterDegenMode}
+             asChild
+             onClick={handleEnterDegenMode}
           >
             <Button
               variant="default"
-              className="font-pixelify bg-[hsl(var(--degen-neon-lime-hsl))] text-black hover:bg-white hover:shadow-[0_0_15px_hsl(var(--degen-neon-lime-hsl))] rounded-none w-full sm:w-auto"
+              className="font-pixelify bg-[hsl(var(--degen-lime-green-hsl))] text-black hover:bg-white hover:shadow-[0_0_15px_hsl(var(--degen-lime-green-hsl))] rounded-none w-full sm:w-auto"
             >
               Enter Degen Zone
             </Button>

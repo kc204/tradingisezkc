@@ -1,17 +1,21 @@
-
 'use client';
 
 import Link from 'next/link';
-import { DegenEntryModal } from '@/components/degen/DegenEntryModal';
+// Corrected import based on NeonAstronautTrigger.tsx being a default export
+import NeonAstronautTrigger from '@/components/ui/NeonAstronautTrigger'; 
 import { useDegenMode } from '@/contexts/DegenModeContext';
-import { useState, useEffect } from 'react';
-import { Button } from '../ui/button';
-import NeonAstronautTrigger from '../ui/NeonAstronautTrigger'; // Import the new trigger
+import { useEffect, useState } from 'react'; // useEffect and useState might only be for isMounted now
 
 const Footer = () => {
   const { isDegenMode, isMounted } = useDegenMode();
-  const [isDegenModalOpen, setIsDegenModalOpen] = useState(false);
   const currentYear = new Date().getFullYear();
+
+  // The state and handler for the modal are now handled within NeonAstronautTrigger.tsx
+  // So, we remove them from Footer.tsx:
+  // const [isDegenModalOpen, setIsDegenModalOpen] = useState(false);
+  // const handleTriggerClick = () => {
+  //   setIsDegenModalOpen(true);
+  // };
 
   const mainSiteFooterLinks = [
     { href: '/privacy-policy', label: 'Privacy Policy' },
@@ -21,16 +25,8 @@ const Footer = () => {
     { href: '/how-we-rate', label: 'How We Rate & Review' },
   ];
 
-  const handleTriggerClick = () => {
-    setIsDegenModalOpen(true);
-  };
-
-  // Prevents hydration mismatch for DegenEntryModal
-  const [clientMounted, setClientMounted] = useState(false);
-  useEffect(() => {
-    setClientMounted(true);
-  }, []);
-
+  // This isMounted from useDegenMode is for preventing hydration mismatch
+  // when deciding which footer (Degen or Main) to show.
 
   if (isDegenMode && isMounted) {
     // Degen Mode Footer
@@ -38,7 +34,7 @@ const Footer = () => {
       <footer className="p-4 mt-auto border-t border-[hsl(var(--degen-neon-blue))]/50 text-center text-xs text-gray-500 font-pixelify">
         <p className="uppercase">RISK IT FOR THE BISCUIT. NFA. DYOR. WAGMI?</p>
         <p className="mt-1 text-[hsl(var(--degen-neon-pink))]/70">Remember: Ape responsibly. Or don't. Your keys, your crypto, your problem.</p>
-        <p className="mt-2 text-[hsl(var(--degen-text-muted-hsl))]">&copy; {currentYear} TradingisEZ [DEGEN REALM]</p>
+        <p className="mt-2 text-gray-600">&copy; {currentYear} TradingisEZ [DEGEN REALM]</p>
       </footer>
     );
   }
@@ -74,11 +70,10 @@ const Footer = () => {
               </ul>
             </div>
             {/* Easter Egg Trigger Area */}
-            {!isDegenMode && isMounted && (
+            {/* Render NeonAstronautTrigger directly. It handles its own modal. */}
+            {isMounted && ( // Only render trigger on client to align with modal logic
               <div className="flex flex-col items-center md:items-end">
-                <div onClick={handleTriggerClick} className="cursor-pointer">
-                  <NeonAstronautTrigger />
-                </div>
+                <NeonAstronautTrigger />
               </div>
             )}
           </div>
@@ -90,7 +85,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      {clientMounted && <DegenEntryModal isOpen={isDegenModalOpen} onClose={() => setIsDegenModalOpen(false)} />}
+      {/* DegenEntryModal is NO LONGER rendered here. It's inside NeonAstronautTrigger.tsx */}
     </>
   );
 };
