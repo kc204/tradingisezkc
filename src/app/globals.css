@@ -37,8 +37,8 @@
     --foreground: var(--text-main-hsl);
     --card: var(--bg-card-hsl);
     --card-foreground: var(--text-main-hsl);
-    --popover: var(--bg-main-hsl); /* Matches header bg for seamless dropdowns */
-    --popover-foreground: var(--text-main-hsl);
+    --popover: var(--header-background-hsl); /* Matches header bg for seamless dropdowns */
+    --popover-foreground: var(--header-foreground-hsl);
     --primary: var(--accent-primary-hsl);
     --primary-foreground: var(--accent-primary-foreground-hsl);
     --secondary: var(--accent-secondary-hsl);
@@ -84,8 +84,8 @@
     --foreground: var(--text-main-hsl);
     --card: var(--bg-card-hsl);
     --card-foreground: var(--text-main-hsl);
-    --popover: var(--bg-main-hsl); /* Matches header bg */
-    --popover-foreground: var(--text-main-hsl);
+    --popover: var(--header-background-hsl); /* Matches header bg */
+    --popover-foreground: var(--header-foreground-hsl);
     --primary: var(--accent-primary-hsl);
     --primary-foreground: var(--accent-primary-foreground-hsl);
     --secondary: var(--accent-secondary-hsl);
@@ -195,7 +195,7 @@
     @apply text-foreground font-pixelify; 
   }
   
-  .degen-mode h1, .degen-mode h2, .degen-mode h3 {
+  .degen-mode h1, .degen-mode h2, .degen-mode h3, .degen-mode h4, .degen-mode h5, .degen-mode h6 {
     /* Ensure Degen headings get the Degen text color and font */
     @apply font-press-start text-foreground;
     /* Apply text-shadow for glow effect. Using currentColor to pick up neon color of the text. */
@@ -215,6 +215,7 @@
   .degen-mode a {
       color: var(--degen-direct-neon-electric-blue); /* Degen links are neon blue */
       text-decoration: none;
+      @apply font-pixelify; /* Ensure links also use Pixelify Sans */
   }
   .degen-mode a:hover {
       color: var(--degen-direct-neon-lime-green);
