@@ -1,2 +1,2 @@
-// This file was created for Degen Mode and should be cleared/deleted.
-// Leaving content empty to mark for removal.
+// This file was part of Degen Mode and is now cleared.
+// You can delete this file from your project.

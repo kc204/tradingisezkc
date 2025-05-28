@@ -28,8 +28,8 @@
     --success-state-hsl: 145 63% 42%; /* #16A34A */
     --success-state-foreground-hsl: 0 0% 96%; /* #F5F5F5 */
 
-    --header-background-hsl: var(--bg-main-hsl); /* #111111 */
-    --header-foreground-hsl: 0 0% 96%;   /* #F5F5F5 - Bright Off-White */
+    --header-background-hsl: var(--bg-main-hsl); 
+    --header-foreground-hsl: 0 0% 96%; /* #F5F5F5 - Bright Off-White */
 
     /* Main Theme ShadCN Semantic Mapping */
     --background: hsl(var(--bg-main-hsl));
