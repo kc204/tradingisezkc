@@ -22,3 +22,4 @@ const DegenCard: FC<DegenCardProps> = ({ title, description }) => {
 };
 
 export default DegenCard;
+

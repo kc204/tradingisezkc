@@ -24,7 +24,7 @@ export default function DegenLayout({ children }: { children: ReactNode }) {
           variant="outline"
           size="sm"
           onClick={handleExit} 
-          className="font-pixelify text-[hsl(var(--degen-neon-pink))] border-[hsl(var(--degen-neon-pink))] hover:bg-[hsl(var(--degen-neon-pink))] hover:text-black rounded-none"
+          className="font-pixelify text-[hsl(var(--degen-neon-pink))] border-[hsl(var(--degen-neon-pink))] hover:bg-[hsl(var(--degen-neon-pink))] hover:text-black rounded-none hover:shadow-[0_0_8px_var(--degen-direct-neon-hot-pink),_0_0_12px_var(--degen-direct-neon-hot-pink)]"
         >
           <LogOut className="mr-2 h-4 w-4" />
           Return to Sanity
@@ -40,3 +40,4 @@ export default function DegenLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+

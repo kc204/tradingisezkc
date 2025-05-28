@@ -5,7 +5,7 @@ import DegenCard from '@/components/degen/DegenCard'; // Import the new DegenCar
 export default function DegenHomePage() {
   return (
     <div className="space-y-12 text-center">
-      <section id="trenches">
+      <section id="trenches" className="p-6 border-2 border-[var(--degen-direct-neon-lime-green)] shadow-[0_0_10px_var(--degen-direct-neon-lime-green),_0_0_15px_var(--degen-direct-neon-lime-green)_/_0.7] rounded-none">
         <h2 className="text-3xl md:text-4xl font-press-start text-[var(--degen-direct-neon-lime-green)] mb-6 animate-pulse">
           § The Trenches: Degen Alpha §
         </h2>
@@ -25,7 +25,7 @@ export default function DegenHomePage() {
         </div>
       </section>
 
-      <section id="memewatch">
+      <section id="memewatch" className="p-6 border-2 border-[var(--degen-direct-neon-blue)] shadow-[0_0_10px_var(--degen-direct-neon-blue),_0_0_15px_var(--degen-direct-neon-blue)_/_0.7] rounded-none">
         <h2 className="text-3xl md:text-4xl font-press-start text-[var(--degen-direct-neon-blue)] mb-6">
           Memecoin Watchlist/Radar
         </h2>
@@ -41,7 +41,7 @@ export default function DegenHomePage() {
         </div>
       </section>
 
-      <section id="how-to-ape">
+      <section id="how-to-ape" className="p-6 border-2 border-[var(--degen-direct-neon-lime-green)] shadow-[0_0_10px_var(--degen-direct-neon-lime-green),_0_0_15px_var(--degen-direct-neon-lime-green)_/_0.7] rounded-none">
         <h2 className="text-3xl md:text-4xl font-press-start text-[var(--degen-direct-neon-lime-green)] mb-6">
           How to Ape (EZ Degen Guides)
         </h2>
@@ -72,3 +72,4 @@ export default function DegenHomePage() {
     </div>
   );
 }
+
