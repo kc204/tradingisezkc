@@ -107,6 +107,7 @@
     --degen-red: 0 100% 50%;
 
     /* Override ShadCN vars ONLY in Degen Mode */
+    /* WE USE HSL *VALUES* HERE so Tailwind can wrap them */
     --background: var(--degen-bg);
     --foreground: var(--degen-text);
     --card: var(--degen-bg);

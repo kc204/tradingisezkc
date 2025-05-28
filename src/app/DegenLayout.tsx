@@ -1,30 +1,24 @@
-
 'use client';
 
 import type { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { useDegenMode } from '@/contexts/DegenModeContext';
 import { LogOut } from 'lucide-react';
-import { useRouter } from 'next/navigation'; // <-- 1. Import useRouter
 
 export default function DegenLayout({ children }: { children: ReactNode }) {
   const { setIsDegenMode } = useDegenMode();
-  const router = useRouter(); // <-- 2. Get the router instance
 
-  // 3. Create a handler function
-  const handleExit = () => {
-    setIsDegenMode(false); // Set state back to normal
-    router.push('/');       // Navigate back to the homepage
-  };
+  // We are removing useRouter and the handleExit function
+  // We go back to calling setIsDegenMode directly
 
   return (
     <div className="min-h-screen bg-black text-white font-pixelify flex flex-col">
-      <header className="p-4 border-b border-[hsl(var(--degen-neon-blue))]/50 flex items-center justify-between"> {/* Using HSL vars for clarity */}
+      <header className="p-4 border-b border-[hsl(var(--degen-neon-blue))]/50 flex items-center justify-between"> {/* Using HSL vars */}
         <h1 className="text-xl md:text-2xl font-press-start text-[hsl(var(--degen-neon-lime))]">TradingisEZ [DEGEN ZONE]</h1>
         <Button
           variant="outline"
           size="sm"
-          onClick={handleExit} // <-- 4. Use the new handler here
+          onClick={() => setIsDegenMode(false)} // <-- Reverted to simple state change
           className="font-pixelify text-[hsl(var(--degen-neon-pink))] border-[hsl(var(--degen-neon-pink))] hover:bg-[hsl(var(--degen-neon-pink))] hover:text-black rounded-none"
         >
           <LogOut className="mr-2 h-4 w-4" />

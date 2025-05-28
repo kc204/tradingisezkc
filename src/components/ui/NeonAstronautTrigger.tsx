@@ -1,21 +1,31 @@
-'use client'; // This component needs to be interactive (clickable)
 
-import React from 'react';
+'use client';
 
-// Define the props: It needs a function to call when clicked.
-interface NeonAstronautTriggerProps {
-  onTriggerClick: () => void;
-}
+import Image from 'next/image';
 
-export const NeonAstronautTrigger: React.FC<NeonAstronautTriggerProps> = ({ onTriggerClick }) => {
+const NeonAstronautTrigger = () => {
+  const handleClick = () => {
+    console.log('Neon Astronaut Trigger clicked!');
+    // Later, this will open the DegenEntryModal
+  };
+
   return (
-    <button
-      onClick={onTriggerClick} // Call the passed function when the button is clicked
-      className="cursor-pointer transition-transform duration-200 hover:scale-110 focus:outline-none group text-2xl" // Adjusted size for emoji
-      aria-label="Activate Degen Mode" // Important for accessibility
-      title="Feeling... Degen?" // Tooltip for fun
+    <div
+      onClick={handleClick}
+      className="cursor-pointer inline-block p-2 border-2 border-transparent hover:border-pink-500 rounded-lg transition-all"
+      title="What's this?"
     >
-      🚀
-    </button>
+      <Image
+        src="https://placehold.co/80x80.png"
+        alt="Neon Astronaut - Degen Mode Trigger"
+        width={80}
+        height={80}
+        className="rounded-md"
+        data-ai-hint="neon astronaut"
+      />
+      <p className="text-xs text-center mt-1 text-muted-foreground">??</p>
+    </div>
   );
 };
+
+export default NeonAstronautTrigger;
