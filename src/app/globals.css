@@ -31,65 +31,65 @@
     --header-background-hsl: var(--bg-main-hsl); 
     --header-foreground-hsl: 0 0% 96%; /* #F5F5F5 - For white header text */
 
-    /* Default to dark theme vars for ShadCN */
-    --background: hsl(var(--bg-main-hsl));
-    --foreground: hsl(var(--text-main-hsl));
-    --card: hsl(var(--bg-card-hsl));
-    --card-foreground: hsl(var(--text-main-hsl));
-    --popover: hsl(var(--bg-card-hsl)); /* Popover matching card background */
-    --popover-foreground: hsl(var(--text-main-hsl));
-    --primary: hsl(var(--accent-primary-hsl));
-    --primary-foreground: hsl(var(--accent-primary-foreground-hsl));
-    --secondary: hsl(var(--accent-secondary-hsl));
-    --secondary-foreground: hsl(var(--accent-secondary-foreground-hsl));
-    --muted: hsl(var(--bg-card-hsl)); 
-    --muted-foreground: hsl(var(--text-muted-hsl));
-    --accent: hsl(var(--cta-main-hsl));
-    --accent-foreground: hsl(var(--cta-main-foreground-hsl));
-    --destructive: hsl(var(--error-state-hsl));
-    --destructive-foreground: hsl(var(--error-state-foreground-hsl));
-    --success: hsl(var(--success-state-hsl));
-    --success-foreground: hsl(var(--success-state-foreground-hsl));
-    --border: hsl(var(--divider-hsl));
-    --input: hsl(0 0% 13%); 
-    --ring: hsl(var(--accent-primary-hsl)); 
+    /* Default to dark theme vars for ShadCN - NOW WITHOUT hsl() WRAPPER */
+    --background: var(--bg-main-hsl);
+    --foreground: var(--text-main-hsl);
+    --card: var(--bg-card-hsl);
+    --card-foreground: var(--text-main-hsl);
+    --popover: var(--bg-card-hsl); /* Popover matching card background */
+    --popover-foreground: var(--text-main-hsl);
+    --primary: var(--accent-primary-hsl);
+    --primary-foreground: var(--accent-primary-foreground-hsl);
+    --secondary: var(--accent-secondary-hsl);
+    --secondary-foreground: var(--accent-secondary-foreground-hsl);
+    --muted: var(--bg-card-hsl); 
+    --muted-foreground: var(--text-muted-hsl);
+    --accent: var(--cta-main-hsl);
+    --accent-foreground: var(--cta-main-foreground-hsl);
+    --destructive: var(--error-state-hsl);
+    --destructive-foreground: var(--error-state-foreground-hsl);
+    --success: var(--success-state-hsl);
+    --success-foreground: var(--success-state-foreground-hsl);
+    --border: var(--divider-hsl);
+    --input: 0 0% 13%; /* Changed to just HSL values */
+    --ring: var(--accent-primary-hsl); 
     --radius: 0.5rem;
 
-    --chart-1: hsl(var(--accent-primary-hsl)); 
-    --chart-2: hsl(var(--cta-main-hsl));      
-    --chart-3: hsl(var(--accent-secondary-hsl));
-    --chart-4: hsl(var(--success-state-hsl));  
-    --chart-5: hsl(var(--text-muted-hsl));    
+    --chart-1: var(--accent-primary-hsl); 
+    --chart-2: var(--cta-main-hsl);       
+    --chart-3: var(--accent-secondary-hsl);
+    --chart-4: var(--success-state-hsl);   
+    --chart-5: var(--text-muted-hsl);      
   }
 
   .dark {
-    /* Explicitly define for .dark class, ensuring ThemeProvider applies them */
-    --background: hsl(var(--bg-main-hsl));
-    --foreground: hsl(var(--text-main-hsl));
-    --card: hsl(var(--bg-card-hsl));
-    --card-foreground: hsl(var(--text-main-hsl));
-    --popover: hsl(var(--bg-card-hsl)); /* Popover matching card background */
-    --popover-foreground: hsl(var(--text-main-hsl));
-    --primary: hsl(var(--accent-primary-hsl));
-    --primary-foreground: hsl(var(--accent-primary-foreground-hsl));
-    --secondary: hsl(var(--accent-secondary-hsl));
-    --secondary-foreground: hsl(var(--accent-secondary-foreground-hsl));
-    --muted: hsl(var(--bg-card-hsl));
-    --muted-foreground: hsl(var(--text-muted-hsl));
-    --accent: hsl(var(--cta-main-hsl));
-    --accent-foreground: hsl(var(--cta-main-foreground-hsl));
-    --destructive: hsl(var(--error-state-hsl));
-    --destructive-foreground: hsl(var(--error-state-foreground-hsl));
-    --success: hsl(var(--success-state-hsl));
-    --success-foreground: hsl(var(--success-state-foreground-hsl));
-    --border: hsl(var(--divider-hsl));
-    --input: hsl(0 0% 13%);
-    --ring: hsl(var(--accent-primary-hsl));
-    --chart-1: hsl(var(--accent-primary-hsl));
-    --chart-2: hsl(var(--cta-main-hsl));
-    --chart-3: hsl(var(--accent-secondary-hsl));
-    --chart-4: hsl(var(--success-state-hsl));
-    --chart-5: hsl(var(--text-muted-hsl));
+    /* Explicitly define for .dark class - NOW WITHOUT hsl() WRAPPER */
+    --background: var(--bg-main-hsl);
+    --foreground: var(--text-main-hsl);
+    --card: var(--bg-card-hsl);
+    --card-foreground: var(--text-main-hsl);
+    --popover: var(--bg-card-hsl); /* Popover matching card background */
+    --popover-foreground: var(--text-main-hsl);
+    --primary: var(--accent-primary-hsl);
+    --primary-foreground: var(--accent-primary-foreground-hsl);
+    --secondary: var(--accent-secondary-hsl);
+    --secondary-foreground: var(--accent-secondary-foreground-hsl);
+    --muted: var(--bg-card-hsl);
+    --muted-foreground: var(--text-muted-hsl);
+    --accent: var(--cta-main-hsl);
+    --accent-foreground: var(--cta-main-foreground-hsl);
+    --destructive: var(--error-state-hsl);
+    --destructive-foreground: var(--error-state-foreground-hsl);
+    --success: var(--success-state-hsl);
+    --success-foreground: var(--success-state-foreground-hsl);
+    --border: var(--divider-hsl);
+    --input: 0 0% 13%; /* Changed to just HSL values */
+    --ring: var(--accent-primary-hsl);
+    --chart-1: var(--accent-primary-hsl);
+    --chart-2: var(--cta-main-hsl);
+    --chart-3: var(--accent-secondary-hsl);
+    --chart-4: var(--success-state-hsl);
+    --chart-5: var(--text-muted-hsl);
   }
 }
 

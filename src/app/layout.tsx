@@ -4,6 +4,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
+import { DegenModeProvider } from '@/contexts/DegenModeContext'; // Import DegenModeProvider
 import GlobalOfferBar from '@/components/layout/GlobalOfferBar';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -33,13 +34,15 @@ export default function RootLayout({
           enableSystem={false} 
           disableTransitionOnChange
         >
-          <GlobalOfferBar />
-          <Header />
-          <main className='flex-grow container mx-auto px-4 py-8'>
-            {children}
-          </main>
-          <Footer />
-          <Toaster />
+          <DegenModeProvider> {/* Wrap content with DegenModeProvider */}
+            <GlobalOfferBar />
+            <Header />
+            <main className='flex-grow container mx-auto px-4 py-8'>
+              {children}
+            </main>
+            <Footer />
+            <Toaster />
+          </DegenModeProvider>
         </ThemeProvider>
       </body>
     </html>
