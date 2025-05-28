@@ -13,6 +13,8 @@ export default {
   	extend: {
       fontFamily: {
         sans: ["var(--font-plus-jakarta-sans)", ...fontFamily.sans],
+        'press-start': ["var(--font-press-start-2p)", "system-ui"],
+        'pixelify': ["var(--font-pixelify-sans)", "sans-serif"],
       },
   		colors: {
   			background: 'hsl(var(--background))',
@@ -26,35 +28,35 @@ export default {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))', 
+  				DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))',
           hover: 'hsl(var(--accent-primary-hover-hsl))',
   			},
   			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))', 
+  				DEFAULT: 'hsl(var(--secondary))',
   				foreground: 'hsl(var(--secondary-foreground))',
-          hover: 'hsl(var(--accent-secondary-hover-hsl))', 
+          hover: 'hsl(var(--accent-secondary-hover-hsl))',
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
   				foreground: 'hsl(var(--muted-foreground))'
   			},
   			accent: {
-  				DEFAULT: 'hsl(var(--accent))', 
+  				DEFAULT: 'hsl(var(--accent))',
   				foreground: 'hsl(var(--accent-foreground))',
-          hover: 'hsl(var(--cta-main-hover-hsl))', 
+          hover: 'hsl(var(--cta-main-hover-hsl))',
   			},
   			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))', 
+  				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
         success: {
-          DEFAULT: 'hsl(var(--success-state-hsl))', 
+          DEFAULT: 'hsl(var(--success-state-hsl))',
           foreground: 'hsl(var(--success-state-foreground-hsl))',
         },
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))', 
+  			ring: 'hsl(var(--ring))',
         'header-background': 'hsl(var(--header-background-hsl))',
         'header-foreground': 'hsl(var(--header-foreground-hsl))',
   			chart: {
@@ -64,16 +66,20 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			},
-        sidebar: { 
-  				DEFAULT: 'hsl(var(--card))', 
-  				foreground: 'hsl(var(--card-foreground))', 
-  				primary: 'hsl(var(--primary))', 
-  				'primary-foreground': 'hsl(var(--primary-foreground))', 
-  				accent: 'hsl(var(--accent))', 
-  				'accent-foreground': 'hsl(var(--accent-foreground))', 
-  				border: 'hsl(var(--border))', 
-  				ring: 'hsl(var(--ring))' 
+        sidebar: {
+  				DEFAULT: 'hsl(var(--card))',
+  				foreground: 'hsl(var(--card-foreground))',
+  				primary: 'hsl(var(--primary))',
+  				'primary-foreground': 'hsl(var(--primary-foreground))',
+  				accent: 'hsl(var(--accent))',
+  				'accent-foreground': 'hsl(var(--accent-foreground))',
+  				border: 'hsl(var(--border))',
+  				ring: 'hsl(var(--ring))'
   			},
+        // Degen Mode Accent Colors (if needed for direct Tailwind use)
+        'degen-lime-green': 'hsl(var(--degen-lime-green-hsl))',
+        'degen-hot-pink': 'hsl(var(--degen-hot-pink-hsl))',
+        'degen-electric-blue': 'hsl(var(--degen-electric-blue-hsl))',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

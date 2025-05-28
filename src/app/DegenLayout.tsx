@@ -1,26 +1,37 @@
+
 'use client';
 
 import type { ReactNode } from 'react';
+import { Button } from '@/components/ui/button';
+import { useDegenMode } from '@/contexts/DegenModeContext';
+import { LogOut } from 'lucide-react';
 
-// Placeholder DegenLayout.
-// TODO: Implement full Degen Mode visual style, fonts, and layout structure as per PRD 10.4.
-// This will require adding Degen-specific fonts (Press Start 2P, Pixelify Sans)
-// to next/font/google in the root layout and configuring them in tailwind.config.ts.
 export default function DegenLayout({ children }: { children: ReactNode }) {
+  const { setIsDegenMode } = useDegenMode();
+
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
-      {/* Minimal Degen Header - to be expanded as per PRD 10.4 */}
-      <header className="p-4 border-b border-gray-700 text-center">
-        <h1 className="text-2xl text-lime-400">TradingisEZ [DEGEN ZONE]</h1>
-        {/* "Return to Sanity" button will be added here or in a more persistent spot */}
+    <div className="min-h-screen bg-black text-white font-pixelify flex flex-col">
+      <header className="p-4 border-b border-degen-electric-blue/50 flex items-center justify-between">
+        <h1 className="text-xl md:text-2xl font-press-start text-degen-lime-green">TradingisEZ [DEGEN ZONE]</h1>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setIsDegenMode(false)}
+          className="font-pixelify text-degen-hot-pink border-degen-hot-pink hover:bg-degen-hot-pink hover:text-black"
+        >
+          <LogOut className="mr-2 h-4 w-4" />
+          Return to Sanity
+        </Button>
       </header>
-      <main className="flex-grow p-4">
-        <p className="mb-6 text-center text-xl text-yellow-400">!!! WELCOME TO THE DEGEN DIMENSION !!!</p>
+      <main className="flex-grow p-4 md:p-8">
+        <p className="mb-6 text-center text-2xl md:text-3xl font-press-start text-degen-electric-blue animate-pulse">
+          !!! WELCOME TO THE DEGEN DIMENSION !!!
+        </p>
         {children}
       </main>
-      {/* Minimal Degen Footer - to be expanded as per PRD 10.4 */}
-      <footer className="p-4 mt-auto border-t border-gray-700 text-center text-xs text-gray-500">
-        <p>RISK IT FOR THE BISCUIT. NFA. DYOR. WAGMI?</p>
+      <footer className="p-4 mt-auto border-t border-degen-electric-blue/50 text-center text-xs text-gray-500 font-pixelify">
+        <p className="uppercase">RISK IT FOR THE BISCUIT. NFA. DYOR. WAGMI?</p>
+        <p className="mt-1 text-degen-hot-pink/70">Remember: Ape responsibly. Or don't. Your keys, your crypto, your problem.</p>
       </footer>
     </div>
   );
