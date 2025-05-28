@@ -29,7 +29,7 @@
     --success-state-foreground-hsl: 0 0% 96%; /* #F5F5F5 */
 
     --header-background-hsl: var(--bg-main-hsl); 
-    --header-foreground-hsl: var(--text-main-hsl);
+    --header-foreground-hsl: 0 0% 96%; /* #F5F5F5 - For white header text */
 
     /* Default to dark theme vars for ShadCN */
     --background: hsl(var(--bg-main-hsl));
