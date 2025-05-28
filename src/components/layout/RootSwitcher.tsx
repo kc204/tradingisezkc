@@ -1,10 +1,14 @@
+
 'use client';
 
 import type { ReactNode } from 'react';
 import { useDegenMode } from '@/contexts/DegenModeContext';
 import DegenLayout from '@/app/DegenLayout';
+import GlobalOfferBar from '@/components/layout/GlobalOfferBar';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 
-export default function RootSwitcher({ children }: { children: ReactNode }) {
+export default function RootSwitcher({ pageContent }: { pageContent: ReactNode }) {
   const { isDegenMode, isMounted } = useDegenMode();
 
   if (!isMounted) {
@@ -14,9 +18,18 @@ export default function RootSwitcher({ children }: { children: ReactNode }) {
   }
 
   if (isDegenMode) {
-    return <DegenLayout>{children}</DegenLayout>;
+    return <DegenLayout>{pageContent}</DegenLayout>;
   }
 
-  // If not in Degen Mode, render the children passed (which is the normal site layout)
-  return <>{children}</>;
+  // If not in Degen Mode, render the normal site layout with the page content
+  return (
+    <>
+      <GlobalOfferBar />
+      <Header />
+      <main className='flex-grow container mx-auto px-4 py-8'>
+        {pageContent}
+      </main>
+      <Footer />
+    </>
+  );
 }

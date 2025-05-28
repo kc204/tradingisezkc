@@ -5,9 +5,6 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 import { DegenModeProvider } from '@/contexts/DegenModeContext';
-import GlobalOfferBar from '@/components/layout/GlobalOfferBar';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import RootSwitcher from '@/components/layout/RootSwitcher';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -34,7 +31,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
+  children, // This `children` is the actual page content (e.g., from app/page.tsx)
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -48,16 +45,9 @@ export default function RootLayout({
             enableSystem={false}
             disableTransitionOnChange
           >
-            <RootSwitcher>
-              {/* This block is the normal site layout, rendered if not in Degen Mode */}
-              <GlobalOfferBar />
-              <Header />
-              <main className='flex-grow container mx-auto px-4 py-8'>
-                {children} {/* Page content for the normal site */}
-              </main>
-              <Footer />
-              <Toaster />
-            </RootSwitcher>
+            {/* RootSwitcher now takes the page children and decides the ENTIRE layout */}
+            <RootSwitcher pageContent={children} />
+            <Toaster /> {/* Toaster can be outside the switcher if it's globally positioned */}
           </ThemeProvider>
         </DegenModeProvider>
       </body>
