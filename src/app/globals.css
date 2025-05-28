@@ -129,7 +129,7 @@
     --accent-foreground: var(--degen-bg-main-hsl); 
     --destructive: var(--degen-red-hsl);
     --destructive-foreground: var(--degen-text-main-hsl);
-    --border: var(--degen-neon-blue-hsl); 
+    --border: var(--degen-neon-blue-hsl); /* Default border for Degen components */
     --input: var(--degen-grey-hsl);
     --ring: var(--degen-neon-pink-hsl);
     --success: var(--degen-neon-lime-hsl);
@@ -198,7 +198,7 @@
   .degen-mode h1, .degen-mode h2, .degen-mode h3 {
     /* Ensure Degen headings get the Degen text color and font */
     @apply font-press-start text-foreground;
-    /* Apply text-shadow for glow effect */
+    /* Apply text-shadow for glow effect. Using currentColor to pick up neon color of the text. */
     text-shadow: 0 0 3px currentColor, 0 0 5px currentColor;
   }
   /* More specific glow for headings that might use direct neon vars if needed */
@@ -272,3 +272,4 @@
     }
   }
 }
+
