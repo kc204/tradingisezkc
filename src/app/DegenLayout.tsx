@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { ReactNode } from 'react';
@@ -30,9 +31,7 @@ export default function DegenLayout({ children }: { children: ReactNode }) {
         </Button>
       </header>
       <main className="flex-grow p-4 md:p-8">
-        <p className="mb-6 text-center text-2xl md:text-3xl font-press-start text-[hsl(var(--degen-neon-blue))] animate-pulse">
-          !!! WELCOME TO THE DEGEN DIMENSION !!!
-        </p>
+        {/* The "WELCOME TO THE DEGEN DIMENSION" heading is now part of /degen/page.tsx */}
         {children}
       </main>
       <footer className="p-4 mt-auto border-t border-[hsl(var(--degen-neon-blue))]/50 text-center text-xs text-gray-500 font-pixelify">
