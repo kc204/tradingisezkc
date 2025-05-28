@@ -1,7 +1,7 @@
 
 'use client';
 
-import React from 'react';
+import type React from 'react';
 import { useRouter } from 'next/navigation';
 import { useDegenMode } from '@/contexts/DegenModeContext';
 import {
@@ -28,11 +28,15 @@ export const DegenEntryModal: React.FC<DegenEntryModalProps> = ({ isOpen, onClos
   const handleEnterDegenMode = () => {
     setIsDegenMode(true);
     router.push('/degen');
-    // AlertDialogAction will trigger onOpenChange, which calls onClose
+    // AlertDialogAction will trigger onOpenChange, which calls onClose via its parent
   };
 
   return (
-    <AlertDialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+    <AlertDialog open={isOpen} onOpenChange={(openState) => {
+      if (!openState) { // If the dialog is attempting to close
+        onClose();
+      }
+    }}>
       <AlertDialogContent className="bg-[hsl(var(--degen-bg-main-hsl))] text-[hsl(var(--degen-text-main-hsl))] border-2 border-[hsl(var(--degen-neon-pink-hsl))] font-pixelify shadow-lg shadow-[hsl(var(--degen-neon-pink-hsl))] max-w-md rounded-none">
         <AlertDialogHeader>
           <AlertDialogTitle className="font-press-start text-[hsl(var(--degen-lime-green-hsl))] text-2xl text-center">
@@ -40,7 +44,7 @@ export const DegenEntryModal: React.FC<DegenEntryModalProps> = ({ isOpen, onClos
           </AlertDialogTitle>
           <AlertDialogDescription className="text-[hsl(var(--degen-text-main-hsl))] mt-2 text-sm text-center">
             <span className="block">18+ Recommended / Enter at Your Own Risk!</span>
-            <span className="block font-bold text-[hsl(var(--degen-neon-pink-hsl))] text-md mt-3">
+            <span className="block font-bold text-[hsl(var(--degen-hot-pink-hsl))] text-md mt-3">
               WARNING / DISCLAIMER:
             </span>
             <span className="block mt-1">
@@ -53,7 +57,7 @@ export const DegenEntryModal: React.FC<DegenEntryModalProps> = ({ isOpen, onClos
         <AlertDialogFooter className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
           <AlertDialogCancel
             asChild
-            onClick={onClose} 
+            // Removed onClick={onClose} from here
           >
             <Button
               variant="outline"
