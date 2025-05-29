@@ -38,10 +38,43 @@ const FreeResourceCard = ({ resource }: FreeResourceCardProps) => {
     pageLink = "/free-resources/al-brooks-course";
   }
 
+  const isAudiobookOfferWithSufficientBooks =
+    resource.resourceType === "Audiobook Trial Offer" &&
+    resource.bookListings &&
+    resource.bookListings.length >= 3;
 
   return (
     <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-      {resource.coverImage && (
+      {isAudiobookOfferWithSufficientBooks ? (
+        <div className="relative w-full h-56 bg-muted flex justify-center items-center p-4 overflow-hidden">
+          {resource.bookListings?.slice(0, 3).map((book, index) => (
+            <div
+              key={book.bookTitle}
+              className="absolute transition-all duration-300 ease-in-out transform hover:z-30 hover:scale-110 hover:-translate-y-2"
+              style={{
+                width: '80px', // Adjust size as needed
+                height: '120px', // Adjust size as needed
+                zIndex: index === 1 ? 20 : 10, // Center image on top
+                transform:
+                  index === 0 ? 'translateX(-40%) rotate(-10deg) scale(0.9)' :
+                  index === 1 ? 'translateX(0%) rotate(0deg) scale(1)' :
+                  'translateX(40%) rotate(10deg) scale(0.9)',
+              }}
+            >
+              {book.bookCoverImage && (
+                <Image
+                  src={book.bookCoverImage}
+                  alt={book.bookTitle}
+                  layout="fill"
+                  objectFit="contain"
+                  className="rounded shadow-md"
+                  data-ai-hint="book cover"
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      ) : resource.coverImage ? (
         <div className="relative w-full h-48 bg-muted">
           <Image
             src={resource.coverImage}
@@ -50,6 +83,10 @@ const FreeResourceCard = ({ resource }: FreeResourceCardProps) => {
             objectFit="cover"
             data-ai-hint="resource cover"
           />
+        </div>
+      ) : (
+         <div className="relative w-full h-48 bg-muted flex items-center justify-center">
+            <ResourceTypeIcon type={resource.resourceType} />
         </div>
       )}
       <CardHeader className="pb-2">
