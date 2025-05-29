@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -50,15 +51,9 @@ const Header = () => {
   const logoText = "TradingisEZ";
 
   useEffect(() => {
-    setMounted(true);
-    return () => {
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
+    setMounted(true); // For dropdown hover logic
+    
+    // Scroll listener setup
     if (typeof window === 'undefined') return;
 
     const initializeScrollState = () => {
@@ -96,7 +91,13 @@ const Header = () => {
     };
 
     window.addEventListener('scroll', handleScrollLogic, { passive: true });
-    return () => window.removeEventListener('scroll', handleScrollLogic);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScrollLogic);
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
   }, []);
 
 

@@ -13,8 +13,6 @@ export default {
   	extend: {
       fontFamily: {
         sans: ["var(--font-plus-jakarta-sans)", ...fontFamily.sans],
-        'press-start': ["var(--font-press-start-2p)", "system-ui"],
-        'pixelify': ["var(--font-pixelify-sans)", "sans-serif"],
       },
   		colors: {
   			background: 'hsl(var(--background))',
@@ -66,7 +64,7 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			},
-        sidebar: {
+        sidebar: { // Keep sidebar for potential future use, ensure it uses card colors
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))',
   				primary: 'hsl(var(--primary))',
@@ -76,10 +74,6 @@ export default {
   				border: 'hsl(var(--border))',
   				ring: 'hsl(var(--ring))'
   			},
-        // Degen Mode Accent Colors (if needed for direct Tailwind use)
-        'degen-lime-green': 'hsl(var(--degen-lime-green-hsl))',
-        'degen-hot-pink': 'hsl(var(--degen-hot-pink-hsl))',
-        'degen-electric-blue': 'hsl(var(--degen-electric-blue-hsl))',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
