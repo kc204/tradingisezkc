@@ -14,15 +14,15 @@ interface AudiobookCardProps {
 
 const AudiobookCard = ({ book }: AudiobookCardProps) => {
   return (
-    <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+    <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
       {book.bookCoverImage && (
-        <div className="relative w-full h-64 bg-muted">
+        <div className="relative w-full h-64 bg-muted overflow-hidden"> {/* Added overflow-hidden here */}
           <Image
             src={book.bookCoverImage}
             alt={book.bookTitle}
             layout="fill"
             objectFit="contain"
-            className="p-2"
+            className="p-2 transition-transform duration-300 ease-in-out group-hover:scale-105"
             data-ai-hint="book cover"
           />
         </div>
@@ -42,27 +42,27 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
         {book.bookSampleLink && (
           <Button
             asChild
-            className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto"
+            className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto whitespace-normal h-auto"
           >
             <Link
               href={book.bookSampleLink}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <PlayCircle className="mr-1.5 h-4 w-4" /> Hear Sample
+              <PlayCircle className="mr-1.5 h-4 w-4 flex-shrink-0" /> Hear Sample
             </Link>
           </Button>
         )}
         <Button
           asChild
-          className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto"
+          className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto whitespace-normal h-auto"
         >
           <Link
             href={book.bookAudibleAffiliateLink}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Headphones className="mr-1.5 h-4 w-4" />
+            <Headphones className="mr-1.5 h-4 w-4 flex-shrink-0" />
             Listen to full free
           </Link>
         </Button>
