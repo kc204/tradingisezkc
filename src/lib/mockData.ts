@@ -98,7 +98,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '2',
     slug: 'take-profit-trader',
     name: 'Take Profit Trader',
-    logoUrl: 'https://placehold.co/100x50.png?text=TPT',
+    logoUrl: 'https://storage.googleapis.com/idx-images/take_profit_trader_logo_transparent.png',
     websiteUrl: 'https://www.takeprofittrader.com/',
     affiliateLink: 'https://takeprofittrader.com/if/onlypropfirms',
     briefDescription: 'Futures prop firm with one-step evaluations and choice of PRO or PRO+ funded accounts.',
@@ -130,7 +130,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Platforms', value: 'NinjaTrader, Tradovate, TradingView' },
       { label: 'Activation Fee', value: '$130 (PRO) / $135 monthly (PRO+ data)'}
     ],
-    offerBadgeLabel: 'PRO or PRO+ Funded',
+    offerBadgeLabel: 'Daily Payouts!',
     fundingModels: ['1-Step Evaluation'],
     profitSplit: '80% (PRO) / 90% (PRO+)',
     drawdownRules: 'Trailing (Evaluation & PRO) / No Trailing Drawdown (PRO+)',
@@ -252,7 +252,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Max Accounts', value: '7 active funded' },
       { label: 'Funding Types', value: 'Challenges (IDD/EOD), Instant Sim'}
     ],
-    offerBadgeLabel: '100% up to $15K',
+    offerBadgeLabel: 'Instant Funding!',
     fundingModels: ["Advanced Challenge (Intraday DD)", "Growth Challenge (EOD DD)", "Straight to Sim Funded (EOD DD)"],
     profitSplit: '100% on first $15,000, then 90/10',
     drawdownRules: 'Advanced: Intraday trailing. Growth: End-of-day trailing. Sim: End-of-day trailing. (e.g., $50K Adv: $2K IDD; $50K Growth: $2K EOD; $25K Sim: $1K EOD)',
