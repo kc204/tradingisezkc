@@ -52,7 +52,7 @@ export default function Home() {
   const newsConfig = {
     "feedMode": "all_symbols",
     "colorTheme": "dark",
-    "isTransparent": true,
+    "isTransparent": false, // Changed to false for consistent dark background
     "displayMode": "regular",
     "width": "100%",
     "height": "100%",
