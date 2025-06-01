@@ -34,6 +34,9 @@ export default function AlBrooksFreeCoursePage() {
     return match ? match[1] : null;
   };
 
+  // Filter out the specific lesson to be removed if videoLessons is an array
+  const filteredLessons = videoLessons?.filter(lesson => lesson.lessonTitle !== "Lesson 2: Bar-by-Bar Analysis Introduction") || [];
+
   return (
     <div className="space-y-12">
       <section className="text-center py-12 md:py-16 bg-background rounded-xl shadow-xl">
@@ -59,9 +62,9 @@ export default function AlBrooksFreeCoursePage() {
         </div>
       </section>
 
-      {videoLessons && videoLessons.length > 0 && (
+      {filteredLessons.length > 0 && (
         <section className="container mx-auto px-4 space-y-8">
-          {videoLessons.map((lesson, index) => {
+          {filteredLessons.map((lesson, index) => {
             const videoId = lesson.videoEmbedCodeOrURL ? getYouTubeVideoId(lesson.videoEmbedCodeOrURL) : null;
             const isYouTubeVideo = !!videoId;
             

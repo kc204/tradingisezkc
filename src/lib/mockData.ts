@@ -394,7 +394,7 @@ export const mockFreeResources: FreeResourceItem[] = [
   },
   {
     id: "fr2",
-    title: "Free Trading Audiobooks with Audible Trial",
+    title: "Free Trading Audiobooks",
     slug: "audiobooks",
     coverImage: "https://placehold.co/600x400.png?text=Trading+Audiobooks",
     pageIntroduction: "Expand your trading knowledge on the go! Listen to essential trading books for free. Explore classics on psychology, strategy, and market history.",
