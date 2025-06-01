@@ -334,11 +334,11 @@ export const mockGlobalOffersTestData: GlobalOffer[] = [
 const alBrooksSampleLessons: VideoLesson[] = [
   {
     lessonTitle: "Brooks Trading Course Sample: 12A Market Cycle",
-    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder for first lesson
+    videoEmbedCodeOrURL: "https://www.youtube.com/embed/_wQ5CRIQ6mc", // Placeholder for first lesson
     lessonDescription: "Learn the fundamentals of how Al Brooks perceives market structure and its importance in price action trading.",
     lessonKeyTakeaways: ["Key Trendlines", "Support & Resistance", "Market Cycles"],
-    lessonCTAText: "Watch Full Series",
-    lessonCTALink: "#", // To be updated with the actual full course link
+    lessonCTAText: "Watch All 5 Lessons Free",
+    lessonCTALink: "https://www.brookstradingcourse.com/free-sample-price-action-trading-videos/ref/uuc5l/", // To be updated with the actual full course link
   },
   {
     lessonTitle: "Lesson 2: Bar-by-Bar Analysis Introduction",
@@ -385,7 +385,7 @@ export const mockFreeResources: FreeResourceItem[] = [
     author: "Al Brooks",
     coverImage: "https://placehold.co/600x400.png?text=Al+Brooks+Course",
     pageIntroduction: "Get a taste of Al Brooks' renowned price action trading methodology with these free sample video lessons. Understand how a professional trader reads charts bar by bar.",
-    mainAffiliateLink: "https://www.brookstradingcourse.com/buy-the-brooks-price-action-trading-course/ref/uuc5l/", // Link to the full paid course
+    mainAffiliateLink: "https://www.brookstradingcourse.com/testimonials/ref/uuc5l/", // Link to the full paid course
     mainCTAText: "Access Full Al Brooks Course",
     resourceType: "Free Video Course Series",
     isFeatured: true,

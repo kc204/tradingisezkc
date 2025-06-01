@@ -142,29 +142,6 @@ export default function AlBrooksFreeCoursePage() {
           })}
         </section>
       )}
-
-      {concludingCTASection && (
-         <section className="container mx-auto px-4 text-center py-10 bg-card rounded-xl shadow-xl">
-          <div className="prose prose-lg dark:prose-invert mx-auto text-foreground">
-             <div dangerouslySetInnerHTML={{ __html: concludingCTASection.replace(/\n/g, '<br />') }} />
-          </div>
-          {mainAffiliateLink && mainCTAText && (
-            <div className="mt-8">
-              <StarBorder<typeof Link>
-                as={Link}
-                href={mainAffiliateLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-lg"
-              >
-                <span className="inline-flex items-center justify-center">
-                  {mainCTAText} <ExternalLink className="ml-2 h-4 w-4" />
-                </span>
-              </StarBorder>
-            </div>
-          )}
-        </section>
-      )}
     </div>
   );
 }
