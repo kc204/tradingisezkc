@@ -31,7 +31,7 @@ const mainSiteNavLinks = [
         { href: '/free-resources/al-brooks-course', label: 'Al Brooks Free Course' },
       ],
   },
-  { href: '/about', label: 'About Us' },
+  // { href: '/about', label: 'About Us' }, // Removed from header
 ];
 
 

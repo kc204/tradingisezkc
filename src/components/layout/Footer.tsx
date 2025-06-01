@@ -20,6 +20,13 @@ const Footer = () => {
     { href: '/sitemap', label: 'Sitemap' },
     { href: '/how-we-rate', label: 'How We Rate & Review' },
   ];
+
+  const quickLinks = [
+    { href: '/firms', label: 'All Prop Firms' },
+    { href: '/compare', label: 'Compare Firms' },
+    { href: '/free-resources', label: 'Free Resources' },
+    { href: '/about', label: 'About Us' }, // Added "About Us" here
+  ];
   
   return (
     <>
@@ -33,9 +40,13 @@ const Footer = () => {
             <div>
               <h4 className="text-md font-semibold text-foreground mb-2">Quick Links</h4>
               <ul className="space-y-1">
-                <li><Link href="/firms" className="text-sm hover:text-primary">All Prop Firms</Link></li>
-                <li><Link href="/compare" className="text-sm hover:text-primary">Compare Firms</Link></li>
-                <li><Link href="/free-resources" className="text-sm hover:text-primary">Free Resources</Link></li>
+                {quickLinks.map(link => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="text-sm hover:text-primary">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
             <div>
