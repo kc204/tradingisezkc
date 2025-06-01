@@ -21,7 +21,7 @@ export default function Home() {
   const economicCalendarScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-events.js";
   const economicCalendarConfig = {
     "colorTheme": "dark",
-    "isTransparent": false, // Changed to false to ensure widget's own dark background
+    "isTransparent": false, 
     "width": "100%",
     "height": "100%",
     "locale": "en",
@@ -52,7 +52,7 @@ export default function Home() {
   const newsConfig = {
     "feedMode": "all_symbols",
     "colorTheme": "dark",
-    "isTransparent": false, // Changed to false for consistent dark background
+    "isTransparent": false, 
     "displayMode": "regular",
     "width": "100%",
     "height": "100%",
@@ -109,6 +109,29 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Featured Free Resources Section START */}
+      {featuredFreeResources.length > 0 && (
+        <section className="py-12 bg-card rounded-xl">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-foreground mb-10">Explore Our Free Resources</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredFreeResources.map(resource => (
+                <FreeResourceCard key={resource.id} resource={resource} />
+              ))}
+            </div>
+            <div className="text-center mt-10">
+              <StarBorder<typeof Link>
+                as={Link}
+                href="/free-resources"
+              >
+                View All Free Resources
+              </StarBorder>
+            </div>
+          </div>
+        </section>
+      )}
+      {/* Featured Free Resources Section END */}
 
       {/* Market Outlook Section START */}
       <section className="py-12">
@@ -188,29 +211,6 @@ export default function Home() {
         </div>
       </section>
       {/* Market Outlook Section END */}
-
-      {/* Featured Free Resources Section START */}
-      {featuredFreeResources.length > 0 && (
-        <section className="py-12 bg-card rounded-xl">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-10">Explore Our Free Resources</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredFreeResources.map(resource => (
-                <FreeResourceCard key={resource.id} resource={resource} />
-              ))}
-            </div>
-            <div className="text-center mt-10">
-              <StarBorder<typeof Link>
-                as={Link}
-                href="/free-resources"
-              >
-                View All Free Resources
-              </StarBorder>
-            </div>
-          </div>
-        </section>
-      )}
-      {/* Featured Free Resources Section END */}
 
       {/* Recent Articles & Guides Section */}
       <section className="py-12 bg-card rounded-xl">
