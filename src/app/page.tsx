@@ -21,7 +21,7 @@ export default function Home() {
   const economicCalendarScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-events.js";
   const economicCalendarConfig = {
     "colorTheme": "dark",
-    "isTransparent": true,
+    "isTransparent": false, // Changed to false to ensure widget's own dark background
     "width": "100%",
     "height": "100%",
     "locale": "en",
