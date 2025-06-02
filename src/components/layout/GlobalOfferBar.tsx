@@ -38,7 +38,7 @@ const GlobalOfferBar = () => {
           href={currentOffer.affiliateLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:underline inline-flex items-center text-white" // Added text-white here
+          className="hover:underline hover:text-white inline-flex items-center text-white"
           key={currentOffer.id} 
         >
           <span>{currentOffer.text}</span>
