@@ -25,7 +25,7 @@ const Footer = () => {
     { href: '/firms', label: 'All Prop Firms' },
     { href: '/compare', label: 'Compare Firms' },
     { href: '/free-resources', label: 'Free Resources' },
-    { href: '/about', label: 'About Us' }, // Added "About Us" here
+    { href: '/about', label: 'About Us' }, 
   ];
   
   return (
@@ -34,7 +34,7 @@ const Footer = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">TradingisEZ</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Tradingis<span className="text-accent">EZ</span></h3>
               <p className="text-sm">Your trusted resource for finding the best prop firms and trading opportunities.</p>
             </div>
             <div>
