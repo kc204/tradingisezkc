@@ -31,7 +31,6 @@ const mainSiteNavLinks = [
         { href: '/free-resources/al-brooks-course', label: 'Al Brooks Free Course' },
       ],
   },
-  // { href: '/about', label: 'About Us' }, // Removed from header
 ];
 
 
@@ -48,7 +47,7 @@ const Header = () => {
   const lastScrollY = useRef(0);
 
   const currentNavLinks = mainSiteNavLinks;
-  const logoText = "TradingisEZ";
+  // const logoText = "TradingisEZ"; // No longer needed as a single string
 
   useEffect(() => {
     setMounted(true); // For dropdown hover logic
@@ -237,7 +236,7 @@ const Header = () => {
             if (openDropdown) setOpenDropdown(null);
           }}
         >
-          {logoText}
+          Tradingis<span className="text-accent">EZ</span>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-1">
@@ -267,7 +266,7 @@ const Header = () => {
                   className="text-2xl font-bold text-foreground"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                    {logoText}
+                    Tradingis<span className="text-accent">EZ</span>
                   </Link>
                 <Button
                   variant="ghost"
