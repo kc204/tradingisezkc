@@ -1,9 +1,9 @@
 import type { GlobalOffer, PropFirm, Article, TradingResource, FreeResourceItem, VideoLesson, BookListing, AccountTier } from './types';
 
 export const mockGlobalOffers: GlobalOffer[] = [
-  { id: '1', text: 'VISIBLE OFFER TEXT TEST', affiliateLink: '#', isActive: true },
-  { id: '2', text: 'Take Profit Trader: Up to 90% profit split! (DISCOUNT TEST)', affiliateLink: '#', isActive: true },
-  { id: '3', text: 'Tradeify: 10% bonus on payout with code FINDER10', affiliateLink: '#', isActive: true }, // VERIFY CURRENT VALIDITY OF THIS PROMO CODE with Tradeify.co
+  { id: '1', text: 'Take Profit Trader: 30% off, No Activation Fee', affiliateLink: '#', isActive: true },
+  { id: '2', text: 'DayTraders.com: 90% off, 100% profit split', affiliateLink: '#', isActive: true },
+  { id: '3', text: 'Tradeify: 33% off', affiliateLink: '#', isActive: true }, // VERIFY CURRENT VALIDITY OF THIS PROMO CODE with Tradeify.co
 ];
 
 const apexAccountTiers: AccountTier[] = [ // Adding a discount to one Apex tier for testing
@@ -166,31 +166,31 @@ const tradeifyAccountTiers: AccountTier[] = [
 ];
 // Adding a discount to one Bulenox tier for testing
 const bulenoxAccountTiers: AccountTier[] = [
-  // Beginner (Non-Professional data feed - cheaper evaluation)
-  { id: 'bulenox-beginner-10k', name: '$10K Beginner', size: 10000, evaluationFee: 115, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 10, dailyLossLimitPercentage: 5 },
-  { id: 'bulenox-beginner-25k', name: '$25K Beginner', size: 25000, evaluationFee: 145, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 8, dailyLossLimitPercentage: 4 },
-  { id: 'bulenox-beginner-50k', name: '$50K Beginner', size: 50000, evaluationFee: 185, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 5, drawdownPercentage: 6, dailyLossLimitPercentage: 3 },
-  { id: 'bulenox-beginner-100k', name: '$100K Beginner', size: 100000, evaluationFee: 265, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 4.5, drawdownPercentage: 5, dailyLossLimitPercentage: 2.5 },
-  { id: 'bulenox-beginner-150k', name: '$150K Beginner', size: 150000, evaluationFee: 385, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 4, drawdownPercentage: 4, dailyLossLimitPercentage: 2 },
-  { id: 'bulenox-beginner-250k', name: '$250K Beginner', size: 250000, evaluationFee: 545, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 3.5, drawdownPercentage: 3, dailyLossLimitPercentage: 1.5 },
+ // Beginner (Non-Professional data feed - cheaper evaluation) - Applying 90% discount
+ { id: 'bulenox-beginner-10k', name: '$10K Beginner', size: 10000, evaluationFee: 115, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 10, dailyLossLimitPercentage: 5, discountPercentage: 0.90 },
+ { id: 'bulenox-beginner-25k', name: '$25K Beginner', size: 25000, evaluationFee: 145, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 8, dailyLossLimitPercentage: 4, discountPercentage: 0.90 },
+ { id: 'bulenox-beginner-50k', name: '$50K Beginner', size: 50000, evaluationFee: 185, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 5, drawdownPercentage: 6, dailyLossLimitPercentage: 3, discountPercentage: 0.90 },
+ { id: 'bulenox-beginner-100k', name: '$100K Beginner', size: 100000, evaluationFee: 265, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 4.5, drawdownPercentage: 5, dailyLossLimitPercentage: 2.5, discountPercentage: 0.90 },
+ { id: 'bulenox-beginner-150k', name: '$150K Beginner', size: 150000, evaluationFee: 385, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 4, drawdownPercentage: 4, dailyLossLimitPercentage: 2, discountPercentage: 0.90 },
+ { id: 'bulenox-beginner-250k', name: '$250K Beginner', size: 250000, evaluationFee: 545, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 3.5, drawdownPercentage: 3, dailyLossLimitPercentage: 1.5, discountPercentage: 0.90 },
 
-  // Master (Professional data feed - more expensive evaluation)
-  // Note: Profit targets, drawdowns, and daily limits often mirror Beginner but with Professional data cost reflected in fee. Verify exact rules per Master account size on Bulenox site.
-  { id: 'bulenox-master-10k', name: '$10K Master', size: 10000, evaluationFee: 175, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 10, dailyLossLimitPercentage: 5 }, // Example - Verify fees/rules
-  { id: 'bulenox-master-25k', name: '$25K Master', size: 25000, evaluationFee: 205, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 8, dailyLossLimitPercentage: 4 }, // Example - Verify fees/rules
-  // ... Add other Master tiers mirroring Beginner sizes with adjusted fees and verified rules
+ // Master (Professional data feed - more expensive evaluation) - Applying 90% discount
+ // Note: Profit targets, drawdowns, and daily limits often mirror Beginner but with Professional data cost reflected in fee. Verify exact rules per Master account size on Bulenox site.
+ { id: 'bulenox-master-10k', name: '$10K Master', size: 10000, evaluationFee: 175, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 10, dailyLossLimitPercentage: 5, discountPercentage: 0.90 }, // Example - Verify fees/rules
+ { id: 'bulenox-master-25k', name: '$25K Master', size: 25000, evaluationFee: 205, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 8, dailyLossLimitPercentage: 4, discountPercentage: 0.90 }, // Example - Verify fees/rules
+ // ... Add other Master tiers mirroring Beginner sizes with adjusted fees and verified rules, applying 90% discount
 
-  // Start (Single Step, No Daily Limit)
-  { id: 'bulenox-start-10k', name: '$10K Start', size: 10000, evaluationFee: 145, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 10, drawdownPercentage: 10, dailyLossLimitPercentage: null, discountPercentage: 0.25 }, // Adding a 25% discount
-  { id: 'bulenox-start-25k', name: '$25K Start', size: 25000, evaluationFee: 195, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 8, dailyLossLimitPercentage: null },
-  { id: 'bulenox-start-50k', name: '$50K Start', size: 50000, evaluationFee: 275, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null },
-  { id: 'bulenox-start-100k', name: '$100K Start', size: 100000, evaluationFee: 375, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 5, drawdownPercentage: 5, dailyLossLimitPercentage: null },
-  { id: 'bulenox-start-150k', name: '$150K Start', size: 150000, evaluationFee: 485, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 4, drawdownPercentage: 4, dailyLossLimitPercentage: null },
-  { id: 'bulenox-start-250k', name: '$250K Start', size: 250000, evaluationFee: 695, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 3.5, drawdownPercentage: 3, dailyLossLimitPercentage: null },
+ // Start (Single Step, No Daily Limit) - Applying 90% discount
+ { id: 'bulenox-start-10k', name: '$10K Start', size: 10000, evaluationFee: 145, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 10, drawdownPercentage: 10, dailyLossLimitPercentage: null, discountPercentage: 0.90 },
+ { id: 'bulenox-start-25k', name: '$25K Start', size: 25000, evaluationFee: 195, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 8, dailyLossLimitPercentage: null, discountPercentage: 0.90 },
+ { id: 'bulenox-start-50k', name: '$50K Start', size: 50000, evaluationFee: 275, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null, discountPercentage: 0.90 },
+ { id: 'bulenox-start-100k', name: '$100K Start', size: 100000, evaluationFee: 375, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 5, drawdownPercentage: 5, dailyLossLimitPercentage: null, discountPercentage: 0.90 },
+ { id: 'bulenox-start-150k', name: '$150K Start', size: 150000, evaluationFee: 485, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 4, drawdownPercentage: 4, dailyLossLimitPercentage: null, discountPercentage: 0.90 },
+ { id: 'bulenox-start-250k', name: '$250K Start', size: 250000, evaluationFee: 695, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 3.5, drawdownPercentage: 3, dailyLossLimitPercentage: null, discountPercentage: 0.90 },
 
   // Advanced (Two Step, No Daily Limit)
-  // Note: Two phases with targets, drawdowns, and trailing rules. Verify exact rules per Advanced account size on Bulenox site.
-  // ... Add Advanced tiers mirroring Beginner sizes with verified fees and rules
+ // Note: Two phases with targets, drawdowns, and trailing rules. Verify exact rules per Advanced account size on Bulenox site.
+ // ... Add Advanced tiers mirroring Beginner sizes with verified fees and rules, applying 90% discount
 ];
 
 export const mockPropFirms: PropFirm[] = [
@@ -264,7 +264,8 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Max Drawdown', value: 'Trailing (Eval & PRO) / None (PRO+)' },
       { label: 'Platforms', value: 'NinjaTrader, Tradovate, TradingView' },
       { label: 'Activation Fee', value: '$130 (PRO) / $135 monthly (PRO+ data)'}
-    ],
+ ],
+    promo: 'No activation fee',
     offerBadgeLabel: 'Daily Payouts!',
     fundingModels: ['1-Step Evaluation'],
     profitSplit: '80% (PRO) / 90% (PRO+)',
@@ -450,6 +451,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Platforms', value: 'Rithmic/CQG Compatible' },
       { label: 'Account Types', value: 'Beginner, Master, Start, Advanced'},
     ],
+    promo: '90% off all accounts',
     offerBadgeLabel: 'Accounts up to $250K',
     fundingModels: ['Evaluation (Various Programs)'],
     profitSplit: '80/20, scaling to 90/10',
