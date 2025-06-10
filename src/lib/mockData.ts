@@ -155,6 +155,34 @@ const tradeifyAccountTiers: AccountTier[] = [
   },
 ];
 
+const bulenoxAccountTiers: AccountTier[] = [
+  // Beginner (Non-Professional data feed - cheaper evaluation)
+  { id: 'bulenox-beginner-10k', name: '$10K Beginner', size: 10000, evaluationFee: 115, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 10, dailyLossLimitPercentage: 5 },
+  { id: 'bulenox-beginner-25k', name: '$25K Beginner', size: 25000, evaluationFee: 145, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 8, dailyLossLimitPercentage: 4 },
+  { id: 'bulenox-beginner-50k', name: '$50K Beginner', size: 50000, evaluationFee: 185, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 5, drawdownPercentage: 6, dailyLossLimitPercentage: 3 },
+  { id: 'bulenox-beginner-100k', name: '$100K Beginner', size: 100000, evaluationFee: 265, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 4.5, drawdownPercentage: 5, dailyLossLimitPercentage: 2.5 },
+  { id: 'bulenox-beginner-150k', name: '$150K Beginner', size: 150000, evaluationFee: 385, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 4, drawdownPercentage: 4, dailyLossLimitPercentage: 2 },
+  { id: 'bulenox-beginner-250k', name: '$250K Beginner', size: 250000, evaluationFee: 545, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 3.5, drawdownPercentage: 3, dailyLossLimitPercentage: 1.5 },
+
+  // Master (Professional data feed - more expensive evaluation)
+  // Note: Profit targets, drawdowns, and daily limits often mirror Beginner but with Professional data cost reflected in fee. Verify exact rules per Master account size on Bulenox site.
+  { id: 'bulenox-master-10k', name: '$10K Master', size: 10000, evaluationFee: 175, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 10, dailyLossLimitPercentage: 5 }, // Example - Verify fees/rules
+  { id: 'bulenox-master-25k', name: '$25K Master', size: 25000, evaluationFee: 205, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 8, dailyLossLimitPercentage: 4 }, // Example - Verify fees/rules
+  // ... Add other Master tiers mirroring Beginner sizes with adjusted fees and verified rules
+
+  // Start (Single Step, No Daily Limit)
+  { id: 'bulenox-start-10k', name: '$10K Start', size: 10000, evaluationFee: 145, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 10, drawdownPercentage: 10, dailyLossLimitPercentage: null },
+  { id: 'bulenox-start-25k', name: '$25K Start', size: 25000, evaluationFee: 195, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 8, dailyLossLimitPercentage: null },
+  { id: 'bulenox-start-50k', name: '$50K Start', size: 50000, evaluationFee: 275, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null },
+  { id: 'bulenox-start-100k', name: '$100K Start', size: 100000, evaluationFee: 375, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 5, drawdownPercentage: 5, dailyLossLimitPercentage: null },
+  { id: 'bulenox-start-150k', name: '$150K Start', size: 150000, evaluationFee: 485, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 4, drawdownPercentage: 4, dailyLossLimitPercentage: null },
+  { id: 'bulenox-start-250k', name: '$250K Start', size: 250000, evaluationFee: 695, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 3.5, drawdownPercentage: 3, dailyLossLimitPercentage: null },
+
+  // Advanced (Two Step, No Daily Limit)
+  // Note: Two phases with targets, drawdowns, and trailing rules. Verify exact rules per Advanced account size on Bulenox site.
+  // ... Add Advanced tiers mirroring Beginner sizes with verified fees and rules
+];
+
 export const mockPropFirms: PropFirm[] = [
   {
     id: '1',
@@ -363,6 +391,70 @@ export const mockPropFirms: PropFirm[] = [
     activationFee: '$125 (Advanced Sim-Funded), None (Growth Sim-Funded / Straight to Sim initial)', 
     challengeType: 'Evaluation Challenges (Advanced/Growth), Direct Sim Funding',
     accountTiers: tradeifyAccountTiers, 
+  },
+  {
+    id: '5',
+    slug: 'bulenox',
+    name: 'Bulenox',
+    logoUrl: 'https://placehold.co/100x50.png?text=Bulenox',
+    websiteUrl: 'https://bulenox.com/',
+    affiliateLink: 'https://bulenox.com/?ref=YOUR-AFFILIATE-ID', // REPLACE WITH YOUR ACTUAL BULENOX AFFILIATE LINK
+    isFeatured: false,
+    briefDescription: 'Offers various account sizes and evaluation types (Beginner, Master, Start, Advanced) with different rules and data feed options.',
+    fullReview: `Bulenox provides a range of futures trading evaluations and funded accounts. They offer several programs:
+    1. Beginner Accounts: Use non-professional data feeds, resulting in lower evaluation fees. They feature daily loss limits and a trailing drawdown.
+    2. Master Accounts: Utilize professional data feeds, leading to higher evaluation costs. Rules (profit target, daily limit, trailing drawdown) are often similar to Beginner accounts of the same size, but with the professional data.
+    3. Start Accounts: A one-step evaluation without a daily loss limit. Features a trailing drawdown.
+    4. Advanced Accounts: A two-step evaluation process, also without a daily loss limit. Involves hitting a profit target in Phase 1, then another in Phase 2.
+    All accounts have a trailing drawdown. Payouts start after a minimum number of trading days (often 10-15, verify exact current rule) and meeting a minimum profit threshold. The profit split is 80/20, increasing to 90/10 after certain milestones (verify specific requirements on Bulenox site). They support a wide range of platforms compatible with Rithmic or CQG, including NinjaTrader, Tradovate, TradingView (via Integrations), and their own Bulenox platform. News trading is allowed without restrictions. EAs and copy trading are permitted under specific conditions (must be your own accounts, no third-party signals).
+    Activation fees may apply upon receiving a funded account (verify current fees per plan on Bulenox site). Reset fees are also applicable during evaluations.`,
+    pros: [
+      "Multiple evaluation types and account sizes",
+      "Beginner accounts offer lower entry cost with non-professional data",
+      "Start accounts have no daily loss limit (one-step)",
+      "News trading is allowed without restrictions",
+      "Supports a wide range of platforms (Rithmic/CQG compatible)",
+      "Copy trading and EAs permitted (under conditions)",
+      "Profit split increases to 90/10 after milestones"
+    ],
+    cons: [
+      "Trailing drawdown on all account types",
+      "Consistency rule requires minimum trading days for payout (verify current rule)",
+      "Activation fees apply upon funding (verify current fees)",
+      "Reset fees apply during evaluations",
+      "Master accounts are more expensive due to professional data"
+    ],
+    keyFeatures: [
+      'Multiple Evaluation Programs (Beginner, Master, Start, Advanced)',
+      'Beginner: Non-Pro Data, Lower Fee, Daily Limit, Trailing DD',
+      'Master: Pro Data, Higher Fee, Daily Limit, Trailing DD',
+      'Start: One-Step, No Daily Limit, Trailing DD',
+      'Advanced: Two-Step, No Daily Limit, Trailing DD',
+      'News Trading Allowed',
+      'Platforms: Rithmic/CQG compatible (NinjaTrader, Tradovate, TradingView, etc.)',
+      'Profit Split: 80/20 initially, scales to 90/10'
+    ],
+    keyInfoSnippets: [
+      { label: 'Profit Split', value: '80/20 (scales to 90/10)' },
+      { label: 'Drawdown Type', value: 'Trailing' },
+      { label: 'Platforms', value: 'Rithmic/CQG Compatible' },
+      { label: 'Account Types', value: 'Beginner, Master, Start, Advanced'},
+    ],
+    offerBadgeLabel: 'Accounts up to $250K',
+    fundingModels: ['Evaluation (Various Programs)'],
+    profitSplit: '80/20, scaling to 90/10',
+    drawdownRules: 'Trailing Drawdown (specific values vary by account size/program)',
+    profitTarget: 'Varies by program and account size (e.g., 8% on $10K Beginner)',
+    tradableInstruments: ['Futures (CME, COMEX, NYMEX, CBOT)'],
+    platforms: ['NinjaTrader', 'Tradovate', 'TradingView', 'Rithmic Trader Pro', 'MultiCharts', 'Bookmap', 'Jigsaw Daytrader', 'Sierra Chart', 'MotiveWave', 'VolSys', 'Quantower', 'ATAS Order Flow Trading', 'RTrader Pro', 'Investor RT'], // List commonly supported Rithmic/CQG platforms
+    rating: 4.4, // Adjust rating based on verified info and user experience.
+    minAccountSize: 10000,
+    maxAccountSize: 250000,
+    minChallengeCost: 115, // Verify min beginner cost
+    maxChallengeCost: 695, // Verify max start cost (Advanced may be different)
+    activationFee: 'Varies (Verify current fee per plan)',
+    challengeType: 'Evaluation (1-Step or 2-Step)',
+    accountTiers: bulenoxAccountTiers,
   },
 ];
 

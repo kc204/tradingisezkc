@@ -1,17 +1,15 @@
 
 'use client';
 
-import type { PropFirm, AccountTier } from '@/lib/types';
+import type { PropFirm } from '@/lib/types';
 import { useState, useEffect, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-// Button and Link imports are removed if no longer used after removing the CTA button.
-// Let's keep Link and ExternalLink for now in case they are used elsewhere or might be added back.
-// import { Button } from '@/components/ui/button';
-// import Link from 'next/link';
-// import { ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { ExternalLink } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 
@@ -93,6 +91,23 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
 
   const canIncludeReset = selectedTier?.resetFee !== undefined && selectedTier.resetFee > 0;
 
+  const ctaButtonDisabled = !activeFirm || !selectedTier;
+  let ctaButtonText = "Learn More";
+  let ctaHref = "#";
+  let ctaTarget: string | undefined = undefined;
+
+  if (activeFirm && selectedTier) {
+    if (isSingleFirmMode) {
+      ctaButtonText = `Visit ${activeFirm.name}`;
+      ctaHref = activeFirm.affiliateLink;
+      ctaTarget = "_blank";
+    } else {
+      ctaButtonText = "Learn More";
+      ctaHref = `/firms/${activeFirm.slug}`;
+    }
+  }
+
+
   return (
     <Card className="w-full shadow-xl mt-8"> {/* Max-width controlled by parent */}
       <CardHeader>
@@ -140,7 +155,7 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
             <SelectContent>
               {availableTiers.map((tier) => (
                 <SelectItem key={tier.id} value={tier.id}>
-                  {tier.name || `$${tier.size.toLocaleString()} Account`}
+                  {tier.name || `$${tier.size.toLocaleString()} Account`} (${tier.evaluationFee} Eval)
                 </SelectItem>
               ))}
             </SelectContent>
@@ -152,13 +167,13 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
 
         <div className="flex items-center space-x-2 pt-2">
           <Checkbox
-            id={`include-reset-${isSingleFirmMode && activeFirm ? activeFirm.id : ''}`} // Unique ID for checkbox
+            id={`include-reset-${isSingleFirmMode && activeFirm ? activeFirm.id : ''}-${selectedTier?.id || 'default'}`}
             checked={includeResetFee}
             onCheckedChange={(checked) => setIncludeResetFee(Boolean(checked))}
             disabled={!canIncludeReset}
           />
           <Label
-            htmlFor={`include-reset-${isSingleFirmMode && activeFirm ? activeFirm.id : ''}`}
+            htmlFor={`include-reset-${isSingleFirmMode && activeFirm ? activeFirm.id : ''}-${selectedTier?.id || 'default'}`}
             className={`text-sm font-medium ${!canIncludeReset ? 'text-muted-foreground/50 cursor-not-allowed' : 'text-foreground cursor-pointer'}`}
           >
             Include one typical Reset Fee (if applicable: {selectedTier?.resetFee ? `$${selectedTier.resetFee}` : 'N/A'})
@@ -194,7 +209,18 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
             <span className="font-semibold text-accent">Total Estimated Upfront Cost:</span>
             <span className="font-bold text-accent">${calculatedCosts.totalCost.toLocaleString()}</span>
           </div>
-          {/* The "Visit Firm" button that was here has been removed for this rollback */}
+          
+          <Button 
+            asChild 
+            className="w-full mt-4 bg-accent text-accent-foreground hover:bg-accent-hover"
+            disabled={ctaButtonDisabled}
+          >
+            <Link href={ctaHref} target={ctaTarget} rel={ctaTarget === "_blank" ? "noopener noreferrer" : undefined}>
+              {ctaButtonText}
+              {isSingleFirmMode && <ExternalLink className="ml-2 h-4 w-4" />}
+            </Link>
+          </Button>
+
         </CardFooter>
       )}
       {!selectedTier && activeFirm && (
@@ -215,3 +241,4 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
     </Card>
   );
 }
+
