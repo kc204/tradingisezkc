@@ -24,6 +24,7 @@ interface CalculatedCosts {
   activationFee: number;
   resetFee: number;
   totalCost: number;
+ originalTotalCost?: number; // To store the total before discount for comparison
 }
 
 export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostCalculatorProps) {
@@ -34,6 +35,7 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
   );
   const [selectedTierId, setSelectedTierId] = useState<string | null>(null);
   const [includeResetFee, setIncludeResetFee] = useState(false);
+  const [showDiscountedPrices, setShowDiscountedPrices] = useState(false);
   const [calculatedCosts, setCalculatedCosts] = useState<CalculatedCosts | null>(null);
 
   const activeFirm = useMemo(() => {
@@ -55,6 +57,7 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
       setSelectedTierId(null);
       setCalculatedCosts(null);
       setIncludeResetFee(false);
+      setShowDiscountedPrices(false);
     }
   }, [selectedFirmIdForMultiMode, isSingleFirmMode]);
 
@@ -64,11 +67,14 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
       setSelectedTierId(null); // Force re-selection of tier for the current single firm
       setCalculatedCosts(null);
       setIncludeResetFee(false);
+      setShowDiscountedPrices(false);
     }
   }, [singleFirm, isSingleFirmMode]); // React to changes in singleFirm prop
 
   useEffect(() => {
     if (activeFirm && selectedTier) {
+      const discount = showDiscountedPrices && selectedTier.discountPercentage > 0 ? selectedTier.discountPercentage : 0;
+
       let evalFee = selectedTier.evaluationFee || 0;
       let activFee = selectedTier.activationFee || 0;
       let rstFee = 0;
@@ -76,18 +82,31 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
       if (includeResetFee && selectedTier.resetFee && selectedTier.resetFee > 0) {
         rstFee = selectedTier.resetFee;
       }
+      
+      const originalTotal = evalFee + activFee + rstFee;
 
-      const total = evalFee + activFee + rstFee;
+      // Apply discount to evaluation and reset fees
+      // Discount only applies to evaluation fee
+      const discountedEvalFee = evalFee * (1 - discount);
+
+      // Activation fee is never discounted
+      const finalActivFee = activFee;
+
+      const discountedRstFee = rstFee; // Reset fee is not discounted
+      const total = discountedEvalFee + finalActivFee + rstFee; // Reset fee is not discounted
+
       setCalculatedCosts({
-        evaluationFee: evalFee,
-        activationFee: activFee,
-        resetFee: rstFee,
+ evaluationFee: discountedEvalFee,
+ activationFee: finalActivFee,
+ resetFee: discountedRstFee,
         totalCost: total,
+ originalTotalCost: discount > 0 ? originalTotal : undefined // Store original total if discount applied
       });
     } else {
       setCalculatedCosts(null);
+ setShowDiscountedPrices(false); // Reset discount checkbox if no tier selected
     }
-  }, [activeFirm, selectedTier, includeResetFee]);
+  }, [activeFirm, selectedTier, includeResetFee, showDiscountedPrices]);
 
   const canIncludeReset = selectedTier?.resetFee !== undefined && selectedTier.resetFee > 0;
 
@@ -179,6 +198,22 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
             Include one typical Reset Fee (if applicable: {selectedTier?.resetFee ? `$${selectedTier.resetFee}` : 'N/A'})
           </Label>
         </div>
+
+         <div className="flex items-center space-x-2">
+          <Checkbox
+            id={`apply-discount-${isSingleFirmMode && activeFirm ? activeFirm.id : ''}-${selectedTier?.id || 'default'}`}
+            checked={showDiscountedPrices}
+            onCheckedChange={(checked) => setShowDiscountedPrices(Boolean(checked))}
+            disabled={!selectedTier?.discountPercentage || selectedTier.discountPercentage <= 0}
+          />
+          <Label
+            htmlFor={`apply-discount-${isSingleFirmMode && activeFirm ? activeFirm.id : ''}-${selectedTier?.id || 'default'}`}
+            className={`text-sm font-medium ${(!selectedTier?.discountPercentage || selectedTier.discountPercentage <= 0) ? 'text-muted-foreground/50 cursor-not-allowed' : 'text-foreground cursor-pointer'}`}
+          >
+            {`Apply Discount (if available${selectedTier?.discountPercentage && selectedTier.discountPercentage > 0 ? `: ${selectedTier.discountPercentage * 100}%` : ''})`}
+
+          </Label>
+        </div>
       </CardContent>
 
       {calculatedCosts && selectedTier && activeFirm && (
@@ -187,7 +222,12 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
           <div className="w-full space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Evaluation Fee:</span>
-              <span className="font-medium text-foreground">${calculatedCosts.evaluationFee.toLocaleString()}</span>
+              <span className="font-medium text-foreground">
+                {showDiscountedPrices && selectedTier.discountPercentage > 0 && selectedTier.evaluationFee !== undefined && selectedTier.evaluationFee > 0 ? (
+                   <><span className="line-through text-muted-foreground mr-2">${selectedTier.evaluationFee.toLocaleString()}</span><span>${calculatedCosts.evaluationFee.toLocaleString()}</span></>
+                ) : `$${calculatedCosts.evaluationFee.toLocaleString()}`}
+              </span>
+
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Activation Fee:</span>
@@ -200,14 +240,24 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
             {includeResetFee && canIncludeReset && (
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Reset Fee (x1):</span>
-                <span className="font-medium text-foreground">${calculatedCosts.resetFee.toLocaleString()}</span>
+                <span className="font-medium text-foreground"> {/* Reset fee is not discounted */}
+                  {showDiscountedPrices && selectedTier.discountPercentage > 0 && selectedTier.resetFee !== undefined && selectedTier.resetFee > 0 ? (
+                    <><span className="line-through text-muted-foreground mr-2">${selectedTier.resetFee.toLocaleString()}</span><span>${calculatedCosts.resetFee.toLocaleString()}</span></>
+                  ) : `$${calculatedCosts.resetFee.toLocaleString()}`}
+                </span>
               </div>
             )}
           </div>
           <Separator className="my-3" />
           <div className="flex justify-between w-full text-lg">
             <span className="font-semibold text-accent">Total Estimated Upfront Cost:</span>
-            <span className="font-bold text-accent">${calculatedCosts.totalCost.toLocaleString()}</span>
+            <span className="font-bold text-accent">
+              {calculatedCosts.originalTotalCost !== undefined && calculatedCosts.originalTotalCost > calculatedCosts.totalCost ? (
+                 <><span className="line-through text-muted-foreground mr-2">${calculatedCosts.originalTotalCost.toLocaleString()}</span><span>${calculatedCosts.totalCost.toLocaleString()}</span></>
+              ) : `$${calculatedCosts.totalCost.toLocaleString()}`}
+            </span>
+
+
           </div>
           
           <Button 

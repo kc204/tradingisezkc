@@ -14,6 +14,7 @@ export interface AccountTier {
   activationFee?: number; // Optional, as not all tiers/firms have it
   resetFee?: number; // Optional, typical cost for one reset
   // Future: could include tier-specific profit split, drawdown, etc.
+  discountPercentage?: number; // Optional field for discounts
 }
 
 export interface PropFirm {

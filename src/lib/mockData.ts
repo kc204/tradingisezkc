@@ -2,11 +2,11 @@ import type { GlobalOffer, PropFirm, Article, TradingResource, FreeResourceItem,
 
 export const mockGlobalOffers: GlobalOffer[] = [
   { id: '1', text: 'VISIBLE OFFER TEXT TEST', affiliateLink: '#', isActive: true },
-  { id: '2', text: 'Take Profit Trader: Up to 90% profit split!', affiliateLink: '#', isActive: true },
+  { id: '2', text: 'Take Profit Trader: Up to 90% profit split! (DISCOUNT TEST)', affiliateLink: '#', isActive: true },
   { id: '3', text: 'Tradeify: 10% bonus on payout with code FINDER10', affiliateLink: '#', isActive: true }, // VERIFY CURRENT VALIDITY OF THIS PROMO CODE with Tradeify.co
 ];
 
-const apexAccountTiers: AccountTier[] = [
+const apexAccountTiers: AccountTier[] = [ // Adding a discount to one Apex tier for testing
   { id: 'apex-25k', size: 25000, name: '$25K Account', evaluationFee: 137, activationFee: 0, resetFee: 80, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null },
   { id: 'apex-50k', size: 50000, name: '$50K Account', evaluationFee: 167, activationFee: 0, resetFee: 80, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null },
   { id: 'apex-100k', size: 100000, name: '$100K Account', evaluationFee: 207, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null },
@@ -15,11 +15,11 @@ const apexAccountTiers: AccountTier[] = [
 ];
 
 const tptAccountTiers: AccountTier[] = [
-  { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, activationFee: undefined, resetFee: 75, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: 2 },
-  { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, activationFee: undefined, resetFee: 75, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.2 },
-  { id: 'tpt-eval-75k', name: '$75K Evaluation', size: 75000, evaluationFee: 245, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: 2.13 },
-  { id: 'tpt-eval-100k', name: '$100K Evaluation', size: 100000, evaluationFee: 330, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2 },
-  { id: 'tpt-eval-150k', name: '$150K Evaluation', size: 150000, evaluationFee: 360, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2 },
+  { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, activationFee: undefined, resetFee: 75, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: 2, discountPercentage: 0.30 }, // 30% discount
+  { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, activationFee: undefined, resetFee: 75, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // 30% discount
+  { id: 'tpt-eval-75k', name: '$75K Evaluation', size: 75000, evaluationFee: 245, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: 2.13, discountPercentage: 0.30 }, // 30% discount
+  { id: 'tpt-eval-100k', name: '$100K Evaluation', size: 100000, evaluationFee: 330, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // 30% discount
+  { id: 'tpt-eval-150k', name: '$150K Evaluation', size: 150000, evaluationFee: 360, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // 30% discount
 ];
 
 const myFundedFuturesAccountTiers: AccountTier[] = [
@@ -33,7 +33,7 @@ const myFundedFuturesAccountTiers: AccountTier[] = [
   { id: 'mff-milestone-100k', name: '$100K Milestone Plan', size: 100000, evaluationFee: 555, activationFee: 0, resetFee: 555, profitTargetPercentage: null, drawdownPercentage: 5, dailyLossLimitPercentage: null },
   { id: 'mff-milestone-150k', name: '$150K Milestone Plan', size: 150000, evaluationFee: 665, activationFee: 0, resetFee: 665, profitTargetPercentage: null, drawdownPercentage: 5, dailyLossLimitPercentage: null },
 ];
-
+// Adding a discount to one Tradeify tier for testing
 const tradeifyAccountTiers: AccountTier[] = [
   // Advanced Challenge (Intraday Trailing DD, 35% Consistency for Sim-Funded Payouts, $125 Activation for Sim-Funded)
   // EVALUATION FEES (Monthly Subscription) NEED VERIFICATION FROM TRADEIFY.CO MAIN SITE.
@@ -47,6 +47,7 @@ const tradeifyAccountTiers: AccountTier[] = [
     profitTargetPercentage: 6, 
     drawdownPercentage: 4, // $2000 IDD
     dailyLossLimitPercentage: null, 
+    discountPercentage: 0.33, // 33% discount
   },
   { 
     id: 'tradeify-adv-100k', 
@@ -58,6 +59,7 @@ const tradeifyAccountTiers: AccountTier[] = [
     profitTargetPercentage: 6, 
     drawdownPercentage: 4, // $4000 IDD
     dailyLossLimitPercentage: null, 
+    discountPercentage: 0.10, // Adding a 10% discount
   },
   { 
     id: 'tradeify-adv-150k', 
@@ -69,6 +71,7 @@ const tradeifyAccountTiers: AccountTier[] = [
     profitTargetPercentage: 6, 
     drawdownPercentage: 4, // $6000 IDD
     dailyLossLimitPercentage: null, 
+    discountPercentage: 0.33, // 33% discount
   },
   
   // Growth Challenge (EOD Trailing DD, 35% Consistency for Sim-Funded Payouts, No Activation Fee for Sim-Funded, Soft DLL)
@@ -83,6 +86,7 @@ const tradeifyAccountTiers: AccountTier[] = [
     profitTargetPercentage: 6, 
     drawdownPercentage: 4, // $2000 EOD DD
     dailyLossLimitPercentage: 2.5, // Soft DLL ($1250). If hit, stop for day, no breach.
+    discountPercentage: 0.33, // 33% discount
   },
   { 
     id: 'tradeify-growth-100k', 
@@ -94,6 +98,7 @@ const tradeifyAccountTiers: AccountTier[] = [
     profitTargetPercentage: 6, 
     drawdownPercentage: 4, // $4000 EOD DD
     dailyLossLimitPercentage: 2.5, // Soft DLL ($2500)
+    discountPercentage: 0.33, // 33% discount
   },
   { 
     id: 'tradeify-growth-150k', 
@@ -105,6 +110,7 @@ const tradeifyAccountTiers: AccountTier[] = [
     profitTargetPercentage: 6, 
     drawdownPercentage: 4, // $6000 EOD DD
     dailyLossLimitPercentage: 2.5, // Soft DLL ($3750)
+    discountPercentage: 0.33, // 33% discount
   },
   
   // Straight to Sim Funded (EOD Trailing DD, 20% Consistency, 10 Min Trading Days for 1st Payout)
@@ -119,6 +125,7 @@ const tradeifyAccountTiers: AccountTier[] = [
     profitTargetPercentage: null, 
     drawdownPercentage: 4, // $1000 EOD DD
     dailyLossLimitPercentage: null, // Verify if Soft DLL applies or if none.
+    discountPercentage: 0.33, // 33% discount
   },
   { 
     id: 'tradeify-sim-50k', 
@@ -130,6 +137,7 @@ const tradeifyAccountTiers: AccountTier[] = [
     profitTargetPercentage: null,
     drawdownPercentage: 4, // $2000 EOD DD
     dailyLossLimitPercentage: 2.5, // Assumed Soft DLL from Growth; VERIFY if applies to Sim and exact %.
+    discountPercentage: 0.33, // 33% discount
   },
   { 
     id: 'tradeify-sim-100k', 
@@ -141,6 +149,7 @@ const tradeifyAccountTiers: AccountTier[] = [
     profitTargetPercentage: null,
     drawdownPercentage: 4, // $4000 EOD DD
     dailyLossLimitPercentage: 2.5, // Assumed Soft DLL; VERIFY.
+    discountPercentage: 0.33, // 33% discount
   },
   { 
     id: 'tradeify-sim-150k', 
@@ -152,9 +161,10 @@ const tradeifyAccountTiers: AccountTier[] = [
     profitTargetPercentage: null,
     drawdownPercentage: 4, // $6000 EOD DD
     dailyLossLimitPercentage: 2.5, // Assumed Soft DLL; VERIFY.
+    discountPercentage: 0.33, // 33% discount
   },
 ];
-
+// Adding a discount to one Bulenox tier for testing
 const bulenoxAccountTiers: AccountTier[] = [
   // Beginner (Non-Professional data feed - cheaper evaluation)
   { id: 'bulenox-beginner-10k', name: '$10K Beginner', size: 10000, evaluationFee: 115, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 10, dailyLossLimitPercentage: 5 },
@@ -171,7 +181,7 @@ const bulenoxAccountTiers: AccountTier[] = [
   // ... Add other Master tiers mirroring Beginner sizes with adjusted fees and verified rules
 
   // Start (Single Step, No Daily Limit)
-  { id: 'bulenox-start-10k', name: '$10K Start', size: 10000, evaluationFee: 145, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 10, drawdownPercentage: 10, dailyLossLimitPercentage: null },
+  { id: 'bulenox-start-10k', name: '$10K Start', size: 10000, evaluationFee: 145, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 10, drawdownPercentage: 10, dailyLossLimitPercentage: null, discountPercentage: 0.25 }, // Adding a 25% discount
   { id: 'bulenox-start-25k', name: '$25K Start', size: 25000, evaluationFee: 195, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 8, dailyLossLimitPercentage: null },
   { id: 'bulenox-start-50k', name: '$50K Start', size: 50000, evaluationFee: 275, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null },
   { id: 'bulenox-start-100k', name: '$100K Start', size: 100000, evaluationFee: 375, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 5, drawdownPercentage: 5, dailyLossLimitPercentage: null },
@@ -188,7 +198,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '1',
     slug: 'apex-trader-funding',
     name: 'Apex Trader Funding',
-    logoUrl: 'https://placehold.co/100x50.png?text=ApexTF',
+    logoUrl: 'https://apextraderfunding.com/wp-content/uploads/2023/07/Apex-logo-horiz-2023.svg',
     websiteUrl: 'https://apextraderfunding.com/',
     affiliateLink: 'https://apextraderfunding.com/member/aff/go/onlypropfirms?c=DEFAULT',
     briefDescription: 'Popular choice for futures traders, offering straightforward evaluation and scaling.',
@@ -222,7 +232,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '2',
     slug: 'take-profit-trader',
     name: 'Take Profit Trader',
-    logoUrl: 'https://storage.googleapis.com/idx-images/take_profit_trader_logo_transparent.png',
+    logoUrl: 'https://takeprofittrader.com/assets/desktop-logo.svg',
     websiteUrl: 'https://www.takeprofittrader.com/',
     affiliateLink: 'https://takeprofittrader.com/if/onlypropfirms',
     briefDescription: 'Futures prop firm with one-step evaluations and choice of PRO or PRO+ funded accounts.',
@@ -267,7 +277,7 @@ export const mockPropFirms: PropFirm[] = [
     minAccountSize: 25000,
     maxAccountSize: 150000,
     minChallengeCost: 150, 
-    maxChallengeCost: 360, 
+    maxChallengeCost: 360,
     activationFee: '$130 (PRO Account) / $135 monthly (PRO+ data)',
     challengeType: '1-Step Evaluation', 
     accountTiers: tptAccountTiers,
@@ -276,7 +286,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '3',
     slug: 'my-funded-futures',
     name: 'My Funded Futures',
-    logoUrl: 'https://placehold.co/100x50.png?text=MFF',
+    logoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScaa7I9uipZeRoUofIMr2QMJQ-HJv_hNF5FA&s',
     websiteUrl: 'https://myfundedfutures.com/', 
     affiliateLink: 'https://myfundedfutures.com/?aff_id=1030', 
     briefDescription: 'Futures prop firm with various plans (Starter, Expert, Milestone) and EOD trailing drawdown.',
@@ -333,7 +343,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '4',
     name: 'Tradeify',
     slug: 'tradeify', 
-    logoUrl: 'https://placehold.co/100x50.png?text=Tradeify', 
+    logoUrl: 'https://tradeify.co/wp-content/uploads/2021/06/horizontal-logo.svg', 
     websiteUrl: 'https://tradeify.co/', 
     affiliateLink: 'https://tradeify.co/YOUR-AFFILIATE-ID', // REPLACE WITH YOUR ACTUAL TRADEIFY.CO AFFILIATE LINK
     isFeatured: true, 
@@ -396,7 +406,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '5',
     slug: 'bulenox',
     name: 'Bulenox',
-    logoUrl: 'https://placehold.co/100x50.png?text=Bulenox',
+    logoUrl: 'https://bulenox.com/wa-data/public/site/themes/bulenox/img/logo-2.png',
     websiteUrl: 'https://bulenox.com/',
     affiliateLink: 'https://bulenox.com/?ref=YOUR-AFFILIATE-ID', // REPLACE WITH YOUR ACTUAL BULENOX AFFILIATE LINK
     isFeatured: false,
@@ -454,8 +464,98 @@ export const mockPropFirms: PropFirm[] = [
     maxChallengeCost: 695, // Verify max start cost (Advanced may be different)
     activationFee: 'Varies (Verify current fee per plan)',
     challengeType: 'Evaluation (1-Step or 2-Step)',
-    accountTiers: bulenoxAccountTiers,
+ accountTiers: bulenoxAccountTiers,
   },
+  {
+    id: '6',
+    slug: 'daytraders',
+    name: 'Daytraders',
+    logoUrl: 'https://daytraders.com/assets/images/logo/logo.svg', 
+    websiteUrl: 'https://daytraders.com/', // Use the correct domain
+    affiliateLink: 'https://daytraders.com/?aff_id=YOUR-AFFILIATE-ID', // Replace with your actual Daytraders affiliate link
+    briefDescription: 'Prop firm offering the ProjectX program with Trail and Static evaluation paths and 100% profit split on funded accounts.',
+    fullReview: `Daytraders offers their proprietary ProjectX funding program for futures traders. It features two distinct evaluation paths:
+    1. Trail Evaluation: Offers account sizes from $25K to $250K. This path uses a trailing drawdown during the evaluation. Once passed, traders get a funded account with a static drawdown (meaning the drawdown is fixed at the starting balance).
+    2. Static Evaluation: Available for $25K, $50K, and $100K accounts. This path features a static drawdown from the initial balance throughout both the evaluation and the funded account phase.
+
+    Both evaluation types require meeting a profit target (varying by account size) with no minimum trading days. There are no daily loss limits. Upon successful completion of either evaluation, traders receive a funded account with a 100% profit split.
+
+    Funded accounts with Daytraders have a 100% profit split with no funded account fees. Daily payouts are available with a $250 minimum withdrawal threshold. A crucial rule is the requirement to reach a certain profit buffer *above* the starting balance before the first payout is allowed (varies by account size, e.g., $1000 on a $25K account). There is no scaling plan; traders maintain the initial account size.
+
+    Trading is done exclusively on their proprietary ProjectX platform, and only futures instruments are tradable. News trading is allowed without restrictions. Holding positions overnight and through weekends is also permitted. Traders can have a maximum of 3 accounts simultaneously. Copy trading is allowed only between accounts owned by the same trader within Daytraders; copying third-party signals is prohibited.
+
+    Daytraders utilizes Velox as their backend trading technology. Reset fees are available if an evaluation account is breached.
+    `,
+    pros: [
+        '100% profit split on funded accounts',
+        'No funded account fees',
+        'Daily payouts available ($250 minimum)',
+        'Two evaluation paths (Trail and Static Drawdown)',
+        'No daily loss limits',
+        'No minimum trading days for evaluation',
+        'News trading allowed',
+        'Holding positions overnight/weekends allowed',
+        'Proprietary ProjectX platform (Velox backend)',
+        'Allows up to 3 accounts',
+        'Copy trading allowed between own accounts'
+    ],
+    cons: [
+        'Requires trading on proprietary ProjectX platform only',
+        'Futures trading only',
+        'Profit buffer required before first payout',
+        'No scaling plan',
+        'Static drawdown on funded accounts (for Trail path) can be challenging for some strategies',
+        'Trailing drawdown on evaluation accounts (for Trail path)',
+        'Static drawdown on both evaluation and funded (for Static path)'
+    ],
+    keyFeatures: [
+        '100% Profit Split',
+        'No Funded Account Fees',
+        'Daily Payouts ($250 Min)',
+        'Trail (Eval Trailing, Funded Static) & Static (Eval Static, Funded Static) Paths',
+        'No Daily Loss Limit',
+        'No Minimum Trading Days',
+        'ProjectX Platform (Velox)',
+        'Max 3 Accounts',
+        'News Trading & Overnight/Weekend Holding Allowed'
+    ],
+    keyInfoSnippets: [
+        { label: 'Profit Split', value: '100%' },
+        { label: 'Drawdown Type', value: 'Eval Trail/Static, Funded Static' },
+        { label: 'Platforms', value: 'ProjectX (Proprietary)' },
+        { label: 'Max Accounts', value: '3' },
+        { label: 'Payouts', value: 'Daily ($250 Min, buffer required)' }
+    ],
+    offerBadgeLabel: '100% Profit Split!',
+    fundingModels: ['Evaluation (Trail)', 'Evaluation (Static)'],
+    profitSplit: '100%',
+    drawdownRules: 'Trail Path: Evaluation (Trailing), Funded (Static). Static Path: Evaluation (Static), Funded (Static). Specific values vary by account size.',
+    profitTarget: 'Varies by account size',
+    tradableInstruments: ['Futures'],
+    platforms: ['ProjectX'],
+    rating: 4.3, // Placeholder - Adjust based on research and user feedback.
+    isFeatured: false,
+    minAccountSize: 25000,
+    maxAccountSize: 250000, // Max for Trail path, Static max is $100K
+    minChallengeCost: 137, // Placeholder - Verify actual minimum cost for 25k Trail/Static
+    maxChallengeCost: 657, // Placeholder - Verify actual maximum cost for 250k Trail
+    activationFee: 'None',
+    challengeType: 'Evaluation (1-Step)',
+    accountTiers: [
+        // ProjectX Trail Accounts (Evaluation Trailing DD, Funded Static DD)
+        { id: 'daytraders-trail-25k', name: '$25K Trail Account', size: 25000, evaluationFee: 137, activationFee: 0, resetFee: 80, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null }, // Verify exact fees/rules
+        { id: 'daytraders-trail-50k', name: '$50K Trail Account', size: 50000, evaluationFee: 167, activationFee: 0, resetFee: 80, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null, discountPercentage: 0.90 }, // 90% discount on Trail accounts
+        { id: 'daytraders-trail-100k', name: '$100K Trail Account', size: 100000, evaluationFee: 207, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null, discountPercentage: 0.90 }, // 90% discount on Trail accounts
+        { id: 'daytraders-trail-150k', name: '$150K Trail Account', size: 150000, evaluationFee: 297, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null, discountPercentage: 0.90 }, // 90% discount on Trail accounts
+        { id: 'daytraders-trail-250k', name: '$250K Trail Account', size: 250000, evaluationFee: 657, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null, discountPercentage: 0.90 }, // 90% discount on Trail accounts
+
+        // ProjectX Static Accounts (Evaluation Static DD, Funded Static DD)
+        { id: 'daytraders-static-25k', name: '$25K Static Account', size: 25000, evaluationFee: 137, activationFee: 0, resetFee: 80, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null }, // Verify exact fees/rules
+        { id: 'daytraders-static-50k', name: '$50K Static Account', size: 50000, evaluationFee: 167, activationFee: 0, resetFee: 80, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null }, // Verify exact fees/rules
+        { id: 'daytraders-static-100k', name: '$100K Static Account', size: 100000, evaluationFee: 207, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null }, // Verify exact fees/rules
+        // Static path might not have 150k/250k tiers, verify on site.
+    ],
+  }
 ];
 
 export const mockArticles: Article[] = [
@@ -540,7 +640,7 @@ const sampleBookListings: BookListing[] = [
   {
     bookTitle: "Trading in the Zone",
     bookAuthor: "Mark Douglas",
-    bookCoverImage: "https://placehold.co/300x450.png?text=Trading+In+Zone",
+    bookCoverImage: "https://m.media-amazon.com/images/I/91h1hHF7awL.jpg",
     bookDescription: "Master the mental game of trading with this classic guide to trading psychology.",
     bookAudibleAffiliateLink: "#audible-trading-in-zone",
     bookSampleLink: "#audible-sample-trading-in-zone",
@@ -548,18 +648,90 @@ const sampleBookListings: BookListing[] = [
   {
     bookTitle: "Reminiscences of a Stock Operator",
     bookAuthor: "Edwin Lefèvre",
-    bookCoverImage: "https://placehold.co/300x450.png?text=Stock+Operator",
+    bookCoverImage: "https://m.media-amazon.com/images/I/61v5E5KJlfL._AC_UF1000,1000_QL80_.jpg",
     bookDescription: "A fictionalized biography of Jesse Livermore, one of the greatest stock traders of all time.",
     bookAudibleAffiliateLink: "#audible-stock-operator",
     bookSampleLink: "#audible-sample-stock-operator",
   },
   {
+    bookTitle: "Best Loser Wins",
+    bookAuthor: "Tom Hougaard",
+    bookCoverImage: "https://m.media-amazon.com/images/I/71Ip3kl9eML.jpg",
+    bookDescription: "Focuses on the crucial mindset and psychological aspects required for successful trading, emphasizing the importance of managing losses.",
+    bookAudibleAffiliateLink: "#audible-best-loser-wins",
+    bookSampleLink: "#audible-sample-best-loser-wins",
+  },
+  {
+    bookTitle: "One Good Trade",
+    bookAuthor: "Mike Bellafiore",
+    bookCoverImage: "https://m.media-amazon.com/images/I/81nlPH61yeL.jpg",
+    bookDescription: "Provides an inside look at the world of proprietary trading, focusing on the daily routines, strategies, and discipline of successful traders at a top firm.",
+    bookAudibleAffiliateLink: "#audible-one-good-trade",
+    bookSampleLink: "#audible-sample-one-good-trade",
+  },
+  {
+    bookTitle: "Reading Price Charts Bar by Bar",
+    bookAuthor: "Al Brooks", // Verified
+    bookCoverImage: "https://m.media-amazon.com/images/I/618ic+WPLHL.jpg",
+    bookDescription: "A comprehensive guide to understanding price action and trading decisions based on the analysis of individual bars and patterns.",
+    bookAudibleAffiliateLink: "#audible-reading-price-charts",
+    bookSampleLink: "#audible-sample-reading-price-charts",
+  },
+  {
+    bookTitle: "A Complete Guide to Volume Price Analysis",
+    bookAuthor: "Anna Coulling", // Verified
+    bookCoverImage: "https://m.media-amazon.com/images/I/61DHRcQb0GL.jpg",
+    bookDescription: "Explores the relationship between volume and price to identify potential market movements and trading opportunities.",
+    bookAudibleAffiliateLink: "#audible-volume-price-analysis",
+    bookSampleLink: "#audible-sample-volume-price-analysis",
+  },
+  {
+    bookTitle: "Mind over Markets (Updated Edition)",
+    bookAuthor: "James F. Dalton, Eric T. Jones, Robert B. Dalton", // Verified
+    bookCoverImage: "https://m.media-amazon.com/images/I/61KB1KqFz3L._AC_UF1000,1000_QL80_DpWeblab_.jpg",
+    bookDescription: "Focuses on market profile analysis and the psychological aspects of trading, helping traders understand market dynamics and their own emotional responses.",
+    bookAudibleAffiliateLink: "#audible-mind-over-markets",
+    bookSampleLink: "#audible-sample-mind-over-markets",
+  },
+  {
+    bookTitle: "Long-Term Secrets to Short-Term Trading",
+    bookAuthor: "Larry Williams", // Verified
+    bookCoverImage: "https://m.media-amazon.com/images/I/61ZkqtlPmdL.jpg",
+    bookDescription: "Shares strategies and techniques for short-term trading based on market cycles and indicators, from a legendary trader.",
+    bookAudibleAffiliateLink: "#audible-long-term-secrets",
+    bookSampleLink: "#audible-sample-long-term-secrets",
+  },
+  {
+    bookTitle: "Mastering the Mental Game of Trading",
+    bookAuthor: "Steven Goldstein", // Verified
+    bookCoverImage: "https://m.media-amazon.com/images/I/81-3nnl6JkL.jpg",
+    bookDescription: "Provides practical exercises and techniques for developing the psychological discipline needed for consistent trading success.",
+    bookAudibleAffiliateLink: "#audible-mental-game-trading",
+    bookSampleLink: "#audible-sample-mental-game-trading",
+  },
+  {
     bookTitle: "Market Wizards: Interviews with Top Traders",
     bookAuthor: "Jack D. Schwager",
-    bookCoverImage: "https://placehold.co/300x450.png?text=Market+Wizards",
+    bookCoverImage: "https://m.media-amazon.com/images/I/81BI5v5yBSL.jpg",
     bookDescription: "Insights from the minds of Wall Street's most successful traders.",
     bookAudibleAffiliateLink: "#audible-market-wizards",
     bookSampleLink: "#audible-sample-market-wizards",
+  },
+  {
+    bookTitle: "Mastering the Market Cycle",
+    bookAuthor: "Howard Marks", // Verified
+    bookCoverImage: "https://m.media-amazon.com/images/I/61lzyZHp1vL.jpg",
+    bookDescription: "Offers insights into recognizing and navigating investment cycles to improve long-term returns, from a renowned investor.",
+    bookAudibleAffiliateLink: "#audible-mastering-market-cycle",
+    bookSampleLink: "#audible-sample-mastering-market-cycle",
+  },
+  {
+    bookTitle: "Trading for a Living",
+    bookAuthor: "Alexander Elder", // Verified
+    bookCoverImage: "https://m.media-amazon.com/images/I/61wWK11IHpL.jpg",
+    bookDescription: "A comprehensive guide covering technical analysis, trading psychology, and money management for aspiring professional traders.",
+    bookAudibleAffiliateLink: "#audible-trading-for-living",
+    bookSampleLink: "#audible-sample-trading-for-living",
   },
 ];
 
