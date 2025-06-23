@@ -219,7 +219,7 @@ export const mockPropFirms: PropFirm[] = [
     profitTarget: '6% - 7%',
     tradableInstruments: ['Futures (E-mini, Micro, etc.)'],
     platforms: ['NinjaTrader', 'Rithmic', 'Tradovate', 'TradingView (via Tradovate)'],
-    rating: 4.7,
+    rating: 4.8,
     isFeatured: true,
     minAccountSize: 25000,
     maxAccountSize: 300000,
@@ -331,7 +331,7 @@ export const mockPropFirms: PropFirm[] = [
     profitTarget: 'Varies by plan (e.g., Starter: 6%, Expert: 8%)',
     tradableInstruments: ['Futures'],
     platforms: ['TradingView', 'NinjaTrader', 'Tradovate'],
-    rating: 4.5,
+    rating: 4.7,
     isFeatured: false,
     minAccountSize: 25000, 
     maxAccountSize: 150000,
@@ -395,7 +395,7 @@ export const mockPropFirms: PropFirm[] = [
     profitTarget: 'Challenges: 6%. Sim Funded: None for initial funding.',
     tradableInstruments: ['Futures (CME, COMEX, NYMEX, CBOT, Coinbase Digital - Nano BTC/ETH)'], 
     platforms: ['Tradovate', 'NinjaTrader', 'TradingView'], 
-    rating: 4.5, // Adjust rating based on verified info and user experience.
+    rating: 4.8, // Adjust rating based on verified info and user experience.
     minAccountSize: 25000, 
     maxAccountSize: 150000, 
     minChallengeCost: 99, // User data; VERIFY THIS PRICE on Tradeify.co
@@ -460,7 +460,7 @@ export const mockPropFirms: PropFirm[] = [
     profitTarget: 'Varies by program and account size (e.g., 8% on $10K Beginner)',
     tradableInstruments: ['Futures (CME, COMEX, NYMEX, CBOT)'],
     platforms: ['NinjaTrader', 'Tradovate', 'TradingView', 'Rithmic Trader Pro', 'MultiCharts', 'Bookmap', 'Jigsaw Daytrader', 'Sierra Chart', 'MotiveWave', 'VolSys', 'Quantower', 'ATAS Order Flow Trading', 'RTrader Pro', 'Investor RT'], // List commonly supported Rithmic/CQG platforms
-    rating: 4.4, // Adjust rating based on verified info and user experience.
+    rating: 4.7, // Adjust rating based on verified info and user experience.
     minAccountSize: 10000,
     maxAccountSize: 250000,
     minChallengeCost: 115, // Verify min beginner cost
@@ -536,7 +536,7 @@ export const mockPropFirms: PropFirm[] = [
     profitTarget: 'Varies by account size',
     tradableInstruments: ['Futures'],
     platforms: ['ProjectX'],
-    rating: 4.3, // Placeholder - Adjust based on research and user feedback.
+    rating: 4.7, // Placeholder - Adjust based on research and user feedback.
     isFeatured: false,
     minAccountSize: 25000,
     maxAccountSize: 250000, // Max for Trail path, Static max is $100K
@@ -751,7 +751,6 @@ export const mockFreeResources: FreeResourceItem[] = [
     resourceType: "Free Video Course Series",
     isFeatured: true,
     videoLessons: alBrooksSampleLessons,
-    concludingCTASection: "Ready to dive deeper? The full Al Brooks Trading Course offers comprehensive insights into mastering price action. Click here to learn more and enroll!"
   },
   {
     id: "fr2",
@@ -764,19 +763,5 @@ export const mockFreeResources: FreeResourceItem[] = [
     resourceType: "Audiobook Trial Offer",
     isFeatured: true,
     bookListings: sampleBookListings,
-    concludingCTASection: "Your first audiobook is free with an Audible trial. Sign up today and start listening to these invaluable trading resources!"
-  },
-  {
-    id: "fr3",
-    title: "Ultimate Prop Firm Checklist (PDF Guide)",
-    slug: "prop-firm-checklist-pdf",
-    author: "TradingisEZ Team", 
-    coverImage: "https://placehold.co/600x400.png?text=PDF+Checklist",
-    pageIntroduction: "Download our free PDF checklist to help you evaluate and choose the right proprietary trading firm. Covers key criteria, red flags, and questions to ask.",
-    mainAffiliateLink: "#", 
-    mainCTAText: "Download Free PDF Guide",
-    resourceType: "PDF Guide",
-    isFeatured: true,
-    concludingCTASection: "Arm yourself with the knowledge to make an informed decision. Download the checklist now!"
   },
 ];
