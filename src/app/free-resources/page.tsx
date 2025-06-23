@@ -24,13 +24,6 @@ const resourceCategories = [
     icon: <Video className="w-10 h-10 text-primary mb-3" />,
     ctaText: "View Free Lessons"
   },
-  {
-    title: "Helpful PDF Guides & Checklists",
-    description: "Download free PDF guides and checklists covering prop firm selection, trading plans, and more.",
-    href: "/resources/guides", // Pointing to general guides for now, can be more specific
-    icon: <BookOpen className="w-10 h-10 text-primary mb-3" />,
-    ctaText: "Find Guides"
-  },
 ];
 
 export default function FreeResourcesOverviewPage() {

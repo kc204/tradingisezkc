@@ -21,9 +21,6 @@ const sitemapLinks = [
     { href: "/firms/apex-trader-funding", label: "Apex Trader Funding Review" },
     { href: "/firms/take-profit-trader", label: "Take Profit Trader Review" },
   ]},
-  { category: "Trading Resources", links: [
-    { href: "/resources/guides", label: "Trading Guides" },
-  ]},
   { category: "Free Resources", links: [ 
     { href: "/free-resources", label: "Overview" },
     { href: "/free-resources/audiobooks", label: "Free Audiobooks (Audible Trial)" },
