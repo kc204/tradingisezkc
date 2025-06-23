@@ -212,25 +212,6 @@ export default function Home() {
       </section>
       {/* Market Outlook Section END */}
 
-      {/* Recent Articles & Guides Section */}
-      <section className="py-12 bg-card rounded-xl">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-10">Latest Insights &amp; Guides</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {recentArticles.map(article => (
-              <ArticleCard key={article.id} article={article} />
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <StarBorder<typeof Link>
-              as={Link}
-              href="/resources"
-            >
-              Explore All Resources
-            </StarBorder>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

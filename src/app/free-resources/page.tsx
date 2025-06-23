@@ -69,12 +69,6 @@ export default function FreeResourcesOverviewPage() {
         <p className="text-muted-foreground mb-6">
           We're constantly working to add more valuable free content. Check back often!
         </p>
-        <StarBorder<typeof Link>
-            as={Link}
-            href="/resources"
-          >
-            View All Trading Resources
-        </StarBorder>
       </section>
     </div>
   );

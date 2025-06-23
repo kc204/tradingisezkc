@@ -13,9 +13,7 @@ const sitemapLinks = [
     { href: "/", label: "Home" },
     { href: "/firms", label: "All Prop Firms" },
     { href: "/compare", label: "Compare Firms" },
-    { href: "/resources", label: "Trading Resources" },
     { href: "/free-resources", label: "Free Resources" }, 
-    { href: "/about", label: "About Us" },
   ]},
   { category: "Prop Firms (Examples - Dynamic in real app)", links: [
     { href: "/firms/apex-trader-funding", label: "Apex Trader Funding Review" },
