@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import OfferBox from '@/components/propfirms/OfferBox';
-import { CheckCircle, ExternalLink, Info, Star, XCircle } from 'lucide-react';
+import { ExternalLink, Info, Star, ThumbsUp, Lightbulb } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import TrueCostCalculator from '@/components/compare/TrueCostCalculator'; // Import the calculator
@@ -96,13 +96,13 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
             {firm.pros && firm.pros.length > 0 && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-xl text-success flex items-center"><CheckCircle className="mr-2 h-5 w-5" /> Pros</CardTitle>
+                  <CardTitle className="text-xl flex items-center"><ThumbsUp className="mr-2 h-5 w-5 text-primary" /> Highlights</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="list-none space-y-2">
                     {firm.pros.map((pro, index) => (
                       <li key={index} className="flex items-start">
-                        <CheckCircle className="w-4 h-4 text-success mr-2 mt-1 flex-shrink-0" />
+                        <ThumbsUp className="w-4 h-4 text-primary mr-2 mt-1 flex-shrink-0" />
                         <span>{pro}</span>
                       </li>
                     ))}
@@ -113,13 +113,13 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
             {firm.cons && firm.cons.length > 0 && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-xl text-destructive flex items-center"><XCircle className="mr-2 h-5 w-5" /> Cons</CardTitle>
+                  <CardTitle className="text-xl flex items-center"><Lightbulb className="mr-2 h-5 w-5 text-secondary" /> Things to consider</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="list-none space-y-2">
                     {firm.cons.map((con, index) => (
                       <li key={index} className="flex items-start">
-                        <XCircle className="w-4 h-4 text-destructive mr-2 mt-1 flex-shrink-0" />
+                        <Lightbulb className="w-4 h-4 text-secondary mr-2 mt-1 flex-shrink-0" />
                         <span>{con}</span>
                       </li>
                     ))}
