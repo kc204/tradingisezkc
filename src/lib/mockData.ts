@@ -1,3 +1,4 @@
+
 import type { GlobalOffer, PropFirm, Article, TradingResource, FreeResourceItem, VideoLesson, BookListing, AccountTier } from './types';
 
 export const mockGlobalOffers: GlobalOffer[] = [
@@ -743,7 +744,7 @@ export const mockFreeResources: FreeResourceItem[] = [
     title: "Al Brooks Price Action: Free Video Lessons",
     slug: "al-brooks-course",
     author: "Al Brooks",
-    coverImage: "https://placehold.co/600x400.png?text=Al+Brooks+Course",
+    coverImage: "/images/FreeResourcesSectionAlBrooksCourse.png",
     pageIntroduction: "Get a taste of Al Brooks' renowned price action trading methodology with these free sample video lessons. Understand how a professional trader reads charts bar by bar.",
     mainAffiliateLink: "https://www.brookstradingcourse.com/testimonials/ref/uuc5l/", 
     mainCTAText: "Access Full Al Brooks Course",
@@ -756,9 +757,9 @@ export const mockFreeResources: FreeResourceItem[] = [
     id: "fr2",
     title: "Free Trading Audiobooks",
     slug: "audiobooks",
-    coverImage: "https://placehold.co/600x400.png?text=Trading+Audiobooks",
+    coverImage: "/images/FreeResourcesSectionAudioBook.png",
     pageIntroduction: "Expand your trading knowledge on the go! Listen to essential trading books for free. Explore classics on psychology, strategy, and market history.",
-    mainAffiliateLink: "#audible-trial-signup", 
+    mainAffiliateLink: "#audible-trial-signup",
     mainCTAText: "Start Your Audible Free Trial",
     resourceType: "Audiobook Trial Offer",
     isFeatured: true,
