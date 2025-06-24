@@ -228,6 +228,32 @@ export const mockPropFirms: PropFirm[] = [
     activationFee: 'None',
     challengeType: '1-Step Evaluation',
     accountTiers: apexAccountTiers,
+ trustpilotReviews: [
+      {
+        reviewerName: 'John S.',
+ rating: 5,
+        reviewContent: 'Apex has been a game changer for me. The evaluation is tough but fair, and the payouts are fast. Highly recommended!',
+        isVerified: true,
+      },
+ {
+ reviewerName: 'Maria K.',
+ rating: 4,
+ reviewContent: 'Good firm, solid rules. Sometimes the platform connection can be a bit finicky, but overall a positive experience.',
+ isVerified: true,
+      },
+      {
+ reviewerName: 'David L.',
+ rating: 5,
+ reviewContent: 'Passed my first evaluation within a week and got funded quickly. Their support is responsive.',
+ isVerified: true,
+      },
+ {
+ reviewerName: 'Sarah P.',
+ rating: 4,
+ reviewContent: 'Apex is reliable. The trailing drawdown takes some getting used to, but it\'s manageable.',
+ isVerified: false, // Example of an unverified review
+      },
+ ],
   },
   {
     id: '2',
@@ -283,6 +309,28 @@ export const mockPropFirms: PropFirm[] = [
     activationFee: '$130 (PRO Account) / $135 monthly (PRO+ data)',
     challengeType: '1-Step Evaluation', 
     accountTiers: tptAccountTiers,
+ trustpilotReviews: [
+      {
+        reviewerName: 'Michael B.',
+ rating: 5,
+ reviewContent: 'Love the daily payouts and the PRO+ no trailing drawdown account. TPT is top-notch!',
+        isVerified: true,
+      },
+      {
+        reviewerName: 'Jessica R.',
+ rating: 4,
+ reviewContent: 'Consistency rule was a bit challenging, but the overall experience has been good. Fast support responses.',
+ isVerified: true,
+      },
+      {
+        reviewerName: 'Chris W.',
+ rating: 5,
+        reviewContent: 'Finally found a firm with daily payouts that works for me. The platform options are great.',
+ isVerified: false,
+      },
+ ],
+
+
   },
   {
     id: '3',
@@ -340,6 +388,26 @@ export const mockPropFirms: PropFirm[] = [
     activationFee: 'None', 
     challengeType: 'Evaluation (monthly or one-time fee)',
     accountTiers: myFundedFuturesAccountTiers,
+ trustpilotReviews: [
+      {
+        reviewerName: 'Tom H.',
+ rating: 4,
+ reviewContent: 'The 100% profit split up to $10K is a great feature. EOD drawdown is much better for me than intraday.',
+        isVerified: true,
+      },
+ {
+ reviewerName: 'Emily J.',
+ rating: 3,
+ reviewContent: 'Decent firm, but the consistency rule on the Starter plan was a hurdle. Expert plan seems better.',
+ isVerified: true,
+      },
+ {
+ reviewerName: 'Robert D.',
+ rating: 5,
+ reviewContent: 'Milestone plan was perfect for my trading style. Quick and straightforward.',
+ isVerified: true,
+      },
+ ],
   },
   {
     id: '4',
@@ -403,6 +471,25 @@ export const mockPropFirms: PropFirm[] = [
     activationFee: '$125 (Advanced Sim-Funded), None (Growth Sim-Funded / Straight to Sim initial)', 
     challengeType: 'Evaluation Challenges (Advanced/Growth), Direct Sim Funding',
     accountTiers: tradeifyAccountTiers, 
+ trustpilotReviews: [
+      {
+        reviewerName: 'Sophia M.',
+ rating: 5,
+ reviewContent: 'Tradeify\'s 100% split is fantastic! The Straight to Sim option was exactly what I needed.',
+        isVerified: true,
+      },
+      {
+        reviewerName: 'Liam P.',
+ rating: 4,
+ reviewContent: 'Good platforms and rules. The consistency rule took some adjustment, but manageable.',
+ isVerified: true,
+      },
+ {
+ reviewerName: 'Olivia T.',
+ rating: 5,
+ reviewContent: 'Happy with Tradeify. The transition to True Live without the consistency rule is a big plus.',
+ isVerified: true,      },
+ ],
   },
   {
     id: '5',
@@ -468,6 +555,25 @@ export const mockPropFirms: PropFirm[] = [
     activationFee: 'Varies (Verify current fee per plan)',
     challengeType: 'Evaluation (1-Step or 2-Step)',
  accountTiers: bulenoxAccountTiers,
+ trustpilotReviews: [
+      {
+        reviewerName: 'Ethan C.',
+ rating: 4,
+ reviewContent: 'Bulenox offers a lot of flexibility with their different account types. The 90% discount is great.',
+        isVerified: true,
+      },
+ {
+ reviewerName: 'Ava S.',
+ rating: 3,
+ reviewContent: 'Trailing drawdown on all accounts is the main challenge. Otherwise, a solid firm.',
+ isVerified: true,
+      },
+ {
+ reviewerName: 'Noah W.',
+ rating: 5,
+ reviewContent: 'Passed a Start account quickly with no daily limit. Payouts were straightforward.',
+ isVerified: true,      },
+ ],
   },
   {
     id: '6',
@@ -558,6 +664,25 @@ export const mockPropFirms: PropFirm[] = [
         { id: 'daytraders-static-100k', name: '$100K Static Account', size: 100000, evaluationFee: 207, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null }, // Verify exact fees/rules
         // Static path might not have 150k/250k tiers, verify on site.
     ],
+ trustpilotReviews: [
+      {
+        reviewerName: 'Lucas A.',
+ rating: 5,
+ reviewContent: '100% profit split and no funded fees is a major win. Daily payouts are very convenient.',
+        isVerified: true,
+      },
+      {
+        reviewerName: 'Isabella B.',
+ rating: 4,
+ reviewContent: 'ProjectX platform is unique but easy to learn. The profit buffer before the first payout was unexpected but understandable.',
+ isVerified: true,
+      },
+ {
+ reviewerName: 'James F.',
+ rating: 5,
+ reviewContent: 'No daily limits and the option for a static drawdown evaluation suits my strategy perfectly. Great firm!',
+ isVerified: true,      },
+ ],
   }
 ];
 

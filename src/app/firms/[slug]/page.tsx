@@ -145,6 +145,29 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
             </CardContent>
           </Card>
 
+          {/* Trader Reviews Section */}
+          {firm.trustpilotReviews && firm.trustpilotReviews.length > 0 && (
+            <section className="space-y-6">
+              <h2 className="text-3xl font-bold text-foreground">Trader Reviews from Trustpilot</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {firm.trustpilotReviews.map((review, index) => (
+                  <Card key={index}>
+                    <CardHeader>
+                      <CardTitle className="text-lg flex items-center">
+                        {review.reviewerName} {review.isVerified && <Badge variant="secondary" className="ml-2">Verified</Badge>}
+                      </CardTitle>
+                      <div className="flex items-center mt-1">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className={`w-5 h-5 ${i < Math.round(review.rating || 0) ? 'text-yellow-400 fill-current' : 'text-muted-foreground/50'}`} />
+                        ))}
+                      </div>
+                    </CardHeader>
+                    <CardContent>{review.reviewContent}</CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
 
         <aside className="lg:col-span-1 space-y-8 lg:sticky lg:top-24">
