@@ -7,14 +7,6 @@ export const mockGlobalOffers: GlobalOffer[] = [
   { id: '3', text: 'Tradeify: 33% off', affiliateLink: '#', isActive: true }, // VERIFY CURRENT VALIDITY OF THIS PROMO CODE with Tradeify.co
 ];
 
-const apexAccountTiers: AccountTier[] = [ // Adding a discount to one Apex tier for testing
-  { id: 'apex-25k', size: 25000, name: '$25K Account', evaluationFee: 137, activationFee: 0, resetFee: 80, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null },
-  { id: 'apex-50k', size: 50000, name: '$50K Account', evaluationFee: 167, activationFee: 0, resetFee: 80, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null },
-  { id: 'apex-100k', size: 100000, name: '$100K Account', evaluationFee: 207, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null },
-  { id: 'apex-150k', size: 150000, name: '$150K Account', evaluationFee: 297, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null },
-  { id: 'apex-300k', size: 300000, name: '$300K Account', evaluationFee: 657, activationFee: 0, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null },
-];
-
 const tptAccountTiers: AccountTier[] = [
   { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, activationFee: undefined, resetFee: 75, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: 2, discountPercentage: 0.30 }, // 30% discount
   { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, activationFee: undefined, resetFee: 75, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // 30% discount
@@ -195,66 +187,6 @@ const bulenoxAccountTiers: AccountTier[] = [
 ];
 
 export const mockPropFirms: PropFirm[] = [
-  {
-    id: '1',
-    slug: 'apex-trader-funding',
-    name: 'Apex Trader Funding',
-    logoUrl: 'https://apextraderfunding.com/wp-content/uploads/2023/07/Apex-logo-horiz-2023.svg',
-    websiteUrl: 'https://apextraderfunding.com/',
-    affiliateLink: 'https://apextraderfunding.com/member/aff/go/onlypropfirms?c=DEFAULT',
-    briefDescription: 'Popular choice for futures traders, offering straightforward evaluation and scaling.',
-    fullReview: 'Apex Trader Funding is well-regarded in the futures trading community for its simple evaluation process and generous profit splits. They primarily focus on futures contracts and offer a variety of account sizes to suit different trader needs. Their Rithmic-based connection is standard for futures platforms. They allow up to 20 Performance Accounts.',
-    pros: ["Simple 1-step evaluation", "No daily drawdown limit on evaluation accounts (trailing threshold applies)", "Trade on actual market data during evaluation", "Quick funding after passing", "Allows up to 20 Performance Accounts"],
-    cons: ["Primarily futures-focused", "Monthly fee for evaluation accounts until passed", "Trailing drawdown can be tricky for some"],
-    keyFeatures: ['Pass in as few as 7 days', 'Up to 20 accounts allowed', 'Trade on NinjaTrader, Tradovate, Rithmic', '90% profit split on first $25k per account, then 80%'],
-    keyInfoSnippets: [
-      { label: 'Profit Split', value: '90% (first $25k per account), then 80%' },
-      { label: 'Max Drawdown', value: 'Trailing Threshold (varies)' },
-      { label: 'Platforms', value: 'NinjaTrader, Rithmic, Tradovate' },
-    ],
-    offerBadgeLabel: 'Pass in 7 Days!',
-    fundingModels: ['1-Step Evaluation'],
-    profitSplit: '90% (first $25k), then 80%',
-    drawdownRules: 'Trailing Threshold Drawdown (varies by account size)',
-    profitTarget: '6% - 7%',
-    tradableInstruments: ['Futures (E-mini, Micro, etc.)'],
-    platforms: ['NinjaTrader', 'Rithmic', 'Tradovate', 'TradingView (via Tradovate)'],
-    rating: 4.8,
-    isFeatured: true,
-    minAccountSize: 25000,
-    maxAccountSize: 300000,
-    minChallengeCost: 137,
-    maxChallengeCost: 657,
-    activationFee: 'None',
-    challengeType: '1-Step Evaluation',
-    accountTiers: apexAccountTiers,
- trustpilotReviews: [
-      {
-        reviewerName: 'John S.',
- rating: 5,
-        reviewContent: 'Apex has been a game changer for me. The evaluation is tough but fair, and the payouts are fast. Highly recommended!',
-        isVerified: true,
-      },
- {
- reviewerName: 'Maria K.',
- rating: 4,
- reviewContent: 'Good firm, solid rules. Sometimes the platform connection can be a bit finicky, but overall a positive experience.',
- isVerified: true,
-      },
-      {
- reviewerName: 'David L.',
- rating: 5,
- reviewContent: 'Passed my first evaluation within a week and got funded quickly. Their support is responsive.',
- isVerified: true,
-      },
- {
- reviewerName: 'Sarah P.',
- rating: 4,
- reviewContent: 'Apex is reliable. The trailing drawdown takes some getting used to, but it\'s manageable.',
- isVerified: false, // Example of an unverified review
-      },
- ],
-  },
   {
     id: '2',
     slug: 'take-profit-trader',
@@ -675,7 +607,7 @@ export const mockPropFirms: PropFirm[] = [
         reviewerName: 'Isabella B.',
  rating: 4,
  reviewContent: 'ProjectX platform is unique but easy to learn. The profit buffer before the first payout was unexpected but understandable.',
- isVerified: true,
+        isVerified: true,
       },
  {
  reviewerName: 'James F.',
@@ -890,3 +822,5 @@ export const mockFreeResources: FreeResourceItem[] = [
     bookListings: sampleBookListings,
   },
 ];
+
+    

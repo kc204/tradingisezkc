@@ -16,7 +16,6 @@ const sitemapLinks = [
     { href: "/free-resources", label: "Free Resources" }, 
   ]},
   { category: "Prop Firms (Examples - Dynamic in real app)", links: [
-    { href: "/firms/apex-trader-funding", label: "Apex Trader Funding Review" },
     { href: "/firms/take-profit-trader", label: "Take Profit Trader Review" },
   ]},
   { category: "Free Resources", links: [ 
@@ -64,3 +63,5 @@ export default function SitemapPage() {
     </div>
   );
 }
+
+    

@@ -37,12 +37,6 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'apextraderfunding.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
         hostname: 'takeprofittrader.com',
         port: '',
         pathname: '/**',
@@ -76,3 +70,5 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+    
