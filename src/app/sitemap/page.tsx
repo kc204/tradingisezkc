@@ -24,8 +24,7 @@ const sitemapLinks = [
     { href: "/free-resources/al-brooks-course", label: "Al Brooks Free Video Course" },
   ]},
   { category: "Legal & Information", links: [
-    { href: "/privacy-policy", label: "Privacy Policy" },
-    { href: "/terms-of-service", label: "Terms of Service" },
+    { href: "/terms-of-service", label: "Terms & Privacy Policy" },
     { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
     { href: "/how-we-rate", label: "How We Rate & Review" },
   ]},
