@@ -26,7 +26,6 @@ const sitemapLinks = [
   { category: "Legal & Information", links: [
     { href: "/terms-of-service", label: "Terms & Privacy Policy" },
     { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
-    { href: "/how-we-rate", label: "How We Rate & Review" },
   ]},
 ];
 
@@ -62,5 +61,3 @@ export default function SitemapPage() {
     </div>
   );
 }
-
-    

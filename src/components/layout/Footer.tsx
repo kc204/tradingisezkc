@@ -17,7 +17,6 @@ const Footer = () => {
     { href: '/terms-of-service', label: 'Terms & Privacy' },
     { href: '/affiliate-disclosure', label: 'Affiliate Disclosure' },
     { href: '/sitemap', label: 'Sitemap' },
-    { href: '/how-we-rate', label: 'How We Rate & Review' },
   ];
 
   const quickLinks = [
