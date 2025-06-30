@@ -7,6 +7,14 @@ import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Headphones, PlayCircle } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 interface AudiobookCardProps {
   book: BookListing;
@@ -40,18 +48,33 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
       </CardContent>
       <CardFooter className="flex flex-col sm:flex-row sm:justify-center gap-2 mt-auto pt-3">
         {book.bookSampleLink && (
-          <Button
-            asChild
-            className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto whitespace-normal h-auto"
-          >
-            <Link
-              href={book.bookSampleLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <PlayCircle className="mr-1.5 h-4 w-4 flex-shrink-0" /> Hear Sample
-            </Link>
-          </Button>
+           <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto whitespace-normal h-auto"
+              >
+                <PlayCircle className="mr-1.5 h-4 w-4 flex-shrink-0" /> Hear Sample
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[80vw] md:max-w-[60vw] lg:max-w-[50vw] h-[70vh] p-0 flex flex-col">
+              <DialogHeader className="p-4 border-b">
+                <DialogTitle>Audio Sample: {book.bookTitle}</DialogTitle>
+                <DialogDescription>
+                  Playing a sample from Audible. This player is provided by Audible.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="w-full flex-grow">
+                 <iframe
+                    src={book.bookSampleLink}
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    allowFullScreen
+                    title={`Audible Sample for ${book.bookTitle}`}
+                  ></iframe>
+              </div>
+            </DialogContent>
+          </Dialog>
         )}
         <Button
           asChild
