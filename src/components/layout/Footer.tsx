@@ -15,7 +15,6 @@ const Footer = () => {
 
   const mainSiteFooterLinks = [
     { href: '/terms-of-service', label: 'Terms & Privacy' },
-    { href: '/affiliate-disclosure', label: 'Affiliate Disclosure' },
     { href: '/sitemap', label: 'Sitemap' },
   ];
 

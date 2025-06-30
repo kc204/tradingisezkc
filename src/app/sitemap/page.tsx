@@ -25,7 +25,6 @@ const sitemapLinks = [
   ]},
   { category: "Legal & Information", links: [
     { href: "/terms-of-service", label: "Terms & Privacy Policy" },
-    { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
   ]},
 ];
 
