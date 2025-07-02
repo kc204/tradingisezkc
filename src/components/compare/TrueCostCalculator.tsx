@@ -270,6 +270,9 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
               {isSingleFirmMode && <ExternalLink className="ml-2 h-4 w-4" />}
             </Link>
           </Button>
+          <p className="text-xs text-muted-foreground mt-2 w-full text-center">
+            (Affiliate Link)
+          </p>
 
         </CardFooter>
       )}
@@ -291,4 +294,3 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
     </Card>
   );
 }
-

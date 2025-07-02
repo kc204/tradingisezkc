@@ -1,3 +1,4 @@
+
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -68,6 +69,7 @@ const OfferBox = ({ firm, className }: OfferBoxProps) => {
               <ExternalLink className="ml-2 h-4 w-4" />
             </Link>
           </Button>
+          <p className="text-xs text-muted-foreground mt-2 text-center">(Affiliate Link)</p>
         </>
       </CardContent>
     </Card>

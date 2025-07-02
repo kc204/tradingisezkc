@@ -42,6 +42,9 @@ export default function FreeAudiobooksPage() {
 
       {books.length > 0 ? (
         <section className="container mx-auto px-4">
+          <p className="text-center text-muted-foreground text-sm mb-8">
+            Disclosure: As an Amazon Associate, we earn from qualifying purchases. Listening is free with an Audible trial.
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {books.map((book) => (
               <AudiobookCard key={book.bookTitle} book={book} />
@@ -54,7 +57,7 @@ export default function FreeAudiobooksPage() {
         </p>
       )}
 
-      <section className="container mx-auto px-4 text-center py-8 prose prose-sm dark:prose-invert max-w-3xl">
+      <section className="container mx-auto px-4 text-center py-8 prose prose-sm dark:prose-invert max-w-3xl border-t mt-8">
         <h3 className="text-foreground">Audible Trial & Affiliate Disclosure</h3>
         <p className="text-muted-foreground">
           By signing up for an Audible trial through our links, you can listen to these (and other) audiobooks for free during the trial period. 

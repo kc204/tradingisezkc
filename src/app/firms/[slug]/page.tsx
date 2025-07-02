@@ -74,6 +74,9 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
                   Visit {firm.name} <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
+              <p className="text-xs text-muted-foreground mt-2">
+                (Affiliate Link)
+              </p>
             </div>
           </div>
         </div>

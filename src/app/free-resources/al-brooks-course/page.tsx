@@ -48,16 +48,19 @@ export default function AlBrooksFreeCoursePage() {
                dangerouslySetInnerHTML={{ __html: pageIntroduction.replace(/\n/g, '<br />') }} />
           )}
           {mainAffiliateLink && mainCTAText && (
-            <StarBorder<typeof Link>
-              as={Link}
-              href={mainAffiliateLink} 
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="inline-flex items-center justify-center">
-                {mainCTAText} <ExternalLink className="ml-2 h-4 w-4" />
-              </span>
-            </StarBorder>
+            <>
+              <StarBorder<typeof Link>
+                as={Link}
+                href={mainAffiliateLink} 
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="inline-flex items-center justify-center">
+                  {mainCTAText} <ExternalLink className="ml-2 h-4 w-4" />
+                </span>
+              </StarBorder>
+              <p className="text-xs text-muted-foreground mt-2">(Affiliate Link)</p>
+            </>
           )}
         </div>
       </section>
@@ -132,6 +135,7 @@ export default function AlBrooksFreeCoursePage() {
                              {lesson.lessonCTAText} <ExternalLink className="ml-1.5 h-4 w-4" />
                             </span>
                           </StarBorder>
+                           <p className="text-xs text-muted-foreground mt-2">(Affiliate Link)</p>
                         </div>
                       )}
                     </CardContent>

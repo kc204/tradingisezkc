@@ -1,7 +1,7 @@
 
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableCaption } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -82,6 +82,9 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
   return (
     <div className="w-full overflow-x-auto">
       <Table className="min-w-[2000px]">
+        <TableCaption>
+          Disclosure: We may earn a commission if you sign up through our links. This does not affect our reviews or rankings.
+        </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="sticky left-0 bg-card z-10 min-w-[200px] text-foreground">Firm</TableHead>
