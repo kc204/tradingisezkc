@@ -44,10 +44,10 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
 
   return (
     <div className="space-y-12">
-      <section className="relative py-8 md:py-16 bg-card rounded-xl shadow-xl overflow-hidden">
+      <section className="relative py-8 md:py-12 bg-card rounded-xl shadow-xl overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 items-center">
-            <div className="md:col-span-1 flex justify-center md:justify-start">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 items-center text-center md:text-left">
+            <div className="md:col-span-1 flex justify-center">
               <div className="w-40 h-20 md:w-48 md:h-24 relative">
                 <Image 
                   src={firm.logoUrl} 
@@ -58,7 +58,7 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
                 />
               </div>
             </div>
-            <div className="md:col-span-2 text-center md:text-left">
+            <div className="md:col-span-2">
               <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">{firm.name}</h1>
               <p className="text-md md:text-lg text-muted-foreground mb-4">{firm.briefDescription}</p>
               {firm.rating && (
@@ -89,8 +89,8 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
               <CardHeader>
                 <CardTitle className="text-2xl">Full Review</CardTitle>
               </CardHeader>
-              <CardContent className="prose max-w-none"> {/* Removed dark:prose-invert as base prose should handle dark theme */}
-                <p>{firm.fullReview}</p> {/* Replace with actual Block Content renderer in real app */}
+              <CardContent className="prose max-w-none">
+                <p>{firm.fullReview}</p>
               </CardContent>
             </Card>
           )}
@@ -147,30 +147,6 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
               {firm.platforms && <p><strong className="text-muted-foreground">Platforms:</strong> {firm.platforms.join(', ')}</p>}
             </CardContent>
           </Card>
-
-          {/* Trader Reviews Section */}
-          {firm.trustpilotReviews && firm.trustpilotReviews.length > 0 && (
-            <section className="space-y-6">
-              <h2 className="text-3xl font-bold text-foreground">Trader Reviews from Trustpilot</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {firm.trustpilotReviews.map((review, index) => (
-                  <Card key={index}>
-                    <CardHeader>
-                      <CardTitle className="text-lg flex items-center">
-                        {review.reviewerName} {review.isVerified && <Badge variant="secondary" className="ml-2">Verified</Badge>}
-                      </CardTitle>
-                      <div className="flex items-center mt-1">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className={`w-5 h-5 ${i < Math.round(review.rating || 0) ? 'text-yellow-400 fill-current' : 'text-muted-foreground/50'}`} />
-                        ))}
-                      </div>
-                    </CardHeader>
-                    <CardContent>{review.reviewContent}</CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-          )}
         </div>
 
         <aside className="lg:col-span-1 space-y-8 lg:sticky lg:top-24">
