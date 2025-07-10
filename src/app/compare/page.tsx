@@ -18,6 +18,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
   const featuresToCompare = [
     {
       label: 'Account Sizes',
+      mobileHidden: false,
       getValue: (f: PropFirm) => {
         const min = f.minAccountSize;
         const max = f.maxAccountSize;
@@ -34,6 +35,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
     },
     {
       label: 'Evaluation Cost',
+      mobileHidden: false,
       getValue: (f: PropFirm) => {
         const min = f.minChallengeCost;
         const max = f.maxChallengeCost;
@@ -50,16 +52,18 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
     },
     {
       label: 'Activation Fee',
+      mobileHidden: true, // Hide on mobile
       getValue: (f: PropFirm) => f.activationFee || (f.id.startsWith('placeholder-') ? '' : '-')
     },
-    { label: 'Profit Split', getValue: (f: PropFirm) => f.profitSplit || (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Max Funding', getValue: (f: PropFirm) => f.maxAccountSize ? `$${f.maxAccountSize.toLocaleString()}` : (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Challenge Type', getValue: (f: PropFirm) => f.challengeType || (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Drawdown Rules', getValue: (f: PropFirm) => f.drawdownRules || (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Profit Goal', getValue: (f: PropFirm) => f.profitTarget || (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Platforms', getValue: (f: PropFirm) => f.platforms?.join(', ') || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Profit Split', mobileHidden: false, getValue: (f: PropFirm) => f.profitSplit || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Max Funding', mobileHidden: false, getValue: (f: PropFirm) => f.maxAccountSize ? `$${f.maxAccountSize.toLocaleString()}` : (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Challenge Type', mobileHidden: false, getValue: (f: PropFirm) => f.challengeType || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Drawdown Rules', mobileHidden: true, getValue: (f: PropFirm) => f.drawdownRules || (f.id.startsWith('placeholder-') ? '' : '-') }, // Hide on mobile
+    { label: 'Profit Goal', mobileHidden: true, getValue: (f: PropFirm) => f.profitTarget || (f.id.startsWith('placeholder-') ? '' : '-') }, // Hide on mobile
+    { label: 'Platforms', mobileHidden: false, getValue: (f: PropFirm) => f.platforms?.join(', ') || (f.id.startsWith('placeholder-') ? '' : '-') },
     {
       label: 'Rating',
+      mobileHidden: false,
       getValue: (f: PropFirm) => {
         if (f.id.startsWith('placeholder-')) return '';
         if (!f.rating) return '-';
@@ -72,7 +76,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                 className={`w-4 h-4 ${i < roundedRating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/30'}`}
               />
             ))}
-            <span className="ml-1.5 text-sm text-foreground">{f.rating.toFixed(1)}/5</span>
+            <span className="ml-1.5 text-xs md:text-sm text-foreground">{f.rating.toFixed(1)}/5</span>
           </div>
         );
       }
@@ -81,18 +85,18 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
   return (
     <div className="w-full overflow-x-auto">
-      <Table className="min-w-[1800px] md:min-w-[2000px]">
+      <Table className="min-w-[1200px] md:min-w-[2000px]">
         <TableCaption>
           Disclosure: We may earn a commission if you sign up through our links. This does not affect our reviews or rankings.
         </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="sticky left-0 bg-card z-10 min-w-[180px] md:min-w-[200px] text-foreground">Firm</TableHead>
+            <TableHead className="sticky left-0 bg-card z-10 min-w-[150px] md:min-w-[200px] text-foreground">Firm</TableHead>
             {featuresToCompare.map(feature => (
-              <TableHead key={feature.label} className="text-center min-w-[140px] md:min-w-[150px] whitespace-nowrap text-foreground">{feature.label}</TableHead>
+              <TableHead key={feature.label} className={`text-center min-w-[120px] md:min-w-[150px] whitespace-nowrap text-foreground ${feature.mobileHidden ? 'hidden md:table-cell' : ''}`}>{feature.label}</TableHead>
             ))}
-            <TableHead className="text-center min-w-[140px] md:min-w-[150px] text-foreground">Website</TableHead>
-            <TableHead className="text-center min-w-[140px] md:min-w-[150px] text-foreground">Details</TableHead>
+            <TableHead className="text-center min-w-[120px] md:min-w-[150px] text-foreground">Website</TableHead>
+            <TableHead className="text-center min-w-[120px] md:min-w-[150px] text-foreground">Details</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -106,13 +110,13 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                     </div>
                   ) : firm.id.startsWith('placeholder-') ? (
                     <div className="w-16 h-8 flex items-center justify-center text-muted-foreground text-xs"></div>
-                  ) : <div className="w-16 h-8"></div>} {/* Fallback for missing logo */}
-                  <span className="text-foreground text-sm md:text-base">{firm.name}</span>
+                  ) : <div className="w-16 h-8"></div>}
+                  <span className="text-foreground text-sm">{firm.name}</span>
                 </div>
                 {firm.offerBadgeLabel && !firm.id.startsWith('placeholder-') && <Badge variant="secondary" className="mt-1">{firm.offerBadgeLabel}</Badge>}
               </TableCell>
               {featuresToCompare.map(feature => (
-                <TableCell key={`${firm.id}-${feature.label}`} className="text-center text-xs md:text-sm text-muted-foreground">
+                <TableCell key={`${firm.id}-${feature.label}`} className={`text-center text-xs text-muted-foreground ${feature.mobileHidden ? 'hidden md:table-cell' : ''}`}>
                   {feature.getValue(firm)}
                 </TableCell>
               ))}
@@ -120,7 +124,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                 {firm.websiteUrl && !firm.id.startsWith('placeholder-') ? (
                   <Button asChild variant="outline" size="sm">
                     <Link href={firm.websiteUrl} target="_blank" rel="noopener noreferrer">
-                      Visit Website <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                      Visit <ExternalLink className="ml-1.5 h-3 w-3" />
                     </Link>
                   </Button>
                 ) : firm.id.startsWith('placeholder-') ? '' : '-'}
@@ -128,7 +132,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
               <TableCell className="text-center">
                  {firm.slug && !firm.id.startsWith('placeholder-') ? (
                     <Button asChild variant="outline" size="sm">
-                    <Link href={`/firms/${firm.slug}`}>View Details</Link>
+                    <Link href={`/firms/${firm.slug}`}>Details</Link>
                     </Button>
                  ) : firm.id.startsWith('placeholder-') ? '' : '-'}
               </TableCell>
@@ -148,7 +152,7 @@ export default function ComparePage() {
     <div className="space-y-8">
       <section className="text-center py-6 md:py-10 bg-background rounded-lg shadow-lg">
         <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Compare Prop Firms</h1>
-        <p className="text-md md:text-lg text-muted-foreground">Make informed decisions by comparing key features side-by-side.</p>
+        <p className="text-md md:text-lg text-muted-foreground px-4">Make informed decisions by comparing key features side-by-side.</p>
       </section>
       
       {firmsToCompare.length > 0 ? (
