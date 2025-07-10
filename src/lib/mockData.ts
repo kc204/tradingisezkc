@@ -193,7 +193,7 @@ export const mockPropFirms: PropFirm[] = [
     name: 'Take Profit Trader',
     logoUrl: 'https://takeprofittrader.com/assets/desktop-logo.svg',
     websiteUrl: 'https://www.takeprofittrader.com/',
-    affiliateLink: 'https://takeprofittrader.com/if/onlypropfirms',
+    affiliateLink: 'https://takeprofittrader.com/if/tradingisez',
     briefDescription: 'Futures prop firm with one-step evaluations and choice of PRO or PRO+ funded accounts.',
     fullReview: `Take Profit Trader (TPT) offers a one-step evaluation for futures traders. Account sizes range from $25K to $150K. Upon passing (min 5 trading days, EOD trailing drawdown, daily loss limits, and a consistency rule - typically 30-40%), traders choose between a PRO account (simulated, $130 one-time activation, 80% split, trailing DD) or a PRO+ account (live data, $135/month data fee, 90% split, no trailing DD). Both have news trading restrictions. TPT prohibits copy trading. Withdrawals via methods like PayPal and Wise (verify current options and any minimums/fees with TPT). Supports Tradovate, NinjaTrader, TradingView with CQG/Rithmic.`,
     pros: [

@@ -45,10 +45,9 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
   return (
     <div className="space-y-12">
       <section className="relative py-8 md:py-12 bg-card rounded-xl shadow-xl overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 items-center text-center md:text-left">
-            <div className="md:col-span-1 flex justify-center">
-              <div className="w-40 h-20 md:w-48 md:h-24 relative">
+        <div className="container mx-auto px-4 text-center">
+            <div className="flex justify-center mb-4">
+              <div className="w-40 h-20 relative">
                 <Image 
                   src={firm.logoUrl} 
                   alt={`${firm.name} logo`} 
@@ -58,27 +57,27 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
                 />
               </div>
             </div>
-            <div className="md:col-span-2">
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">{firm.name}</h1>
-              <p className="text-md md:text-lg text-muted-foreground mb-4">{firm.briefDescription}</p>
-              {firm.rating && (
-                <div className="flex items-center justify-center md:justify-start mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-5 h-5 md:w-6 md:h-6 ${i < Math.round(firm.rating || 0) ? 'text-yellow-400 fill-current' : 'text-muted-foreground/50'}`} />
-                  ))}
-                  <span className="ml-2 text-md md:text-lg font-semibold text-foreground">{firm.rating.toFixed(1)} / 5.0</span>
-                </div>
-              )}
-              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent-hover">
-                <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
-                  Visit {firm.name} <ExternalLink className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <p className="text-xs text-muted-foreground mt-2">
-                (Affiliate Link)
-              </p>
-            </div>
-          </div>
+            
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">{firm.name}</h1>
+            <p className="text-md md:text-lg text-muted-foreground max-w-3xl mx-auto mb-4">{firm.briefDescription}</p>
+
+            {firm.rating && (
+              <div className="flex items-center justify-center mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className={`w-5 h-5 md:w-6 md:h-6 ${i < Math.round(firm.rating || 0) ? 'text-yellow-400 fill-current' : 'text-muted-foreground/50'}`} />
+                ))}
+                <span className="ml-2 text-md md:text-lg font-semibold text-foreground">{firm.rating.toFixed(1)} / 5.0</span>
+              </div>
+            )}
+            
+            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent-hover">
+              <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
+                Visit {firm.name} <ExternalLink className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <p className="text-xs text-muted-foreground mt-2">
+              (Affiliate Link)
+            </p>
         </div>
       </section>
 
