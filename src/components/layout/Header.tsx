@@ -128,7 +128,7 @@ const Header = () => {
       link.dropdown ? (
         <DropdownMenu
           key={link.label}
-          open={!isMobileLink && mounted && openDropdown === link.label}
+          open={!isMobileLink && mounted ? openDropdown === link.label : undefined}
           onOpenChange={(isOpen) => {
             if (!isMobileLink && mounted) {
               if (isOpen) {
