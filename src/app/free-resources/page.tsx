@@ -29,18 +29,18 @@ const resourceCategories = [
 export default function FreeResourcesOverviewPage() {
   return (
     <div className="space-y-12">
-      <section className="text-center py-12 md:py-16 bg-background rounded-xl shadow-xl">
+      <section className="text-center py-8 md:py-16 bg-background rounded-xl shadow-xl">
         <div className="container mx-auto px-4">
-          <BookOpen className="w-16 h-16 text-primary mx-auto mb-4" />
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Explore Our Free Trading Resources</h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <BookOpen className="w-12 h-12 md:w-16 md:h-16 text-primary mx-auto mb-4" />
+          <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Explore Our Free Trading Resources</h1>
+          <p className="text-md md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Unlock valuable insights and tools without any cost. We've curated a selection of free courses, audiobook offers, guides, and tools to help you on your trading journey.
           </p>
         </div>
       </section>
 
       <section className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {resourceCategories.map((category) => (
             <Card key={category.title} className="flex flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardHeader className="items-center">

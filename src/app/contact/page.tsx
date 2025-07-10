@@ -18,11 +18,11 @@ const ContactPage = () => {
 
   return (
     <div className="space-y-12">
-      <section className="text-center py-12 md:py-16 bg-gradient-to-br from-primary/80 to-secondary/80 rounded-xl shadow-xl">
+      <section className="text-center py-8 md:py-16 bg-gradient-to-br from-primary/80 to-secondary/80 rounded-xl shadow-xl">
         <div className="container mx-auto px-4">
-          <Mail className="w-16 h-16 text-primary-foreground mx-auto mb-4" />
-          <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Contact Us</h1>
-          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto">
+          <Mail className="w-12 h-12 md:w-16 md:h-16 text-primary-foreground mx-auto mb-4" />
+          <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">Contact Us</h1>
+          <p className="text-md md:text-xl text-primary-foreground/90 max-w-3xl mx-auto">
             Have questions, feedback, or partnership inquiries? We'd love to hear from you at TradingisEZ.
           </p>
         </div>
@@ -32,7 +32,7 @@ const ContactPage = () => {
         <Card className="max-w-2xl mx-auto shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl md:text-3xl flex items-center">
-              <MessageSquare className="w-7 h-7 mr-2 text-primary" /> Send Us a Message
+              <MessageSquare className="w-6 h-6 md:w-7 md:h-7 mr-2 text-primary" /> Send Us a Message
             </CardTitle>
             <CardDescription>
               Fill out the form below and we'll get back to you as soon as possible.

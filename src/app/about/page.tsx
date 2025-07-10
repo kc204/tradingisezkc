@@ -11,11 +11,11 @@ export const metadata = {
 const AboutPage = () => {
   return (
     <div className="space-y-12">
-      <section className="text-center py-12 md:py-16 bg-gradient-to-br from-primary/80 to-secondary/80 rounded-xl shadow-xl">
+      <section className="text-center py-8 md:py-16 bg-gradient-to-br from-primary/80 to-secondary/80 rounded-xl shadow-xl">
         <div className="container mx-auto px-4">
-          <Users className="w-16 h-16 text-primary-foreground mx-auto mb-4" />
-          <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">About TradingisEZ</h1>
-          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto">
+          <Users className="w-12 h-12 md:w-16 md:h-16 text-primary-foreground mx-auto mb-4" />
+          <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">About TradingisEZ</h1>
+          <p className="text-md md:text-xl text-primary-foreground/90 max-w-3xl mx-auto">
             Empowering traders with the insights, tools, and connections to accelerate your trading careers.
           </p>
         </div>
@@ -64,7 +64,7 @@ const AboutPage = () => {
               data-ai-hint="office team"
             />
             <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <h3 className="text-3xl md:text-4xl font-bold text-white text-center p-4">Join Us on Your Trading Journey</h3>
+                <h3 className="text-2xl md:text-4xl font-bold text-white text-center p-4">Join Us on Your Trading Journey</h3>
             </div>
          </div>
       </section>

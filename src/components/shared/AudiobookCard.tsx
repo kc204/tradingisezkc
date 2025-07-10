@@ -51,7 +51,8 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
            <Dialog>
             <DialogTrigger asChild>
               <Button
-                className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto whitespace-normal h-auto"
+                className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 w-full sm:w-auto"
+                size="sm"
               >
                 <PlayCircle className="mr-1.5 h-4 w-4 flex-shrink-0" /> Hear Sample
               </Button>
@@ -78,7 +79,8 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
         )}
         <Button
           asChild
-          className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 rounded-none w-full sm:w-auto whitespace-normal h-auto"
+          className="bg-accent text-accent-foreground hover:bg-accent-hover flex-1 w-full sm:w-auto"
+          size="sm"
         >
           <Link
             href={book.bookAudibleAffiliateLink}
@@ -86,12 +88,12 @@ const AudiobookCard = ({ book }: AudiobookCardProps) => {
             rel="noopener noreferrer"
           >
             <Headphones className="mr-1.5 h-4 w-4 flex-shrink-0" />
-            Listen to full free
+            Listen Free
           </Link>
         </Button>
       </CardFooter>
     </Card>
   );
-};
+}
 
 export default AudiobookCard;

@@ -81,18 +81,18 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
   return (
     <div className="w-full overflow-x-auto">
-      <Table className="min-w-[2000px]">
+      <Table className="min-w-[1800px] md:min-w-[2000px]">
         <TableCaption>
           Disclosure: We may earn a commission if you sign up through our links. This does not affect our reviews or rankings.
         </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="sticky left-0 bg-card z-10 min-w-[200px] text-foreground">Firm</TableHead>
+            <TableHead className="sticky left-0 bg-card z-10 min-w-[180px] md:min-w-[200px] text-foreground">Firm</TableHead>
             {featuresToCompare.map(feature => (
-              <TableHead key={feature.label} className="text-center min-w-[150px] whitespace-nowrap text-foreground">{feature.label}</TableHead>
+              <TableHead key={feature.label} className="text-center min-w-[140px] md:min-w-[150px] whitespace-nowrap text-foreground">{feature.label}</TableHead>
             ))}
-            <TableHead className="text-center min-w-[150px] text-foreground">Website</TableHead>
-            <TableHead className="text-center min-w-[150px] text-foreground">Details</TableHead>
+            <TableHead className="text-center min-w-[140px] md:min-w-[150px] text-foreground">Website</TableHead>
+            <TableHead className="text-center min-w-[140px] md:min-w-[150px] text-foreground">Details</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -107,12 +107,12 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                   ) : firm.id.startsWith('placeholder-') ? (
                     <div className="w-16 h-8 flex items-center justify-center text-muted-foreground text-xs"></div>
                   ) : <div className="w-16 h-8"></div>} {/* Fallback for missing logo */}
-                  <span className="text-foreground">{firm.name}</span>
+                  <span className="text-foreground text-sm md:text-base">{firm.name}</span>
                 </div>
                 {firm.offerBadgeLabel && !firm.id.startsWith('placeholder-') && <Badge variant="secondary" className="mt-1">{firm.offerBadgeLabel}</Badge>}
               </TableCell>
               {featuresToCompare.map(feature => (
-                <TableCell key={`${firm.id}-${feature.label}`} className="text-center text-sm text-muted-foreground">
+                <TableCell key={`${firm.id}-${feature.label}`} className="text-center text-xs md:text-sm text-muted-foreground">
                   {feature.getValue(firm)}
                 </TableCell>
               ))}
@@ -146,9 +146,9 @@ export default function ComparePage() {
 
   return (
     <div className="space-y-8">
-      <section className="text-center py-10 bg-background rounded-lg shadow-lg">
-        <h1 className="text-4xl font-bold text-foreground mb-2">Compare Prop Firms</h1>
-        <p className="text-lg text-muted-foreground">Make informed decisions by comparing key features side-by-side.</p>
+      <section className="text-center py-6 md:py-10 bg-background rounded-lg shadow-lg">
+        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Compare Prop Firms</h1>
+        <p className="text-md md:text-lg text-muted-foreground">Make informed decisions by comparing key features side-by-side.</p>
       </section>
       
       {firmsToCompare.length > 0 ? (

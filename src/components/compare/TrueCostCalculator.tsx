@@ -130,7 +130,7 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
   return (
     <Card className="w-full shadow-xl mt-8"> {/* Max-width controlled by parent */}
       <CardHeader>
-        <CardTitle className="text-xl font-bold text-foreground">
+        <CardTitle className="text-lg md:text-xl font-bold text-foreground">
           {isSingleFirmMode && activeFirm ? `${activeFirm.name} - Cost Calculator` : "True Cost of Funding Calculator"}
         </CardTitle>
         <CardDescription className="text-muted-foreground text-sm">
@@ -249,7 +249,7 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
             )}
           </div>
           <Separator className="my-3" />
-          <div className="flex justify-between w-full text-lg">
+          <div className="flex justify-between w-full text-md md:text-lg">
             <span className="font-semibold text-accent">Total Estimated Upfront Cost:</span>
             <span className="font-bold text-accent">
               {calculatedCosts.originalTotalCost !== undefined && calculatedCosts.originalTotalCost > calculatedCosts.totalCost ? (

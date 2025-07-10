@@ -28,7 +28,7 @@ export default function Home() {
     "importanceFilter": "-1,0,1",
     "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
   };
-  const economicCalendarContainerStyles = { height: '600px', width: '100%' };
+  const economicCalendarContainerStyles = { height: '500px', width: '100%' };
 
   const chartsScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
   const chartsConfig = {
@@ -46,7 +46,7 @@ export default function Home() {
     "backgroundColor": "rgba(0,0,0,0)", 
     "gridColor": "rgba(255,255,255,0.05)", 
   };
-  const chartContainerStyles = { height: '600px', width: '100%' };
+  const chartContainerStyles = { height: '500px', width: '100%' };
 
   const newsScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-timeline.js";
   const newsConfig = {
@@ -58,7 +58,7 @@ export default function Home() {
     "height": "100%",
     "locale": "en"
   };
-  const newsContainerStyles = { height: '700px', width: '100%' };
+  const newsContainerStyles = { height: '600px', width: '100%' };
 
   const tradingViewAffiliateLink = "https://www.tradingview.com/?aff_id=152856";
   const tradingViewLinkText = "Track all markets on TradingView";
@@ -74,10 +74,10 @@ export default function Home() {
       <div className="h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg">
         <div className="absolute inset-0 w-full h-full bg-background z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
         <Boxes />
-        <h1 className={cn("md:text-4xl text-xl text-foreground relative z-20 text-center px-4")}>
+        <h1 className={cn("text-2xl md:text-4xl text-foreground relative z-20 text-center px-4")}>
           Unlock Your Trading Potential: Find the Perfect Prop Firm &amp; Get Funded.
         </h1>
-        <p className="text-center mt-4 text-muted-foreground relative z-20 max-w-2xl px-4">
+        <p className="text-center mt-4 text-muted-foreground relative z-20 max-w-2xl px-4 text-sm md:text-base">
           Tired of risking your own capital or sifting through confusing prop firm options? Discover top-rated firms, master the rules, access exclusive deals, and secure your funded account with confidence.
         </p>
         <div className="mt-8 relative z-20">
@@ -115,7 +115,7 @@ export default function Home() {
         <section className="py-12 bg-card rounded-xl">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center text-foreground mb-10">Explore Our Free Resources</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {featuredFreeResources.map(resource => (
                 <FreeResourceCard key={resource.id} resource={resource} />
               ))}

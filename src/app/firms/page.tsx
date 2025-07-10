@@ -19,9 +19,9 @@ export default function FirmsPage() {
 
   return (
     <div className="space-y-10">
-      <section className="text-center py-10 bg-background rounded-lg shadow-lg">
-        <h1 className="text-4xl font-bold text-foreground mb-2">Discover Prop Firms</h1>
-        <p className="text-lg text-muted-foreground">Find the funding opportunity that matches your trading style.</p>
+      <section className="text-center py-6 md:py-10 bg-background rounded-lg shadow-lg">
+        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Discover Prop Firms</h1>
+        <p className="text-md md:text-lg text-muted-foreground">Find the funding opportunity that matches your trading style.</p>
       </section>
       
       {/* FirmSearchFilter component removed from here */}
@@ -39,4 +39,3 @@ export default function FirmsPage() {
     </div>
   );
 }
-

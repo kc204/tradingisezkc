@@ -17,13 +17,13 @@ export default function FreeAudiobooksPage() {
 
   return (
     <div className="space-y-12">
-      <section className="text-center py-12 md:py-16 bg-background rounded-xl shadow-xl">
+      <section className="text-center py-8 md:py-16 bg-background rounded-xl shadow-xl">
         <div className="container mx-auto px-4">
-          <Headphones className="w-16 h-16 text-primary mx-auto mb-4" />
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <Headphones className="w-12 h-12 md:w-16 md:h-16 text-primary mx-auto mb-4" />
+          <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
             {audiobookOffer?.title ? audiobookOffer.title.replace(" with Audible Trial", "") : "Free Trading Audiobooks"}
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
+          <p className="text-md md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
             {audiobookOffer?.pageIntroduction ? audiobookOffer.pageIntroduction.replace(" with an Audible trial", "") : "Expand your trading knowledge on the go! Listen to essential trading books for free. Explore classics on psychology, strategy, and market history."}
           </p>
           {/* The button below was removed as per user request */}
@@ -45,7 +45,7 @@ export default function FreeAudiobooksPage() {
           <p className="text-center text-muted-foreground text-sm mb-8">
             Disclosure: As an Amazon Associate, we earn from qualifying purchases. Listening is free with an Audible trial.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {books.map((book) => (
               <AudiobookCard key={book.bookTitle} book={book} />
             ))}

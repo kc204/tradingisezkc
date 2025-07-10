@@ -39,12 +39,12 @@ export default function AlBrooksFreeCoursePage() {
 
   return (
     <div className="space-y-12">
-      <section className="text-center py-12 md:py-16 bg-background rounded-xl shadow-xl">
+      <section className="text-center py-8 md:py-16 bg-background rounded-xl shadow-xl">
         <div className="container mx-auto px-4">
-          <PlayCircle className="w-16 h-16 text-primary mx-auto mb-4" />
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{title}</h1>
+          <PlayCircle className="w-12 h-12 md:w-16 md:h-16 text-primary mx-auto mb-4" />
+          <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">{title}</h1>
           {pageIntroduction && (
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8"
+            <p className="text-md md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8"
                dangerouslySetInnerHTML={{ __html: pageIntroduction.replace(/\n/g, '<br />') }} />
           )}
           {mainAffiliateLink && mainCTAText && (
@@ -105,7 +105,7 @@ export default function AlBrooksFreeCoursePage() {
                   </div>
                   <div className="p-6">
                     <CardHeader className="p-0 mb-3">
-                      <CardTitle className="text-2xl text-foreground">{lesson.lessonTitle}</CardTitle>
+                      <CardTitle className="text-xl md:text-2xl text-foreground">{lesson.lessonTitle}</CardTitle>
                     </CardHeader>
                     <CardContent className="p-0 space-y-4">
                       {lesson.lessonDescription && (
