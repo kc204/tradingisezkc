@@ -47,7 +47,7 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
       <section className="relative py-8 md:py-12 bg-card rounded-xl shadow-xl overflow-hidden">
         <div className="container mx-auto px-4 text-center">
             <div className="flex justify-center mb-4">
-              <div className="w-40 h-20 relative">
+              <div className="w-24 h-16 md:w-40 md:h-20 relative">
                 <Image 
                   src={firm.logoUrl} 
                   alt={`${firm.name} logo`} 
@@ -58,8 +58,8 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
               </div>
             </div>
             
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">{firm.name}</h1>
-            <p className="text-md md:text-lg text-muted-foreground max-w-3xl mx-auto mb-4">{firm.briefDescription}</p>
+            <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-2">{firm.name}</h1>
+            <p className="text-md md:text-lg text-muted-foreground max-w-3xl mx-auto mb-4 px-4">{firm.briefDescription}</p>
 
             {firm.rating && (
               <div className="flex items-center justify-center mb-4">
@@ -88,7 +88,7 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
               <CardHeader>
                 <CardTitle className="text-2xl">Full Review</CardTitle>
               </CardHeader>
-              <CardContent className="prose max-w-none">
+              <CardContent className="prose max-w-none break-words">
                 <p>{firm.fullReview}</p>
               </CardContent>
             </Card>
