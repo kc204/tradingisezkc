@@ -112,7 +112,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
         </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="sticky left-0 bg-card z-10 min-w-[150px] md:min-w-[200px] text-foreground">Firm</TableHead>
+            <TableHead className="bg-card z-10 min-w-[150px] md:min-w-[200px] text-foreground">Firm</TableHead>
             {featuresToCompare.map(feature => (
               <TableHead key={feature.label} className={`text-center min-w-[120px] md:min-w-[150px] whitespace-nowrap text-foreground ${feature.mobileHidden ? 'hidden md:table-cell' : ''}`}>{feature.label}</TableHead>
             ))}
@@ -123,7 +123,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
         <TableBody>
           {firms.map(firm => (
             <TableRow key={firm.id}>
-              <TableCell className="font-medium sticky left-0 bg-card z-10">
+              <TableCell className="font-medium bg-card z-10">
                 <div className="flex items-center space-x-3">
                   {firm.logoUrl && !firm.id.startsWith('placeholder-') ? (
                     <div className="w-16 h-8 relative flex-shrink-0">
@@ -134,7 +134,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                   ) : <div className="w-16 h-8 flex-shrink-0"></div>}
                   <span className={cn(
                     "text-foreground text-sm font-semibold whitespace-nowrap transition-all duration-300",
-                    isScrolled ? "md:opacity-100 opacity-0 md:w-auto w-0" : "opacity-100 w-auto"
+                    isScrolled ? "opacity-0 w-0" : "opacity-100 w-auto"
                   )}>
                     {firm.name}
                   </span>
@@ -144,7 +144,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                     variant="secondary" 
                     className={cn(
                       "mt-1 transition-opacity duration-300",
-                      isScrolled ? "md:opacity-100 opacity-0" : "opacity-100"
+                      isScrolled ? "opacity-0" : "opacity-100"
                     )}
                   >
                     {firm.offerBadgeLabel}
