@@ -12,20 +12,7 @@ import { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
 const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      setIsScrolled(container.scrollLeft > 10);
-    };
-
-    container.addEventListener('scroll', handleScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const featuresToCompare = [
     {
@@ -97,7 +84,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
   return (
     <div ref={scrollContainerRef} className="w-full overflow-x-auto">
-      <Table className="min-w-[1200px] md:min-w-[2000px]">
+      <Table className="min-w-[1200px] md:min-w-full">
         <TableCaption>
           Disclosure: We may earn a commission if you sign up through our links. This does not affect our reviews or rankings.
         </TableCaption>
@@ -117,16 +104,13 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
               <TableCell className="font-medium sticky left-0 bg-card z-10">
                 <div className="flex items-center space-x-3">
                   {firm.logoUrl && !firm.id.startsWith('placeholder-') ? (
-                    <div className="w-16 h-8 relative">
+                    <div className="w-16 h-8 relative flex-shrink-0">
                       <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo"/>
                     </div>
                   ) : firm.id.startsWith('placeholder-') ? (
-                    <div className="w-16 h-8 flex items-center justify-center text-muted-foreground text-xs"></div>
-                  ) : <div className="w-16 h-8"></div>}
-                  <span className={cn(
-                    "text-foreground text-sm transition-opacity duration-300 md:opacity-100",
-                    isScrolled ? "opacity-0" : "opacity-100"
-                  )}>{firm.name}</span>
+                    <div className="w-16 h-8 flex items-center justify-center text-muted-foreground text-xs flex-shrink-0"></div>
+                  ) : <div className="w-16 h-8 flex-shrink-0"></div>}
+                  <span className="text-foreground text-sm font-semibold whitespace-nowrap">{firm.name}</span>
                 </div>
                 {firm.offerBadgeLabel && !firm.id.startsWith('placeholder-') && <Badge variant="secondary" className="mt-1">{firm.offerBadgeLabel}</Badge>}
               </TableCell>
