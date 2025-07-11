@@ -133,24 +133,20 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                   ) : firm.id.startsWith('placeholder-') ? (
                     <div className="w-16 h-8 flex items-center justify-center text-muted-foreground text-xs flex-shrink-0"></div>
                   ) : <div className="w-16 h-8 flex-shrink-0"></div>}
-                  <span className={cn(
-                    "text-foreground text-sm font-semibold whitespace-nowrap transition-all duration-300",
-                    isScrolled ? "opacity-0 w-0" : "opacity-100 w-auto"
+                  <div className={cn(
+                      "flex flex-col justify-center transition-all duration-300",
+                      isScrolled ? "opacity-0 w-0 overflow-hidden" : "opacity-100 w-auto"
                   )}>
-                    {firm.name}
-                  </span>
-                </div>
-                {firm.offerBadgeLabel && !firm.id.startsWith('placeholder-') && (
-                  <Badge 
-                    variant="secondary" 
-                    className={cn(
-                      "mt-1 transition-opacity duration-300",
-                      isScrolled ? "opacity-0" : "opacity-100"
+                    <span className="text-foreground text-sm font-semibold whitespace-nowrap">
+                      {firm.name}
+                    </span>
+                    {firm.offerBadgeLabel && !firm.id.startsWith('placeholder-') && (
+                      <Badge variant="secondary" className="mt-1 w-fit">
+                        {firm.offerBadgeLabel}
+                      </Badge>
                     )}
-                  >
-                    {firm.offerBadgeLabel}
-                  </Badge>
-                )}
+                  </div>
+                </div>
               </TableCell>
               {featuresToCompare.map(feature => (
                 <TableCell key={`${firm.id}-${feature.label}`} className={`text-center text-xs text-muted-foreground ${feature.mobileHidden ? 'hidden md:table-cell' : ''}`}>
