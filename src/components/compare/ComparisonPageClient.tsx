@@ -12,35 +12,9 @@ import { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
 const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    
-    const handleScroll = () => {
-      if (scrollContainer) {
-        setIsScrolled(scrollContainer.scrollLeft > 10); // 10px buffer
-      }
-    };
-
-    if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', handleScroll);
-      handleScroll(); // Check on initial render
-    }
-    
-    // Cleanup
-    return () => {
-      if (scrollContainer) {
-        scrollContainer.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, []);
-
   const featuresToCompare = [
     {
       label: 'Account Sizes',
-      mobileHidden: false,
       getValue: (f: PropFirm) => {
         const min = f.minAccountSize;
         const max = f.maxAccountSize;
@@ -57,7 +31,6 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
     },
     {
       label: 'Evaluation Cost',
-      mobileHidden: false,
       getValue: (f: PropFirm) => {
         const min = f.minChallengeCost;
         const max = f.maxChallengeCost;
@@ -74,18 +47,16 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
     },
     {
       label: 'Activation Fee',
-      mobileHidden: true, // Hide on mobile
       getValue: (f: PropFirm) => f.activationFee || (f.id.startsWith('placeholder-') ? '' : '-')
     },
-    { label: 'Profit Split', mobileHidden: false, getValue: (f: PropFirm) => f.profitSplit || (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Max Funding', mobileHidden: false, getValue: (f: PropFirm) => f.maxAccountSize ? `$${f.maxAccountSize.toLocaleString()}` : (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Challenge Type', mobileHidden: false, getValue: (f: PropFirm) => f.challengeType || (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Drawdown Rules', mobileHidden: true, getValue: (f: PropFirm) => f.drawdownRules || (f.id.startsWith('placeholder-') ? '' : '-') }, // Hide on mobile
-    { label: 'Profit Goal', mobileHidden: true, getValue: (f: PropFirm) => f.profitTarget || (f.id.startsWith('placeholder-') ? '' : '-') }, // Hide on mobile
-    { label: 'Platforms', mobileHidden: false, getValue: (f: PropFirm) => f.platforms?.join(', ') || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Profit Split', getValue: (f: PropFirm) => f.profitSplit || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Max Funding', getValue: (f: PropFirm) => f.maxAccountSize ? `$${f.maxAccountSize.toLocaleString()}` : (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Challenge Type', getValue: (f: PropFirm) => f.challengeType || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Drawdown Rules', getValue: (f: PropFirm) => f.drawdownRules || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Profit Goal', getValue: (f: PropFirm) => f.profitTarget || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { label: 'Platforms', getValue: (f: PropFirm) => f.platforms?.join(', ') || (f.id.startsWith('placeholder-') ? '' : '-') },
     {
       label: 'Rating',
-      mobileHidden: false,
       getValue: (f: PropFirm) => {
         if (f.id.startsWith('placeholder-')) return '';
         if (!f.rating) return '-';
@@ -106,19 +77,19 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
   ];
 
   return (
-    <div ref={scrollContainerRef} className="w-full overflow-x-auto">
-      <Table className="min-w-[1200px] md:min-w-full">
+    <div className="w-full overflow-x-auto">
+      <Table className="min-w-[800px]">
         <TableCaption>
           Disclosure: We may earn a commission if you sign up through our links. This does not affect our reviews or rankings.
         </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="sticky left-0 bg-card z-10 min-w-[150px] md:min-w-[200px] text-foreground">Firm</TableHead>
+            <TableHead className="sticky left-0 bg-card z-10 min-w-[200px] text-foreground font-semibold">Firm</TableHead>
             {featuresToCompare.map(feature => (
-              <TableHead key={feature.label} className={`text-center min-w-[120px] md:min-w-[150px] whitespace-nowrap text-foreground ${feature.mobileHidden ? 'hidden md:table-cell' : ''}`}>{feature.label}</TableHead>
+              <TableHead key={feature.label} className="text-center min-w-[150px] whitespace-nowrap text-foreground">{feature.label}</TableHead>
             ))}
-            <TableHead className="text-center min-w-[120px] md:min-w-[150px] text-foreground">Website</TableHead>
-            <TableHead className="text-center min-w-[120px] md:min-w-[150px] text-foreground">Details</TableHead>
+            <TableHead className="text-center min-w-[120px] text-foreground">Website</TableHead>
+            <TableHead className="text-center min-w-[120px] text-foreground">Details</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -133,10 +104,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                   ) : firm.id.startsWith('placeholder-') ? (
                     <div className="w-16 h-8 flex items-center justify-center text-muted-foreground text-xs flex-shrink-0"></div>
                   ) : <div className="w-16 h-8 flex-shrink-0"></div>}
-                  <div className={cn(
-                      "flex flex-col justify-center transition-all duration-300",
-                      isScrolled ? "opacity-0 w-0 overflow-hidden" : "opacity-100 w-auto"
-                  )}>
+                  <div className="flex flex-col justify-center">
                     <span className="text-foreground text-sm font-semibold whitespace-nowrap">
                       {firm.name}
                     </span>
@@ -149,7 +117,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                 </div>
               </TableCell>
               {featuresToCompare.map(feature => (
-                <TableCell key={`${firm.id}-${feature.label}`} className={`text-center text-xs text-muted-foreground ${feature.mobileHidden ? 'hidden md:table-cell' : ''}`}>
+                <TableCell key={`${firm.id}-${feature.label}`} className="text-center text-xs text-muted-foreground">
                   {feature.getValue(firm)}
                 </TableCell>
               ))}
