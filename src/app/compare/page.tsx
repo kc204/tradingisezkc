@@ -1,4 +1,6 @@
 
+'use client';
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableCaption } from '@/components/ui/table';
@@ -7,7 +9,9 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { ExternalLink, Star } from 'lucide-react';
-import TrueCostCalculator from '@/components/compare/TrueCostCalculator'; // Import the calculator
+import TrueCostCalculator from '@/components/compare/TrueCostCalculator';
+import { useState, useRef, useEffect } from 'react';
+import { cn } from '@/lib/utils';
 
 export const metadata = {
   title: 'Compare Prop Firms | TradingisEZ',
@@ -15,6 +19,21 @@ export const metadata = {
 };
 
 const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      setIsScrolled(container.scrollLeft > 10);
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const featuresToCompare = [
     {
       label: 'Account Sizes',
@@ -84,7 +103,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
   ];
 
   return (
-    <div className="w-full overflow-x-auto">
+    <div ref={scrollContainerRef} className="w-full overflow-x-auto">
       <Table className="min-w-[1200px] md:min-w-[2000px]">
         <TableCaption>
           Disclosure: We may earn a commission if you sign up through our links. This does not affect our reviews or rankings.
@@ -111,7 +130,10 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                   ) : firm.id.startsWith('placeholder-') ? (
                     <div className="w-16 h-8 flex items-center justify-center text-muted-foreground text-xs"></div>
                   ) : <div className="w-16 h-8"></div>}
-                  <span className="text-foreground text-sm">{firm.name}</span>
+                  <span className={cn(
+                    "text-foreground text-sm transition-opacity duration-300 md:opacity-100",
+                    isScrolled ? "opacity-0" : "opacity-100"
+                  )}>{firm.name}</span>
                 </div>
                 {firm.offerBadgeLabel && !firm.id.startsWith('placeholder-') && <Badge variant="secondary" className="mt-1">{firm.offerBadgeLabel}</Badge>}
               </TableCell>
