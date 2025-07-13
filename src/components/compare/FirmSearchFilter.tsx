@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Check, ChevronsUpDown, Search, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '../ui/badge';
+import { cn } from '@/lib/utils';
 
 export interface Filters {
   searchTerm?: string;
