@@ -24,6 +24,9 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
     };
 
     container.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Initial check in case the table is already scrolled on load
+    handleScroll();
 
     return () => {
       container.removeEventListener('scroll', handleScroll);
@@ -95,20 +98,33 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
   ];
 
   return (
-    <div ref={tableContainerRef} className="w-full overflow-x-auto">
+    <div ref={tableContainerRef} className="w-full overflow-x-auto border rounded-lg">
       <Table className="min-w-[1200px] border-separate border-spacing-0">
         <TableCaption>
           Disclosure: We may earn a commission if you sign up through our links. This does not affect our reviews or rankings.
         </TableCaption>
-        <TableHeader className="sticky top-0 z-20 bg-background/80 backdrop-blur-lg">
+        <TableHeader className="sticky top-0 z-20 bg-card/80 backdrop-blur-lg">
           <TableRow>
-            <TableHead className="sticky left-0 bg-background/80 backdrop-blur-lg z-30 min-w-[200px] text-foreground font-semibold uppercase text-[10px] md:text-xs">
-              Firm
+            <TableHead className="sticky left-0 bg-card/80 backdrop-blur-lg z-30 min-w-[200px] md:min-w-[250px] text-foreground font-semibold uppercase text-[10px] md:text-xs">
+               <div className="flex relative">
+                Firm
+                <div className="absolute right-0 top-1/4 h-1/2 w-px bg-border/50"></div>
+              </div>
             </TableHead>
             {featuresToCompare.map(feature => (
-              <TableHead key={feature.label} className="text-center min-w-[150px] whitespace-nowrap text-foreground uppercase text-[10px] md:text-xs">{feature.label}</TableHead>
+              <TableHead key={feature.label} className="text-center min-w-[150px] whitespace-nowrap text-foreground uppercase text-[10px] md:text-xs relative">
+                <div className="flex justify-center items-center">
+                    {feature.label}
+                    <div className="absolute right-0 top-1/4 h-1/2 w-px bg-border/50"></div>
+                </div>
+              </TableHead>
             ))}
-            <TableHead className="text-center min-w-[120px] text-foreground uppercase text-[10px] md:text-xs">Website</TableHead>
+            <TableHead className="text-center min-w-[120px] text-foreground uppercase text-[10px] md:text-xs relative">
+                <div className="flex justify-center">
+                    Website
+                    <div className="absolute right-0 top-1/4 h-1/2 w-px bg-border/50"></div>
+                </div>
+            </TableHead>
             <TableHead className="text-center min-w-[120px] text-foreground uppercase text-[10px] md:text-xs">Details</TableHead>
           </TableRow>
         </TableHeader>
@@ -116,27 +132,27 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
           {firms.map(firm => (
             <TableRow key={firm.id}>
               <TableCell className="font-medium sticky left-0 z-10 bg-card">
-                <div className="flex items-center space-x-3">
-                  {firm.logoUrl && !firm.id.startsWith('placeholder-') ? (
-                    <div className="w-16 h-10 relative flex-shrink-0 flex items-center justify-center">
-                      <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo"/>
+                 <div className="flex items-center gap-2 md:gap-3">
+                    {firm.logoUrl && !firm.id.startsWith('placeholder-') ? (
+                        <div className="w-12 h-12 relative flex-shrink-0 flex items-center justify-center rounded-lg bg-background/50 border">
+                        <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" className="p-1" data-ai-hint="company logo"/>
+                        </div>
+                    ) : <div className="w-12 h-12 flex-shrink-0"></div>}
+                    
+                    <div className={cn(
+                        "flex flex-col justify-center overflow-hidden transition-all duration-300 ease-in-out",
+                        isScrolled ? "w-0 opacity-0" : "w-auto opacity-100"
+                    )}>
+                        <Link href={`/firms/${firm.slug}`} className="text-foreground text-sm font-semibold whitespace-nowrap hover:underline line-clamp-1">
+                            {firm.name}
+                        </Link>
+                        {firm.offerBadgeLabel && !firm.id.startsWith('placeholder-') && (
+                        <Badge variant="secondary" className="mt-1 w-fit whitespace-nowrap">
+                            {firm.offerBadgeLabel}
+                        </Badge>
+                        )}
                     </div>
-                  ) : <div className="w-16 h-10 flex-shrink-0"></div>}
-                  
-                  <div className={cn(
-                    "flex flex-col justify-center overflow-hidden transition-all duration-300 ease-in-out",
-                    isScrolled ? "w-0 opacity-0" : "w-auto opacity-100"
-                  )}>
-                    <span className="text-foreground text-sm font-semibold whitespace-nowrap">
-                      {firm.name}
-                    </span>
-                    {firm.offerBadgeLabel && !firm.id.startsWith('placeholder-') && (
-                      <Badge variant="secondary" className="mt-1 w-fit whitespace-nowrap">
-                        {firm.offerBadgeLabel}
-                      </Badge>
-                    )}
-                  </div>
-                </div>
+                 </div>
               </TableCell>
               {featuresToCompare.map(feature => (
                 <TableCell key={`${firm.id}-${feature.label}`} className="text-center text-xs md:text-sm text-muted-foreground">
