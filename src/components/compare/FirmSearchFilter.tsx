@@ -9,8 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Check, ChevronsUpDown, Search, X } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '../ui/badge';
+import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
 export interface Filters {
@@ -29,21 +28,18 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
   const [fundingModel, setFundingModel] = useState('all');
-  const [maxAccountSize, setMaxAccountSize] = useState('');
+  const [maxAccountSize, setMaxAccountSize] = useState('all');
   
   const [openPlatformPopover, setOpenPlatformPopover] = useState(false);
 
   // Debounce search term
   useEffect(() => {
-    const handler = setTimeout(() => {
-      onFilterChange({ 
-        searchTerm, 
-        platforms: selectedPlatforms, 
-        fundingModel: fundingModel === 'all' ? undefined : fundingModel, 
-        maxAccountSize: Number(maxAccountSize) || undefined 
-      });
-    }, 300);
-    return () => clearTimeout(handler);
+    onFilterChange({ 
+      searchTerm, 
+      platforms: selectedPlatforms.length > 0 ? selectedPlatforms : undefined, 
+      fundingModel: fundingModel === 'all' ? undefined : fundingModel, 
+      maxAccountSize: maxAccountSize === 'all' ? undefined : Number(maxAccountSize)
+    });
   }, [searchTerm, selectedPlatforms, fundingModel, maxAccountSize, onFilterChange]);
 
 
@@ -58,106 +54,110 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
     allFirms.forEach(firm => firm.fundingModels?.forEach(m => models.add(m)));
     return Array.from(models).sort();
   }, [allFirms]);
-
-  const accountSizeOptions = [
-    { value: '50000', label: '$50,000+' },
-    { value: '100000', label: '$100,000+' },
-    { value: '150000', label: '$150,000+' },
-    { value: '250000', label: '$250,000+' },
-  ];
+  
+  const accountSizeOptions = useMemo(() => {
+    const sizes = new Set<number>();
+    allFirms.forEach(firm => {
+        if(firm.maxAccountSize) sizes.add(firm.maxAccountSize);
+    });
+    return Array.from(sizes).sort((a,b) => a - b).map(size => ({
+        value: String(size),
+        label: `$${size.toLocaleString()}+`
+    }));
+  }, [allFirms]);
 
   const resetFilters = useCallback(() => {
     setSearchTerm('');
     setSelectedPlatforms([]);
     setFundingModel('all');
-    setMaxAccountSize('');
+    setMaxAccountSize('all');
     onFilterChange({});
   }, [onFilterChange]);
 
   return (
-    <Card className="mb-8 p-4 shadow-lg">
-      <CardContent className="p-2">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
-          
-          {/* Search by Name */}
-          <div className="lg:col-span-2">
-            <label className="text-sm font-medium text-foreground mb-2 block">Search by Name</label>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="text"
-                placeholder="Search firms..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-          </div>
-          
-          {/* Platforms */}
-          <div>
-            <label className="text-sm font-medium text-foreground mb-2 block">Platforms</label>
-            <Popover open={openPlatformPopover} onOpenChange={setOpenPlatformPopover}>
-              <PopoverTrigger asChild>
-                <Button variant="outline" role="combobox" aria-expanded={openPlatformPopover} className="w-full justify-between">
-                  <span className="truncate">
-                    {selectedPlatforms.length > 0 ? selectedPlatforms.join(', ') : "Select platforms..."}
-                  </span>
-                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-full p-0">
-                <Command>
-                  <CommandInput placeholder="Search platform..." />
-                  <CommandList>
-                    <CommandEmpty>No platform found.</CommandEmpty>
-                    <CommandGroup>
-                      {allPlatforms.map((platform) => (
-                        <CommandItem
-                          key={platform}
-                          value={platform}
-                          onSelect={(currentValue) => {
-                            setSelectedPlatforms(prev => 
-                              prev.includes(platform) ? prev.filter(p => p !== platform) : [...prev, platform]
-                            );
-                            setOpenPlatformPopover(false);
-                          }}
-                        >
-                          <Check className={cn("mr-2 h-4 w-4", selectedPlatforms.includes(platform) ? "opacity-100" : "opacity-0")} />
-                          {platform}
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-          </div>
-
-          {/* Funding Model */}
-          <div>
-            <label className="text-sm font-medium text-foreground mb-2 block">Funding Model</label>
-            <Select value={fundingModel} onValueChange={setFundingModel}>
-              <SelectTrigger>
-                <SelectValue placeholder="Any Model" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Any Model</SelectItem>
-                {allFundingModels.map(model => (
-                  <SelectItem key={model} value={model}>{model}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Reset Button */}
-          <Button onClick={resetFilters} variant="ghost" className="w-full">
-            <X className="w-4 h-4 mr-2" />
-            Reset
-          </Button>
-
+    <Card className="mb-8 p-3 shadow-lg">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 items-center">
+        {/* Search by Name */}
+        <div className="relative lg:col-span-2">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Search by Firm Name..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10 h-9"
+          />
         </div>
-      </CardContent>
+        
+        {/* Platforms */}
+        <Popover open={openPlatformPopover} onOpenChange={setOpenPlatformPopover}>
+          <PopoverTrigger asChild>
+            <Button variant="outline" role="combobox" aria-expanded={openPlatformPopover} className="w-full justify-between h-9 font-normal">
+              <span className="truncate">
+                {selectedPlatforms.length > 0 ? `Platforms: ${selectedPlatforms.join(', ')}` : "All Platforms"}
+              </span>
+              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-full p-0">
+            <Command>
+              <CommandInput placeholder="Search platform..." />
+              <CommandList>
+                <CommandEmpty>No platform found.</CommandEmpty>
+                <CommandGroup>
+                  {allPlatforms.map((platform) => (
+                    <CommandItem
+                      key={platform}
+                      value={platform}
+                      onSelect={(currentValue) => {
+                        setSelectedPlatforms(prev => 
+                          prev.includes(platform) ? prev.filter(p => p !== platform) : [...prev, platform]
+                        );
+                        setOpenPlatformPopover(false);
+                      }}
+                    >
+                      <Check className={cn("mr-2 h-4 w-4", selectedPlatforms.includes(platform) ? "opacity-100" : "opacity-0")} />
+                      {platform}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+
+        {/* Funding Model */}
+        <Select value={fundingModel} onValueChange={setFundingModel}>
+          <SelectTrigger className="h-9 font-normal">
+            <SelectValue placeholder="All Funding Models" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Funding Models</SelectItem>
+            {allFundingModels.map(model => (
+              <SelectItem key={model} value={model}>{model}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        
+        {/* Max Account Size */}
+         <Select value={maxAccountSize} onValueChange={setMaxAccountSize}>
+          <SelectTrigger className="h-9 font-normal">
+            <SelectValue placeholder="Max Account Size" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Any Account Size</SelectItem>
+            {accountSizeOptions.map(option => (
+              <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {/* Reset Button */}
+        <Button onClick={resetFilters} variant="ghost" className="h-9">
+          <X className="w-4 h-4 mr-2" />
+          Reset
+        </Button>
+      </div>
     </Card>
   );
 };
