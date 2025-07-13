@@ -11,7 +11,6 @@ export const metadata = {
 };
 
 export default function ComparePage() {
-  const firmsToCompare = mockPropFirms; 
 
   return (
     <div className="space-y-8">
@@ -20,11 +19,10 @@ export default function ComparePage() {
         <p className="text-md md:text-lg text-muted-foreground px-4">Make informed decisions by comparing key features side-by-side.</p>
       </section>
       
-      <ComparisonPageClient firms={firmsToCompare} />
+      <ComparisonPageClient allFirms={mockPropFirms} />
 
-      {/* New True Cost Calculator Section */}
       <section className="py-8">
-        <TrueCostCalculator firms={firmsToCompare} />
+        <TrueCostCalculator firms={mockPropFirms} />
       </section>
       
       <div className="text-center mt-8">

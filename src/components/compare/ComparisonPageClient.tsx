@@ -8,8 +8,9 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { ExternalLink, Star } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { cn } from '@/lib/utils';
+import FirmSearchFilter, { type Filters } from '@/components/compare/FirmSearchFilter';
 
 const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,7 +26,6 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
     container.addEventListener('scroll', handleScroll, { passive: true });
     
-    // Initial check in case the table is already scrolled on load
     handleScroll();
 
     return () => {
@@ -131,7 +131,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
         <TableBody>
           {firms.map(firm => (
             <TableRow key={firm.id}>
-              <TableCell className="font-medium sticky left-0 z-10 bg-card">
+              <TableCell className="font-medium sticky left-0 z-10 bg-card p-2">
                  <div className="flex items-center gap-2 md:gap-3">
                     {firm.logoUrl && !firm.id.startsWith('placeholder-') ? (
                         <div className="w-12 h-12 relative flex-shrink-0 flex items-center justify-center rounded-lg bg-background/50 border">
@@ -184,14 +184,47 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 };
 
 
-export default function ComparisonPageClient({ firms }: { firms: PropFirm[] }) {
+export default function ComparisonPageClient({ allFirms }: { allFirms: PropFirm[] }) {
+  const [filters, setFilters] = useState<Filters>({});
+
+  const filteredFirms = useMemo(() => {
+    return allFirms.filter(firm => {
+      // Search term filter
+      if (filters.searchTerm) {
+        if (!firm.name.toLowerCase().includes(filters.searchTerm.toLowerCase())) {
+          return false;
+        }
+      }
+      // Platform filter (multi-select)
+      if (filters.platforms && filters.platforms.length > 0) {
+        if (!filters.platforms.every(p => firm.platforms?.includes(p))) {
+          return false;
+        }
+      }
+      // Funding model filter
+      if (filters.fundingModel) {
+        if (!firm.fundingModels?.includes(filters.fundingModel)) {
+          return false;
+        }
+      }
+      // Max account size filter
+      if (filters.maxAccountSize) {
+        if (!firm.maxAccountSize || firm.maxAccountSize < filters.maxAccountSize) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }, [allFirms, filters]);
+
 
   return (
     <>
-      {firms.length > 0 ? (
-        <ComparisonTable firms={firms} />
+      <FirmSearchFilter allFirms={allFirms} onFilterChange={setFilters} />
+      {filteredFirms.length > 0 ? (
+        <ComparisonTable firms={filteredFirms} />
       ) : (
-        <p className="text-center text-muted-foreground text-lg py-10">No firms available for comparison.</p>
+        <p className="text-center text-muted-foreground text-lg py-10">No firms available for comparison matching your criteria.</p>
       )}
     </>
   );
