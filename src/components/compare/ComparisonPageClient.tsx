@@ -12,6 +12,29 @@ import { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
 const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const tableContainer = tableContainerRef.current;
+
+    const handleScroll = () => {
+      if (tableContainer) {
+        setIsScrolled(tableContainer.scrollLeft > 10);
+      }
+    };
+
+    if (tableContainer) {
+      tableContainer.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (tableContainer) {
+        tableContainer.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
   const featuresToCompare = [
     {
       label: 'Account Sizes',
@@ -77,7 +100,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
   ];
 
   return (
-    <div className="w-full overflow-x-auto">
+    <div ref={tableContainerRef} className="w-full overflow-x-auto">
       <Table className="min-w-[800px]">
         <TableCaption>
           Disclosure: We may earn a commission if you sign up through our links. This does not affect our reviews or rankings.
@@ -104,7 +127,10 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                   ) : firm.id.startsWith('placeholder-') ? (
                     <div className="w-16 h-8 flex items-center justify-center text-muted-foreground text-xs flex-shrink-0"></div>
                   ) : <div className="w-16 h-8 flex-shrink-0"></div>}
-                  <div className="flex flex-col justify-center">
+                  <div className={cn(
+                      "flex flex-col justify-center transition-all duration-300 ease-in-out",
+                      isScrolled ? "opacity-0 w-0" : "opacity-100 w-auto"
+                  )}>
                     <span className="text-foreground text-sm font-semibold whitespace-nowrap">
                       {firm.name}
                     </span>
