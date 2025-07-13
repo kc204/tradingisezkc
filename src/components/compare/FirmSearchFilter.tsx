@@ -28,7 +28,7 @@ interface FirmSearchFilterProps {
 const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
-  const [fundingModel, setFundingModel] = useState('');
+  const [fundingModel, setFundingModel] = useState('all');
   const [maxAccountSize, setMaxAccountSize] = useState('');
   
   const [openPlatformPopover, setOpenPlatformPopover] = useState(false);
@@ -36,7 +36,12 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
   // Debounce search term
   useEffect(() => {
     const handler = setTimeout(() => {
-      onFilterChange({ searchTerm, platforms: selectedPlatforms, fundingModel, maxAccountSize: Number(maxAccountSize) || undefined });
+      onFilterChange({ 
+        searchTerm, 
+        platforms: selectedPlatforms, 
+        fundingModel: fundingModel === 'all' ? undefined : fundingModel, 
+        maxAccountSize: Number(maxAccountSize) || undefined 
+      });
     }, 300);
     return () => clearTimeout(handler);
   }, [searchTerm, selectedPlatforms, fundingModel, maxAccountSize, onFilterChange]);
@@ -64,7 +69,7 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
   const resetFilters = useCallback(() => {
     setSearchTerm('');
     setSelectedPlatforms([]);
-    setFundingModel('');
+    setFundingModel('all');
     setMaxAccountSize('');
     onFilterChange({});
   }, [onFilterChange]);
@@ -137,7 +142,7 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
                 <SelectValue placeholder="Any Model" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any Model</SelectItem>
+                <SelectItem value="all">Any Model</SelectItem>
                 {allFundingModels.map(model => (
                   <SelectItem key={model} value={model}>{model}</SelectItem>
                 ))}
