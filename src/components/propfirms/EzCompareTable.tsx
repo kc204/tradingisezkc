@@ -25,10 +25,10 @@ const MOCK_FIRMS_DATA_ADAPTED = mockPropFirms.map((firm, index) => ({
   maxAllocation: firm.maxAccountSize || 0,
   promoCode: firm.promo ? firm.promo.split(' ')[0] : 'EZPROMO',
   promoDiscount: firm.offerBadgeLabel || 'Discount',
-  isNew: index >= mockPropFirms.length - 2,
+  isNew: index >= mockPropFirms.length - 3,
   isPopular: !!firm.isFeatured,
   payoutFrequency: 'Bi-Weekly', 
-  hasNoTimeLimits: index % 2 === 0, 
+  hasNoTimeLimits: (index +1) % 2 === 0, 
   isInstant: index % 3 === 0, 
 }));
 
@@ -145,7 +145,7 @@ const FirmRow = ({ firm }: { firm: any }) => {
             <Tooltip>
                 <TooltipTrigger asChild>
                     <div className="flex items-center gap-2 cursor-help">
-                        <span className={`text-xl font-bold ${scoreColor} shadow-lg ${scoreGlow}`}>{ezScore}</span>
+                        <span className={`text-xl font-bold ${scoreColor} ${scoreGlow}`}>{ezScore}</span>
                         <Info className="h-4 w-4 text-gray-500" />
                     </div>
                 </TooltipTrigger>
