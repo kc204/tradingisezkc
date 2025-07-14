@@ -11,6 +11,8 @@ import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
 import TradingViewWidget from '@/components/shared/TradingViewWidget';
+import ComparisonTable from '@/components/compare/ComparisonTable';
+
 
 export default function Home() {
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured);
@@ -99,18 +101,27 @@ export default function Home() {
                 <FirmCard key={firm.id} firm={firm} />
               ))}
             </div>
-            <div className="text-center mt-10">
-               <StarBorder<typeof Link>
-                as={Link}
-                href="/firms"
-              >
-                View All Firms
-              </StarBorder>
-            </div>
+            
           </div>
         </section>
       )}
       {/* Featured Prop Firms Section END */}
+
+      {/* Comparison Table Section */}
+      <section className="py-12">
+          <div className="container mx-auto px-4">
+              <h2 className="text-3xl font-bold text-center text-foreground mb-10">Compare All Firms</h2>
+              <ComparisonTable firms={mockPropFirms} />
+              <div className="text-center mt-10">
+                <StarBorder<typeof Link>
+                    as={Link}
+                    href="/compare"
+                >
+                    Go to Full Comparison Page
+                </StarBorder>
+            </div>
+          </div>
+      </section>
 
       {/* Featured Free Resources Section START */}
       {featuredFreeResources.length > 0 && (
