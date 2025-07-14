@@ -12,7 +12,6 @@ import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
 import TradingViewWidget from '@/components/shared/TradingViewWidget';
-import AiMatcher from '@/components/propfirms/AiMatcher'; // Restoring previous component
 
 export default function Home() {
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured);
@@ -215,13 +214,6 @@ export default function Home() {
         </div>
       </section>
       {/* Market Outlook Section END */}
-
-      {/* AI Matcher Section */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <AiMatcher />
-        </div>
-      </section>
 
     </div>
   );
