@@ -36,7 +36,7 @@ const FirmCard = ({ firm }: FirmCardProps) => {
         )}
       </CardHeader>
       <CardContent className="flex-grow">
-        <CardDescription className="text-sm mb-3 min-h-[3rem]">{firm.briefDescription}</CardDescription>
+        <CardDescription className="text-sm mb-3 min-h-[3rem] line-clamp-3">{firm.briefDescription}</CardDescription>
         <div className="space-y-1 text-xs text-muted-foreground">
           {firm.keyInfoSnippets?.slice(0, 2).map(snippet => (
              <p key={snippet.label}><span className="font-medium text-foreground">{snippet.label}:</span> {snippet.value}</p>

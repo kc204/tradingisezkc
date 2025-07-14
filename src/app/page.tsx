@@ -12,9 +12,10 @@ import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
 import TradingViewWidget from '@/components/shared/TradingViewWidget';
+import FeaturedOffers from '@/components/propfirms/FeaturedOffers';
 
 export default function Home() {
-  const featuredFirms = mockPropFirms.filter(f => f.isFeatured).slice(0, 3);
+  const featuredFirms = mockPropFirms.filter(f => f.isFeatured);
   const recentArticles = mockArticles.slice(0, 3);
   const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3);
 
@@ -90,24 +91,9 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Featured Prop Firms Section */}
+      {/* Featured Offers Section */}
       <section className="py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-10">Featured Prop Firms</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredFirms.map(firm => (
-              <FirmCard key={firm.id} firm={firm} />
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <StarBorder<typeof Link>
-              as={Link}
-              href="/firms"
-            >
-              View All Firms
-            </StarBorder>
-          </div>
-        </div>
+        <FeaturedOffers firms={featuredFirms} />
       </section>
 
       {/* Featured Free Resources Section START */}
