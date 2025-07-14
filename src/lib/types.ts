@@ -21,14 +21,6 @@ export interface AccountTier {
   dailyLossLimitPercentage?: number | null;
 }
 
-export interface TrustpilotReview {
-  reviewerName: string;
-  rating: number;
-  reviewContent: string;
-  isVerified: boolean;
-}
-
-
 export interface PropFirm {
   id: string;
   slug: string;
@@ -59,7 +51,6 @@ export interface PropFirm {
   challengeType?: string; // e.g., 1-step, 2-step
   accountTiers?: AccountTier[]; // Detailed tiers for the calculator
   promo?: string;
-  trustpilotReviews?: TrustpilotReview[];
 }
 
 export interface Article {
