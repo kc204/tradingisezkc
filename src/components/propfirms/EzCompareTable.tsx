@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -121,13 +122,17 @@ const FirmRow = ({ firm }: { firm: any }) => {
     const ezScore = useMemo(() => calculateEzScore(firm), [firm]);
     const yearsInOperation = new Date().getFullYear() - firm.yearFounded;
     const scoreColor = ezScore > 80 ? 'text-green-400' : ezScore > 65 ? 'text-yellow-400' : 'text-red-400';
-    const scoreGlow = ezScore > 80 ? 'shadow-green-500/50' : ezScore > 65 ? 'shadow-yellow-500/50' : 'shadow-red-500/50';
 
     const copyPromoCode = (e: React.MouseEvent) => {
         e.stopPropagation();
         navigator.clipboard.writeText(firm.promoCode);
         toast({ title: "Copied!", description: `Promo code "${firm.promoCode}" copied to clipboard.` });
     };
+    
+    const MAX_VISIBLE_PLATFORMS = 2;
+    const allPlatforms = firm.platforms || [];
+    const visiblePlatforms = allPlatforms.slice(0, MAX_VISIBLE_PLATFORMS);
+    const hiddenPlatformsCount = allPlatforms.length - MAX_VISIBLE_PLATFORMS;
 
   return (
     <TableRow className="hover:bg-white/5 transition-colors duration-200">
@@ -145,7 +150,7 @@ const FirmRow = ({ firm }: { firm: any }) => {
             <Tooltip>
                 <TooltipTrigger asChild>
                     <div className="flex items-center gap-2 cursor-help">
-                        <span className={`text-xl font-bold ${scoreColor} ${scoreGlow}`}>{ezScore}</span>
+                       <span className={`text-xl font-bold ${scoreColor}`}>{ezScore}</span>
                         <Info className="h-4 w-4 text-gray-500" />
                     </div>
                 </TooltipTrigger>
@@ -179,7 +184,25 @@ const FirmRow = ({ firm }: { firm: any }) => {
       </TableCell>
       <TableCell className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center gap-1.5 flex-wrap max-w-xs">
-          {(firm.platforms || []).slice(0, 4).map((p: string) => <div key={p} className="px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-white/10 text-gray-300">{p}</div>)}
+          {visiblePlatforms.map((p: string) => (
+             <div key={p} className="px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-white/10 text-gray-300">{p}</div>
+          ))}
+          {hiddenPlatformsCount > 0 && (
+             <Popover>
+                <PopoverTrigger asChild>
+                    <button className="px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-white/20 text-gray-200 hover:bg-white/30 cursor-pointer">
+                        +{hiddenPlatformsCount}
+                    </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                    <div className="flex flex-col gap-1 p-2">
+                        {allPlatforms.map((p: string) => (
+                             <div key={p} className="px-2 py-1 text-xs">{p}</div>
+                        ))}
+                    </div>
+                </PopoverContent>
+             </Popover>
+          )}
         </div>
       </TableCell>
       <TableCell className="px-6 py-4 whitespace-nowrap">
@@ -225,6 +248,11 @@ const FirmCard = ({ firm }: { firm: any }) => {
         navigator.clipboard.writeText(firm.promoCode);
         toast({ title: "Copied!", description: `Promo code "${firm.promoCode}" copied to clipboard.` });
     };
+    
+    const MAX_VISIBLE_PLATFORMS = 3;
+    const allPlatforms = firm.platforms || [];
+    const visiblePlatforms = allPlatforms.slice(0, MAX_VISIBLE_PLATFORMS);
+    const hiddenPlatformsCount = allPlatforms.length - MAX_VISIBLE_PLATFORMS;
 
     return (
         <Card className={cn('bg-black/30 backdrop-blur-md p-4 space-y-4 border shadow-lg shadow-black/20', scoreBorder)}>
@@ -254,7 +282,23 @@ const FirmCard = ({ firm }: { firm: any }) => {
             <div className="border-t border-white/10 pt-4">
                 <p className="text-muted-foreground text-sm font-semibold">Platforms</p>
                 <div className="flex items-center gap-2 flex-wrap mt-2">
-                    {(firm.platforms || []).map((p: string) => <div key={p} className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-white/10 text-gray-300">{p}</div>)}
+                    {visiblePlatforms.map((p: string) => <div key={p} className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-white/10 text-gray-300">{p}</div>)}
+                    {hiddenPlatformsCount > 0 && (
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <button className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-white/20 text-gray-200 hover:bg-white/30 cursor-pointer">
+                                    +{hiddenPlatformsCount}
+                                </button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                                <div className="flex flex-col gap-1 p-2 bg-background border-border rounded-md">
+                                    {allPlatforms.map((p: string) => (
+                                        <div key={p} className="px-2 py-1 text-sm">{p}</div>
+                                    ))}
+                                </div>
+                            </PopoverContent>
+                        </Popover>
+                    )}
                 </div>
             </div>
              <div className="grid grid-cols-2 gap-3 pt-3">
@@ -375,3 +419,5 @@ export default function EzCompareTable() {
     </Card>
   );
 }
+
+    
