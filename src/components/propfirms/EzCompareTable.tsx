@@ -20,12 +20,12 @@ const MOCK_FIRMS_DATA_ADAPTED = mockPropFirms.map((firm, index) => ({
   trustpilotRating: firm.rating || 0,
   trustpilotReviewCount: firm.rating ? Math.floor(firm.rating * (250 + index * 10)) : 50,
   countryCode: 'US',
-  yearFounded: 2022 - (index % 4), // Example: 2022, 2021, 2020, 2019, 2022...
+  yearFounded: 2022 - (index % 4),
   assets: firm.tradableInstruments || ['Futures'],
   maxAllocation: firm.maxAccountSize || 0,
   promoCode: firm.promo ? firm.promo.split(' ')[0] : 'EZPROMO',
   promoDiscount: firm.offerBadgeLabel || 'Discount',
-  isNew: index >= mockPropFirms.length - 2, // Last 2 are new
+  isNew: index >= mockPropFirms.length - 2,
   isPopular: !!firm.isFeatured,
   payoutFrequency: 'Bi-Weekly', 
   hasNoTimeLimits: index % 2 === 0, 
@@ -143,8 +143,8 @@ const FirmRow = ({ firm }: { firm: any }) => {
       <TableCell className="px-6 py-4 whitespace-nowrap">
         <TooltipProvider>
             <Tooltip>
-                <TooltipTrigger>
-                    <div className="flex items-center gap-2">
+                <TooltipTrigger asChild>
+                    <div className="flex items-center gap-2 cursor-help">
                         <span className={`text-xl font-bold ${scoreColor} shadow-lg ${scoreGlow}`}>{ezScore}</span>
                         <Info className="h-4 w-4 text-gray-500" />
                     </div>
@@ -165,8 +165,8 @@ const FirmRow = ({ firm }: { firm: any }) => {
       <TableCell className="px-6 py-4 whitespace-nowrap">
         <TooltipProvider>
             <Tooltip>
-                <TooltipTrigger>
-                    <div className="flex items-center text-sm text-foreground">
+                <TooltipTrigger asChild>
+                    <div className="flex items-center text-sm text-foreground cursor-help">
                         {firm.yearFounded}
                         <Info className="h-4 w-4 text-gray-500 ml-2" />
                     </div>
@@ -185,8 +185,8 @@ const FirmRow = ({ firm }: { firm: any }) => {
       <TableCell className="px-6 py-4 whitespace-nowrap">
         <TooltipProvider>
             <Tooltip>
-                <TooltipTrigger>
-                    <div className="flex items-center text-sm text-foreground">
+                <TooltipTrigger asChild>
+                    <div className="flex items-center text-sm text-foreground cursor-help">
                         {formatCurrency(firm.maxAllocation)}
                         <Info className="h-4 w-4 text-gray-500 ml-2" />
                     </div>
@@ -275,7 +275,7 @@ const FirmCard = ({ firm }: { firm: any }) => {
 
 export default function EzCompareTable() {
   const [firms, setFirms] = useState(MOCK_FIRMS_DATA_ADAPTED);
-  const [loading, setLoading] = useState(false); // Set to false since we use static data
+  const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilters, setActiveFilters] = useState<Record<string, boolean>>({});
   const [sortConfig, setSortConfig] = useState({ key: 'ezscore', direction: 'descending' });
@@ -311,6 +311,9 @@ export default function EzCompareTable() {
         } else if (sortConfig.key === 'maxfunding') {
             aValue = (a as any).maxAllocation;
             bValue = (b as any).maxAllocation;
+        } else if (sortConfig.key === 'founded') {
+            aValue = (a as any).yearFounded;
+            bValue = (b as any).yearFounded;
         } else {
             aValue = (a as any)[sortConfig.key];
             bValue = (b as any)[sortConfig.key];
@@ -330,9 +333,8 @@ export default function EzCompareTable() {
     if (sortConfig.key === key && sortConfig.direction === 'ascending') {
       direction = 'descending';
     } else if (sortConfig.key === key && sortConfig.direction === 'descending') {
-        // Optional: third click resets sorting
-        // setSortConfig({ key: 'ezscore', direction: 'descending' });
-        // return;
+        setSortConfig({ key: 'ezscore', direction: 'descending' });
+        return;
     }
     setSortConfig({ key, direction });
   };
