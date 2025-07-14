@@ -13,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
 import TradingViewWidget from '@/components/shared/TradingViewWidget';
 import ComparisonTable from '@/components/compare/ComparisonTable';
+import FirmsTable from '@/components/shared/FirmsTable';
 
 export default function Home() {
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured);
@@ -114,6 +115,15 @@ export default function Home() {
         </section>
       )}
       {/* Featured Prop Firms Section END */}
+
+      {/* New FirmsTable Section START */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+           <h2 className="text-3xl font-bold text-center text-foreground mb-10">Prop Firm Directory</h2>
+           <FirmsTable firms={allFirms} />
+        </div>
+      </section>
+      {/* New FirmsTable Section END */}
 
       {/* Comparison Table Section START */}
       <section className="py-12">

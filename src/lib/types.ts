@@ -1,4 +1,5 @@
 
+
 export interface GlobalOffer {
   id: string;
   text: string;
@@ -15,7 +16,18 @@ export interface AccountTier {
   resetFee?: number; // Optional, typical cost for one reset
   // Future: could include tier-specific profit split, drawdown, etc.
   discountPercentage?: number; // Optional field for discounts
+  profitTargetPercentage?: number | null;
+  drawdownPercentage?: number | null;
+  dailyLossLimitPercentage?: number | null;
 }
+
+export interface TrustpilotReview {
+  reviewerName: string;
+  rating: number;
+  reviewContent: string;
+  isVerified: boolean;
+}
+
 
 export interface PropFirm {
   id: string;
@@ -46,6 +58,8 @@ export interface PropFirm {
   activationFee?: string; // General activation fee info for display in table, e.g., "Free", "$99", "N/A"
   challengeType?: string; // e.g., 1-step, 2-step
   accountTiers?: AccountTier[]; // Detailed tiers for the calculator
+  promo?: string;
+  trustpilotReviews?: TrustpilotReview[];
 }
 
 export interface Article {
