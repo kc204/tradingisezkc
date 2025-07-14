@@ -14,21 +14,21 @@ import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 
 // --- MOCK DATA ADAPTATION (to use existing app structure) ---
-const MOCK_FIRMS_DATA_ADAPTED = mockPropFirms.map(firm => ({
+const MOCK_FIRMS_DATA_ADAPTED = mockPropFirms.map((firm, index) => ({
   ...firm,
   trustpilotRating: firm.rating || 0,
-  trustpilotReviewCount: Math.floor(Math.random() * 1000) + 50, // Mocking review count
+  trustpilotReviewCount: (firm.rating ? Math.floor(firm.rating * 250) : 50) + index * 10, // Deterministic mock count
   countryCode: 'US', // Mocking country code
-  yearFounded: new Date().getFullYear() - Math.floor(Math.random() * 5), // Mocking founding year
+  yearFounded: 2020 - (index % 5), // Deterministic founding year
   assets: firm.tradableInstruments || ['Futures'],
   maxAllocation: firm.maxAccountSize || 0,
   promoCode: firm.promo ? firm.promo.split(' ')[0] : 'EZPROMO',
   promoDiscount: firm.offerBadgeLabel || 'Discount Available',
-  isNew: Math.random() > 0.8,
+  isNew: index > mockPropFirms.length - 3, // Make last two new
   isPopular: firm.isFeatured || false,
   payoutFrequency: 'Bi-Weekly', // Mock data
-  hasNoTimeLimits: Math.random() > 0.5,
-  isInstant: Math.random() > 0.7,
+  hasNoTimeLimits: index % 2 === 0, // Deterministic
+  isInstant: index % 3 === 0, // Deterministic
 }));
 
 
