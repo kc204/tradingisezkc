@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
 import TradingViewWidget from '@/components/shared/TradingViewWidget';
 import ComparisonTable from '@/components/compare/ComparisonTable';
+import EzCompareTable from '@/components/propfirms/EzCompareTable';
 
 
 export default function Home() {
@@ -106,6 +107,11 @@ export default function Home() {
         </section>
       )}
       {/* Featured Prop Firms Section END */}
+
+      {/* EZ Compare Table Section */}
+      <section className="py-12">
+        <EzCompareTable />
+      </section>
 
       {/* Comparison Table Section */}
       <section className="py-12">
