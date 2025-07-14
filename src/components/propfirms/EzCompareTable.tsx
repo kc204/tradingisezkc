@@ -91,7 +91,7 @@ const FirmsTable = ({ firms, requestSort, sortConfig }: {firms: any[], requestSo
 
   return (
     <Card className="bg-black/20 backdrop-blur-sm shadow-2xl shadow-black/20 border-border/50">
-        <div className="overflow-x-auto hidden md:block">
+        <div className="overflow-x-auto">
             <Table>
                 <TableHeader className="border-b border-white/10">
                 <TableRow>
@@ -110,9 +110,6 @@ const FirmsTable = ({ firms, requestSort, sortConfig }: {firms: any[], requestSo
                 </TableBody>
             </Table>
         </div>
-        <div className="md:hidden space-y-3 p-3">
-          {firms.map((firm: any) => <FirmCard key={firm.id} firm={firm} />)}
-      </div>
     </Card>
   );
 };
@@ -237,86 +234,6 @@ const FirmRow = ({ firm }: { firm: any }) => {
   );
 };
 
-const FirmCard = ({ firm }: { firm: any }) => {
-    const { toast } = useToast();
-    const ezScore = useMemo(() => calculateEzScore(firm), [firm]);
-    const scoreColor = ezScore > 80 ? 'text-green-400' : ezScore > 65 ? 'text-yellow-400' : 'text-red-400';
-    const scoreBorder = ezScore > 80 ? 'border-green-500/50' : ezScore > 65 ? 'border-yellow-500/50' : 'border-red-500/50';
-    
-    const copyPromoCode = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        navigator.clipboard.writeText(firm.promoCode);
-        toast({ title: "Copied!", description: `Promo code "${firm.promoCode}" copied to clipboard.` });
-    };
-    
-    const MAX_VISIBLE_PLATFORMS = 3;
-    const allPlatforms = firm.platforms || [];
-    const visiblePlatforms = allPlatforms.slice(0, MAX_VISIBLE_PLATFORMS);
-    const hiddenPlatformsCount = allPlatforms.length - MAX_VISIBLE_PLATFORMS;
-
-    return (
-        <Card className={cn('bg-black/30 backdrop-blur-md p-4 space-y-4 border shadow-lg shadow-black/20', scoreBorder)}>
-            <div className="flex items-start justify-between">
-                <div className="flex items-center gap-4">
-                    <Image className="h-16 w-16 rounded-lg object-cover border-2 border-white/10" src={firm.logoUrl} alt={`${firm.name} logo`} width={64} height={64} />
-                    <div>
-                        <p className="text-xl font-bold text-foreground">{firm.name}</p>
-                        <p className="text-sm text-muted-foreground">{firm.countryCode} - Est. {firm.yearFounded}</p>
-                    </div>
-                </div>
-                <div className="text-right flex-shrink-0">
-                    <p className="text-xs text-muted-foreground">EZ Score</p>
-                    <p className={`text-3xl font-bold ${scoreColor}`}>{ezScore}</p>
-                </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4 text-sm border-t border-white/10 pt-4">
-                <div>
-                    <p className="text-muted-foreground font-semibold">Trustpilot</p>
-                    <div className="flex items-center text-foreground mt-1"><Star className="h-5 w-5 text-yellow-400 mr-1.5" /> {firm.trustpilotRating} ({firm.trustpilotReviewCount})</div>
-                </div>
-                 <div>
-                    <p className="text-muted-foreground font-semibold">Max Funding</p>
-                    <p className="text-foreground font-semibold mt-1">{formatCurrency(firm.maxAllocation)}</p>
-                </div>
-            </div>
-            <div className="border-t border-white/10 pt-4">
-                <p className="text-muted-foreground text-sm font-semibold">Platforms</p>
-                <div className="flex items-center gap-2 flex-wrap mt-2">
-                    {visiblePlatforms.map((p: string) => <div key={p} className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-white/10 text-gray-300">{p}</div>)}
-                    {hiddenPlatformsCount > 0 && (
-                        <Popover>
-                            <PopoverTrigger asChild>
-                                <button className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-white/20 text-gray-200 hover:bg-white/30 cursor-pointer">
-                                    +{hiddenPlatformsCount}
-                                </button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                                <div className="flex flex-col gap-1 p-2 bg-background border-border rounded-md">
-                                    {allPlatforms.map((p: string) => (
-                                        <div key={p} className="px-2 py-1 text-sm">{p}</div>
-                                    ))}
-                                </div>
-                            </PopoverContent>
-                        </Popover>
-                    )}
-                </div>
-            </div>
-             <div className="grid grid-cols-2 gap-3 pt-3">
-                <Button onClick={copyPromoCode} variant="default" className="w-full h-auto py-3 bg-gradient-to-br from-orange-500 to-orange-600 text-white text-sm font-bold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-orange-600/20">
-                  <span>{firm.promoDiscount}</span>
-                  <Copy className="h-4 w-4" />
-                </Button>
-                 <Button asChild className="w-full h-auto py-3">
-                    <a href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
-                    Visit Firm
-                    </a>
-                </Button>
-            </div>
-        </Card>
-    );
-};
-
-
 export default function EzCompareTable() {
   const [firms, setFirms] = useState(MOCK_FIRMS_DATA_ADAPTED);
   const [loading, setLoading] = useState(false);
@@ -419,5 +336,3 @@ export default function EzCompareTable() {
     </Card>
   );
 }
-
-    
