@@ -92,13 +92,31 @@ const ComparisonTable = ({ items, firms }: ComparisonTableProps) => {
       label: 'Challenge Type', 
       getValue: (item: ExpandedFirmTier) => item.firm.challengeType || '-' 
     },
-    { 
-      label: 'Drawdown Rules', 
-      getValue: (item: ExpandedFirmTier) => item.firm.drawdownRules || '-' 
+    {
+      label: 'Drawdown Rules',
+      getValue: (item: ExpandedFirmTier) => {
+        if (item.tier.drawdownRules) {
+          return item.tier.drawdownRules;
+        }
+        if (item.tier.drawdownPercentage && item.tier.size) {
+            const drawdownAmount = item.tier.size * (item.tier.drawdownPercentage / 100);
+            return `$${drawdownAmount.toLocaleString()} (${item.tier.drawdownPercentage}%)`;
+        }
+        return item.firm.drawdownRules || '-';
+      },
     },
-    { 
-      label: 'Profit Goal', 
-      getValue: (item: ExpandedFirmTier) => item.firm.profitTarget || '-' 
+    {
+      label: 'Profit Goal',
+      getValue: (item: ExpandedFirmTier) => {
+        if (item.tier.profitTargetPercentage && item.tier.size) {
+          const profitGoalAmount = item.tier.size * (item.tier.profitTargetPercentage / 100);
+          return `$${profitGoalAmount.toLocaleString()} (${item.tier.profitTargetPercentage}%)`;
+        }
+        if(item.tier.profitTargetPercentage === null) {
+          return 'None';
+        }
+        return item.firm.profitTarget || '-';
+      },
     },
     { 
       label: 'Platforms', 
