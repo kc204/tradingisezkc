@@ -17,17 +17,24 @@ const tptAccountTiers: AccountTier[] = [
 ];
 
 const myFundedFuturesAccountTiers: AccountTier[] = [
-  { id: 'mff-starter-50k', name: '$50K Starter Plan', size: 50000, evaluationFee: 92, activationFee: 0, resetFee: 97, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: 2.4 },
-  { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 92, activationFee: 0, resetFee: 127, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: null }, // This plan's current standard existence is uncertain; verify on MFFU's site.
-  { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 227, activationFee: 0, resetFee: 227, profitTargetPercentage: 8, drawdownPercentage: 4, dailyLossLimitPercentage: null },
-  { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 344, activationFee: 0, resetFee: 344, profitTargetPercentage: 8, drawdownPercentage: 3, dailyLossLimitPercentage: null },
-  { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 477, activationFee: 0, resetFee: 477, profitTargetPercentage: 8, drawdownPercentage: 3, dailyLossLimitPercentage: null },
-  { id: 'mff-milestone-25k', name: '$25K Milestone Plan', size: 25000, evaluationFee: 200, activationFee: 0, resetFee: 200, profitTargetPercentage: null, drawdownPercentage: 5, dailyLossLimitPercentage: null },
-  { id: 'mff-milestone-50k', name: '$50K Milestone Plan', size: 50000, evaluationFee: 445, activationFee: 0, resetFee: 445, profitTargetPercentage: null, drawdownPercentage: 5, dailyLossLimitPercentage: null },
-  { id: 'mff-milestone-100k', name: '$100K Milestone Plan', size: 100000, evaluationFee: 555, activationFee: 0, resetFee: 555, profitTargetPercentage: null, drawdownPercentage: 5, dailyLossLimitPercentage: null },
-  { id: 'mff-milestone-150k', name: '$150K Milestone Plan', size: 150000, evaluationFee: 665, activationFee: 0, resetFee: 665, profitTargetPercentage: null, drawdownPercentage: 5, dailyLossLimitPercentage: null },
+  // Starter Plan
+  { id: 'mff-starter-50k', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, activationFee: 0, resetFee: 97, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: null },
+
+  // Starter Plus Plan
+  { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, activationFee: 0, resetFee: 127, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null },
+  { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, activationFee: 0, resetFee: 267, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
+  { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, activationFee: 0, resetFee: 377, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
+
+  // Expert Plan
+  { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
+  { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
+  { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 375, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
+  
+  // Eval to Live Plan
+  { id: 'mff-1step-eval-live-50k', name: '$50K 1-Step Eval to Live', size: 50000, evaluationFee: 444, activationFee: 0, resetFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
+  { id: 'mff-2step-eval-live-50k', name: '$50K 2-Step Eval to Live', size: 50000, evaluationFee: 197, activationFee: 0, resetFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
 ];
-// Adding a discount to one Tradeify tier for testing
+
 const tradeifyAccountTiers: AccountTier[] = [
   // Advanced Challenge (Intraday Trailing DD, 35% Consistency for Sim-Funded Payouts, $125 Activation for Sim-Funded)
   // EVALUATION FEES (Monthly Subscription) NEED VERIFICATION FROM TRADEIFY.CO MAIN SITE.
@@ -203,7 +210,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Profit Split', value: '80% (PRO) / 90% (PRO+)' },
       { label: 'Max Drawdown', value: 'Trailing (Eval & PRO) / None (PRO+)' },
       { label: 'Platforms', value: 'NinjaTrader, Tradovate, TradingView' },
-      { label: 'Activation Fee', value: '$130 (PRO) / $135 monthly (PRO+ data)'}
+      { label: 'Activation Fee', value: '$130 (PRO) / $135 monthly (PRO+)'}
  ],
     promo: 'No activation fee',
     offerBadgeLabel: 'Daily Payouts!',
@@ -230,54 +237,99 @@ export const mockPropFirms: PropFirm[] = [
     logoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScaa7I9uipZeRoUofIMr2QMJQ-HJv_hNF5FA&s',
     websiteUrl: 'https://myfundedfutures.com/', 
     affiliateLink: 'https://myfundedfutures.com/?aff_id=1030', 
-    briefDescription: 'Futures prop firm with various plans (Starter, Expert, Milestone) and EOD trailing drawdown.',
-    fullReview: `My Funded Futures offers several plans (Starter, Expert, Milestone) for futures traders, primarily featuring an End-of-Day (EOD) trailing drawdown.
-    The Starter Plan includes daily loss limits and a consistency rule for its funded stage.
-    The Expert Plan offers no daily loss limit or consistency rule.
-    The Milestone Plan is a one-time fee program.
-    A key feature is the 100% profit split on the first $10,000, then 90/10. Supports TradingView, NinjaTrader, Tradovate.`,
+    briefDescription: 'Offers a diverse range of futures funding plans including Starter, Expert, and direct-to-live evaluations with generous profit splits.',
+    fullReview: `My Funded Futures provides a comprehensive suite of funding options for futures traders, featuring plans like Starter, Starter Plus, Expert, and Eval to Live. A standout benefit across most plans is the 100% profit split on the first $10,000 earned, which then adjusts to a 90/10 split. The firm emphasizes flexibility, with no minimum or maximum trading day requirements for evaluations, allowing traders to get funded in as little as one day. With 24/7 live support and a clear 4-step process (Choose, Challenge, Verify, Fund), they aim to provide a supportive environment for traders to succeed and eventually gain access to a live trading account with daily payouts.`,
+    tradingRules: `<h3>How to Get Funded (The 4-Step Process)</h3>
+<p>
+  <strong>1. Choose Your Account:</strong> Select the account type (Starter, Starter Plus, Expert, Eval to Live) and size that best fits your trading strategy.
+</p>
+<p>
+  <strong>2. Take the Challenge:</strong> Pass the 1-step or 2-step evaluation by meeting the specified trading objectives to prove your skills.
+</p>
+<p>
+  <strong>3. Get Verified:</strong> After passing the challenge, you go through a verification step to demonstrate consistency.
+</p>
+<p>
+  <strong>4. Get Funded:</strong> Once you are verified, you will receive a simulated funded account and can start earning based on the profit split rules.
+</p>
+
+<h3>Rules for the Evaluation Phase (The Challenge)</h3>
+<ul>
+    <li><strong>Achieve the Profit Target:</strong> You must reach your account's specific profit goal without hitting your maximum loss limit.</li>
+    <li><strong>Complete 5 Trading Sessions:</strong> You need to place at least one trade in five different trading sessions.</li>
+    <li><strong>40% Consistency Rule (for Starter plans):</strong> No single trading day can account for more than 40% of your total profits.</li>
+    <li><strong>No Weekend Positions:</strong> All trades must be closed before the weekend.</li>
+    <li><strong>No Vacation Pauses:</strong> You cannot pause an evaluation account for vacation.</li>
+</ul>
+
+<h3>Rules for Sim-Funded Accounts (After Passing)</h3>
+<h4>Rules for All Funded Accounts</h4>
+<ul>
+    <li><strong>Stay Active:</strong> You must place at least one trade every seven days.</li>
+    <li><strong>Notify for Vacation:</strong> If you need to be away, you must email support to avoid deactivation.</li>
+    <li><strong>Max Accounts:</strong> You can have up to three sim-funded accounts per household.</li>
+    <li><strong>End-of-Day Drawdown:</strong> You must not let your account value exceed the maximum trailing loss limit, which is calculated at the end of the day.</li>
+</ul>
+
+<h4>Starter Account Rules</h4>
+<ul>
+    <li><strong>Payouts:</strong> You can request a payout after every 5 winning days.</li>
+    <li><strong>Scaling:</strong> You must follow the firm's scaling rules, which limit the number of contracts you can trade based on your account balance.</li>
+    <li><strong>Consistency:</strong> The 40% consistency rule still applies to each payout cycle.</li>
+    <li><strong>Minimum Withdrawal:</strong> $250.</li>
+    <li><strong>Resets:</strong> These accounts are eligible to be reset if a rule is broken.</li>
+</ul>
+
+<h4>Expert Account Rules</h4>
+<ul>
+    <li><strong>Payouts:</strong> You can request a payout every 14 calendar days.</li>
+    <li><strong>Scaling:</strong> There are no scaling restrictions.</li>
+    <li><strong>Consistency:</strong> There is no consistency rule.</li>
+    <li><strong>Minimum Withdrawal:</strong> $1,000.</li>
+    <li><strong>Resets:</strong> These accounts cannot be reset.</li>
+</ul>`,
     pros: [
-        'Multiple account plans (Starter, Expert, Milestone)',
-        '100% profit split on first $10,000, then 90/10',
-        'End-of-Day (EOD) trailing drawdown on most plans',
-        'Expert Plan offers no daily loss limit or consistency rules',
-        'Compatible with TradingView, NinjaTrader, Tradovate',
-        'No minimum trading days for Expert plan'
+        'Multiple account plans to suit different trading styles (Starter, Expert, Eval-to-Live)',
+        '100% profit split on first $10,000, then 90/10 on most plans',
+        'No minimum or maximum trading day requirements for evaluation',
+        'Weekly payout options available on Starter plans',
+        'Path to a true live account with daily payouts',
+        '24/7 Live Support'
     ],
     cons: [
-        'Consistency rule for Starter Plan funded stage (40%)',
-        'Monthly fees for Starter and Expert plans',
-        'Inactivity rule for funded accounts',
-        'Buffer zone required before payouts'
+        '40% consistency rule applies to Starter plans',
+        'Maximum of 3 accounts per household',
+        'Expert accounts are not resettable',
+        'Inactivity rules require frequent trading'
     ],
     keyFeatures: [
         '100% profit split up to $10K, then 90/10',
-        'EOD Trailing Drawdown',
-        'Starter, Expert, and Milestone plans',
-        'No daily loss limit option (Expert plan)',
-        'Bi-weekly payouts (Expert plan)'
+        'Variety of plans: Monthly (Starter/Expert) and one-time fee (Eval to Live)',
+        'EOD Trailing Drawdown on most plans',
+        'No daily loss limit on Starter Plus and Expert plans',
+        'No minimum trading days to pass evaluation'
     ],
     keyInfoSnippets: [
-      { label: 'Profit Split', value: '100% (first $10k), then 90%' },
-      { label: 'Drawdown Type', value: 'EOD Trailing' },
+      { label: 'Profit Split', value: 'Up to 100% on first $10k, then 90%' },
+      { label: 'Drawdown Type', value: 'EOD Trailing / Trailing' },
       { label: 'Platforms', value: 'TradingView, NinjaTrader, Tradovate' },
-      { label: 'Account Types', value: 'Starter, Expert, Milestone'},
+      { label: 'Account Types', value: 'Starter, Expert, Eval-to-Live'},
     ],
     offerBadgeLabel: '100% up to $10K Profit',
-    fundingModels: ['Monthly Subscription (Starter, Expert)', 'One-Time Payment (Milestone)'],
-    profitSplit: '100% on first $10,000, then 90/10',
-    drawdownRules: 'EOD Trailing Drawdown (varies by plan)',
-    profitTarget: 'Varies by plan (e.g., Starter: 6%, Expert: 8%)',
+    fundingModels: ['Monthly Subscription', 'One-Time Payment'],
+    profitSplit: '100% on first $10,000, then 90% (80% on Eval-to-Live)',
+    drawdownRules: 'End-of-Day Trailing or Trailing Drawdown (varies by plan)',
+    profitTarget: 'Varies by plan',
     tradableInstruments: ['Futures'],
     platforms: ['TradingView', 'NinjaTrader', 'Tradovate'],
     rating: 4.7,
     isFeatured: false,
-    minAccountSize: 25000, 
+    minAccountSize: 50000, 
     maxAccountSize: 150000,
-    minChallengeCost: 92, 
-    maxChallengeCost: 665, 
+    minChallengeCost: 97, 
+    maxChallengeCost: 444, 
     activationFee: 'None', 
-    challengeType: 'Evaluation (monthly or one-time fee)',
+    challengeType: '1-Step or 2-Step Evaluation',
     accountTiers: myFundedFuturesAccountTiers,
   },
   {
@@ -351,8 +403,8 @@ export const mockPropFirms: PropFirm[] = [
     websiteUrl: 'https://bulenox.com/',
     affiliateLink: 'https://bulenox.com/?ref=YOUR-AFFILIATE-ID', // REPLACE WITH YOUR ACTUAL BULENOX AFFILIATE LINK
     isFeatured: false,
-    briefDescription: 'Multi-stage futures funding with a choice of drawdown models and a 100% profit split on the first $10,000.',
-    fullReview: `Bulenox provides a clear career path for futures traders, beginning with a Qualification Account and advancing to a Master Account. Traders have the option to select between two distinct evaluation models: a "No Scaling" account, which utilizes a trailing drawdown and has no daily loss limit, or an "EOD" account, which features an end-of-day drawdown, a daily loss limit, and a contract scaling plan. After successfully completing the minimum 5-day evaluation, traders are required to pay a one-time activation fee to obtain a Master Account. These accounts boast an attractive 100% profit split on the initial $10,000 earned, after which the split adjusts to 90/10. Payouts can be requested after 10 trading days, contingent upon a 40% consistency rule and the maintenance of a safety reserve. Traders who demonstrate consistent performance may receive an invitation to trade with real capital in a final funded stage.`,
+    briefDescription: 'Futures prop firm with a Qualification to Master account path, choice of drawdown models, and a 100% profit split on the first $10,000.',
+    fullReview: `Bulenox offers a structured career path for futures traders, starting with a Qualification Account and advancing to a Master Account. A key feature is the choice between two evaluation models: a "No Scaling" account with a trailing drawdown and no daily loss limit, or an "EOD" account with an end-of-day drawdown, daily loss limit, and a contract scaling plan. After a minimum 5-day evaluation, traders pay a one-time activation fee for a Master Account, which boasts a 100% profit split on the first $10,000, then 90/10. Consistent traders may eventually be invited to a fully-funded real capital account.`,
     tradingRules: `<h3>Step 1: The Qualification Account</h3>
 <p>This is the first step for all traders. The goal is to prove your trading skill by meeting a profit target without breaking any rules.</p>
 <h4>Choose Your Trading Style: Account Options</h4>
@@ -398,6 +450,14 @@ export const mockPropFirms: PropFirm[] = [
   <li><strong>Safety Reserve:</strong> A minimum account balance (safety reserve) must be maintained to make a withdrawal.</li>
 </ul>
 
+<h3>Step 3: The Funded Account (Real Capital)</h3>
+<p>This is the final stage, where consistent traders may be invited to trade real capital.</p>
+<ul>
+    <li><strong>Requirement:</strong> A trader with three successful payouts from a Master Account may be invited to transition to a Funded Account at the discretion of the Risk Management team.</li>
+    <li><strong>Account Consolidation:</strong> All of a trader's active Master Accounts are merged into a single Funded Account.</li>
+    <li><strong>Payout Request:</strong> You must complete at least five individual trading days before requesting a payout.</li>
+</ul>
+
 <h3>Important Trading Policies & Warnings</h3>
 <ul>
     <li><strong>Market Halts:</strong> Trading during market halts is high-risk. Bulenox is not responsible for software interruptions, delays, or data feed errors that may occur during these periods.</li>
@@ -417,7 +477,7 @@ export const mockPropFirms: PropFirm[] = [
       "Withdrawal limits apply for the first three payouts"
     ],
     keyFeatures: [
-      'Multi-stage career path (Qualification -> Master)',
+      'Multi-stage career path (Qualification -> Master -> Funded)',
       '100% profit split on first $10k, then 90/10',
       'Choice of Trailing Drawdown or EOD Drawdown',
       'No monthly fees on funded Master accounts',
@@ -456,33 +516,40 @@ export const mockPropFirms: PropFirm[] = [
     briefDescription: 'Offers "Straight to Funded" (S2F) accounts with a 100% profit split, alongside Trail and Static evaluations.',
     fullReview: `This proprietary trading firm offers "Straight to Funded" (S2F) accounts, meaning you can start trading with their capital after paying a one-time fee. There are no profit splits; you keep 100% of your earnings. Daytraders also offers "Trail" and "Static" evaluation accounts. Trading is done exclusively on their proprietary ProjectX platform.`,
     tradingRules: `<h3>Rules for Evaluation Accounts</h3>
-<br/>
 <h4>Permitted and Prohibited Trading Practices</h4>
-- **Dollar-Cost Averaging (DCA):** Allowed in both evaluation and Pro accounts.
-- **News Trading:** Allowed, but traders should be cautious due to potentially high volatility and low liquidity.
-- **Hedging:** Not permitted at any point during the evaluation phase.
-- **High-Frequency Trading (HFT):** Automated high-frequency trading is strictly prohibited.
+<ul>
+    <li><strong>Dollar-Cost Averaging (DCA):</strong> Allowed in both evaluation and Pro accounts.</li>
+    <li><strong>News Trading:</strong> Allowed, but traders should be cautious due to potentially high volatility and low liquidity.</li>
+    <li><strong>Hedging:</strong> Not permitted at any point during the evaluation phase.</li>
+    <li><strong>High-Frequency Trading (HFT):</strong> Automated high-frequency trading is strictly prohibited.</li>
+</ul>
 <h4>Rules for Passing the Evaluation</h4>
 <p>To successfully pass your evaluation and move to a Pro account, you must adhere to the following rules:</p>
-- **Profit Goal and Drawdown:** You must reach the profit goal for your specific account size without ever letting your balance fall to the maximum drawdown limit.
-- **Minimum Trading Days:** A minimum of 4 trading days is required. These days do not need to be consecutive.
-- **Minimum Daily Profit:** For a day to count toward the 4-day minimum, it must meet a specific profit threshold: $25k Account: $100, $50k Account: $200, $75k Account: $200, $100k Account: $300, $150k Account: $300, $250k Account: $300, $300k Account: $400.
-- **Consistency Rule (50%):** To ensure consistent trading, no single trading day can account for more than 50% of your total profit. *Note: If you fail to meet this rule, you can continue trading to balance out your profit distribution.*
-- **Stop Trading After Passing:** Once all evaluation criteria are met, you must stop trading immediately. Continuing to trade could cause you to fall below the profit target and invalidate your pass.
+<ul>
+    <li><strong>Profit Goal and Drawdown:</strong> You must reach the profit goal for your specific account size without ever letting your balance fall to the maximum drawdown limit.</li>
+    <li><strong>Minimum Trading Days:</strong> A minimum of 4 trading days is required. These days do not need to be consecutive.</li>
+    <li><strong>Minimum Daily Profit:</strong> For a day to count toward the 4-day minimum, it must meet a specific profit threshold ($25k: $100, $50k-$75k: $200, $100k-$250k: $300, $300k: $400).</li>
+    <li><strong>Consistency Rule (50%):</strong> To ensure consistent trading, no single trading day can account for more than 50% of your total profit. <em>Note: If you fail to meet this rule, you can continue trading to balance out your profit distribution.</em></li>
+    <li><strong>Stop Trading After Passing:</strong> Once all evaluation criteria are met, you must stop trading immediately. Continuing to trade could cause you to fall below the profit target and invalidate your pass.</li>
+</ul>
 <h4>General Account Management</h4>
-- **Daily Cut-Off:** All trades must be closed, and pending orders canceled, by 4:59 PM ET.
-- **Inactivity Rule:** You must place at least one trade every 30 days to keep your account active.
-- **Account Limit:** You are allowed to have a maximum of 15 evaluation accounts at one time.
-- **Code of Conduct:** You are expected to be respectful when interacting with support agents and must not share your account login information.
-- **Commissions:** Commissions are applied to all trades.
-<br/>
+<ul>
+    <li><strong>Daily Cut-Off:</strong> All trades must be closed, and pending orders canceled, by 4:59 PM ET.</li>
+    <li><strong>Inactivity Rule:</strong> You must place at least one trade every 30 days to keep your account active.</li>
+    <li><strong>Account Limit:</strong> You are allowed to have a maximum of 15 evaluation accounts at one time.</li>
+    <li><strong>Code of Conduct:</strong> You are expected to be respectful when interacting with support agents and must not share your account login information.</li>
+    <li><strong>Commissions:</strong> Commissions are applied to all trades.</li>
+</ul>
+
 <h3>Rules for Funded Accounts (Pro & S2F)</h3>
-<br/>
 <h4>General Trading Rules (All Funded Accounts)</h4>
-- **Account Limit:** A maximum of 5 active funded accounts are allowed per trader. This can be a mix of up to 2 Pro Accounts and up to 3 S2F Accounts.
-- **Permitted Strategies:** Dollar-Cost Averaging (DCA) and News Trading are allowed.
-- **Prohibited Strategies:** Hedging (being long and short on the same asset across different accounts) and High-Frequency Trading (HFT) are not allowed.
-- **Inactivity Rule:** You must place at least one trade every 30 days to keep the account active.
+<ul>
+    <li><strong>Account Limit:</strong> A maximum of 5 active funded accounts are allowed per trader. This can be a mix of up to 2 Pro Accounts and up to 3 S2F Accounts.</li>
+    <li><strong>Permitted Strategies:</strong> Dollar-Cost Averaging (DCA) and News Trading are allowed.</li>
+    <li><strong>Prohibited Strategies:</strong> Hedging (being long and short on the same asset across different accounts) and High-Frequency Trading (HFT) are not allowed.</li>
+    <li><strong>Inactivity Rule:</strong> You must place at least one trade every 30 days to keep the account active.</li>
+</ul>
+
 <h4>Specific Account Rules</h4>
 <table>
   <thead>
@@ -515,6 +582,7 @@ export const mockPropFirms: PropFirm[] = [
     </tr>
   </tbody>
 </table>
+
 <h4>Payout Rules & Requirements</h4>
 <h5>Minimum Daily Profit</h5>
 <p>For a trading day to qualify for payouts, it must meet the following minimum profit:</p>
@@ -639,8 +707,10 @@ export const mockPropFirms: PropFirm[] = [
   </tbody>
 </table>
 <h5>Maximum Withdrawal and Live Accounts</h5>
-- **Overall Limit:** The total withdrawal cap per trader is $150,000 across all their accounts.
-- **Transition to Live:** After reaching the payout max or completing 6 payout milestones, your performance will be evaluated for a transition to a live funded account.`,
+<ul>
+    <li><strong>Overall Limit:</strong> The total withdrawal cap per trader is $150,000 across all their accounts.</li>
+    <li><strong>Transition to Live:</strong> After reaching the payout max or completing 6 payout milestones, your performance will be evaluated for a transition to a live funded account.</li>
+</ul>`,
     pros: [
         '100% profit split on all funded accounts.',
         '"Straight to Funded" option for immediate trading.',
@@ -908,3 +978,4 @@ export const mockFreeResources: FreeResourceItem[] = [
 
 
   
+
