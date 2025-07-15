@@ -437,7 +437,8 @@ export const mockPropFirms: PropFirm[] = [
     affiliateLink: 'https://daytraders.com/?aff_id=YOUR-AFFILIATE-ID', // Replace with your actual Daytraders affiliate link
     briefDescription: 'Offers "Straight to Funded" (S2F) accounts with a 100% profit split, alongside Trail and Static evaluations.',
     fullReview: `This proprietary trading firm offers "Straight to Funded" (S2F) accounts, meaning you can start trading with their capital after paying a one-time fee. There are no profit splits; you keep 100% of your earnings. Daytraders also offers "Trail" and "Static" evaluation accounts. Trading is done exclusively on their proprietary ProjectX platform.`,
-    tradingRules: `
+    tradingRules: `<h3>Rules for Evaluation Accounts</h3>
+<br/>
 ### Permitted and Prohibited Trading Practices
 - **Dollar-Cost Averaging (DCA):** Allowed in both evaluation and Pro accounts.
 - **News Trading:** Allowed, but traders should be cautious due to potentially high volatility and low liquidity.
@@ -465,6 +466,177 @@ To successfully pass your evaluation and move to a Pro account, you must adhere 
 - **Account Limit:** You are allowed to have a maximum of 15 evaluation accounts at one time.
 - **Code of Conduct:** You are expected to be respectful when interacting with support agents and must not share your account login information.
 - **Commissions:** Commissions are applied to all trades.
+<br/>
+<h3>Rules for Funded Accounts (Pro & S2F)</h3>
+<br/>
+### General Trading Rules (All Funded Accounts)
+- **Account Limit:** A maximum of 5 active funded accounts are allowed per trader. This can be a mix of up to 2 Pro Accounts and up to 3 S2F Accounts.
+- **Permitted Strategies:** Dollar-Cost Averaging (DCA) and News Trading are allowed.
+- **Prohibited Strategies:** Hedging (being long and short on the same asset across different accounts) and High-Frequency Trading (HFT) are not allowed.
+- **Inactivity Rule:** You must place at least one trade every 30 days to keep the account active.
+
+### Specific Account Rules
+<table>
+  <thead>
+    <tr>
+      <th>Rule</th>
+      <th>Pro Accounts</th>
+      <th>S2F Accounts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Consistency</strong></td>
+      <td>No single trading day can exceed 30% of total profit.</td>
+      <td>No single trading day can exceed 20% of total profit.</td>
+    </tr>
+    <tr>
+      <td><strong>Min. Trading Days</strong></td>
+      <td>Requires 8 qualifying trading days for a payout.</td>
+      <td>Requires 10 qualifying trading days for a payout.</td>
+    </tr>
+    <tr>
+      <td><strong>Drawdown Type</strong></td>
+      <td>Follows the evaluation rule (Static or Intraday Trailing).</td>
+      <td>Uses an End-of-Day (EOD) trailing drawdown.</td>
+    </tr>
+    <tr>
+      <td><strong>Account Failure</strong></td>
+      <td>Must pass another evaluation to get a new account.</td>
+      <td>Requires a re-purchase of the account.</td>
+    </tr>
+  </tbody>
+</table>
+
+### Payout Rules & Requirements
+#### Minimum Daily Profit
+For a trading day to qualify for payouts, it must meet the following minimum profit:
+<table style="width:100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Account Size</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Minimum Daily Profit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">25k</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$100</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">50k - 75k</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$200</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">100k - 250k</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$300</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">300k</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$400</td>
+    </tr>
+  </tbody>
+</table>
+
+#### Full & Static Pro Account Payouts
+These accounts require a profit buffer before withdrawal. The minimum payout request is $500.
+<table style="width:100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Account Size</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Min. Balance for Payout</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Min. Balance After Withdrawal</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Max Withdrawal per Request</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">25k</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$27,000</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$26,000</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$1,000</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">50k</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$52,600</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$52,000</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$2,000</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">75k</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$77,850</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$77,500</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$2,500</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">100k</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$103,100</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$103,000</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$3,000</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">150k</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$155,100</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$153,500</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$3,500</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">250k</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$256,600</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$254,000</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$4,000</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">300k</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$307,600</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$305,000</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$5,000</td>
+    </tr>
+  </tbody>
+</table>
+
+#### S2F Account Payouts
+S2F accounts use profit targets that must be met before each withdrawal.
+<table style="width:100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Payout Targets</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">25k Account</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">50k Account</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">150k Account</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;"><strong>Profit Target 1</strong></td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$2,000</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$3,500</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$10,000</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;"><strong>Profit Target 2</strong></td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$1,500</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$3,000</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$5,000</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;"><strong>Profit Target 3+</strong></td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$1,000</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$2,500</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$3,500</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;"><strong>Max. Payout Request</strong></td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$1,000</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$2,000</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">$3,000</td>
+    </tr>
+  </tbody>
+</table>
+
+### Maximum Withdrawal and Live Accounts
+- **Overall Limit:** The total withdrawal cap per trader is $150,000 across all their accounts.
+- **Transition to Live:** After reaching the payout max or completing 6 payout milestones, your performance will be evaluated for a transition to a live funded account.
 `,
     pros: [
         '100% profit split on all funded accounts.',
@@ -508,18 +680,15 @@ To successfully pass your evaluation and move to a Pro account, you must adhere 
     activationFee: 'None (S2F) / $130 (Trail/Static)',
     challengeType: 'Evaluation or Direct Funding',
     accountTiers: [
-        // Straight to Funded (S2F)
-        { id: 'dt-s2f-25k', name: '25K S2F Account', size: 25000, evaluationFee: 370, activationFee: 0, drawdownPercentage: 4, dailyLossLimitPercentage: null, profitTargetPercentage: null },
-        { id: 'dt-s2f-50k', name: '50K S2F Account', size: 50000, evaluationFee: 570, activationFee: 0, drawdownPercentage: 5, dailyLossLimitPercentage: 2.5, profitTargetPercentage: null },
-        { id: 'dt-s2f-150k', name: '150K S2F Account', size: 150000, evaluationFee: 825, activationFee: 0, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5, profitTargetPercentage: null },
-        // Trail Accounts
-        { id: 'dt-trail-25k', name: '25K TRAIL Account', size: 25000, evaluationFee: 249, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '1500 Trailing Threshold', dailyLossLimitPercentage: null },
-        { id: 'dt-trail-50k', name: '50K TRAIL Account', size: 50000, evaluationFee: 379, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '2500 Trailing Threshold', dailyLossLimitPercentage: null },
-        { id: 'dt-trail-75k', name: '75K TRAIL Account', size: 75000, evaluationFee: 449, activationFee: 130, profitTargetPercentage: 5.67, drawdownRules: '2750 Trailing Threshold', dailyLossLimitPercentage: null },
-        // Static Accounts
-        { id: 'dt-static-25k', name: '25K STATIC Account', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 10, drawdownRules: '$750 Total Drawdown', dailyLossLimitPercentage: null },
-        { id: 'dt-static-50k', name: '50K STATIC Account', size: 50000, evaluationFee: 200, activationFee: 130, profitTargetPercentage: 7.5, drawdownRules: '$1000 Total Drawdown', dailyLossLimitPercentage: null },
-        { id: 'dt-static-75k', name: '75K STATIC Account', size: 75000, evaluationFee: 250, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1250 Total Drawdown', dailyLossLimitPercentage: null },
+      { id: 'dt-s2f-25k', name: '25K S2F Account', size: 25000, evaluationFee: 370, activationFee: 0, drawdownPercentage: 4, dailyLossLimitPercentage: null, profitTargetPercentage: null },
+      { id: 'dt-s2f-50k', name: '50K S2F Account', size: 50000, evaluationFee: 570, activationFee: 0, drawdownPercentage: 5, dailyLossLimitPercentage: 2.5, profitTargetPercentage: null },
+      { id: 'dt-s2f-150k', name: '150K S2F Account', size: 150000, evaluationFee: 825, activationFee: 0, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5, profitTargetPercentage: null },
+      { id: 'dt-trail-25k', name: '25K TRAIL Account', size: 25000, evaluationFee: 249, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '1500 Trailing Threshold', dailyLossLimitPercentage: null },
+      { id: 'dt-trail-50k', name: '50K TRAIL Account', size: 50000, evaluationFee: 379, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '2500 Trailing Threshold', dailyLossLimitPercentage: null },
+      { id: 'dt-trail-75k', name: '75K TRAIL Account', size: 75000, evaluationFee: 449, activationFee: 130, profitTargetPercentage: 5.67, drawdownRules: '2750 Trailing Threshold', dailyLossLimitPercentage: null },
+      { id: 'dt-static-25k', name: '25K STATIC Account', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 10, drawdownRules: '$750 Total Drawdown', dailyLossLimitPercentage: null },
+      { id: 'dt-static-50k', name: '50K STATIC Account', size: 50000, evaluationFee: 200, activationFee: 130, profitTargetPercentage: 7.5, drawdownRules: '$1000 Total Drawdown', dailyLossLimitPercentage: null },
+      { id: 'dt-static-75k', name: '75K STATIC Account', size: 75000, evaluationFee: 250, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1250 Total Drawdown', dailyLossLimitPercentage: null },
     ],
   }
 ];
@@ -732,3 +901,4 @@ export const mockFreeResources: FreeResourceItem[] = [
     
 
     
+
