@@ -1,5 +1,4 @@
 
-
 import type { GlobalOffer, PropFirm, Article, TradingResource, FreeResourceItem, VideoLesson, BookListing, AccountTier } from './types';
 
 export const mockGlobalOffers: GlobalOffer[] = [
@@ -9,30 +8,27 @@ export const mockGlobalOffers: GlobalOffer[] = [
 ];
 
 const tptAccountTiers: AccountTier[] = [
-  { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, activationFee: undefined, resetFee: 75, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: 2, discountPercentage: 0.30 }, // 30% discount
-  { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, activationFee: undefined, resetFee: 75, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // 30% discount
-  { id: 'tpt-eval-75k', name: '$75K Evaluation', size: 75000, evaluationFee: 245, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: 2.13, discountPercentage: 0.30 }, // 30% discount
-  { id: 'tpt-eval-100k', name: '$100K Evaluation', size: 100000, evaluationFee: 330, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // 30% discount
-  { id: 'tpt-eval-150k', name: '$150K Evaluation', size: 150000, evaluationFee: 360, activationFee: undefined, resetFee: 100, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // 30% discount
+  { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: 2, discountPercentage: 0.30 }, // $1500 target, $1500 max loss, $500 daily
+  { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // $3000 target, $2000 max loss, $1100 daily
+  { id: 'tpt-eval-75k', name: '$75K Evaluation', size: 75000, evaluationFee: 245, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: 2.13, discountPercentage: 0.30 }, // $4500 target, $2500 max loss, $1600 daily
+  { id: 'tpt-eval-100k', name: '$100K Evaluation', size: 100000, evaluationFee: 330, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // $6000 target, $3000 max loss, $2200 daily
+  { id: 'tpt-eval-150k', name: '$150K Evaluation', size: 150000, evaluationFee: 360, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // $9000 target, $4500 max loss, $3300 daily
 ];
 
 const myFundedFuturesAccountTiers: AccountTier[] = [
   // Starter Plan
-  { id: 'mff-starter-50k', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, activationFee: 0, resetFee: 97, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: null },
-
+  { id: 'mff-starter-50k', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, activationFee: 0, resetFee: 97, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: 2.5, drawdownRules: '$2,500 Trailing Drawdown' },
   // Starter Plus Plan
-  { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, activationFee: 0, resetFee: 127, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null },
-  { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, activationFee: 0, resetFee: 267, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
-  { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, activationFee: 0, resetFee: 377, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
-
+  { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, activationFee: 0, resetFee: 127, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null, drawdownRules: '$2,000 End-of-Day Trailing Drawdown' },
+  { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, activationFee: 0, resetFee: 267, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$3,000 End-of-Day Trailing Drawdown' },
+  { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, activationFee: 0, resetFee: 377, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$4,500 End-of-Day Trailing Drawdown' },
   // Expert Plan
   { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
   { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
   { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 375, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
-  
   // Eval to Live Plan
-  { id: 'mff-1step-eval-live-50k', name: '$50K 1-Step Eval to Live', size: 50000, evaluationFee: 444, activationFee: 0, resetFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
-  { id: 'mff-2step-eval-live-50k', name: '$50K 2-Step Eval to Live', size: 50000, evaluationFee: 197, activationFee: 0, resetFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
+  { id: 'mff-1step-eval-live-50k', name: '$50K 1-Step Eval to Live', size: 50000, evaluationFee: 444, activationFee: 0, resetFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1, drawdownRules: '$1,500 End-of-Day Max Loss (Eval), $500 Daily Loss (Live)' },
+  { id: 'mff-2step-eval-live-50k', name: '$50K 2-Step Eval to Live', size: 50000, evaluationFee: 197, activationFee: 0, resetFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1, drawdownRules: '$1,500 End-of-Day Max Loss (Eval), $500 Daily Loss (Live)' },
 ];
 
 const tradeifyAccountTiers: AccountTier[] = [
@@ -167,11 +163,11 @@ const tradeifyAccountTiers: AccountTier[] = [
 ];
 
 const bulenoxAccountTiers: AccountTier[] = [
-  { id: 'bulenox-qual-25k', name: '$25K Qualification', size: 25000, evaluationFee: 145, activationFee: 148, drawdownPercentage: 6, profitTargetPercentage: 6 }, // Activation fee is an example, verify
-  { id: 'bulenox-qual-50k', name: '$50K Qualification', size: 50000, evaluationFee: 175, activationFee: 148, drawdownPercentage: 5, profitTargetPercentage: 6 },
-  { id: 'bulenox-qual-100k', name: '$100K Qualification', size: 100000, evaluationFee: 215, activationFee: 248, drawdownPercentage: 3, profitTargetPercentage: 6 },
-  { id: 'bulenox-qual-150k', name: '$150K Qualification', size: 150000, evaluationFee: 325, activationFee: 498, drawdownPercentage: 3, profitTargetPercentage: 6 },
-  { id: 'bulenox-qual-250k', name: '$250K Qualification', size: 250000, evaluationFee: 535, activationFee: 898, drawdownPercentage: 2.2, profitTargetPercentage: 6 },
+  { id: 'bulenox-qual-25k', name: '$25K Qualification', size: 25000, evaluationFee: 145, activationFee: 148, drawdownPercentage: 6, profitTargetPercentage: 6 }, // $1500 target, $1500 max drawdown
+  { id: 'bulenox-qual-50k', name: '$50K Qualification', size: 50000, evaluationFee: 175, activationFee: 148, drawdownPercentage: 5, profitTargetPercentage: 6 }, // $3000 target, $2500 max drawdown
+  { id: 'bulenox-qual-100k', name: '$100K Qualification', size: 100000, evaluationFee: 215, activationFee: 248, drawdownPercentage: 3, profitTargetPercentage: 6 }, // $6000 target, $3000 max drawdown
+  { id: 'bulenox-qual-150k', name: '$150K Qualification', size: 150000, evaluationFee: 325, activationFee: 498, drawdownPercentage: 3, profitTargetPercentage: 6 }, // $9000 target, $4500 max drawdown
+  { id: 'bulenox-qual-250k', name: '$250K Qualification', size: 250000, evaluationFee: 535, activationFee: 898, drawdownPercentage: 2.2, profitTargetPercentage: 6 }, // $15000 target, $5500 max drawdown
 ];
 
 export const mockPropFirms: PropFirm[] = [
@@ -182,41 +178,71 @@ export const mockPropFirms: PropFirm[] = [
     logoUrl: 'https://takeprofittrader.com/assets/desktop-logo.svg',
     websiteUrl: 'https://www.takeprofittrader.com/',
     affiliateLink: 'https://takeprofittrader.com/if/tradingisez',
-    briefDescription: 'Futures prop firm with one-step evaluations and choice of PRO or PRO+ funded accounts.',
-    fullReview: `Take Profit Trader (TPT) offers a one-step evaluation for futures traders. Account sizes range from $25K to $150K. Upon passing (min 5 trading days, EOD trailing drawdown, daily loss limits, and a consistency rule - typically 30-40%), traders choose between a PRO account (simulated, $130 one-time activation, 80% split, trailing DD) or a PRO+ account (live data, $135/month data fee, 90% split, no trailing DD). Both have news trading restrictions. TPT prohibits copy trading. Withdrawals via methods like PayPal and Wise (verify current options and any minimums/fees with TPT). Supports Tradovate, NinjaTrader, TradingView with CQG/Rithmic.`,
+    briefDescription: 'Futures prop firm with a 1-step evaluation, daily payouts, and a path to a live PRO+ account with a 90% profit split.',
+    fullReview: `Take Profit Trader (TPT) provides a straightforward path for futures traders with its 1-step evaluation. After passing the Test account (which has an EOD trailing drawdown), traders pay a one-time $130 fee to access a PRO account. PRO accounts feature daily payouts from day one and an 80% profit split, but use a more restrictive intraday trailing drawdown. For a higher 90% split and a return to the more flexible EOD drawdown, traders can upgrade to a PRO+ account, which operates in a live market environment. A key rule to note is the news trading restriction on all funded (PRO and PRO+) accounts.`,
+    tradingRules: `<h3>Test Account (The Evaluation)</h3>
+<p>This is the initial step to prove you can trade profitably and manage risk.</p>
+<ul>
+    <li><strong>Environment:</strong> You trade in a simulated (SIM) environment.</li>
+    <li><strong>Drawdown:</strong> Your maximum loss is calculated at the End of the Day (EOD).</li>
+    <li><strong>Consistency Rule:</strong> You must follow a consistency rule, where your best day's profit cannot be a disproportionately large part of your total profit.</li>
+    <li><strong>Daily Loss Limit:</strong> A daily loss limit applies during the Test phase.</li>
+    <li><strong>News Trading:</strong> You are allowed to trade during news events.</li>
+    <li><strong>Scaling:</strong> There is no scaling plan, so you can use the maximum number of contracts allowed for your account from day one.</li>
+</ul>
+
+<h3>PRO Account (Your First Funded Level)</h3>
+<p>After you pass the test, you get a PRO Account.</p>
+<ul>
+    <li><strong>Environment:</strong> This is a simulated (SIM) account, but you are paid real money from your simulated profits.</li>
+    <li><strong>Profit Split:</strong> You keep 80% of the profits.</li>
+    <li><strong>Withdrawals:</strong> You can request a withdrawal starting from day one.</li>
+    <li><strong>Drawdown:</strong> This changes to an Intraday trailing drawdown, which means it updates as your account balance increases during the day.</li>
+    <li><strong>Buffer Requirement:</strong> You must maintain a minimum profit buffer in your account before you can withdraw.</li>
+    <li><strong>News Trading:</strong> You are <strong>not</strong> allowed to trade during major news events.</li>
+    <li><strong>Max Accounts:</strong> You can have up to 5 PRO accounts.</li>
+</ul>
+
+<h3>PRO+ Account (Upgraded Funded Level)</h3>
+<p>You can upgrade your PRO account to a PRO+ account.</p>
+<ul>
+    <li><strong>Environment:</strong> This is a LIVE market account, where your trades are sent to the actual exchange.</li>
+    <li><strong>Profit Split:</strong> Your profit share increases to 90%.</li>
+    <li><strong>Drawdown:</strong> This reverts back to an End of Day calculation, giving you more flexibility.</li>
+    <li><strong>Buffer Requirement:</strong> There is no buffer requirement.</li>
+    <li><strong>News Trading:</strong> The news trading restriction still applies.</li>
+</ul>`,
     pros: [
-        'Daily Payouts!',
-        'One-step evaluation process',
-        'Choice of PRO (sim) or PRO+ (live data) funded accounts',
-        '90% profit split option with PRO+ account',
-        'No trailing drawdown on PRO+ account',
-        'Free licenses for NinjaTrader and Tradovate'
+        'Daily Payouts available from day one on PRO accounts',
+        'Simple 1-Step Evaluation process',
+        'Choice of PRO (sim) or PRO+ (live) funded accounts',
+        '90% profit split available with PRO+ account',
+        'News trading is allowed during the evaluation phase'
     ],
     cons: [
-        'Consistency rule (typically 30-40% - verify exact current % with TPT) during evaluation',
-        'News trading restrictions on funded accounts',
-        'Copy trading not permitted',
-        'PRO+ account has a monthly data fee ($135)',
-        'Trailing drawdown on PRO account can be challenging'
+        'Consistency rule during evaluation',
+        'News trading is restricted on all funded accounts (PRO and PRO+)',
+        'PRO account has a more restrictive Intraday trailing drawdown',
+        'One-time activation fee required after passing evaluation'
     ],
     keyFeatures: [
-        'One-step evaluation (min 5 trading days, consistency rule - verify current % with TPT)',
-        'PRO (80% split) & PRO+ (90% split) funded options',
-        'Platforms: Tradovate, NinjaTrader, TradingView',
-        'Data via CQG and Rithmic',
-        'Payout options like PayPal, Wise (verify current methods with TPT)'
+        '1-Step Evaluation with EOD Drawdown',
+        'Daily Payouts',
+        'PRO Account with 80% split and Intraday Drawdown',
+        'PRO+ Account with 90% split and EOD Drawdown',
+        'Supports Tradovate, NinjaTrader, TradingView'
     ],
       keyInfoSnippets: [
       { label: 'Profit Split', value: '80% (PRO) / 90% (PRO+)' },
-      { label: 'Max Drawdown', value: 'Trailing (Eval & PRO) / None (PRO+)' },
-      { label: 'Platforms', value: 'NinjaTrader, Tradovate, TradingView' },
-      { label: 'Activation Fee', value: '$130 (PRO) / $135 monthly (PRO+)'}
+      { label: 'Payouts', value: 'Daily from Day 1' },
+      { label: 'Funded Drawdown', value: 'Intraday (PRO) / EOD (PRO+)' },
+      { label: 'Activation Fee', value: '$130 (One-Time)'}
  ],
     promo: 'No activation fee',
     offerBadgeLabel: 'Daily Payouts!',
     fundingModels: ['1-Step Evaluation'],
     profitSplit: '80% (PRO) / 90% (PRO+)',
-    drawdownRules: 'Trailing (Evaluation & PRO) / No Trailing Drawdown (PRO+)',
+    drawdownRules: 'EOD Trailing (Evaluation & PRO+) / Intraday Trailing (PRO)',
     profitTarget: '6%',
     tradableInstruments: ['Futures'],
     platforms: ['Tradovate', 'NinjaTrader', 'TradingView'],
@@ -226,7 +252,7 @@ export const mockPropFirms: PropFirm[] = [
     maxAccountSize: 150000,
     minChallengeCost: 150, 
     maxChallengeCost: 360,
-    activationFee: '$130 (PRO Account) / $135 monthly (PRO+ data)',
+    activationFee: '$130 (PRO Account)',
     challengeType: '1-Step Evaluation', 
     accountTiers: tptAccountTiers,
   },
@@ -241,10 +267,10 @@ export const mockPropFirms: PropFirm[] = [
     fullReview: `My Funded Futures provides a comprehensive suite of funding options for futures traders, featuring plans like Starter, Starter Plus, Expert, and Eval to Live. A standout benefit across most plans is the 100% profit split on the first $10,000 earned, which then adjusts to a 90/10 split. The firm emphasizes flexibility, with no minimum or maximum trading day requirements for evaluations, allowing traders to get funded in as little as one day. With 24/7 live support and a clear 4-step process (Choose, Challenge, Verify, Fund), they aim to provide a supportive environment for traders to succeed and eventually gain access to a live trading account with daily payouts.`,
     tradingRules: `<h3>How to Get Funded (The 4-Step Process)</h3>
 <p>
-  <strong>1. Choose Your Account:</strong> Select the account type (Starter, Starter Plus, Expert, Eval to Live) and size that best fits your trading strategy.
+  <strong>1. Choose Your Account:</strong> Select the account type and size that fits your strategy.
 </p>
 <p>
-  <strong>2. Take the Challenge:</strong> Pass the 1-step or 2-step evaluation by meeting the specified trading objectives to prove your skills.
+  <strong>2. Take the 1-Step Challenge:</strong> Pass the evaluation by meeting the specified trading objectives to prove your skills.
 </p>
 <p>
   <strong>3. Get Verified:</strong> After passing the challenge, you go through a verification step to demonstrate consistency.
@@ -254,6 +280,7 @@ export const mockPropFirms: PropFirm[] = [
 </p>
 
 <h3>Rules for the Evaluation Phase (The Challenge)</h3>
+<p>To pass the challenge and get a sim-funded account, you must follow these rules:</p>
 <ul>
     <li><strong>Achieve the Profit Target:</strong> You must reach your account's specific profit goal without hitting your maximum loss limit.</li>
     <li><strong>Complete 5 Trading Sessions:</strong> You need to place at least one trade in five different trading sessions.</li>
@@ -263,6 +290,7 @@ export const mockPropFirms: PropFirm[] = [
 </ul>
 
 <h3>Rules for Sim-Funded Accounts (After Passing)</h3>
+<p>Once you are funded, the rules are divided between Starter and Expert accounts.</p>
 <h4>Rules for All Funded Accounts</h4>
 <ul>
     <li><strong>Stay Active:</strong> You must place at least one trade every seven days.</li>
@@ -753,15 +781,18 @@ export const mockPropFirms: PropFirm[] = [
     activationFee: 'None (S2F) / $130 (Trail/Static)',
     challengeType: 'Evaluation or Direct Funding',
     accountTiers: [
-      { id: 'dt-s2f-25k', name: '25K S2F Account', size: 25000, evaluationFee: 370, activationFee: 0, drawdownPercentage: 4, dailyLossLimitPercentage: null, profitTargetPercentage: null },
-      { id: 'dt-s2f-50k', name: '50K S2F Account', size: 50000, evaluationFee: 570, activationFee: 0, drawdownPercentage: 5, dailyLossLimitPercentage: 2.5, profitTargetPercentage: null },
-      { id: 'dt-s2f-150k', name: '150K S2F Account', size: 150000, evaluationFee: 825, activationFee: 0, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5, profitTargetPercentage: null },
-      { id: 'dt-trail-25k', name: '25K TRAIL Account', size: 25000, evaluationFee: 249, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '1500 Trailing Threshold', dailyLossLimitPercentage: null },
-      { id: 'dt-trail-50k', name: '50K TRAIL Account', size: 50000, evaluationFee: 379, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '2500 Trailing Threshold', dailyLossLimitPercentage: null },
-      { id: 'dt-trail-75k', name: '75K TRAIL Account', size: 75000, evaluationFee: 449, activationFee: 130, profitTargetPercentage: 5.67, drawdownRules: '2750 Trailing Threshold', dailyLossLimitPercentage: null },
-      { id: 'dt-static-25k', name: '25K STATIC Account', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 10, drawdownRules: '$750 Total Drawdown', dailyLossLimitPercentage: null },
-      { id: 'dt-static-50k', name: '50K STATIC Account', size: 50000, evaluationFee: 200, activationFee: 130, profitTargetPercentage: 7.5, drawdownRules: '$1000 Total Drawdown', dailyLossLimitPercentage: null },
-      { id: 'dt-static-75k', name: '75K STATIC Account', size: 75000, evaluationFee: 250, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1250 Total Drawdown', dailyLossLimitPercentage: null },
+        // S2F Accounts
+        { id: 'dt-s2f-25k', name: '25K S2F Account', size: 25000, evaluationFee: 370, activationFee: 0, drawdownRules: '$1,000 (End of Day)', dailyLossLimitPercentage: null, profitTargetPercentage: null },
+        { id: 'dt-s2f-50k', name: '50K S2F Account', size: 50000, evaluationFee: 570, activationFee: 0, drawdownRules: '$2,500 (End of Day)', dailyLossLimitPercentage: 2.5, profitTargetPercentage: null },
+        { id: 'dt-s2f-150k', name: '150K S2F Account', size: 150000, evaluationFee: 825, activationFee: 0, drawdownRules: '$6,000 (End of Day)', dailyLossLimitPercentage: 2.5, profitTargetPercentage: null },
+        // Trail Accounts
+        { id: 'dt-trail-25k', name: '25K TRAIL Account', size: 25000, evaluationFee: 249, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1,500 Trailing Threshold', dailyLossLimitPercentage: null },
+        { id: 'dt-trail-50k', name: '50K TRAIL Account', size: 50000, evaluationFee: 379, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$2,500 Trailing Threshold', dailyLossLimitPercentage: null },
+        { id: 'dt-trail-75k', name: '75K TRAIL Account', size: 75000, evaluationFee: 449, activationFee: 130, profitTargetPercentage: 5.67, drawdownRules: '$2,750 Trailing Threshold', dailyLossLimitPercentage: null },
+        // Static Accounts
+        { id: 'dt-static-25k', name: '25K STATIC Account', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 10, drawdownRules: '$750 Total Drawdown', dailyLossLimitPercentage: null },
+        { id: 'dt-static-50k', name: '50K STATIC Account', size: 50000, evaluationFee: 200, activationFee: 130, profitTargetPercentage: 7.5, drawdownRules: '$1,000 Total Drawdown', dailyLossLimitPercentage: null },
+        { id: 'dt-static-75k', name: '75K STATIC Account', size: 75000, evaluationFee: 250, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1,250 Total Drawdown', dailyLossLimitPercentage: null },
     ],
   }
 ];
@@ -978,4 +1009,5 @@ export const mockFreeResources: FreeResourceItem[] = [
 
 
   
+
 
