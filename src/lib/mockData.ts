@@ -352,8 +352,7 @@ export const mockPropFirms: PropFirm[] = [
     affiliateLink: 'https://bulenox.com/?ref=YOUR-AFFILIATE-ID', // REPLACE WITH YOUR ACTUAL BULENOX AFFILIATE LINK
     isFeatured: false,
     briefDescription: 'Multi-stage futures funding with a choice of drawdown models and a 100% profit split on the first $10,000.',
-    fullReview: `Bulenox offers a clear career path for futures traders, starting with a Qualification Account and progressing to a Master Account. Traders can choose between two main evaluation styles: a "No Scaling" account with a trailing drawdown and no daily loss limit, or an "EOD" account with an end-of-day drawdown, a daily loss limit, and a contract scaling plan.
-    After passing the 5-day minimum evaluation, traders pay a one-time activation fee for a Master Account. Master accounts feature a generous 100% profit split on the first $10,000, which then moves to a 90/10 split. Payouts can be requested after 10 trading days, subject to a 40% consistency rule and maintaining a safety reserve. Consistent traders may be invited to trade real capital in a final funded stage.`,
+    fullReview: `Bulenox provides a clear career path for futures traders, beginning with a Qualification Account and advancing to a Master Account. Traders have the option to select between two distinct evaluation models: a "No Scaling" account, which utilizes a trailing drawdown and has no daily loss limit, or an "EOD" account, which features an end-of-day drawdown, a daily loss limit, and a contract scaling plan. After successfully completing the minimum 5-day evaluation, traders are required to pay a one-time activation fee to obtain a Master Account. These accounts boast an attractive 100% profit split on the initial $10,000 earned, after which the split adjusts to 90/10. Payouts can be requested after 10 trading days, contingent upon a 40% consistency rule and the maintenance of a safety reserve. Traders who demonstrate consistent performance may receive an invitation to trade with real capital in a final funded stage.`,
     tradingRules: `<h3>Step 1: The Qualification Account</h3>
 <p>This is the first step for all traders. The goal is to prove your trading skill by meeting a profit target without breaking any rules.</p>
 <h4>Choose Your Trading Style: Account Options</h4>
@@ -639,7 +638,7 @@ export const mockPropFirms: PropFirm[] = [
     </tr>
   </tbody>
 </table>
-<h4>Maximum Withdrawal and Live Accounts</h4>
+<h5>Maximum Withdrawal and Live Accounts</h5>
 - **Overall Limit:** The total withdrawal cap per trader is $150,000 across all their accounts.
 - **Transition to Live:** After reaching the payout max or completing 6 payout milestones, your performance will be evaluated for a transition to a live funded account.`,
     pros: [
