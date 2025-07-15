@@ -73,7 +73,12 @@ const ComparisonTable = ({ items, firms }: ComparisonTableProps) => {
     },
     {
       label: 'Activation Fee',
-      getValue: (item: ExpandedFirmTier) => item.firm.activationFee || '-',
+      getValue: (item: ExpandedFirmTier) => {
+        if (item.tier.activationFee !== undefined) {
+          return item.tier.activationFee > 0 ? `$${item.tier.activationFee.toLocaleString()}` : 'None';
+        }
+        return item.firm.activationFee || '-';
+      },
     },
     { 
       label: 'Profit Split', 
