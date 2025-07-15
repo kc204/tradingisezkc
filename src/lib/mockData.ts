@@ -1,4 +1,5 @@
 
+
 import type { GlobalOffer, PropFirm, Article, TradingResource, FreeResourceItem, VideoLesson, BookListing, AccountTier } from './types';
 
 export const mockGlobalOffers: GlobalOffer[] = [
@@ -434,12 +435,37 @@ export const mockPropFirms: PropFirm[] = [
     logoUrl: 'https://daytraders.com/assets/images/logo/logo.svg', 
     websiteUrl: 'https://daytraders.com/',
     affiliateLink: 'https://daytraders.com/?aff_id=YOUR-AFFILIATE-ID', // Replace with your actual Daytraders affiliate link
-    briefDescription: 'Offers "Straight to Funded" (S2F), Trail, and Static accounts with a 100% profit split.',
-    fullReview: `Daytraders offers three distinct paths for futures traders:
-    1.  **Straight to Funded (S2F):** Pay a one-time fee to immediately start trading a funded account. You keep 100% of your earnings. These accounts have an End of Day drawdown and some have a daily loss limit.
-    2.  **Trail Accounts:** A one-step evaluation with a trailing drawdown and a profit target. Once passed, you get a funded account with a $130 activation fee.
-    3.  **Static Accounts:** A one-step evaluation with a fixed total drawdown (no trailing). Once passed, you get a funded account with a $130 activation fee.
-    Funded accounts from any path offer a 100% profit split. There are no scaling plans. Trading is done exclusively on their proprietary ProjectX platform.`,
+    briefDescription: 'Offers "Straight to Funded" (S2F) accounts with a 100% profit split, alongside Trail and Static evaluations.',
+    fullReview: `This proprietary trading firm offers "Straight to Funded" (S2F) accounts, meaning you can start trading with their capital after paying a one-time fee. There are no profit splits; you keep 100% of your earnings. Daytraders also offers "Trail" and "Static" evaluation accounts. Trading is done exclusively on their proprietary ProjectX platform.`,
+    tradingRules: `
+### Permitted and Prohibited Trading Practices
+- **Dollar-Cost Averaging (DCA):** Allowed in both evaluation and Pro accounts.
+- **News Trading:** Allowed, but traders should be cautious due to potentially high volatility and low liquidity.
+- **Hedging:** Not permitted at any point during the evaluation phase.
+- **High-Frequency Trading (HFT):** Automated high-frequency trading is strictly prohibited.
+
+### Rules for Passing the Evaluation
+To successfully pass your evaluation and move to a Pro account, you must adhere to the following rules:
+- **Profit Goal and Drawdown:** You must reach the profit goal for your specific account size without ever letting your balance fall to the maximum drawdown limit.
+- **Minimum Trading Days:** A minimum of 4 trading days is required. These days do not need to be consecutive.
+- **Minimum Daily Profit:** For a day to count toward the 4-day minimum, it must meet a specific profit threshold:
+  - **$25k Account:** $100 minimum daily profit
+  - **$50k Account:** $200 minimum daily profit
+  - **$75k Account:** $200 minimum daily profit
+  - **$100k Account:** $300 minimum daily profit
+  - **$150k Account:** $300 minimum daily profit
+  - **$250k Account:** $300 minimum daily profit
+  - **$300k Account:** $400 minimum daily profit
+- **Consistency Rule (50%):** To ensure consistent trading, no single trading day can account for more than 50% of your total profit. *Note: If you fail to meet this rule, you can continue trading to balance out your profit distribution.*
+- **Stop Trading After Passing:** Once all evaluation criteria are met, you must stop trading immediately. Continuing to trade could cause you to fall below the profit target and invalidate your pass.
+
+### General Account Management
+- **Daily Cut-Off:** All trades must be closed, and pending orders canceled, by 4:59 PM ET.
+- **Inactivity Rule:** You must place at least one trade every 30 days to keep your account active.
+- **Account Limit:** You are allowed to have a maximum of 15 evaluation accounts at one time.
+- **Code of Conduct:** You are expected to be respectful when interacting with support agents and must not share your account login information.
+- **Commissions:** Commissions are applied to all trades.
+`,
     pros: [
         '100% profit split on all funded accounts.',
         '"Straight to Funded" option for immediate trading.',
@@ -491,9 +517,9 @@ export const mockPropFirms: PropFirm[] = [
         { id: 'dt-trail-50k', name: '50K TRAIL Account', size: 50000, evaluationFee: 379, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '2500 Trailing Threshold', dailyLossLimitPercentage: null },
         { id: 'dt-trail-75k', name: '75K TRAIL Account', size: 75000, evaluationFee: 449, activationFee: 130, profitTargetPercentage: 5.67, drawdownRules: '2750 Trailing Threshold', dailyLossLimitPercentage: null },
         // Static Accounts
-        { id: 'dt-static-25k', name: '25K STATIC Account', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 10, drawdownRules: '750 Total Drawdown', dailyLossLimitPercentage: null },
-        { id: 'dt-static-50k', name: '50K STATIC Account', size: 50000, evaluationFee: 200, activationFee: 130, profitTargetPercentage: 7.5, drawdownRules: '1000 Total Drawdown', dailyLossLimitPercentage: null },
-        { id: 'dt-static-75k', name: '75K STATIC Account', size: 75000, evaluationFee: 250, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '1250 Total Drawdown', dailyLossLimitPercentage: null },
+        { id: 'dt-static-25k', name: '25K STATIC Account', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 10, drawdownRules: '$750 Total Drawdown', dailyLossLimitPercentage: null },
+        { id: 'dt-static-50k', name: '50K STATIC Account', size: 50000, evaluationFee: 200, activationFee: 130, profitTargetPercentage: 7.5, drawdownRules: '$1000 Total Drawdown', dailyLossLimitPercentage: null },
+        { id: 'dt-static-75k', name: '75K STATIC Account', size: 75000, evaluationFee: 250, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1250 Total Drawdown', dailyLossLimitPercentage: null },
     ],
   }
 ];

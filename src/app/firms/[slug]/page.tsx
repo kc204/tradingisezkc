@@ -1,4 +1,5 @@
 
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -6,7 +7,7 @@ import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import OfferBox from '@/components/propfirms/OfferBox';
-import { ExternalLink, Info, Star, ThumbsUp, Lightbulb } from 'lucide-react';
+import { ExternalLink, Info, Star, ThumbsUp, Lightbulb, ShieldCheck, FileText } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import TrueCostCalculator from '@/components/compare/TrueCostCalculator'; // Import the calculator
@@ -86,10 +87,23 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
           {firm.fullReview && (
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl">Full Review</CardTitle>
+                <CardTitle className="text-2xl flex items-center"><FileText className="mr-2 h-5 w-5 text-primary" /> Full Review</CardTitle>
               </CardHeader>
-              <CardContent className="prose max-w-none break-words">
+              <CardContent className="prose max-w-none break-words dark:prose-invert">
                 <p>{firm.fullReview}</p>
+              </CardContent>
+            </Card>
+          )}
+
+          {firm.tradingRules && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
+                <CardDescription>Key rules and guidelines for trading with {firm.name}.</CardDescription>
+              </CardHeader>
+              <CardContent className="prose max-w-none break-words dark:prose-invert">
+                {/* Using dangerouslySetInnerHTML assuming the content is trusted markdown-like text */}
+                <div dangerouslySetInnerHTML={{ __html: firm.tradingRules.replace(/### (.*?)\n/g, '<h3>$1</h3>').replace(/- \*\*(.*?):\*\* (.*?)\n/g, '<p><strong>$1:</strong> $2</p>').replace(/- (.*?)\n/g, '<ul><li>$1</li></ul>').replace(/<\/ul>\s*<ul>/g, '') }} />
               </CardContent>
             </Card>
           )}

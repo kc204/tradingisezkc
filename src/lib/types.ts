@@ -19,6 +19,7 @@ export interface AccountTier {
   profitTargetPercentage?: number | null;
   drawdownPercentage?: number | null;
   dailyLossLimitPercentage?: number | null;
+  drawdownRules?: string; // For text-based rules like "Trailing Threshold"
 }
 
 export interface PropFirm {
@@ -30,6 +31,7 @@ export interface PropFirm {
   affiliateLink: string;
   briefDescription: string;
   fullReview?: string; // Block content typically, simplified to string
+  tradingRules?: string; // New field for detailed rules
   pros?: string[]; // Simplified
   cons?: string[]; // Simplified
   keyFeatures?: string[];
