@@ -11,9 +11,37 @@ import { ExternalLink, Star } from 'lucide-react';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 
-const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
+interface ExpandedFirmTier {
+  firm: PropFirm;
+  tier: PropFirm['accountTiers'][0];
+}
+
+interface ComparisonTableProps {
+  items?: ExpandedFirmTier[];
+  firms?: PropFirm[]; // Allow passing firms directly for simpler tables
+}
+
+const ComparisonTable = ({ items, firms }: ComparisonTableProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const tableContainerRef = useRef<HTMLDivElement>(null);
+
+  // Normalize the input data so the component can work with either prop
+  const normalizedItems: ExpandedFirmTier[] = useMemo(() => {
+    if (items) {
+      return items;
+    }
+    if (firms) {
+      return firms.map(firm => ({
+        firm,
+        tier: { // Create a default tier from the firm's main data for display
+          id: firm.id + '-main',
+          size: firm.minAccountSize || 0,
+          evaluationFee: firm.minChallengeCost || 0,
+        }
+      }));
+    }
+    return [];
+  }, [items, firms]);
 
   useEffect(() => {
     const container = tableContainerRef.current;
@@ -34,53 +62,46 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
 
   const featuresToCompare = [
     {
-      label: 'Account Sizes',
-      getValue: (f: PropFirm) => {
-        const min = f.minAccountSize;
-        const max = f.maxAccountSize;
-        if (min && max) {
-          if (min === max) return `$${min.toLocaleString()}`;
-          return `$${min.toLocaleString()} - $${max.toLocaleString()}`;
-        } else if (min) {
-          return `From $${min.toLocaleString()}`;
-        } else if (max) {
-          return `Up to $${max.toLocaleString()}`;
-        }
-        return f.id.startsWith('placeholder-') ? '' : '-';
-      }
+      label: 'Account Size',
+      getValue: (item: ExpandedFirmTier) => item.tier.size > 0 ? `$${item.tier.size.toLocaleString()}` : 'Varies',
     },
     {
       label: 'Evaluation Cost',
-      getValue: (f: PropFirm) => {
-        const min = f.minChallengeCost;
-        const max = f.maxChallengeCost;
-        if (min && max) {
-          if (min === max) return `$${min.toLocaleString()}`;
-          return `$${min.toLocaleString()} - $${max.toLocaleString()}`;
-        } else if (min) {
-          return `From $${min.toLocaleString()}`;
-        } else if (max) {
-          return `Up to $${max.toLocaleString()}`;
-        }
-        return f.id.startsWith('placeholder-') ? '' : '-';
-      }
+      getValue: (item: ExpandedFirmTier) => item.tier.evaluationFee > 0 ? `$${item.tier.evaluationFee.toLocaleString()}`: 'Varies',
     },
     {
       label: 'Activation Fee',
-      getValue: (f: PropFirm) => f.activationFee || (f.id.startsWith('placeholder-') ? '' : '-')
+      getValue: (item: ExpandedFirmTier) => item.firm.activationFee || '-',
     },
-    { label: 'Profit Split', getValue: (f: PropFirm) => f.profitSplit || (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Max Funding', getValue: (f: PropFirm) => f.maxAccountSize ? `$${f.maxAccountSize.toLocaleString()}` : (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Challenge Type', getValue: (f: PropFirm) => f.challengeType || (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Drawdown Rules', getValue: (f: PropFirm) => f.drawdownRules || (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Profit Goal', getValue: (f: PropFirm) => f.profitTarget || (f.id.startsWith('placeholder-') ? '' : '-') },
-    { label: 'Platforms', getValue: (f: PropFirm) => f.platforms?.join(', ') || (f.id.startsWith('placeholder-') ? '' : '-') },
+    { 
+      label: 'Profit Split', 
+      getValue: (item: ExpandedFirmTier) => item.firm.profitSplit || '-' 
+    },
+    { 
+      label: 'Max Funding', 
+      getValue: (item: ExpandedFirmTier) => item.firm.maxAccountSize ? `$${item.firm.maxAccountSize.toLocaleString()}` : '-' 
+    },
+    { 
+      label: 'Challenge Type', 
+      getValue: (item: ExpandedFirmTier) => item.firm.challengeType || '-' 
+    },
+    { 
+      label: 'Drawdown Rules', 
+      getValue: (item: ExpandedFirmTier) => item.firm.drawdownRules || '-' 
+    },
+    { 
+      label: 'Profit Goal', 
+      getValue: (item: ExpandedFirmTier) => item.firm.profitTarget || '-' 
+    },
+    { 
+      label: 'Platforms', 
+      getValue: (item: ExpandedFirmTier) => item.firm.platforms?.join(', ') || '-' 
+    },
     {
       label: 'Rating',
-      getValue: (f: PropFirm) => {
-        if (f.id.startsWith('placeholder-')) return '';
-        if (!f.rating) return '-';
-        const roundedRating = Math.round(f.rating || 0);
+      getValue: (item: ExpandedFirmTier) => {
+        if (!item.firm.rating) return '-';
+        const roundedRating = Math.round(item.firm.rating || 0);
         return (
           <div className="flex items-center justify-center">
             {[...Array(5)].map((_, i) => (
@@ -89,7 +110,7 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                 className={`w-4 h-4 ${i < roundedRating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/30'}`}
               />
             ))}
-            <span className="ml-1.5 text-xs md:text-sm text-foreground">{f.rating.toFixed(1)}/5</span>
+            <span className="ml-1.5 text-xs md:text-sm text-foreground">{item.firm.rating.toFixed(1)}/5</span>
           </div>
         );
       }
@@ -128,13 +149,13 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {firms.map(firm => (
-            <TableRow key={firm.id}>
+          {normalizedItems.map(item => (
+            <TableRow key={`${item.firm.id}-${item.tier.id}`}>
               <TableCell className="font-medium sticky left-0 z-10 bg-card p-2">
                  <div className="flex items-center gap-2 md:gap-3">
-                    {firm.logoUrl && !firm.id.startsWith('placeholder-') ? (
+                    {item.firm.logoUrl ? (
                         <div className="w-12 h-12 relative flex-shrink-0 flex items-center justify-center rounded-lg bg-background/50 border">
-                        <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" className="p-1" data-ai-hint="company logo"/>
+                        <Image src={item.firm.logoUrl} alt={`${item.firm.name} logo`} layout="fill" objectFit="contain" className="p-1" data-ai-hint="company logo"/>
                         </div>
                     ) : <div className="w-12 h-12 flex-shrink-0"></div>}
                     
@@ -142,37 +163,37 @@ const ComparisonTable = ({ firms }: { firms: PropFirm[] }) => {
                         "flex flex-col justify-center overflow-hidden transition-all duration-300 ease-in-out",
                         isScrolled ? "w-0 opacity-0" : "w-auto opacity-100"
                     )}>
-                        <Link href={`/firms/${firm.slug}`} className="text-foreground text-sm font-semibold whitespace-nowrap hover:underline line-clamp-1">
-                            {firm.name}
+                        <Link href={`/firms/${item.firm.slug}`} className="text-foreground text-sm font-semibold whitespace-nowrap hover:underline line-clamp-1">
+                            {item.firm.name}
                         </Link>
-                        {firm.offerBadgeLabel && !firm.id.startsWith('placeholder-') && (
+                        {item.firm.offerBadgeLabel && (
                         <Badge variant="secondary" className="mt-1 w-fit whitespace-nowrap">
-                            {firm.offerBadgeLabel}
+                            {item.firm.offerBadgeLabel}
                         </Badge>
                         )}
                     </div>
                  </div>
               </TableCell>
               {featuresToCompare.map(feature => (
-                <TableCell key={`${firm.id}-${feature.label}`} className="text-center text-xs md:text-sm text-muted-foreground">
-                  {feature.getValue(firm)}
+                <TableCell key={`${item.firm.id}-${item.tier.id}-${feature.label}`} className="text-center text-xs md:text-sm text-muted-foreground">
+                  {feature.getValue(item)}
                 </TableCell>
               ))}
               <TableCell className="text-center">
-                {firm.websiteUrl && !firm.id.startsWith('placeholder-') ? (
+                {item.firm.websiteUrl ? (
                   <Button asChild variant="outline" size="sm">
-                    <Link href={firm.websiteUrl} target="_blank" rel="noopener noreferrer">
+                    <Link href={item.firm.websiteUrl} target="_blank" rel="noopener noreferrer">
                       Visit <ExternalLink className="ml-1.5 h-3 w-3" />
                     </Link>
                   </Button>
-                ) : firm.id.startsWith('placeholder-') ? '' : '-'}
+                ) : '-'}
               </TableCell>
               <TableCell className="text-center">
-                 {firm.slug && !firm.id.startsWith('placeholder-') ? (
+                 {item.firm.slug ? (
                     <Button asChild variant="outline" size="sm">
-                    <Link href={`/firms/${firm.slug}`}>Details</Link>
+                    <Link href={`/firms/${item.firm.slug}`}>Details</Link>
                     </Button>
-                 ) : firm.id.startsWith('placeholder-') ? '' : '-'}
+                 ) : '-'}
               </TableCell>
             </TableRow>
           ))}

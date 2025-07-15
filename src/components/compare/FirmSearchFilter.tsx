@@ -17,6 +17,7 @@ export interface Filters {
   platforms?: string[];
   fundingModel?: string;
   maxAccountSize?: number;
+  accountSize?: number; // New filter for specific account size
 }
 
 interface FirmSearchFilterProps {
@@ -28,7 +29,7 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
   const [fundingModel, setFundingModel] = useState('all');
-  const [maxAccountSize, setMaxAccountSize] = useState('all');
+  const [accountSize, setAccountSize] = useState('all'); // New state for account size filter
   
   const [openPlatformPopover, setOpenPlatformPopover] = useState(false);
 
@@ -37,10 +38,10 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
     onFilterChange({ 
       searchTerm, 
       platforms: selectedPlatforms.length > 0 ? selectedPlatforms : undefined, 
-      fundingModel: fundingModel === 'all' ? undefined : fundingModel, 
-      maxAccountSize: maxAccountSize === 'all' ? undefined : Number(maxAccountSize)
+      fundingModel: fundingModel === 'all' ? undefined : fundingModel,
+      accountSize: accountSize === 'all' ? undefined : Number(accountSize),
     });
-  }, [searchTerm, selectedPlatforms, fundingModel, maxAccountSize, onFilterChange]);
+  }, [searchTerm, selectedPlatforms, fundingModel, accountSize, onFilterChange]);
 
 
   const allPlatforms = useMemo(() => {
@@ -55,14 +56,14 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
     return Array.from(models).sort();
   }, [allFirms]);
   
-  const accountSizeOptions = useMemo(() => {
+  const allAccountSizes = useMemo(() => {
     const sizes = new Set<number>();
     allFirms.forEach(firm => {
-        if(firm.maxAccountSize) sizes.add(firm.maxAccountSize);
+        firm.accountTiers?.forEach(tier => sizes.add(tier.size));
     });
     return Array.from(sizes).sort((a,b) => a - b).map(size => ({
         value: String(size),
-        label: `$${size.toLocaleString()}+`
+        label: `$${size.toLocaleString()}`
     }));
   }, [allFirms]);
 
@@ -70,7 +71,7 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
     setSearchTerm('');
     setSelectedPlatforms([]);
     setFundingModel('all');
-    setMaxAccountSize('all');
+    setAccountSize('all');
     onFilterChange({});
   }, [onFilterChange]);
 
@@ -139,14 +140,14 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
           </SelectContent>
         </Select>
         
-        {/* Max Account Size */}
-         <Select value={maxAccountSize} onValueChange={setMaxAccountSize}>
+        {/* Account Size */}
+         <Select value={accountSize} onValueChange={setAccountSize}>
           <SelectTrigger className="h-9 font-normal">
-            <SelectValue placeholder="Max Account Size" />
+            <SelectValue placeholder="All Account Sizes" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Any Account Size</SelectItem>
-            {accountSizeOptions.map(option => (
+            <SelectItem value="all">All Account Sizes</SelectItem>
+            {allAccountSizes.map(option => (
               <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
             ))}
           </SelectContent>

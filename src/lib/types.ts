@@ -49,7 +49,7 @@ export interface PropFirm {
   maxChallengeCost?: number;
   activationFee?: string; // General activation fee info for display in table, e.g., "Free", "$99", "N/A"
   challengeType?: string; // e.g., 1-step, 2-step
-  accountTiers?: AccountTier[]; // Detailed tiers for the calculator
+  accountTiers: AccountTier[]; // Detailed tiers for the calculator
   promo?: string;
 }
 
