@@ -174,7 +174,7 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
             <SelectContent>
               {availableTiers.map((tier) => (
                 <SelectItem key={tier.id} value={tier.id}>
-                  {tier.name || `$${tier.size.toLocaleString()} Account`} (${tier.evaluationFee} Eval)
+                  {tier.name || `$${tier.size.toLocaleString()} Account`}
                 </SelectItem>
               ))}
             </SelectContent>
