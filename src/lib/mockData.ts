@@ -158,33 +158,13 @@ const tradeifyAccountTiers: AccountTier[] = [
     discountPercentage: 0.33, // 33% discount
   },
 ];
-// Adding a discount to one Bulenox tier for testing
+
 const bulenoxAccountTiers: AccountTier[] = [
- // Beginner (Non-Professional data feed - cheaper evaluation) - Applying 90% discount
- { id: 'bulenox-beginner-10k', name: '$10K Beginner', size: 10000, evaluationFee: 115, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 10, dailyLossLimitPercentage: 5, discountPercentage: 0.90 },
- { id: 'bulenox-beginner-25k', name: '$25K Beginner', size: 25000, evaluationFee: 145, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 8, dailyLossLimitPercentage: 4, discountPercentage: 0.90 },
- { id: 'bulenox-beginner-50k', name: '$50K Beginner', size: 50000, evaluationFee: 185, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 5, drawdownPercentage: 6, dailyLossLimitPercentage: 3, discountPercentage: 0.90 },
- { id: 'bulenox-beginner-100k', name: '$100K Beginner', size: 100000, evaluationFee: 265, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 4.5, drawdownPercentage: 5, dailyLossLimitPercentage: 2.5, discountPercentage: 0.90 },
- { id: 'bulenox-beginner-150k', name: '$150K Beginner', size: 150000, evaluationFee: 385, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 4, drawdownPercentage: 4, dailyLossLimitPercentage: 2, discountPercentage: 0.90 },
- { id: 'bulenox-beginner-250k', name: '$250K Beginner', size: 250000, evaluationFee: 545, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 3.5, drawdownPercentage: 3, dailyLossLimitPercentage: 1.5, discountPercentage: 0.90 },
-
- // Master (Professional data feed - more expensive evaluation) - Applying 90% discount
- // Note: Profit targets, drawdowns, and daily limits often mirror Beginner but with Professional data cost reflected in fee. Verify exact rules per Master account size on Bulenox site.
- { id: 'bulenox-master-10k', name: '$10K Master', size: 10000, evaluationFee: 175, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 10, dailyLossLimitPercentage: 5, discountPercentage: 0.90 }, // Example - Verify fees/rules
- { id: 'bulenox-master-25k', name: '$25K Master', size: 25000, evaluationFee: 205, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 8, dailyLossLimitPercentage: 4, discountPercentage: 0.90 }, // Example - Verify fees/rules
- // ... Add other Master tiers mirroring Beginner sizes with adjusted fees and verified rules, applying 90% discount
-
- // Start (Single Step, No Daily Limit) - Applying 90% discount
- { id: 'bulenox-start-10k', name: '$10K Start', size: 10000, evaluationFee: 145, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 10, drawdownPercentage: 10, dailyLossLimitPercentage: null, discountPercentage: 0.90 },
- { id: 'bulenox-start-25k', name: '$25K Start', size: 25000, evaluationFee: 195, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 8, drawdownPercentage: 8, dailyLossLimitPercentage: null, discountPercentage: 0.90 },
- { id: 'bulenox-start-50k', name: '$50K Start', size: 50000, evaluationFee: 275, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: null, discountPercentage: 0.90 },
- { id: 'bulenox-start-100k', name: '$100K Start', size: 100000, evaluationFee: 375, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 5, drawdownPercentage: 5, dailyLossLimitPercentage: null, discountPercentage: 0.90 },
- { id: 'bulenox-start-150k', name: '$150K Start', size: 150000, evaluationFee: 485, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 4, drawdownPercentage: 4, dailyLossLimitPercentage: null, discountPercentage: 0.90 },
- { id: 'bulenox-start-250k', name: '$250K Start', size: 250000, evaluationFee: 695, activationFee: undefined, resetFee: undefined, profitTargetPercentage: 3.5, drawdownPercentage: 3, dailyLossLimitPercentage: null, discountPercentage: 0.90 },
-
-  // Advanced (Two Step, No Daily Limit)
- // Note: Two phases with targets, drawdowns, and trailing rules. Verify exact rules per Advanced account size on Bulenox site.
- // ... Add Advanced tiers mirroring Beginner sizes with verified fees and rules, applying 90% discount
+  { id: 'bulenox-qual-25k', name: '$25K Qualification', size: 25000, evaluationFee: 145, activationFee: 148, drawdownPercentage: 6, profitTargetPercentage: 6 }, // Activation fee is an example, verify
+  { id: 'bulenox-qual-50k', name: '$50K Qualification', size: 50000, evaluationFee: 175, activationFee: 148, drawdownPercentage: 5, profitTargetPercentage: 6 },
+  { id: 'bulenox-qual-100k', name: '$100K Qualification', size: 100000, evaluationFee: 215, activationFee: 248, drawdownPercentage: 3, profitTargetPercentage: 6 },
+  { id: 'bulenox-qual-150k', name: '$150K Qualification', size: 150000, evaluationFee: 325, activationFee: 498, drawdownPercentage: 3, profitTargetPercentage: 6 },
+  { id: 'bulenox-qual-250k', name: '$250K Qualification', size: 250000, evaluationFee: 535, activationFee: 898, drawdownPercentage: 2.2, profitTargetPercentage: 6 },
 ];
 
 export const mockPropFirms: PropFirm[] = [
@@ -371,62 +351,101 @@ export const mockPropFirms: PropFirm[] = [
     websiteUrl: 'https://bulenox.com/',
     affiliateLink: 'https://bulenox.com/?ref=YOUR-AFFILIATE-ID', // REPLACE WITH YOUR ACTUAL BULENOX AFFILIATE LINK
     isFeatured: false,
-    briefDescription: 'Offers various account sizes and evaluation types (Beginner, Master, Start, Advanced) with different rules and data feed options.',
-    fullReview: `Bulenox provides a range of futures trading evaluations and funded accounts. They offer several programs:
-    1. Beginner Accounts: Use non-professional data feeds, resulting in lower evaluation fees. They feature daily loss limits and a trailing drawdown.
-    2. Master Accounts: Utilize professional data feeds, leading to higher evaluation costs. Rules (profit target, daily limit, trailing drawdown) are often similar to Beginner accounts of the same size, but with the professional data.
-    3. Start Accounts: A one-step evaluation without a daily loss limit. Features a trailing drawdown.
-    4. Advanced Accounts: A two-step evaluation process, also without a daily loss limit. Involves hitting a profit target in Phase 1, then another in Phase 2.
-    All accounts have a trailing drawdown. Payouts start after a minimum number of trading days (often 10-15, verify exact current rule) and meeting a minimum profit threshold. The profit split is 80/20, increasing to 90/10 after certain milestones (verify specific requirements on Bulenox site). They support a wide range of platforms compatible with Rithmic or CQG, including NinjaTrader, Tradovate, TradingView (via Integrations), and their own Bulenox platform. News trading is allowed without restrictions. EAs and copy trading are permitted under specific conditions (must be your own accounts, no third-party signals).
-    Activation fees may apply upon receiving a funded account (verify current fees per plan on Bulenox site). Reset fees are also applicable during evaluations.`,
+    briefDescription: 'Multi-stage futures funding with a choice of drawdown models and a 100% profit split on the first $10,000.',
+    fullReview: `Bulenox offers a clear career path for futures traders, starting with a Qualification Account and progressing to a Master Account. Traders can choose between two main evaluation styles: a "No Scaling" account with a trailing drawdown and no daily loss limit, or an "EOD" account with an end-of-day drawdown, a daily loss limit, and a contract scaling plan.
+    After passing the 5-day minimum evaluation, traders pay a one-time activation fee for a Master Account. Master accounts feature a generous 100% profit split on the first $10,000, which then moves to a 90/10 split. Payouts can be requested after 10 trading days, subject to a 40% consistency rule and maintaining a safety reserve. Consistent traders may be invited to trade real capital in a final funded stage.`,
+    tradingRules: `<h3>Step 1: The Qualification Account</h3>
+<p>This is the first step for all traders. The goal is to prove your trading skill by meeting a profit target without breaking any rules.</p>
+<h4>Choose Your Trading Style: Account Options</h4>
+<p>You must choose one of two account types for your qualification.</p>
+<h5>Option 1: No Scaling Account</h5>
+<ul>
+  <li><strong>Drawdown Type:</strong> Trailing Drawdown.</li>
+  <li><strong>How it Works:</strong> Your maximum loss level follows your highest achieved account balance. For example, if your $100k account reaches a balance of $101,000, your new liquidation level becomes $98,000 (with a $3k drawdown). This level stops trailing up once it reaches your initial starting balance.</li>
+  <li><strong>Key Feature:</strong> No Daily Loss Limit.</li>
+</ul>
+<h5>Option 2: EOD (End-of-Day) Account</h5>
+<ul>
+  <li><strong>Drawdown Type:</strong> End-of-Day Drawdown.</li>
+  <li><strong>How it Works:</strong> Your maximum loss level is only adjusted at the end of the trading day (5:00 PM CT), not during live trades.</li>
+  <li><strong>Key Features:</strong> This account includes both a Daily Loss Limit (which suspends, but doesn't break, the account for the day if hit) and a Scaling Plan, where the number of contracts you can trade increases as your account balance grows.</li>
+</ul>
+<h4>General Rules for Qualification</h4>
+<ul>
+  <li><strong>Minimum Trading Days:</strong> You must trade for at least 5 days.</li>
+  <li><strong>Multiple Accounts:</strong> You can have multiple qualification accounts.</li>
+  <li><strong>Account Reset:</strong> If you break a rule, you can pay a fee to reset your account and try again.</li>
+</ul>
+
+<h3>Step 2: The Master Account (First Level of Funding)</h3>
+<p>After passing the qualification, you advance to a Master Account.</p>
+<h4>Transition & Activation</h4>
+<ul>
+  <li><strong>Process:</strong> After passing, your account is reviewed. You will then sign a contract and other documents to activate your Master Account.</li>
+  <li><strong>Fee:</strong> There is no monthly subscription. Instead, you pay a one-time activation fee that varies by account size (e.g., $248 for a $100k account).</li>
+</ul>
+<h4>Master Account Rules</h4>
+<ul>
+  <li><strong>No Resets:</strong> You cannot reset a Master Account. If you break a rule, the account is closed.</li>
+  <li><strong>Drawdown:</strong> The drawdown rule (Trailing or EOD) continues from your qualification, but it stops moving up once your account balance is $100 above the starting balance.</li>
+  <li><strong>Multiple Accounts:</strong> You can have up to 11 active Master Accounts, but you may need to meet certain performance milestones to activate more than three.</li>
+</ul>
+<h4>Payouts & Withdrawals</h4>
+<ul>
+  <li><strong>Profit Split:</strong> You keep 100% of the first $10,000 you make. After that, the profit split is 90% for you and 10% for Bulenox.</li>
+  <li><strong>First Withdrawal:</strong> You need at least 10 active trading days before your first payout request.</li>
+  <li><strong>Consistency Rule:</strong> No single trading day can represent more than 40% of your total profit.</li>
+  <li><strong>Withdrawal Limits:</strong> For your first three payouts, there are maximum withdrawal amounts to encourage account stability. These limits are removed after the third payout.</li>
+  <li><strong>Safety Reserve:</strong> A minimum account balance (safety reserve) must be maintained to make a withdrawal.</li>
+</ul>
+
+<h3>Important Trading Policies & Warnings</h3>
+<ul>
+    <li><strong>Market Halts:</strong> Trading during market halts is high-risk. Bulenox is not responsible for software interruptions, delays, or data feed errors that may occur during these periods.</li>
+    <li><strong>Holding Positions:</strong> You are generally required to close all positions before 3:59 PM CST. Holding positions overnight is not permitted, except on the specific $10,000 account.</li>
+    <li><strong>Technical Issues:</strong> If you experience technical problems, you must contact the support team immediately with a detailed description of the issue.</li>
+</ul>`,
     pros: [
-      "Multiple evaluation types and account sizes",
-      "Beginner accounts offer lower entry cost with non-professional data",
-      "Start accounts have no daily loss limit (one-step)",
-      "News trading is allowed without restrictions",
-      "Supports a wide range of platforms (Rithmic/CQG compatible)",
-      "Copy trading and EAs permitted (under conditions)",
-      "Profit split increases to 90/10 after milestones"
+      "Keep 100% of the first $10,000 in profits",
+      "Choice between Trailing or EOD drawdown models",
+      "No daily loss limit on 'No Scaling' accounts",
+      "One-time activation fee for funded accounts (no monthly fees)",
+      "Supports a wide range of trading platforms"
     ],
     cons: [
-      "Trailing drawdown on all account types",
-      "Consistency rule requires minimum trading days for payout (verify current rule)",
-      "Activation fees apply upon funding (verify current fees)",
-      "Reset fees apply during evaluations",
-      "Master accounts are more expensive due to professional data"
+      "40% consistency rule for payouts",
+      "Master Accounts cannot be reset",
+      "Withdrawal limits apply for the first three payouts"
     ],
     keyFeatures: [
-      'Multiple Evaluation Programs (Beginner, Master, Start, Advanced)',
-      'Beginner: Non-Pro Data, Lower Fee, Daily Limit, Trailing DD',
-      'Master: Pro Data, Higher Fee, Daily Limit, Trailing DD',
-      'Start: One-Step, No Daily Limit, Trailing DD',
-      'Advanced: Two-Step, No Daily Limit, Trailing DD',
-      'News Trading Allowed',
-      'Platforms: Rithmic/CQG compatible (NinjaTrader, Tradovate, TradingView, etc.)',
-      'Profit Split: 80/20 initially, scales to 90/10'
+      'Multi-stage career path (Qualification -> Master)',
+      '100% profit split on first $10k, then 90/10',
+      'Choice of Trailing Drawdown or EOD Drawdown',
+      'No monthly fees on funded Master accounts',
+      'Supports Rithmic/CQG compatible platforms'
     ],
     keyInfoSnippets: [
-      { label: 'Profit Split', value: '80/20 (scales to 90/10)' },
-      { label: 'Drawdown Type', value: 'Trailing' },
+      { label: 'Profit Split', value: '100% (first $10k), then 90%' },
+      { label: 'Drawdown Models', value: 'Trailing or EOD' },
+      { label: 'Funded Fee', value: 'One-Time Activation' },
       { label: 'Platforms', value: 'Rithmic/CQG Compatible' },
-      { label: 'Account Types', value: 'Beginner, Master, Start, Advanced'},
     ],
     promo: '90% off all accounts',
-    offerBadgeLabel: 'Accounts up to $250K',
-    fundingModels: ['Evaluation (Various Programs)'],
-    profitSplit: '80/20, scaling to 90/10',
-    drawdownRules: 'Trailing Drawdown (specific values vary by account size/program)',
-    profitTarget: 'Varies by program and account size (e.g., 8% on $10K Beginner)',
+    offerBadgeLabel: '100% of First $10k Profit',
+    fundingModels: ['Evaluation (Monthly Subscription)'],
+    profitSplit: '100% of first $10k, then 90/10',
+    drawdownRules: 'Trailing or EOD (stops at initial balance)',
+    profitTarget: 'Varies by account size (e.g., $1,500 on $25k)',
     tradableInstruments: ['Futures (CME, COMEX, NYMEX, CBOT)'],
-    platforms: ['NinjaTrader', 'Tradovate', 'TradingView', 'Rithmic Trader Pro', 'MultiCharts', 'Bookmap', 'Jigsaw Daytrader', 'Sierra Chart', 'MotiveWave', 'VolSys', 'Quantower', 'ATAS Order Flow Trading', 'RTrader Pro', 'Investor RT'], // List commonly supported Rithmic/CQG platforms
-    rating: 4.7, // Adjust rating based on verified info and user experience.
-    minAccountSize: 10000,
+    platforms: ['NinjaTrader', 'Tradovate', 'TradingView', 'Rithmic Trader Pro', 'MultiCharts', 'Bookmap', 'Jigsaw Daytrader', 'Sierra Chart', 'MotiveWave', 'VolSys', 'Quantower', 'ATAS Order Flow Trading', 'RTrader Pro', 'Investor RT'],
+    rating: 4.7,
+    minAccountSize: 25000,
     maxAccountSize: 250000,
-    minChallengeCost: 115, // Verify min beginner cost
-    maxChallengeCost: 695, // Verify max start cost (Advanced may be different)
-    activationFee: 'Varies (Verify current fee per plan)',
-    challengeType: 'Evaluation (1-Step or 2-Step)',
- accountTiers: bulenoxAccountTiers,
+    minChallengeCost: 145, 
+    maxChallengeCost: 535,
+    activationFee: 'One-time fee, varies by account size',
+    challengeType: '1-Step Evaluation',
+    accountTiers: bulenoxAccountTiers,
   },
   {
     id: '6',
@@ -439,28 +458,19 @@ export const mockPropFirms: PropFirm[] = [
     fullReview: `This proprietary trading firm offers "Straight to Funded" (S2F) accounts, meaning you can start trading with their capital after paying a one-time fee. There are no profit splits; you keep 100% of your earnings. Daytraders also offers "Trail" and "Static" evaluation accounts. Trading is done exclusively on their proprietary ProjectX platform.`,
     tradingRules: `<h3>Rules for Evaluation Accounts</h3>
 <br/>
-### Permitted and Prohibited Trading Practices
+<h4>Permitted and Prohibited Trading Practices</h4>
 - **Dollar-Cost Averaging (DCA):** Allowed in both evaluation and Pro accounts.
 - **News Trading:** Allowed, but traders should be cautious due to potentially high volatility and low liquidity.
 - **Hedging:** Not permitted at any point during the evaluation phase.
 - **High-Frequency Trading (HFT):** Automated high-frequency trading is strictly prohibited.
-
-### Rules for Passing the Evaluation
-To successfully pass your evaluation and move to a Pro account, you must adhere to the following rules:
+<h4>Rules for Passing the Evaluation</h4>
+<p>To successfully pass your evaluation and move to a Pro account, you must adhere to the following rules:</p>
 - **Profit Goal and Drawdown:** You must reach the profit goal for your specific account size without ever letting your balance fall to the maximum drawdown limit.
 - **Minimum Trading Days:** A minimum of 4 trading days is required. These days do not need to be consecutive.
-- **Minimum Daily Profit:** For a day to count toward the 4-day minimum, it must meet a specific profit threshold:
-  - **$25k Account:** $100 minimum daily profit
-  - **$50k Account:** $200 minimum daily profit
-  - **$75k Account:** $200 minimum daily profit
-  - **$100k Account:** $300 minimum daily profit
-  - **$150k Account:** $300 minimum daily profit
-  - **$250k Account:** $300 minimum daily profit
-  - **$300k Account:** $400 minimum daily profit
+- **Minimum Daily Profit:** For a day to count toward the 4-day minimum, it must meet a specific profit threshold: $25k Account: $100, $50k Account: $200, $75k Account: $200, $100k Account: $300, $150k Account: $300, $250k Account: $300, $300k Account: $400.
 - **Consistency Rule (50%):** To ensure consistent trading, no single trading day can account for more than 50% of your total profit. *Note: If you fail to meet this rule, you can continue trading to balance out your profit distribution.*
 - **Stop Trading After Passing:** Once all evaluation criteria are met, you must stop trading immediately. Continuing to trade could cause you to fall below the profit target and invalidate your pass.
-
-### General Account Management
+<h4>General Account Management</h4>
 - **Daily Cut-Off:** All trades must be closed, and pending orders canceled, by 4:59 PM ET.
 - **Inactivity Rule:** You must place at least one trade every 30 days to keep your account active.
 - **Account Limit:** You are allowed to have a maximum of 15 evaluation accounts at one time.
@@ -469,13 +479,12 @@ To successfully pass your evaluation and move to a Pro account, you must adhere 
 <br/>
 <h3>Rules for Funded Accounts (Pro & S2F)</h3>
 <br/>
-### General Trading Rules (All Funded Accounts)
+<h4>General Trading Rules (All Funded Accounts)</h4>
 - **Account Limit:** A maximum of 5 active funded accounts are allowed per trader. This can be a mix of up to 2 Pro Accounts and up to 3 S2F Accounts.
 - **Permitted Strategies:** Dollar-Cost Averaging (DCA) and News Trading are allowed.
 - **Prohibited Strategies:** Hedging (being long and short on the same asset across different accounts) and High-Frequency Trading (HFT) are not allowed.
 - **Inactivity Rule:** You must place at least one trade every 30 days to keep the account active.
-
-### Specific Account Rules
+<h4>Specific Account Rules</h4>
 <table>
   <thead>
     <tr>
@@ -507,10 +516,9 @@ To successfully pass your evaluation and move to a Pro account, you must adhere 
     </tr>
   </tbody>
 </table>
-
-### Payout Rules & Requirements
-#### Minimum Daily Profit
-For a trading day to qualify for payouts, it must meet the following minimum profit:
+<h4>Payout Rules & Requirements</h4>
+<h5>Minimum Daily Profit</h5>
+<p>For a trading day to qualify for payouts, it must meet the following minimum profit:</p>
 <table style="width:100%; border-collapse: collapse;">
   <thead>
     <tr>
@@ -537,9 +545,8 @@ For a trading day to qualify for payouts, it must meet the following minimum pro
     </tr>
   </tbody>
 </table>
-
-#### Full & Static Pro Account Payouts
-These accounts require a profit buffer before withdrawal. The minimum payout request is $500.
+<h5>Full & Static Pro Account Payouts</h5>
+<p>These accounts require a profit buffer before withdrawal. The minimum payout request is $500.</p>
 <table style="width:100%; border-collapse: collapse;">
   <thead>
     <tr>
@@ -594,9 +601,8 @@ These accounts require a profit buffer before withdrawal. The minimum payout req
     </tr>
   </tbody>
 </table>
-
-#### S2F Account Payouts
-S2F accounts use profit targets that must be met before each withdrawal.
+<h5>S2F Account Payouts</h5>
+<p>S2F accounts use profit targets that must be met before each withdrawal.</p>
 <table style="width:100%; border-collapse: collapse;">
   <thead>
     <tr>
@@ -633,11 +639,9 @@ S2F accounts use profit targets that must be met before each withdrawal.
     </tr>
   </tbody>
 </table>
-
-### Maximum Withdrawal and Live Accounts
+<h4>Maximum Withdrawal and Live Accounts</h4>
 - **Overall Limit:** The total withdrawal cap per trader is $150,000 across all their accounts.
-- **Transition to Live:** After reaching the payout max or completing 6 payout milestones, your performance will be evaluated for a transition to a live funded account.
-`,
+- **Transition to Live:** After reaching the payout max or completing 6 payout milestones, your performance will be evaluated for a transition to a live funded account.`,
     pros: [
         '100% profit split on all funded accounts.',
         '"Straight to Funded" option for immediate trading.',
@@ -902,3 +906,6 @@ export const mockFreeResources: FreeResourceItem[] = [
 
     
 
+
+
+  
