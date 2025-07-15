@@ -95,7 +95,20 @@ const ComparisonTable = ({ items, firms }: ComparisonTableProps) => {
     },
     { 
       label: 'Platforms', 
-      getValue: (item: ExpandedFirmTier) => item.firm.platforms?.join(', ') || '-' 
+      getValue: (item: ExpandedFirmTier) => {
+        if (!item.firm.platforms || item.firm.platforms.length === 0) {
+          return '-';
+        }
+        return (
+          <div className="flex flex-wrap gap-1.5 justify-center">
+            {item.firm.platforms.map(platform => (
+              <div key={platform} className="px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-muted text-muted-foreground whitespace-nowrap">
+                {platform}
+              </div>
+            ))}
+          </div>
+        );
+      }
     },
     {
       label: 'Rating',
