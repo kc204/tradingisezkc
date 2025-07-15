@@ -1,3 +1,4 @@
+
 'use client'; 
 
 import FirmCard from '@/components/propfirms/FirmCard';
@@ -5,7 +6,6 @@ import ArticleCard from '@/components/shared/ArticleCard';
 import FreeResourceCard from '@/components/shared/FreeResourceCard';
 import { mockArticles, mockPropFirms, mockFreeResources } from '@/lib/mockData';
 import Link from 'next/link';
-import { Boxes } from "@/components/ui/background-boxes";
 import { cn } from "@/lib/utils";
 import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -72,10 +72,9 @@ export default function Home() {
 
   return (
     <div className="space-y-16">
-      {/* Hero Section with BackgroundBoxes */}
+      {/* Hero Section */}
       <div className="h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg">
         <div className="absolute inset-0 w-full h-full bg-background z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
-        <Boxes />
         <h1 className={cn("text-2xl md:text-4xl text-foreground relative z-20 text-center px-4")}>
           Unlock Your Trading Potential: Find the Perfect Prop Firm &amp; Get Funded.
         </h1>
