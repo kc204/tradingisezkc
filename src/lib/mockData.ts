@@ -8,157 +8,134 @@ export const mockGlobalOffers: GlobalOffer[] = [
 ];
 
 const tptAccountTiers: AccountTier[] = [
-  { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: 2, discountPercentage: 0.30 }, // $1500 target, $1500 max loss, $500 daily
-  { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // $3000 target, $2000 max loss, $1100 daily
-  { id: 'tpt-eval-75k', name: '$75K Evaluation', size: 75000, evaluationFee: 245, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: 2.13, discountPercentage: 0.30 }, // $4500 target, $2500 max loss, $1600 daily
-  { id: 'tpt-eval-100k', name: '$100K Evaluation', size: 100000, evaluationFee: 330, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // $6000 target, $3000 max loss, $2200 daily
-  { id: 'tpt-eval-150k', name: '$150K Evaluation', size: 150000, evaluationFee: 360, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2, discountPercentage: 0.30 }, // $9000 target, $4500 max loss, $3300 daily
+    { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: 2 },
+    { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.2 },
+    { id: 'tpt-eval-75k', name: '$75K Evaluation', size: 75000, evaluationFee: 245, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: 2.13 },
+    { id: 'tpt-eval-100k', name: '$100K Evaluation', size: 100000, evaluationFee: 330, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2 },
+    { id: 'tpt-eval-150k', name: '$150K Evaluation', size: 150000, evaluationFee: 360, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2 },
 ];
 
 const myFundedFuturesAccountTiers: AccountTier[] = [
   // Starter Plan
-  { id: 'mff-starter-50k', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, activationFee: 0, resetFee: 97, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: 2.5, drawdownRules: '$2,500 Trailing Drawdown' },
+  { id: 'mff-starter-50k', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: 2.5, drawdownRules: '$2,500 Trailing Drawdown' },
   // Starter Plus Plan
-  { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, activationFee: 0, resetFee: 127, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null, drawdownRules: '$2,000 End-of-Day Trailing Drawdown' },
-  { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, activationFee: 0, resetFee: 267, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$3,000 End-of-Day Trailing Drawdown' },
-  { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, activationFee: 0, resetFee: 377, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$4,500 End-of-Day Trailing Drawdown' },
+  { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null, drawdownRules: '$2,000 End-of-Day Trailing Drawdown' },
+  { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$3,000 End-of-Day Trailing Drawdown' },
+  { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$4,500 End-of-Day Trailing Drawdown' },
   // Expert Plan
-  { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
-  { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
-  { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 375, activationFee: 0, resetFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
+  { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, activationFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
+  { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, activationFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
+  { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 375, activationFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
   // Eval to Live Plan
-  { id: 'mff-1step-eval-live-50k', name: '$50K 1-Step Eval to Live', size: 50000, evaluationFee: 444, activationFee: 0, resetFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1, drawdownRules: '$1,500 End-of-Day Max Loss (Eval), $500 Daily Loss (Live)' },
-  { id: 'mff-2step-eval-live-50k', name: '$50K 2-Step Eval to Live', size: 50000, evaluationFee: 197, activationFee: 0, resetFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1, drawdownRules: '$1,500 End-of-Day Max Loss (Eval), $500 Daily Loss (Live)' },
+  { id: 'mff-1step-eval-live-50k', name: '$50K 1-Step Eval to Live', size: 50000, evaluationFee: 444, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1, drawdownRules: '$1,500 End-of-Day Max Loss (Eval), $500 Daily Loss (Live)' },
+  { id: 'mff-2step-eval-live-50k', name: '$50K 2-Step Eval to Live', size: 50000, evaluationFee: 197, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1, drawdownRules: '$1,500 End-of-Day Max Loss (Eval), $500 Daily Loss (Live)' },
 ];
 
 const tradeifyAccountTiers: AccountTier[] = [
-  // Advanced Challenge (Intraday Trailing DD, 35% Consistency for Sim-Funded Payouts, $125 Activation for Sim-Funded)
-  // EVALUATION FEES (Monthly Subscription) NEED VERIFICATION FROM TRADEIFY.CO MAIN SITE.
+  // Advanced Plan (Evaluation)
   { 
     id: 'tradeify-adv-50k', 
-    name: '$50K Advanced Challenge', 
+    name: '$50K Advanced Plan', 
     size: 50000, 
-    evaluationFee: 99, // VERIFY THIS PRICE
+    evaluationFee: 69,
     activationFee: 125, 
-    resetFee: 100, // VERIFY RESET POLICY/FEE
     profitTargetPercentage: 6, 
-    drawdownPercentage: 4, // $2000 IDD
+    drawdownPercentage: 4, 
     dailyLossLimitPercentage: null, 
-    discountPercentage: 0.33, // 33% discount
   },
   { 
     id: 'tradeify-adv-100k', 
-    name: '$100K Advanced Challenge', 
+    name: '$100K Advanced Plan', 
     size: 100000, 
-    evaluationFee: 179, // VERIFY THIS PRICE
+    evaluationFee: 109,
     activationFee: 125, 
-    resetFee: 100, // VERIFY RESET POLICY/FEE
     profitTargetPercentage: 6, 
-    drawdownPercentage: 4, // $4000 IDD
-    dailyLossLimitPercentage: null, 
-    discountPercentage: 0.10, // Adding a 10% discount
+    drawdownPercentage: 3, 
+    dailyLossLimitPercentage: null,
   },
   { 
     id: 'tradeify-adv-150k', 
-    name: '$150K Advanced Challenge', 
+    name: '$150K Advanced Plan', 
     size: 150000, 
-    evaluationFee: 229, // VERIFY THIS PRICE
+    evaluationFee: 129,
     activationFee: 125, 
-    resetFee: 100, // VERIFY RESET POLICY/FEE
     profitTargetPercentage: 6, 
-    drawdownPercentage: 4, // $6000 IDD
-    dailyLossLimitPercentage: null, 
-    discountPercentage: 0.33, // 33% discount
+    drawdownPercentage: 3,
+    dailyLossLimitPercentage: null,
   },
   
-  // Growth Challenge (EOD Trailing DD, 35% Consistency for Sim-Funded Payouts, No Activation Fee for Sim-Funded, Soft DLL)
-  // EVALUATION FEES (Monthly Subscription) NEED VERIFICATION FROM TRADEIFY.CO MAIN SITE.
+  // Growth Plan (Evaluation)
   { 
     id: 'tradeify-growth-50k', 
-    name: '$50K Growth Challenge', 
+    name: '$50K Growth Plan', 
     size: 50000, 
-    evaluationFee: 139, // VERIFY THIS PRICE
+    evaluationFee: 139,
     activationFee: 0, 
-    resetFee: 100, // VERIFY RESET POLICY/FEE
     profitTargetPercentage: 6, 
-    drawdownPercentage: 4, // $2000 EOD DD
-    dailyLossLimitPercentage: 2.5, // Soft DLL ($1250). If hit, stop for day, no breach.
-    discountPercentage: 0.33, // 33% discount
+    drawdownPercentage: 4,
+    dailyLossLimitPercentage: 2.5,
   },
   { 
     id: 'tradeify-growth-100k', 
-    name: '$100K Growth Challenge', 
+    name: '$100K Growth Plan', 
     size: 100000, 
-    evaluationFee: 179, // VERIFY THIS PRICE
+    evaluationFee: 249,
     activationFee: 0, 
-    resetFee: 100, // VERIFY RESET POLICY/FEE
     profitTargetPercentage: 6, 
-    drawdownPercentage: 4, // $4000 EOD DD
-    dailyLossLimitPercentage: 2.5, // Soft DLL ($2500)
-    discountPercentage: 0.33, // 33% discount
+    drawdownPercentage: 3.5,
+    dailyLossLimitPercentage: 2.5,
   },
   { 
     id: 'tradeify-growth-150k', 
-    name: '$150K Growth Challenge', 
+    name: '$150K Growth Plan', 
     size: 150000, 
-    evaluationFee: 339, // VERIFY THIS PRICE
+    evaluationFee: 339,
     activationFee: 0, 
-    resetFee: 100, // VERIFY RESET POLICY/FEE
     profitTargetPercentage: 6, 
-    drawdownPercentage: 4, // $6000 EOD DD
-    dailyLossLimitPercentage: 2.5, // Soft DLL ($3750)
-    discountPercentage: 0.33, // 33% discount
+    drawdownPercentage: 3.33,
+    dailyLossLimitPercentage: 2.5,
   },
   
-  // Straight to Sim Funded (EOD Trailing DD, 20% Consistency, 10 Min Trading Days for 1st Payout)
-  // ONE-TIME FEES NEED VERIFICATION FROM TRADEIFY.CO MAIN SITE.
+  // Straight to Sim Funded
   { 
     id: 'tradeify-sim-25k', 
     name: '$25K Straight to Sim', 
     size: 25000, 
-    evaluationFee: 375, // VERIFY THIS PRICE
+    evaluationFee: 349,
     activationFee: 0, 
-    resetFee: 0, // VERIFY RESET POLICY (likely repurchase)
     profitTargetPercentage: null, 
-    drawdownPercentage: 4, // $1000 EOD DD
-    dailyLossLimitPercentage: null, // Verify if Soft DLL applies or if none.
-    discountPercentage: 0.33, // 33% discount
+    drawdownPercentage: 4,
+    dailyLossLimitPercentage: null, 
   },
   { 
     id: 'tradeify-sim-50k', 
     name: '$50K Straight to Sim', 
     size: 50000, 
-    evaluationFee: 549, // VERIFY THIS PRICE
+    evaluationFee: 509,
     activationFee: 0, 
-    resetFee: 0, // VERIFY
     profitTargetPercentage: null,
-    drawdownPercentage: 4, // $2000 EOD DD
-    dailyLossLimitPercentage: 2.5, // Assumed Soft DLL from Growth; VERIFY if applies to Sim and exact %.
-    discountPercentage: 0.33, // 33% discount
+    drawdownPercentage: 4,
+    dailyLossLimitPercentage: 2.5,
   },
   { 
     id: 'tradeify-sim-100k', 
     name: '$100K Straight to Sim', 
     size: 100000, 
-    evaluationFee: 629, // VERIFY THIS PRICE
+    evaluationFee: 629,
     activationFee: 0, 
-    resetFee: 0, // VERIFY
     profitTargetPercentage: null,
-    drawdownPercentage: 4, // $4000 EOD DD
-    dailyLossLimitPercentage: 2.5, // Assumed Soft DLL; VERIFY.
-    discountPercentage: 0.33, // 33% discount
+    drawdownPercentage: 4,
+    dailyLossLimitPercentage: 2.5,
   },
   { 
     id: 'tradeify-sim-150k', 
     name: '$150K Straight to Sim', 
     size: 150000, 
-    evaluationFee: 700, // VERIFY THIS PRICE
+    evaluationFee: 729,
     activationFee: 0, 
-    resetFee: 0, // VERIFY
     profitTargetPercentage: null,
-    drawdownPercentage: 4, // $6000 EOD DD
-    dailyLossLimitPercentage: 2.5, // Assumed Soft DLL; VERIFY.
-    discountPercentage: 0.33, // 33% discount
+    drawdownPercentage: 4,
+    dailyLossLimitPercentage: 2.5,
   },
 ];
 
@@ -179,7 +156,7 @@ export const mockPropFirms: PropFirm[] = [
     websiteUrl: 'https://www.takeprofittrader.com/',
     affiliateLink: 'https://takeprofittrader.com/if/tradingisez',
     briefDescription: 'Futures prop firm with a 1-step evaluation, daily payouts, and a path to a live PRO+ account with a 90% profit split.',
-    fullReview: `Take Profit Trader (TPT) provides a straightforward path for futures traders with its 1-step evaluation. After passing the Test account (which has an EOD trailing drawdown), traders pay a one-time $130 fee to access a PRO account. PRO accounts feature daily payouts from day one and an 80% profit split, but use a more restrictive intraday trailing drawdown. For a higher 90% split and a return to the more flexible EOD drawdown, traders can upgrade to a PRO+ account, which operates in a live market environment. A key rule to note is the news trading restriction on all funded (PRO and PRO+) accounts.`,
+    fullReview: `Take Profit Trader (TPT) offers a direct route for futures traders with its 1-step evaluation. Upon passing the Test account, which utilizes a flexible End-of-Day (EOD) trailing drawdown, traders pay a one-time $130 activation fee to get a PRO account. PRO accounts are notable for offering daily payouts from the very first day and an 80% profit split. However, they switch to a more restrictive intraday trailing drawdown. For traders seeking a higher 90% profit share and a return to the EOD drawdown, an upgrade to a PRO+ account is available, which operates in a live market environment. A critical rule for funded traders is the restriction on trading during major news events in both PRO and PRO+ accounts.`,
     tradingRules: `<h3>Test Account (The Evaluation)</h3>
 <p>This is the initial step to prove you can trade profitably and manage risk.</p>
 <ul>
@@ -252,7 +229,7 @@ export const mockPropFirms: PropFirm[] = [
     maxAccountSize: 150000,
     minChallengeCost: 150, 
     maxChallengeCost: 360,
-    activationFee: '$130 (PRO Account)',
+    activationFee: '$130 (One-Time)',
     challengeType: '1-Step Evaluation', 
     accountTiers: tptAccountTiers,
   },
@@ -366,61 +343,98 @@ export const mockPropFirms: PropFirm[] = [
     slug: 'tradeify', 
     logoUrl: 'https://tradeify.co/wp-content/uploads/2021/06/horizontal-logo.svg', 
     websiteUrl: 'https://tradeify.co/', 
-    affiliateLink: 'https://tradeify.co/YOUR-AFFILIATE-ID', // REPLACE WITH YOUR ACTUAL TRADEIFY.CO AFFILIATE LINK
+    affiliateLink: 'https://tradeify.co/YOUR-AFFILIATE-ID',
     isFeatured: true, 
-    briefDescription: 'Futures prop firm with Advanced (IDD), Growth (EOD DD) Challenges, and Straight to Sim Funded accounts. Offers 100% profit split on first $15K.', 
-    fullReview: `Tradeify provides futures traders with three main paths:
-    1. Advanced Challenge: Features an intraday trailing drawdown, a 35% consistency rule for the Sim-Funded stage, and a $125 activation fee for the Sim-Funded account after passing. Profit target is 6%. Max contracts scale with account size (e.g., 5 for $50K). (Monthly fees need verification on Tradeify.co).
-    2. Growth Challenge: Uses an end-of-day trailing drawdown, a 35% consistency rule for the Sim-Funded stage, and has no activation fee after passing. It includes a soft daily loss limit (trader must stop for the day if hit, not a breach). Profit target is 6%. (Monthly fees need verification on Tradeify.co).
-    3. Straight to Sim Funded: Offers instant EOD trailing drawdown Sim-Funded accounts for a one-time fee (verify prices on Tradeify.co). It has a 20% consistency rule and requires 10 minimum trading days for the first payout. No profit target for initial funding.
-    All Sim-Funded accounts (from Challenges or Straight to Sim) offer a 100% profit split on the first $15,000, then 90/10. Payouts are processed on the 1st and 15th of each month, with tiered minimums (e.g., $250 for $25K, $500 for $50K). After four payouts from a Sim-Funded account, traders can transition to a True Live Funded account, which has no consistency rule and maintains the same profit split.
-    Tradeify supports Tradovate, NinjaTrader, and TradingView. News trading and EAs (if compliant with other rules) are allowed. Traders can have up to 7 Sim-Funded accounts (3 True Live). Copy trading is permitted between a trader's own Tradeify accounts or from an external personal account to their Tradeify account(s); third-party signal copying is not allowed. Tradable instruments include futures from CME, COMEX, NYMEX, CBOT, and Coinbase Digital (Nano Bitcoin & Ether).`,
+    briefDescription: 'Futures prop firm with multiple plans including Advanced (Intraday DD), Growth (EOD DD), and Straight to Sim Funded accounts.', 
+    fullReview: `Tradeify offers several distinct paths for futures traders, catering to different risk tolerances and preferences. Their programs are built on the NinjaTrader brokerage and support NinjaTrader, TradingView, and Tradovate platforms. Payouts are handled via Plane and Riseworks.
+    The main funding routes are the Advanced Plan, Growth Plan, and a Straight to Sim Funded option. The Advanced and Growth plans are 1-step evaluations with a 35% consistency rule, but differ in their drawdown models (Intraday vs. End-of-Day). The Straight to Sim plan allows traders to bypass evaluation for a one-time fee, but comes with a stricter 20% consistency rule and requires achieving specific profit goals before payouts.
+    Across all funded accounts, traders can keep 100% of their first $15,000 in profits, after which the split is 90/10. Tradeify has specific rules regarding EAs/bots (must be self-owned, no HFT), microscalping (50% of profit from trades > 5 seconds), and allows for news trading and copy trading between a trader's own accounts.`,
+    tradingRules: `<h3>Universal Trading Rules (Applies to most accounts)</h3>
+<ul>
+    <li><strong>Good Faith Policy:</strong> You cannot use strategies that exploit platform errors or price discrepancies.</li>
+    <li><strong>EA/Bots/Algos:</strong> Allowed only if you are the sole owner and it is not a High-Frequency Trading (HFT) bot. You must be able to prove ownership.</li>
+    <li><strong>Microscalping:</strong> At least 50% of your total profit must come from trades held for longer than 5 seconds.</li>
+    <li><strong>Inactivity:</strong> You must place at least one trade per week on each account to keep it active.</li>
+    <li><strong>Copy Trading:</strong> Allowed between up to 5 accounts that you own and manage yourself.</li>
+    <li><strong>News Trading & DCA:</strong> There are no restrictions against trading during news events or using Dollar-Cost Averaging (DCA).</li>
+</ul>
+
+<h3>Advanced Plan (Evaluation)</h3>
+<p>This is a 1-step evaluation with an intraday trailing drawdown.</p>
+<ul>
+    <li><strong>Consistency Rule:</strong> 35% (Your highest-earning day cannot be more than 35% of your total profit).</li>
+    <li><strong>Payout Policy:</strong>
+        <ul>
+            <li><strong>Frequency:</strong> You can request payouts twice a month (1st-5th and 15th-20th).</li>
+            <li><strong>Minimum Days:</strong> 10 trading days are required between payouts. At least 5 of those days must have profits greater than $150-$250, depending on account size.</li>
+            <li><strong>Profit Buffer:</strong> Your account balance must be at least $100 over the Trailing Max Drawdown limit.</li>
+            <li><strong>Payout Tiers:</strong> Payouts have minimum and maximum limits that scale up over your first six payouts. For a $100k account, the first payout is capped at $2,000, and the sixth is capped at $5,000.</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>Growth Plan (Evaluation)</h3>
+<p>This is a 1-step evaluation with a more flexible End-of-Day drawdown.</p>
+<ul>
+    <li><strong>Consistency Rule:</strong> 35% (Same as the Advanced plan).</li>
+    <li><strong>Daily Loss Limit:</strong> A soft daily loss limit applies but is permanently removed once you reach a specific profit milestone (e.g., $6,000 profit on a $100k account).</li>
+    <li><strong>Payout Policy:</strong> Same as the Advanced plan (10 trading day minimum, tiered payouts, etc.).</li>
+</ul>
+
+<h3>Straight to Sim Funded</h3>
+<p>This plan allows you to skip the evaluation and trade a sim-funded account directly.</p>
+<ul>
+    <li><strong>Consistency Rule:</strong> 20% (Stricter than evaluation accounts).</li>
+    <li><strong>Daily Loss Limit:</strong> A soft daily loss limit applies but is permanently removed after reaching a profit milestone (same as Growth plan).</li>
+    <li><strong>Payout Policy:</strong>
+        <ul>
+            <li><strong>Frequency:</strong> You must trade a minimum of 10 days before your first payout.</li>
+            <li><strong>Profit Goals:</strong> You must achieve a specific profit percentage goal before each payout (e.g., 6% for the first payout, then lower percentages for subsequent ones).</li>
+            <li><strong>Minimum Payout:</strong> $1,000.</li>
+            <li><strong>Payout Tiers:</strong> Maximum withdrawal amounts are tiered. For a $100k account, payouts 1-3 are capped at $2,500, and subsequent payouts are capped at $3,000.</li>
+        </ul>
+    </li>
+    <li><strong>Max Earnings:</strong> The maximum you can earn from a SimFunded account is $80,000 before being evaluated for a transition to a live account.</li>
+</ul>`,
     pros: [
-      "Multiple account types (Advanced, Growth, Straight to Sim)",
+      "Multiple plans: Intraday, EOD, and Instant Funding",
       "100% profit split on first $15,000, then 90/10", 
-      "Supports Tradovate, NinjaTrader, TradingView",
-      "News trading allowed; EAs permitted (under conditions)",
-      "Up to 7 active Sim-Funded accounts; specific copy trading allowed", 
-      "Transition to True Live Funded accounts with no consistency rule",
-      "End-of-day drawdown option available (Growth & Sim)",
-      "Instant funding option (Straight to Sim)"
+      "Supports NinjaTrader, Tradovate, TradingView",
+      "No restrictions on news trading or DCA",
+      "Allows EAs/bots and copy trading under specific conditions"
     ],
     cons: [
-      "Consistency rules apply (35% for Advanced/Growth Sim-Funded, 20% for Straight to Sim)", 
-      "Activation fee for Advanced Challenge Sim-Funded account ($125)",
-      "Monthly fees for Challenge accounts (Advanced & Growth) - Verify current pricing on Tradeify.co",
-      "One-time fees for Straight to Sim accounts - Verify current pricing on Tradeify.co",
-      "Minimum 10 trading days for first payout from Straight to Sim accounts"
+      "Consistency rules apply to all plans",
+      "Activation fee for Advanced Plan funded account",
+      "Tiered and capped payout structure",
+      "Inactivity rule requires weekly trading"
     ],
     keyFeatures: [
       '100% profit split up to $15K, then 90/10',
-      'News trading and EAs permitted (under conditions)',
-      'Copy trading allowed (specific conditions apply)',
-      'Advanced (Intraday DD) & Growth (EOD DD) Challenges',
+      'Advanced (Intraday DD) & Growth (EOD DD) evaluations',
       'Straight to Sim (instant EOD DD funding) option',
-      'Transition to True Live accounts (no consistency rule)',
-      'Up to 7 Sim-Funded accounts'
+      'Tiered payout system with specific requirements',
+      'Allows EAs and specific copy trading'
     ],
     keyInfoSnippets: [
       { label: 'Profit Split', value: '100% (first $15k), then 90%' }, 
-      { label: 'Platforms', value: 'Tradovate, NinjaTrader, TradingView' },
-      { label: 'Max Sim Accounts', value: '7 (True Live: 3)' }, 
-      { label: 'Funding Types', value: 'Challenges (IDD/EOD), Instant Sim'}
+      { label: 'Platforms', value: 'NinjaTrader, Tradovate, TradingView' },
+      { label: 'Funding Types', value: 'Advanced (IDD), Growth (EOD), Instant Sim'}
     ],
     offerBadgeLabel: '100% First $15K Profit!', 
-    fundingModels: ["Advanced Challenge (Intraday DD)", "Growth Challenge (EOD DD)", "Straight to Sim Funded (EOD DD)"],
+    fundingModels: ["Advanced Plan (Intraday DD)", "Growth Plan (EOD DD)", "Straight to Sim Funded"],
     profitSplit: '100% on first $15,000, then 90/10', 
-    drawdownRules: 'Advanced: Intraday trailing. Growth: End-of-day trailing. Sim: End-of-day trailing. (All confirmed values like $2K for $50K accounts)',
-    profitTarget: 'Challenges: 6%. Sim Funded: None for initial funding.',
+    drawdownRules: 'Advanced: Intraday trailing. Growth & Sim: End-of-day trailing.',
+    profitTarget: 'Challenges: 6%. Sim Funded: Payout-based goals.',
     tradableInstruments: ['Futures (CME, COMEX, NYMEX, CBOT, Coinbase Digital - Nano BTC/ETH)'], 
-    platforms: ['Tradovate', 'NinjaTrader', 'TradingView'], 
-    rating: 4.8, // Adjust rating based on verified info and user experience.
+    platforms: ['NinjaTrader', 'TradingView', 'Tradovate'], 
+    rating: 4.8,
     minAccountSize: 25000, 
     maxAccountSize: 150000, 
-    minChallengeCost: 99, // User data; VERIFY THIS PRICE on Tradeify.co
-    maxChallengeCost: 700, // User data; VERIFY THIS PRICE on Tradeify.co
-    activationFee: '$125 (Advanced Sim-Funded), None (Growth Sim-Funded / Straight to Sim initial)', 
-    challengeType: 'Evaluation Challenges (Advanced/Growth), Direct Sim Funding',
+    minChallengeCost: 69,
+    maxChallengeCost: 729,
+    activationFee: '$125 (Advanced Plan), $0 (Growth/Sim)', 
+    challengeType: 'Evaluation or Direct Funding',
     accountTiers: tradeifyAccountTiers, 
   },
   {
@@ -432,7 +446,7 @@ export const mockPropFirms: PropFirm[] = [
     affiliateLink: 'https://bulenox.com/?ref=YOUR-AFFILIATE-ID', // REPLACE WITH YOUR ACTUAL BULENOX AFFILIATE LINK
     isFeatured: false,
     briefDescription: 'Futures prop firm with a Qualification to Master account path, choice of drawdown models, and a 100% profit split on the first $10,000.',
-    fullReview: `Bulenox offers a structured career path for futures traders, starting with a Qualification Account and advancing to a Master Account. A key feature is the choice between two evaluation models: a "No Scaling" account with a trailing drawdown and no daily loss limit, or an "EOD" account with an end-of-day drawdown, daily loss limit, and a contract scaling plan. After a minimum 5-day evaluation, traders pay a one-time activation fee for a Master Account, which boasts a 100% profit split on the first $10,000, then 90/10. Consistent traders may eventually be invited to a fully-funded real capital account.`,
+    fullReview: `Bulenox provides a structured career path for futures traders, starting with a Qualification Account and progressing to a Master Account. A key differentiator is the choice between two evaluation models: a "No Scaling" account with a trailing drawdown and no daily loss limit, or an "EOD" account with an end-of-day drawdown, a daily loss limit, and a contract scaling plan. After a minimum of 5 trading days, successful traders pay a one-time activation fee to receive a Master Account. This funded account features a 100% profit split on the first $10,000, after which the split becomes 90/10. Traders who demonstrate consistent success on a Master Account may be invited to trade a real capital funded account.`,
     tradingRules: `<h3>Step 1: The Qualification Account</h3>
 <p>This is the first step for all traders. The goal is to prove your trading skill by meeting a profit target without breaking any rules.</p>
 <h4>Choose Your Trading Style: Account Options</h4>
@@ -541,8 +555,8 @@ export const mockPropFirms: PropFirm[] = [
     logoUrl: 'https://daytraders.com/assets/images/logo/logo.svg', 
     websiteUrl: 'https://daytraders.com/',
     affiliateLink: 'https://daytraders.com/?aff_id=YOUR-AFFILIATE-ID', // Replace with your actual Daytraders affiliate link
-    briefDescription: 'Offers "Straight to Funded" (S2F) accounts with a 100% profit split, alongside Trail and Static evaluations.',
-    fullReview: `This proprietary trading firm offers "Straight to Funded" (S2F) accounts, meaning you can start trading with their capital after paying a one-time fee. There are no profit splits; you keep 100% of your earnings. Daytraders also offers "Trail" and "Static" evaluation accounts. Trading is done exclusively on their proprietary ProjectX platform.`,
+    briefDescription: 'Offers "Straight to Funded" (S2F) accounts with a 100% profit split, alongside Trail and Static evaluations, on their proprietary platform.',
+    fullReview: `Daytraders offers a unique proposition with its "Straight to Funded" (S2F) accounts, allowing traders to bypass evaluations and start trading with firm capital after a one-time fee. A major draw is the 100% profit split, meaning traders keep all their earnings. For those who prefer a trial period, Daytraders also provides "Trail" (trailing drawdown) and "Static" (fixed drawdown) evaluation accounts. All trading activities are conducted exclusively on their proprietary ProjectX platform.`,
     tradingRules: `<h3>Rules for Evaluation Accounts</h3>
 <h4>Permitted and Prohibited Trading Practices</h4>
 <ul>
@@ -775,7 +789,7 @@ export const mockPropFirms: PropFirm[] = [
     rating: 4.7,
     isFeatured: false,
     minAccountSize: 25000,
-    maxAccountSize: 150000, 
+    maxAccountSize: 300000, 
     minChallengeCost: 150, 
     maxChallengeCost: 825, 
     activationFee: 'None (S2F) / $130 (Trail/Static)',
@@ -1009,5 +1023,6 @@ export const mockFreeResources: FreeResourceItem[] = [
 
 
   
+
 
 
