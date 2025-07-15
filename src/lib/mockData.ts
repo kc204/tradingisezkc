@@ -147,6 +147,18 @@ const bulenoxAccountTiers: AccountTier[] = [
   { id: 'bulenox-qual-250k', name: '$250K Qualification', size: 250000, evaluationFee: 535, activationFee: 898, drawdownPercentage: 2.2, profitTargetPercentage: 6 }, // $15000 target, $5500 max drawdown
 ];
 
+const fundedTicksAccountTiers: AccountTier[] = [
+  // 1-Step Accounts (Monthly Fee)
+  { id: 'ft-pro-25k', name: '25k Pro+ (Evaluation)', size: 25000, evaluationFee: 99, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
+  { id: 'ft-pro-50k', name: '50k Pro+ (Evaluation)', size: 50000, evaluationFee: 125, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
+  { id: 'ft-pro-100k', name: '100k Pro+ (Evaluation)', size: 100000, evaluationFee: 199, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
+  // Instant Accounts (One-Time Fee)
+  { id: 'ft-zero-25k', name: '25k Zero (Instant)', size: 25000, evaluationFee: 333, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
+  { id: 'ft-zero-50k', name: '50k Zero (Instant)', size: 50000, evaluationFee: 499, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
+  { id: 'ft-zero-100k', name: '100k Zero (Instant)', size: 100000, evaluationFee: 599, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
+];
+
+
 export const mockPropFirms: PropFirm[] = [
   {
     id: '2',
@@ -808,6 +820,85 @@ export const mockPropFirms: PropFirm[] = [
         { id: 'dt-static-50k', name: '50K STATIC Account', size: 50000, evaluationFee: 200, activationFee: 130, profitTargetPercentage: 7.5, drawdownRules: '$1,000 Total Drawdown', dailyLossLimitPercentage: null },
         { id: 'dt-static-75k', name: '75K STATIC Account', size: 75000, evaluationFee: 250, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1,250 Total Drawdown', dailyLossLimitPercentage: null },
     ],
+  },
+  {
+    id: '7',
+    slug: 'fundedticks',
+    name: 'FundedTicks',
+    logoUrl: 'https://placehold.co/100x50.png?text=FT', // Placeholder logo
+    websiteUrl: '#', // Placeholder
+    affiliateLink: '#', // Placeholder
+    isFeatured: false,
+    briefDescription: 'Futures firm from the UAE offering 1-step evaluations and direct funding with a 90% profit split.',
+    fullReview: `FundedTicks, based in the United Arab Emirates, presents two primary funding paths for futures traders: a "Pro+" 1-step evaluation and a "Zero" direct-to-funded plan. Both routes offer a generous 90% profit split and utilize an End-of-Day trailing drawdown, a feature favored by many traders for its flexibility. The firm operates on the Tradovate brokerage, providing access to popular platforms like NinjaTrader and TradingView.
+
+For those preferring an evaluation, the Pro+ plan requires trading for a minimum of 5 qualifying days to pass. While news trading is allowed during evaluation, it becomes restricted in the funded Master account. Payouts from a Master account can be requested every 5 trading days.
+
+The Zero plan allows traders to bypass evaluation for a one-time fee, moving directly to a simulated funded account. This path has a stricter consistency rule (25%) and a payout structure based on hitting specific "Reward Targets." Payouts can be requested every 7 days. A notable rule for Zero accounts is that only EAs that function as risk managers are permitted, and inactivity for 7 days leads to account suspension.`,
+    tradingRules: `<h3>FundingTicks Pro+ (Evaluation Account)</h3>
+<ul>
+    <li><strong>Objective:</strong> Pass a one-step evaluation to reach a funded "Master" account.</li>
+    <li><strong>Profit Target:</strong> No specific target, but must trade for a minimum of 5 qualifying days.</li>
+    <li><strong>Daily Loss Limit:</strong> None.</li>
+    <li><strong>Max Loss:</strong> End-of-Day trailing drawdown.</li>
+    <li><strong>Consistency Rule:</strong> During evaluation, no single day's profit can exceed 40% of total profit. This rule does not apply to funded Master accounts.</li>
+    <li><strong>News Trading:</strong> Allowed during evaluation. Restricted for 1-5 minutes before/after major news in a Master account.</li>
+    <li><strong>Payouts (Master Account):</strong> Request 60% of profits every 5 trading days. The remaining 40% is held for transfer to a future live account.</li>
+    <li><strong>Minimum Daily Profit for Payout Cycle:</strong> $100 for 25k, $150 for 50k, $200 for 100k.</li>
+</ul>
+
+<h3>FundingTicks Zero (Direct Funded Account)</h3>
+<ul>
+    <li><strong>Objective:</strong> Skip evaluation and trade a simulated funded account directly.</li>
+    <li><strong>Profit Target:</strong> No evaluation target. Payouts are based on hitting "Reward Targets."</li>
+    <li><strong>Daily Loss Limit:</strong> None.</li>
+    <li><strong>Max Loss:</strong> End-of-Day trailing drawdown.</li>
+    <li><strong>Consistency Rule:</strong> No single day's profit can exceed 25% of total profit when requesting a reward.</li>
+    <li><strong>Payouts:</strong> Every 7 days, based on a tiered reward target system. The first reward on a $50k account is $3,000. Withdrawals are capped for the first four cycles.</li>
+    <li><strong>Inactivity:</strong> Account suspended after 7 days of inactivity.</li>
+    <li><strong>Expert Advisors (EAs):</strong> Only risk-manager EAs are permitted.</li>
+</ul>`,
+    pros: [
+      "90% profit split",
+      "Offers both 1-step evaluation and direct funding",
+      "No daily loss limit on accounts",
+      "Uses flexible End-of-Day trailing drawdown",
+      "Frequent payout cycles (every 5 or 7 days)"
+    ],
+    cons: [
+      "Strict consistency rules for payouts/rewards",
+      "News trading restrictions on funded accounts",
+      "Inactivity rule can lead to quick suspension",
+      "Only risk-manager EAs are allowed on Zero accounts"
+    ],
+    keyFeatures: [
+      '90% Profit Split',
+      '1-Step (Pro+) and Direct (Zero) funding models',
+      'End-of-Day Trailing Drawdown',
+      'No Daily Loss Limit',
+      'Payouts every 5-7 days'
+    ],
+    keyInfoSnippets: [
+      { label: 'Profit Split', value: '90%' },
+      { label: 'Funding Models', value: '1-Step Evaluation, Direct Funded' },
+      { label: 'Drawdown', value: 'EOD Trailing' },
+      { label: 'Platforms', value: 'Tradovate, NinjaTrader, TradingView' }
+    ],
+    offerBadgeLabel: '90% Profit Split',
+    fundingModels: ["1-Step Evaluation (Pro+)", "Direct Funded (Zero)"],
+    profitSplit: '90%',
+    drawdownRules: 'End-of-Day trailing drawdown',
+    profitTarget: '5 qualifying days (Pro+), Reward Targets (Zero)',
+    tradableInstruments: ['Futures'],
+    platforms: ['NinjaTrader', 'TradingView', 'Tradovate'],
+    rating: 4.5, // Placeholder rating
+    minAccountSize: 25000,
+    maxAccountSize: 100000,
+    minChallengeCost: 99,
+    maxChallengeCost: 599,
+    activationFee: 'Not specified',
+    challengeType: '1-Step or Direct',
+    accountTiers: fundedTicksAccountTiers,
   }
 ];
 
@@ -1023,6 +1114,7 @@ export const mockFreeResources: FreeResourceItem[] = [
 
 
   
+
 
 
 
