@@ -10,6 +10,8 @@ import Image from 'next/image';
 import { ExternalLink, Star } from 'lucide-react';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { cn } from '@/lib/utils';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
 
 interface ExpandedFirmTier {
   firm: PropFirm;
@@ -96,16 +98,40 @@ const ComparisonTable = ({ items, firms }: ComparisonTableProps) => {
     { 
       label: 'Platforms', 
       getValue: (item: ExpandedFirmTier) => {
-        if (!item.firm.platforms || item.firm.platforms.length === 0) {
+        const allPlatforms = item.firm.platforms || [];
+        if (allPlatforms.length === 0) {
           return '-';
         }
+
+        const MAX_VISIBLE_PLATFORMS = 2;
+        const visiblePlatforms = allPlatforms.slice(0, MAX_VISIBLE_PLATFORMS);
+        const hiddenPlatformsCount = allPlatforms.length - MAX_VISIBLE_PLATFORMS;
+
         return (
-          <div className="flex flex-wrap gap-1.5 justify-center">
-            {item.firm.platforms.map(platform => (
+          <div className="flex flex-wrap gap-1.5 justify-center items-center">
+            {visiblePlatforms.map(platform => (
               <div key={platform} className="px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-muted text-muted-foreground whitespace-nowrap">
                 {platform}
               </div>
             ))}
+            {hiddenPlatformsCount > 0 && (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button className="px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-primary/20 text-primary-foreground hover:bg-primary/30 cursor-pointer">
+                    +{hiddenPlatformsCount}
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0 max-w-[250px]">
+                  <div className="flex flex-col gap-1 p-2">
+                    {allPlatforms.map((platform: string) => (
+                      <div key={platform} className="px-2 py-1 text-xs">
+                        {platform}
+                      </div>
+                    ))}
+                  </div>
+                </PopoverContent>
+              </Popover>
+            )}
           </div>
         );
       }
