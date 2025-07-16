@@ -1,5 +1,7 @@
 
 
+
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -7,7 +9,7 @@ import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import OfferBox from '@/components/propfirms/OfferBox';
-import { ExternalLink, Info, Star, ThumbsUp, Lightbulb, ShieldCheck, FileText } from 'lucide-react';
+import { ExternalLink, Info, Star, ThumbsUp, Lightbulb, ShieldCheck, FileText, Briefcase, CreditCard, Banknote, CandlestickChart, TowerControl } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import TrueCostCalculator from '@/components/compare/TrueCostCalculator'; // Import the calculator
@@ -34,6 +36,23 @@ export async function generateMetadata({ params }: FirmDetailPageProps) {
     description: `In-depth review of ${firm.name}: funding, rules, profit split, and more. ${firm.briefDescription}`,
   };
 }
+
+
+const DetailItem = ({ label, children }: { label: string, children: React.ReactNode }) => (
+    <div>
+        <h4 className="text-sm font-semibold text-muted-foreground mb-2">{label}</h4>
+        <div className="flex flex-wrap gap-2">
+            {children}
+        </div>
+    </div>
+);
+
+const DetailBadge = ({ children, icon }: { children: React.ReactNode, icon?: React.ReactNode }) => (
+    <div className="inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium bg-muted text-muted-foreground">
+        {icon && <span className="mr-2">{icon}</span>}
+        {children}
+    </div>
+);
 
 
 const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
@@ -95,6 +114,28 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
             </Card>
           )}
 
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl flex items-center"><Info className="mr-2 h-5 w-5 text-primary" /> Firm Overview</CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6 text-sm">
+                {firm.broker && <DetailItem label="Broker"><DetailBadge icon={<Briefcase className="w-4 h-4" />}>{firm.broker}</DetailBadge></DetailItem>}
+                {firm.platforms && firm.platforms.length > 0 && <DetailItem label="Platforms">{firm.platforms.map(p => <DetailBadge key={p}>{p}</DetailBadge>)}</DetailItem>}
+                {firm.paymentMethods && firm.paymentMethods.length > 0 && <DetailItem label="Payment Methods">{firm.paymentMethods.map(p => <DetailBadge key={p} icon={<CreditCard className="w-4 h-4" />}>{p}</DetailBadge>)}</DetailItem>}
+                {firm.payoutMethods && firm.payoutMethods.length > 0 && <DetailItem label="Payout Methods">{firm.payoutMethods.map(p => <DetailBadge key={p} icon={<Banknote className="w-4 h-4" />}>{p}</DetailBadge>)}</DetailItem>}
+            </CardContent>
+          </Card>
+          
+           <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl flex items-center"><CandlestickChart className="mr-2 h-5 w-5 text-primary" /> Instruments and Assets</CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6 text-sm">
+                {firm.instrumentTypes && firm.instrumentTypes.length > 0 && <DetailItem label="Type of Instruments">{firm.instrumentTypes.map(i => <DetailBadge key={i}>{i}</DetailBadge>)}</DetailItem>}
+                {firm.assets && firm.assets.length > 0 && <DetailItem label="Assets">{firm.assets.map(a => <DetailBadge key={a}>{a}</DetailBadge>)}</DetailItem>}
+            </CardContent>
+          </Card>
+
           {firm.tradingRules && (
             <Card>
               <CardHeader>
@@ -144,22 +185,6 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
               </Card>
             )}
           </div>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center"><Info className="mr-2 h-5 w-5 text-primary" /> Firm Details</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
-              {firm.fundingModels && <p><strong className="text-muted-foreground">Funding Models:</strong> {firm.fundingModels.join(', ')}</p>}
-              {firm.profitSplit && <p><strong className="text-muted-foreground">Profit Split:</strong> {firm.profitSplit}</p>}
-              {firm.drawdownRules && <p><strong className="text-muted-foreground">Drawdown Rules:</strong> {firm.drawdownRules}</p>}
-              {firm.profitTarget && <p><strong className="text-muted-foreground">Profit Target:</strong> {firm.profitTarget}</p>}
-              {firm.minAccountSize && <p><strong className="text-muted-foreground">Min. Account:</strong> ${firm.minAccountSize.toLocaleString()}</p>}
-              {firm.maxAccountSize && <p><strong className="text-muted-foreground">Max. Account:</strong> ${firm.maxAccountSize.toLocaleString()}</p>}
-              {firm.tradableInstruments && <p><strong className="text-muted-foreground">Instruments:</strong> {firm.tradableInstruments.join(', ')}</p>}
-              {firm.platforms && <p><strong className="text-muted-foreground">Platforms:</strong> {firm.platforms.join(', ')}</p>}
-            </CardContent>
-          </Card>
         </div>
 
         <aside className="lg:col-span-1 space-y-8 lg:sticky lg:top-24">

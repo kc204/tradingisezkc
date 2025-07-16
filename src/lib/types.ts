@@ -41,7 +41,9 @@ export interface PropFirm {
   profitSplit?: string;
   drawdownRules?: string;
   profitTarget?: string;
-  tradableInstruments?: string[];
+  tradableInstruments?: string[]; // Renaming to assets
+  assets?: string[];
+  instrumentTypes?: string[];
   platforms?: string[];
   rating?: number; // e.g., 1-5
   isFeatured?: boolean;
@@ -53,6 +55,9 @@ export interface PropFirm {
   challengeType?: string; // e.g., 1-step, 2-step
   accountTiers: AccountTier[]; // Detailed tiers for the calculator
   promo?: string;
+  broker?: string;
+  paymentMethods?: string[];
+  payoutMethods?: string[];
 }
 
 export interface Article {

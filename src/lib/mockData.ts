@@ -21,7 +21,7 @@ const myFundedFuturesAccountTiers: AccountTier[] = [
   // Starter Plus Plan
   { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null, drawdownRules: '$2,000 End-of-Day Trailing Drawdown' },
   { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$3,000 End-of-Day Trailing Drawdown' },
-  { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$4,500 End-of-Day Trailing Drawdown' },
+  { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: null, drawdownRules: '$4,500 End-of-Day Trailing Drawdown' },
   // Expert Plan
   { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, activationFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
   { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, activationFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
@@ -233,8 +233,10 @@ export const mockPropFirms: PropFirm[] = [
     profitSplit: '80% (PRO) / 90% (PRO+)',
     drawdownRules: 'EOD Trailing (Evaluation & PRO+) / Intraday Trailing (PRO)',
     profitTarget: '6%',
-    tradableInstruments: ['Futures'],
+    assets: ['Futures'],
+    instrumentTypes: ['Futures'],
     platforms: ['Tradovate', 'NinjaTrader', 'TradingView'],
+    broker: 'Tradovate',
     rating: 4.6,
     isFeatured: true,
     minAccountSize: 25000,
@@ -337,8 +339,10 @@ export const mockPropFirms: PropFirm[] = [
     profitSplit: '100% on first $10,000, then 90% (80% on Eval-to-Live)',
     drawdownRules: 'End-of-Day Trailing or Trailing Drawdown (varies by plan)',
     profitTarget: 'Varies by plan',
-    tradableInstruments: ['Futures'],
+    assets: ['Futures'],
+    instrumentTypes: ['Futures'],
     platforms: ['TradingView', 'NinjaTrader', 'Tradovate'],
+    broker: 'Tradovate',
     rating: 4.7,
     isFeatured: false,
     minAccountSize: 50000, 
@@ -438,8 +442,11 @@ export const mockPropFirms: PropFirm[] = [
     profitSplit: '100% on first $15,000, then 90/10', 
     drawdownRules: 'Advanced: Intraday trailing. Growth & Sim: End-of-day trailing.',
     profitTarget: 'Challenges: 6%. Sim Funded: Payout-based goals.',
-    tradableInstruments: ['Futures (CME, COMEX, NYMEX, CBOT, Coinbase Digital - Nano BTC/ETH)'], 
+    assets: ['Futures (CME, COMEX, NYMEX, CBOT, Coinbase Digital - Nano BTC/ETH)'], 
+    instrumentTypes: ['Futures'],
     platforms: ['NinjaTrader', 'TradingView', 'Tradovate'], 
+    payoutMethods: ['Plane', 'Riseworks'],
+    broker: 'NinjaTrader',
     rating: 4.8,
     minAccountSize: 25000, 
     maxAccountSize: 150000, 
@@ -544,13 +551,14 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Platforms', value: 'Rithmic/CQG Compatible' },
     ],
     promo: '90% off all accounts',
-    offerBadgeLabel: '100% of First $10k Profit',
     fundingModels: ['Evaluation (Monthly Subscription)'],
     profitSplit: '100% of first $10k, then 90/10',
     drawdownRules: 'Trailing or EOD (stops at initial balance)',
     profitTarget: 'Varies by account size (e.g., $1,500 on $25k)',
-    tradableInstruments: ['Futures (CME, COMEX, NYMEX, CBOT)'],
+    assets: ['Futures (CME, COMEX, NYMEX, CBOT)'],
+    instrumentTypes: ['Futures'],
     platforms: ['NinjaTrader', 'Tradovate', 'TradingView', 'Rithmic Trader Pro', 'MultiCharts', 'Bookmap', 'Jigsaw Daytrader', 'Sierra Chart', 'MotiveWave', 'VolSys', 'Quantower', 'ATAS Order Flow Trading', 'RTrader Pro', 'Investor RT'],
+    broker: 'Rithmic, CQG',
     rating: 4.7,
     minAccountSize: 25000,
     maxAccountSize: 250000,
@@ -616,8 +624,8 @@ export const mockPropFirms: PropFirm[] = [
   <tbody>
     <tr>
       <td><strong>Consistency</strong></td>
-      <td>No single trading day can exceed 30% of total profit.</td>
-      <td>No single trading day can exceed 20% of total profit.</td>
+      <td>No single trading day can exceed 30% of your total profit.</td>
+      <td>No single trading day can exceed 20% of your total profit.</td>
     </tr>
     <tr>
       <td><strong>Min. Trading Days</strong></td>
@@ -631,7 +639,7 @@ export const mockPropFirms: PropFirm[] = [
     </tr>
     <tr>
       <td><strong>Account Failure</strong></td>
-      <td>Must pass another evaluation to get a new account.</td>
+      <td>Must pass another evaluation to get a new one.</td>
       <td>Requires a re-purchase of the account.</td>
     </tr>
   </tbody>
@@ -796,8 +804,10 @@ export const mockPropFirms: PropFirm[] = [
     profitSplit: '100%',
     drawdownRules: 'Varies by account type (End-of-Day, Trailing, or Static)',
     profitTarget: 'Varies for evaluation accounts, none for S2F',
-    tradableInstruments: ['Futures'],
+    assets: ['Futures'],
+    instrumentTypes: ['Futures'],
     platforms: ['ProjectX'],
+    broker: 'Proprietary',
     rating: 4.7,
     isFeatured: false,
     minAccountSize: 25000,
@@ -889,8 +899,11 @@ The Zero plan allows traders to bypass evaluation for a one-time fee, moving dir
     profitSplit: '90%',
     drawdownRules: 'End-of-Day trailing drawdown',
     profitTarget: '5 qualifying days (Pro+), Reward Targets (Zero)',
-    tradableInstruments: ['Futures'],
+    assets: ['Futures'],
+    instrumentTypes: ['Futures'],
     platforms: ['NinjaTrader', 'TradingView', 'Tradovate'],
+    broker: 'Tradovate',
+    payoutMethods: ['Bank Wire Transfer', 'Crypto', 'Riseworks'],
     rating: 4.5, // Placeholder rating
     minAccountSize: 25000,
     maxAccountSize: 100000,
@@ -1114,6 +1127,8 @@ export const mockFreeResources: FreeResourceItem[] = [
 
 
   
+
+
 
 
 
