@@ -8,27 +8,27 @@ export const mockGlobalOffers: GlobalOffer[] = [
 ];
 
 const tptAccountTiers: AccountTier[] = [
-    { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 6, dailyLossLimitPercentage: 2 },
-    { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.2 },
-    { id: 'tpt-eval-75k', name: '$75K Evaluation', size: 75000, evaluationFee: 245, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: 2.13 },
-    { id: 'tpt-eval-100k', name: '$100K Evaluation', size: 100000, evaluationFee: 330, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2 },
-    { id: 'tpt-eval-150k', name: '$150K Evaluation', size: 150000, evaluationFee: 360, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 2.2 },
+    { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, profitTargetPercentage: 6, dailyLossLimitPercentage: 2, drawdownPercentage: 6, activationFee: 130 },
+    { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.2, drawdownPercentage: 4, activationFee: 130 },
+    { id: 'tpt-eval-75k', name: '$75K Evaluation', size: 75000, evaluationFee: 245, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.13, drawdownPercentage: 3.33, activationFee: 130 },
+    { id: 'tpt-eval-100k', name: '$100K Evaluation', size: 100000, evaluationFee: 330, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.2, drawdownPercentage: 3, activationFee: 130 },
+    { id: 'tpt-eval-150k', name: '$150K Evaluation', size: 150000, evaluationFee: 360, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.2, drawdownPercentage: 3, activationFee: 130 },
 ];
 
 const myFundedFuturesAccountTiers: AccountTier[] = [
   // Starter Plus Plan
-  { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null, drawdownRules: '$2,000 End-of-Day Trailing Drawdown' },
-  { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$3,000 End-of-Day Trailing Drawdown' },
-  { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$4,500 End-of-Day Trailing Drawdown' },
+  { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, profitTargetPercentage: 6, drawdownPercentage: 4 },
+  { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, profitTargetPercentage: 6, drawdownPercentage: 3 },
+  { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, profitTargetPercentage: 6, drawdownPercentage: 3 },
   // Expert Plan
-  { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, activationFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
-  { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, activationFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
-  { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 375, activationFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
+  { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, drawdownRules: 'Trailing Drawdown with Buffer Zone' },
+  { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, drawdownRules: 'Trailing Drawdown with Buffer Zone' },
+  { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 375, drawdownRules: 'Trailing Drawdown with Buffer Zone' },
   // Starter Plan
-  { id: 'mff-starter-50k-single', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: null, drawdownRules: '$2,500 Trailing Drawdown' },
+  { id: 'mff-starter-50k-single', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, profitTargetPercentage: 6, drawdownPercentage: 5, drawdownRules: '$2,500 Trailing Drawdown' },
   // Eval to Live Plan
-  { id: 'mff-1step-eval-live-50k', name: '$50K 1-Step Eval to Live', size: 50000, evaluationFee: 444, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1, drawdownRules: '$1,500 End-of-Day Max Loss (Eval), $500 Daily Loss (Live)' },
-  { id: 'mff-2step-eval-live-50k', name: '$50K 2-Step Eval to Live', size: 50000, evaluationFee: 197, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1, drawdownRules: '$1,500 End-of-Day Max Loss (Eval), $500 Daily Loss (Live)' },
+  { id: 'mff-1step-eval-live-50k', name: '$50K 1-Step Eval to Live', size: 50000, evaluationFee: 444, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1 },
+  { id: 'mff-2step-eval-live-50k', name: '$50K 2-Step Eval to Live', size: 50000, evaluationFee: 197, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1 },
 ];
 
 const tradeifyAccountTiers: AccountTier[] = [
@@ -41,7 +41,6 @@ const tradeifyAccountTiers: AccountTier[] = [
     activationFee: 125, 
     profitTargetPercentage: 6, 
     drawdownPercentage: 4, 
-    dailyLossLimitPercentage: null, 
   },
   { 
     id: 'tradeify-adv-100k', 
@@ -51,7 +50,6 @@ const tradeifyAccountTiers: AccountTier[] = [
     activationFee: 125, 
     profitTargetPercentage: 6, 
     drawdownPercentage: 3, 
-    dailyLossLimitPercentage: null,
   },
   { 
     id: 'tradeify-adv-150k', 
@@ -61,7 +59,6 @@ const tradeifyAccountTiers: AccountTier[] = [
     activationFee: 125, 
     profitTargetPercentage: 6, 
     drawdownPercentage: 3,
-    dailyLossLimitPercentage: null,
   },
   
   // Growth Plan (Evaluation)
@@ -171,47 +168,55 @@ export const mockPropFirms: PropFirm[] = [
     dateCreated: 'March 2021',
     briefDescription: 'Futures prop firm with a 1-step evaluation, daily payouts, and a path to a live PRO+ account with a 90% profit split.',
     fullReview: `Take Profit Trader (TPT) offers a direct route for futures traders with its 1-step evaluation. Upon passing the Test account, which utilizes a flexible End-of-Day (EOD) trailing drawdown, traders pay a one-time $130 activation fee to get a PRO account. PRO accounts are notable for offering daily payouts from the very first day and an 80% profit split. However, they switch to a more restrictive intraday trailing drawdown based on peak balance. For traders seeking a higher 90% profit share and a return to the EOD drawdown, an upgrade to a PRO+ account is available, which operates in a live market environment. A critical rule for funded traders is the restriction on trading during major news events in both PRO and PRO+ accounts.`,
-    tradingRules: `<h3>Test Account (The Evaluation)</h3>
-<p>This is the initial step to prove you can trade profitably and manage risk. Maximum leverage is 3 contracts for the $25k account, up to 15 for the $150k account. Commissions are $5.00/round trip for standard contracts and $0.50 for micros.</p>
+    tradingRules: `<h3>Leverage & Commissions</h3>
 <ul>
-    <li><strong>Environment:</strong> You trade in a simulated (SIM) environment.</li>
-    <li><strong>Drawdown:</strong> Your maximum loss is calculated at the End of the Day (EOD).</li>
-    <li><strong>Consistency Rule:</strong> A 50% consistency rule applies, meaning no single trading day can account for more than 50% of your total profits. A minimum of 5 trading days is required.</li>
-    <li><strong>Daily Loss Limit:</strong> A daily loss limit applies during the Test phase.</li>
-    <li><strong>News Trading:</strong> You are allowed to trade during news events.</li>
-    <li><strong>Scaling:</strong> There is no scaling plan, so you can use the maximum number of contracts allowed for your account from day one.</li>
+    <li><strong>$25,000 Account:</strong> 3 Contracts / 30 Micros</li>
+    <li><strong>$50,000 Account:</strong> 6 Contracts / 60 Micros</li>
+    <li><strong>$75,000 Account:</strong> 9 Contracts / 90 Micros</li>
+    <li><strong>$100,000 Account:</strong> 12 Contracts / 120 Micros</li>
+    <li><strong>$150,000 Account:</strong> 15 Contracts / 150 Micros</li>
+    <li><strong>Commissions:</strong> $5.00/round trip (Standard), $0.50/round trip (Micro)</li>
 </ul>
 
-<h3>PRO Account (Your First Funded Level)</h3>
-<p>After you pass the test, you get a PRO Account.</p>
+<h3>Test Account (The Evaluation)</h3>
+<p>This is the initial step to prove you can trade profitably and manage risk.</p>
 <ul>
-    <li><strong>Environment:</strong> This is a simulated (SIM) account, but you are paid real money from your simulated profits.</li>
-    <li><strong>Profit Split:</strong> You keep 80% of the profits.</li>
+    <li><strong>Environment:</strong> Simulated (SIM) environment.</li>
+    <li><strong>Drawdown:</strong> Maximum loss calculated at the End of the Day (EOD).</li>
+    <li><strong>Consistency Rule:</strong> A 50% consistency rule applies (no single day can be >50% of total profit), and a minimum of 5 trading days is required.</li>
+    <li><strong>News Trading:</strong> Allowed without restrictions.</li>
+    <li><strong>Scaling:</strong> No scaling plan; use max contracts from day one.</li>
+</ul>
+
+<h3>PRO Account (First Funded Level)</h3>
+<p>After passing the test, you get a PRO Account.</p>
+<ul>
+    <li><strong>Environment:</strong> Simulated (SIM) account, but you are paid real money from simulated profits.</li>
+    <li><strong>Profit Split:</strong> 80% to the trader.</li>
     <li><strong>Withdrawals:</strong> On-demand, available from day one.</li>
-    <li><strong>Drawdown:</strong> This changes to a trailing drawdown based on your peak balance (includes realized and unrealized gains).</li>
-    <li><strong>Buffer Requirement:</strong> Traders can withdraw profits at 80% once they reach the maximum drawdown level (the "buffer zone"). Withdrawing profits from within the buffer zone is possible but will result in the termination of the account.</li>
-    <li><strong>News Trading:</strong> Trading is restricted for 1 minute before and 1 minute after specific high-impact news events (FOMC, NFP, CPI) and instrument-specific news.</li>
-    <li><strong>Max Accounts:</strong> You can have up to 5 PRO accounts.</li>
+    <li><strong>Drawdown:</strong> Changes to a peak balance (intraday) trailing drawdown.</li>
+    <li><strong>Buffer Requirement:</strong> You must maintain a minimum profit buffer before withdrawing. Withdrawing from the buffer closes the account.</li>
+    <li><strong>News Trading:</strong> Restricted for 1 minute before/after high-impact news (FOMC, NFP, CPI) and instrument-specific news (Oil Inventories, Bond Auctions).</li>
+    <li><strong>Max Accounts:</strong> Up to 5 PRO accounts.</li>
     <li><strong>Expert Advisors (EAs):</strong> Not allowed.</li>
-    <li><strong>Copy Trading:</strong> Allowed.</li>
 </ul>
 
 <h3>PRO+ Account (Upgraded Funded Level)</h3>
-<p>A trader can be upgraded to PRO+ by either making $10,000 in profit in a single day or by demonstrating consistent profitability.</p>
+<p>A trader can be upgraded to PRO+ by making $10,000 in a single day or showing consistent profitability.</p>
 <ul>
-    <li><strong>Environment:</strong> This is a LIVE market account, where your trades are sent to the actual exchange.</li>
-    <li><strong>Profit Split:</strong> Your profit share increases to 90%.</li>
-    <li><strong>Drawdown:</strong> This reverts back to an End of Day calculation, giving you more flexibility.</li>
-    <li><strong>Buffer Requirement:</strong> There is no buffer zone requirement.</li>
-    <li><strong>News Trading:</strong> The news trading restriction still applies.</li>
-    <li><strong>Restrictions:</strong> No payout restrictions, no consistency rule, no daily loss limit.</li>
+    <li><strong>Environment:</strong> LIVE market account.</li>
+    <li><strong>Profit Split:</strong> Increases to 90%.</li>
+    <li><strong>Drawdown:</strong> Reverts back to an End of Day calculation.</li>
+    <li><strong>Buffer Requirement:</strong> No buffer requirement.</li>
+    <li><strong>Restrictions:</strong> No payout restrictions, no consistency rule, no daily loss limit. News trading restriction still applies.</li>
+    <li><strong>Copy Trading:</strong> Allowed for up to 5 accounts.</li>
 </ul>
 
 <h3>Important Tech & Payout Updates</h3>
 <ul>
-    <li><strong>Bank Identity Verification:</strong> The legal name provided during KYC must match the legal owner of the bank account used for payouts.</li>
-    <li><strong>LLC Payouts:</strong> Payouts to an LLC bank account must now be processed through Wise or PayPal.</li>
-    <li><strong>Plaid Reconnection:</strong> Users must reconnect their personal banking information via Plaid before their next payout request.</li>
+    <li><strong>Bank Identity Verification:</strong> The legal name provided during KYC must match the bank account owner's legal name for payouts.</li>
+    <li><strong>LLC Payouts:</strong> Payouts to an LLC bank account must be processed through Wise or PayPal.</li>
+    <li><strong>Plaid Reconnection:</strong> Users must reconnect their banking info via Plaid before their next payout.</li>
 </ul>`,
     pros: [
         'Daily Payouts available from day one on PRO accounts',
@@ -397,15 +402,15 @@ export const mockPropFirms: PropFirm[] = [
     restrictedCountries: [
       { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
       { name: "Bahamas", code: "BS" }, { name: "Barbados", code: "BB" }, { name: "Belarus", code: "BY" }, { name: "Bosnia and Herzegovina", code: "BA" },
-      { name: "Botswana", code: "BW" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" }, { name: "Burma", code: "MM" },
+      { name: "Botswana", code: "BW" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" }, { name: "Myanmar", code: "MM" },
       { name: "Burundi", code: "BI" }, { name: "Cambodia", code: "KH" }, { name: "Cameroon", code: "CM" }, { name: "Central African Republic", code: "CF" },
       { name: "China", code: "CN" }, { name: "Côte d'Ivoire", code: "CI" }, { name: "Crimea", code: "UA-43" }, { name: "Croatia", code: "HR" },
-      { name: "Cuba", code: "CU" }, { name: "Ecuador", code: "EC" }, { name: "Ethiopia", code: "ET" },
+      { name: "Cuba", code: "CU" }, { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Ecuador", code: "EC" }, { name: "Ethiopia", code: "ET" },
       { name: "Ghana", code: "GH" }, { name: "Gibraltar", code: "GI" }, { name: "Haiti", code: "HT" }, { name: "Hong Kong", code: "HK" },
       { name: "Iceland", code: "IS" }, { name: "Indonesia", code: "ID" }, { name: "Iran", code: "IR" }, { name: "Iraq", code: "IQ" },
       { name: "Jamaica", code: "JM" }, { name: "Jordan", code: "JO" }, { name: "Kenya", code: "KE" }, { name: "Kosovo", code: "XK" },
       { name: "Laos", code: "LA" }, { name: "Lebanon", code: "LB" }, { name: "Liberia", code: "LR" }, { name: "Libya", code: "LY" },
-      { name: "Macedonia", code: "MK" }, { name: "Malaysia", code: "MY" }, { name: "Mali", code: "ML" }, { name: "Mauritius", code: "MU" },
+      { name: "North Macedonia", code: "MK" }, { name: "Malaysia", code: "MY" }, { name: "Mali", code: "ML" }, { name: "Mauritius", code: "MU" },
       { name: "Mongolia", code: "MN" }, { name: "Montenegro", code: "ME" }, { name: "Mozambique", code: "MZ" }, { name: "Namibia", code: "NA" },
       { name: "Nicaragua", code: "NI" }, { name: "Nigeria", code: "NG" }, { name: "Pakistan", code: "PK" }, { name: "Panama", code: "PA" },
       { name: "Papua New Guinea", code: "PG" }, { name: "Philippines", code: "PH" }, { name: "Qatar", code: "QA" }, { name: "Romania", code: "RO" },
@@ -887,22 +892,22 @@ export const mockPropFirms: PropFirm[] = [
     challengeType: 'Evaluation or Direct Funding',
     accountTiers: [
         // S2F Accounts
-        { id: 'dt-s2f-25k', name: '25K S2F Account', size: 25000, evaluationFee: 370, activationFee: 0, drawdownRules: '$1,000 (End of Day)', dailyLossLimitPercentage: null, profitTargetPercentage: null },
+        { id: 'dt-s2f-25k', name: '25K S2F Account', size: 25000, evaluationFee: 370, activationFee: 0, drawdownRules: '$1,000 (End of Day)', profitTargetPercentage: null },
         { id: 'dt-s2f-50k', name: '50K S2F Account', size: 50000, evaluationFee: 570, activationFee: 0, drawdownRules: '$2,500 (End of Day)', dailyLossLimitPercentage: 2.5, profitTargetPercentage: null },
         { id: 'dt-s2f-150k', name: '150K S2F Account', size: 150000, evaluationFee: 825, activationFee: 0, drawdownRules: '$6,000 (End of Day)', dailyLossLimitPercentage: 2.5, profitTargetPercentage: null },
         // Trail Accounts
-        { id: 'dt-trail-25k', name: '25K TRAIL Account', size: 25000, evaluationFee: 249, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1,500 Trailing Threshold', dailyLossLimitPercentage: null },
-        { id: 'dt-trail-50k', name: '50K TRAIL Account', size: 50000, evaluationFee: 379, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$2,500 Trailing Threshold', dailyLossLimitPercentage: null },
-        { id: 'dt-trail-75k', name: '75K TRAIL Account', size: 75000, evaluationFee: 449, activationFee: 130, profitTargetPercentage: 5.67, drawdownRules: '$2,750 Trailing Threshold', dailyLossLimitPercentage: null },
+        { id: 'dt-trail-25k', name: '25K TRAIL Account', size: 25000, evaluationFee: 249, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1,500 Trailing Threshold' },
+        { id: 'dt-trail-50k', name: '50K TRAIL Account', size: 50000, evaluationFee: 379, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$2,500 Trailing Threshold' },
+        { id: 'dt-trail-75k', name: '75K TRAIL Account', size: 75000, evaluationFee: 449, activationFee: 130, profitTargetPercentage: 5.67, drawdownRules: '$2,750 Trailing Threshold' },
         // Static Accounts
-        { id: 'dt-static-25k', name: '25K STATIC Account', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 10, drawdownRules: '$750 Total Drawdown', dailyLossLimitPercentage: null },
-        { id: 'dt-static-50k', name: '50K STATIC Account', size: 50000, evaluationFee: 200, activationFee: 130, profitTargetPercentage: 7.5, drawdownRules: '$1,000 Total Drawdown', dailyLossLimitPercentage: null },
-        { id: 'dt-static-75k', name: '75K STATIC Account', size: 75000, evaluationFee: 250, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1,250 Total Drawdown', dailyLossLimitPercentage: null },
+        { id: 'dt-static-25k', name: '25K STATIC Account', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 10, drawdownRules: '$750 Total Drawdown' },
+        { id: 'dt-static-50k', name: '50K STATIC Account', size: 50000, evaluationFee: 200, activationFee: 130, profitTargetPercentage: 7.5, drawdownRules: '$1,000 Total Drawdown' },
+        { id: 'dt-static-75k', name: '75K STATIC Account', size: 75000, evaluationFee: 250, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1,250 Total Drawdown' },
     ],
   },
   {
     id: '7',
-    slug: 'fundedticks',
+    slug: 'fundingticks',
     name: 'FundedTicks',
     logoUrl: 'https://placehold.co/100x50.png?text=FT', // Placeholder logo
     websiteUrl: '#', // Placeholder
@@ -916,28 +921,61 @@ export const mockPropFirms: PropFirm[] = [
 For those preferring an evaluation, the Pro+ plan requires trading for a minimum of 5 qualifying days to pass. While news trading is allowed during evaluation, it becomes restricted in the funded Master account. Payouts from a Master account can be requested every 5 trading days.
 
 The Zero plan allows traders to bypass evaluation for a one-time fee, moving directly to a simulated funded account. This path has a stricter consistency rule (25%) and a payout structure based on hitting specific "Reward Targets." Payouts can be requested every 7 days. A notable rule for Zero accounts is that only EAs that function as risk managers are permitted, and inactivity for 7 days leads to account suspension.`,
-    tradingRules: `<h3>FundingTicks Pro+ (Evaluation Account)</h3>
+    tradingRules: `<h3>Leverage & Commissions</h3>
 <ul>
-    <li><strong>Objective:</strong> Pass a one-step evaluation to reach a funded "Master" account.</li>
-    <li><strong>Profit Target:</strong> No specific target, but must trade for a minimum of 5 qualifying days.</li>
-    <li><strong>Daily Loss Limit:</strong> None.</li>
-    <li><strong>Max Loss:</strong> End-of-Day trailing drawdown.</li>
-    <li><strong>Consistency Rule:</strong> During evaluation, no single day's profit can exceed 40% of total profit. This rule does not apply to funded Master accounts.</li>
-    <li><strong>News Trading:</strong> Allowed during evaluation. Restricted for 1-5 minutes before/after major news in a Master account.</li>
-    <li><strong>Payouts (Master Account):</strong> Request 60% of your profits every 5 trading days. The remaining 40% is held for transfer to a future live account.</li>
-    <li><strong>Minimum Daily Profit for Payout Cycle:</strong> $100 for 25k, $150 for 50k, $200 for 100k.</li>
+  <li><strong>FundingTicks Zero Model (Max Contracts):</strong>
+    <ul>
+      <li>$25,000 Account: 1 mini or 10 micros</li>
+      <li>$50,000 Account: 3 minis or 30 micros</li>
+      <li>$100,000 Account: 5 minis or 50 micros</li>
+    </ul>
+  </li>
+  <li><strong>FundingTicks Pro+ Model (Max Contracts):</strong>
+    <ul>
+      <li>$25,000 Account: 2 minis or 20 micros</li>
+      <li>$50,000 Account: 4 minis or 40 micros</li>
+      <li>$100,000 Account: 8 minis or 80 micros</li>
+    </ul>
+  </li>
+  <li><strong>Commissions:</strong> Details available at <a href="https://help.fundingticks.com/hc/en-us/articles/33733389327377-Tradovate-Tradable-Instruments-and-Commissions" target="_blank" rel="noopener noreferrer">FundingTicks Commissions Page</a>.</li>
 </ul>
 
-<h3>FundingTicks Zero (Direct Funded Account)</h3>
+<h3>Consistency & Firm-Wide Rules</h3>
 <ul>
-    <li><strong>Objective:</strong> Skip evaluation and trade a simulated funded account directly.</li>
-    <li><strong>Profit Target:</strong> No evaluation target. Payouts are based on hitting "Reward Targets."</li>
-    <li><strong>Daily Loss Limit:</strong> None.</li>
-    <li><strong>Max Loss:</strong> End-of-Day trailing drawdown.</li>
-    <li><strong>Consistency Rule:</strong> No single day's profit can be more than 25% of your total profit when requesting a reward.</li>
-    <li><strong>Payouts:</strong> Every 7 days, based on a tiered reward target system. The first reward on a $50k account is $3,000. Withdrawals are capped for the first four cycles.</li>
-    <li><strong>Inactivity:</strong> Account suspended after 7 days of inactivity.</li>
-    <li><strong>Expert Advisors (EAs):</strong> Only risk-manager EAs are permitted.</li>
+  <li><strong>Consistency (Pro+):</strong> 40% rule during evaluation only.</li>
+  <li><strong>Consistency (Zero):</strong> 25% rule applies for rewards.</li>
+  <li><strong>News Trading:</strong> Allowed in evaluation. Restricted for 5 minutes before/after news in Master Accounts.</li>
+  <li><strong>Copy Trading:</strong> Allowed without restrictions.</li>
+  <li><strong>Expert Advisors (EAs):</strong> Only risk-manager EAs are permitted.</li>
+  <li><strong>Inactivity Rule:</strong> Account suspended after 7 consecutive days of inactivity.</li>
+</ul>
+
+<h3>Payout Policy: FundingTicks Pro+</h3>
+<ul>
+  <li><strong>Profit Split:</strong> 90/10.</li>
+  <li><strong>Payout Cycle:</strong> Request 60% of profit (up to $5,000/account) every 5 trading days. The remaining 40% is held for a future live account.</li>
+  <li><strong>Minimum Daily Profit for "Trading Day":</strong> $100 (25k), $150 (50k), $200 (100k).</li>
+  <li><strong>Minimum Withdrawal:</strong> $250 (25k), $500 (50k), $1,000 (100k).</li>
+</ul>
+
+<h3>Payout Policy: FundingTicks Zero</h3>
+<ul>
+  <li><strong>Payout Cycle:</strong> Every 7 days at a 90/10 split, based on hitting Reward Targets.</li>
+  <li><strong>Reward Caps (First 4 Cycles):</strong>
+    <ul>
+      <li>$25K Account: $1,000 per cycle.</li>
+      <li>$50K Account: $2,000 (x3), then $2,500.</li>
+      <li>$100K Account: $2,500 (x3), then $3,000.</li>
+    </ul>
+  </li>
+  <li><strong>Reward Targets:</strong>
+    <ul>
+      <li>$25K Account: Target 1: $1,500; Target 2: $1,250; Target 3+: $1,000.</li>
+      <li>$50K Account: Target 1: $3,000; Target 2: $2,500; Target 3+: $2,000.</li>
+      <li>$100K Account: Target 1: $6,000; Target 2: $4,000; Target 3+: $2,000.</li>
+    </ul>
+  </li>
+  <li><strong>Minimum Withdrawal:</strong> $250 (25k), $500 (50k), $1,000 (100k).</li>
 </ul>`,
     pros: [
       "90% profit split",
@@ -965,7 +1003,7 @@ The Zero plan allows traders to bypass evaluation for a one-time fee, moving dir
       { label: 'Drawdown', value: 'EOD Trailing' },
       { label: 'Platforms', value: 'Tradovate, NinjaTrader, TradingView' }
     ],
-    offerBadgeLabel: '90% Profit Split',
+    offerBadgeLabel: '35% OFF all accounts',
     fundingModels: ["1-Step Evaluation (Pro+)", "Direct Funded (Zero)"],
     profitSplit: '90%',
     drawdownRules: 'End-of-Day trailing drawdown',
@@ -974,9 +1012,9 @@ The Zero plan allows traders to bypass evaluation for a one-time fee, moving dir
     instrumentTypes: ['Futures'],
     platforms: ['NinjaTrader', 'TradingView', 'Tradovate'],
     broker: 'Tradovate',
-    paymentMethods: ['Credit/Debit Card', 'Crypto'],
+    paymentMethods: ['Apple Pay', 'Credit/Debit Card', 'Crypto', 'Google Pay', 'Neteller', 'Paysafe Card', 'Skrill', 'Wire Transfer'],
     payoutMethods: ['Bank Wire Transfer', 'Crypto', 'Riseworks'],
-    rating: 4.5, // Placeholder rating
+    rating: 4.0,
     minAccountSize: 25000,
     maxAccountSize: 100000,
     minChallengeCost: 99,
@@ -984,6 +1022,24 @@ The Zero plan allows traders to bypass evaluation for a one-time fee, moving dir
     activationFee: 'Not specified',
     challengeType: '1-Step or Direct',
     accountTiers: fundedTicksAccountTiers,
+    restrictedCountries: [
+      { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
+      { name: "Bahamas", code: "BS" }, { name: "Barbados", code: "BB" }, { name: "Belarus", code: "BY" }, { name: "Bosnia and Herzegovina", code: "BA" },
+      { name: "Botswana", code: "BW" }, { name: "Bulgaria", code: "BG" }, { name: "Myanmar", code: "MM" }, { name: "Burundi", code: "BI" },
+      { name: "Cambodia", code: "KH" }, { name: "Central African Republic", code: "CF" }, { name: "China", code: "CN" }, { name: "Colombia", code: "CO" },
+      { name: "Côte d'Ivoire", code: "CI" }, { name: "Crimea", code: "UA-43" }, { name: "Croatia", code: "HR" }, { name: "Cuba", code: "CU" },
+      { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Ecuador", code: "EC" }, { name: "Ethiopia", code: "ET" }, { name: "Ghana", code: "GH" },
+      { name: "Hong Kong", code: "HK" }, { name: "Iceland", code: "IS" }, { name: "Indonesia", code: "ID" }, { name: "Iran", code: "IR" },
+      { name: "Iraq", code: "IQ" }, { name: "Jamaica", code: "JM" }, { name: "Kosovo", code: "XK" }, { name: "Laos", code: "LA" },
+      { name: "Lebanon", code: "LB" }, { name: "Liberia", code: "LR" }, { name: "Libya", code: "LY" }, { name: "Mauritius", code: "MU" },
+      { name: "Mongolia", code: "MN" }, { name: "Montenegro", code: "ME" }, { name: "Nicaragua", code: "NI" }, { name: "North Korea", code: "KP" },
+      { name: "Pakistan", code: "PK" }, { name: "Panama", code: "PA" }, { name: "Papua New Guinea", code: "PG" }, { name: "Romania", code: "RO" },
+      { name: "Russia", code: "RU" }, { name: "Serbia", code: "RS" }, { name: "Slovenia", code: "SI" }, { name: "Somalia", code: "SO" },
+      { name: "South Sudan", code: "SS" }, { name: "Sri Lanka", code: "LK" }, { name: "Sudan", code: "SD" }, { name: "Syria", code: "SY" },
+      { name: "Trinidad and Tobago", code: "TT" }, { name: "Tunisia", code: "TN" }, { name: "Turkey", code: "TR" }, { name: "Uganda", code: "UG" },
+      { name: "Ukraine", code: "UA" }, { name: "United Arab Emirates", code: "AE" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" },
+      { name: "Yemen", code: "YE" }, { name: "Zimbabwe", code: "ZW" }
+    ],
   }
 ];
 
@@ -1053,14 +1109,6 @@ const alBrooksSampleLessons: VideoLesson[] = [
     lessonDescription: "Learn the fundamentals of how Al Brooks perceives market structure and its importance in price action trading.",
     lessonKeyTakeaways: ["Key Trendlines", "Support & Resistance", "Market Cycles"],
     lessonCTAText: "Watch All 5 Lessons Free",
-    lessonCTALink: "https://www.brookstradingcourse.com/free-sample-price-action-trading-videos/ref/uuc5l/", 
-  },
-  {
-    lessonTitle: "Lesson 2: Bar-by-Bar Analysis Introduction",
-    videoEmbedCodeOrURL: "https://www.youtube.com/embed/dQw4w9WgXcQ", 
-    lessonDescription: "An introduction to Al Brooks' detailed bar-by-bar analysis technique for making trading decisions.",
-    lessonKeyTakeaways: ["Candlestick signals", "Volume interpretation", "Context is key"],
-    lessonCTAText: "Explore More Samples",
     lessonCTALink: "https://www.brookstradingcourse.com/free-sample-price-action-trading-videos/ref/uuc5l/", 
   },
 ];
