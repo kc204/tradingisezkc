@@ -55,7 +55,7 @@ const bulenoxAccountTiers: AccountTier[] = [
   { id: 'bulenox-qual-250k', name: '$250K Qualification', size: 250000, evaluationFee: 535, activationFee: 898, drawdownPercentage: 2.2, profitTargetPercentage: 6 }, // $15000 target, $5500 max drawdown
 ];
 
-const fundingTicksAccountTiers: AccountTier[] = [
+const fundingticksAccountTiers: AccountTier[] = [
   // 1-Step Accounts (Monthly Fee)
   { id: 'ft-pro-25k', name: '25k Pro+ (Evaluation)', size: 25000, evaluationFee: 99, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
   { id: 'ft-pro-50k', name: '50k Pro+ (Evaluation)', size: 50000, evaluationFee: 125, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
@@ -66,8 +66,129 @@ const fundingTicksAccountTiers: AccountTier[] = [
   { id: 'ft-zero-100k', name: '100k Zero (Instant)', size: 100000, evaluationFee: 599, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
 ];
 
+const topstepAccountTiers: AccountTier[] = [
+    { id: 'topstep-50k', name: '$50K Challenge Account', size: 50000, evaluationFee: 49, activationFee: 149, profitTargetPercentage: 6, dailyLossLimitPercentage: 2, drawdownPercentage: 4 },
+    { id: 'topstep-100k', name: '$100K Challenge Account', size: 100000, evaluationFee: 99, activationFee: 149, profitTargetPercentage: 6, dailyLossLimitPercentage: 2, drawdownPercentage: 3 },
+    { id: 'topstep-150k', name: '$150K Challenge Account', size: 150000, evaluationFee: 149, activationFee: 149, profitTargetPercentage: 6, dailyLossLimitPercentage: 2, drawdownPercentage: 3 },
+];
+
 
 export const mockPropFirms: PropFirm[] = [
+  {
+    id: '8',
+    slug: 'topstep',
+    name: 'Topstep',
+    logoUrl: 'https://assets-global.website-files.com/645cf84923a8054a856d3935/65957d19e0321a42637b83f3_topstep-logo.svg',
+    websiteUrl: 'https://www.topstep.com/',
+    affiliateLink: 'https://www.topstep.com/&affiliate_id=YOUR-AFFILIATE-ID', // REPLACE
+    isFeatured: true,
+    ceo: 'Michael Patak',
+    dateCreated: 'January 2012',
+    briefDescription: 'A pioneer in the prop firm industry, Topstep offers a simple 1-step Trading Combine with a 90% profit split and their proprietary TopstepX platform.',
+    fullReview: `As one of the original firms in the space, Topstep has a long-standing reputation. They offer a straightforward 1-step evaluation called the Trading Combine. Traders who pass the Combine can get funded in as little as two days. A major incentive is their payout policy, where traders keep 100% of their first $10,000 in profits, which then moves to a 90% split. Topstep also offers a unique path to a 100% profit split for traders who accumulate 30 winning trading days. All trading is done on their proprietary TopstepX platform, and they allow for a high degree of flexibility with no restrictions on news trading or automated strategies.`,
+    tradingRules: `<h3>Leverage (Max Contracts)</h3>
+<ul>
+    <li><strong>$50k Account:</strong> Up to 5 Contracts</li>
+    <li><strong>$100k Account:</strong> Up to 10 Contracts</li>
+    <li><strong>$150k Account:</strong> Up to 15 Contracts</li>
+</ul>
+<h3>Commissions and Fees</h3>
+<ul>
+    <li><strong>Trading Combine:</strong> <a href="https://support.topstep.com/hc/en-us/articles/360045143994-Commissions-and-Fees" target="_blank" rel="noopener noreferrer">Commissions and Fees Details</a></li>
+    <li><strong>Live Funded Account:</strong> <a href="https://support.topstep.com/hc/en-us/articles/360057287233-Live-Funded-Account-Commissions-and-Fees" target="_blank" rel="noopener noreferrer">Commissions and Fees Details</a></li>
+</ul>
+<h3>Trading Rules</h3>
+<h4>Consistency Rule</h4>
+<ul>
+    <li><strong>50% Rule:</strong> Applies to Combine Accounts (evaluation) only. Profits made during one single trading day cannot exceed 50% of the total profit target.</li>
+</ul>
+<h4>Firm-Wide Rules</h4>
+<ul>
+    <li><strong>News Trading & Copy Trading:</strong> Allowed with no restrictions during both Evaluation and Funded stages.</li>
+    <li><strong>Automated Strategies and EAs:</strong> Allowed with no restrictions.</li>
+    <li><strong>Inactivity Rule:</strong> Express Funded Accounts must execute at least one trade every 30 days to remain open.</li>
+    <li><strong>Post-Payout Rule:</strong> After a payout is processed, the maximum loss limit on the account is set to $0. The remaining capital in the account becomes the new maximum allowable loss.</li>
+    <li><strong>Prohibited Conduct:</strong> For more details, refer to the <a href="https://www.topstep.com/prohibited-conduct/" target="_blank" rel="noopener noreferrer">Prohibited Conduct page</a>.</li>
+</ul>
+<h3>Payout Policy</h3>
+<h4>Profit Split</h4>
+<ul>
+    <li>Traders receive 100% of their first $10,000 in profits.</li>
+    <li>After the first $10,000, the profit split becomes 90/10 (90% to the trader).</li>
+    <li>Traders can also become eligible for a 100% profit split after accumulating 30 winning trading days.</li>
+</ul>
+<h4>Payout Conditions</h4>
+<ul>
+    <li>For both Express and Live Funded Accounts, traders can request a payout after accumulating five winning trading days per request.</li>
+    <li>A "winning trading day" is defined as any day where the Net PNL is $200 or more.</li>
+</ul>
+<h4>Payout Amounts</h4>
+<ul>
+    <li><strong>Express Funded Account:</strong> Can request a payout of up to $5,000 or 50% of the account balance.</li>
+    <li><strong>Live Funded Account:</strong> Can request a payout of up to 50% of the account balance.</li>
+    <li>For complete details, please review the official <a href="https://support.topstep.com/hc/en-us/articles/360054593853-Payout-Policy" target="_blank" rel="noopener noreferrer">Topstep Payout Policy</a>.</li>
+</ul>`,
+    pros: [
+      'Keep 100% of the first $10,000 in profits',
+      'Simple 1-step evaluation process (Trading Combine)',
+      'Potential to earn a 100% profit split after 30 winning days',
+      'No restrictions on news trading or automated strategies',
+      'Long-standing and reputable firm (founded in 2012)'
+    ],
+    cons: [
+      'Trading is limited to their proprietary TopstepX platform',
+      'Post-payout rule resets max loss limit to $0',
+      'Winning day for payout qualification requires a $200+ profit'
+    ],
+    keyFeatures: [
+      '1-Step Trading Combine',
+      '100% Profit Split on first $10,000',
+      'Proprietary TopstepX Platform',
+      'Path to 100% Lifetime Payouts',
+      'No restrictions on news or automated trading'
+    ],
+    keyInfoSnippets: [
+      { label: 'Profit Split', value: '100% (first $10k), then 90%' },
+      { label: 'Platform', value: 'TopstepX' },
+      { label: 'Evaluation', value: '1-Step Trading Combine' },
+      { label: 'Founded', value: '2012' }
+    ],
+    fundingModels: ['1-Step Evaluation (Monthly Subscription)'],
+    profitSplit: '100% on first $10,000, then 90%',
+    drawdownRules: 'Trailing Drawdown',
+    profitTarget: '6%',
+    assets: ['Futures'],
+    instrumentTypes: ['Futures'],
+    platforms: ['TopstepX'],
+    broker: 'CQC, Dorman, Ninjatrader, Plus500',
+    paymentMethods: ['Credit/Debit Card', 'PayPal'],
+    payoutMethods: ['ACH', 'Bank Wire Transfer', 'Wise'],
+    rating: 4.3,
+    minAccountSize: 50000,
+    maxAccountSize: 150000,
+    minChallengeCost: 49,
+    maxChallengeCost: 149,
+    activationFee: '$149',
+    challengeType: '1-Step Evaluation',
+    accountTiers: topstepAccountTiers,
+    restrictedCountries: [
+      { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
+      { name: "Belarus", code: "BY" }, { name: "Bosnia and Herzegovina", code: "BA" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" },
+      { name: "Burma (Myanmar)", code: "MM" }, { name: "Burundi", code: "BI" }, { name: "Central African Republic", code: "CF" }, { name: "Chad", code: "TD" },
+      { name: "Cote D'Ivoire", code: "CI" }, { name: "Croatia", code: "HR" }, { name: "Cuba", code: "CU" }, { name: "Democratic Republic of the Congo", code: "CD" },
+      { name: "Ethiopia", code: "ET" }, { name: "Haiti", code: "HT" }, { name: "Hong Kong", code: "HK" }, { name: "Iran", code: "IR" },
+      { name: "Iraq", code: "IQ" }, { name: "Jamaica", code: "JM" }, { name: "Kenya", code: "KE" }, { name: "Kosovo", code: "XK" },
+      { name: "Lebanon", code: "LB" }, { name: "Liberia", code: "LR" }, { name: "Libya", code: "LY" }, { name: "Mali", code: "ML" },
+      { name: "Monaco", code: "MC" }, { name: "Montenegro", code: "ME" }, { name: "Morocco", code: "MA" }, { name: "Mozambique", code: "MZ" },
+      { name: "Namibia", code: "NA" }, { name: "Nicaragua", code: "NI" }, { name: "Nigeria", code: "NG" }, { name: "North Korea", code: "KP" },
+      { name: "North Macedonia", code: "MK" }, { name: "Pakistan", code: "PK" }, { name: "Philippines", code: "PH" }, { name: "Romania", code: "RO" },
+      { name: "Russia", code: "RU" }, { name: "Senegal", code: "SN" }, { name: "Serbia", code: "RS" }, { name: "Slovenia", code: "SI" },
+      { name: "Somalia", code: "SO" }, { name: "South Africa", code: "ZA" }, { name: "South Sudan", code: "SS" }, { name: "Sudan", code: "SD" },
+      { name: "Syria", code: "SY" }, { name: "Tanzania", code: "TZ" }, { name: "Trinidad and Tobago", code: "TT" }, { name: "Turkey", code: "TR" },
+      { name: "Ukraine", code: "UA" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" }, { name: "Yemen", code: "YE" },
+      { name: "Zimbabwe", code: "ZW" }
+    ]
+  },
   {
     id: '2',
     slug: 'take-profit-trader',
@@ -87,53 +208,68 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>$100,000 Account:</strong> 12 Contracts / 120 Micros</li>
     <li><strong>$150,000 Account:</strong> 15 Contracts / 150 Micros</li>
 </ul>
-
 <h3>Commissions</h3>
 <ul>
     <li><strong>Standard Contracts:</strong> $5.00 per round trip</li>
     <li><strong>Micro Contracts:</strong> $0.50 per round trip</li>
 </ul>
-
-<h3>Test Account (The Evaluation)</h3>
-<p>This is the initial step to prove you can trade profitably and manage risk.</p>
+<h3>Trading Rules & Policies</h3>
+<h4>Consistency Rules</h4>
 <ul>
-    <li><strong>Environment:</strong> Simulated (SIM) environment.</li>
-    <li><strong>Drawdown:</strong> Maximum loss calculated at the End of the Day (EOD).</li>
-    <li><strong>Consistency Rule:</strong> A 50% consistency rule applies (no single day can be >50% of total profit), and a minimum of 5 trading days is required.</li>
-    <li><strong>News Trading:</strong> Allowed without restrictions.</li>
-    <li><strong>Scaling:</strong> No scaling plan; use max contracts from day one.</li>
+    <li>A minimum of 5 trading days is required.</li>
+    <li><strong>Test Phase:</strong> A 50% consistency rule applies, meaning no single trading day can account for more than 50% of your total profits.</li>
+    <li><strong>Pro and Pro+ Accounts:</strong> There is no consistency rule.</li>
 </ul>
-
-<h3>PRO Account (First Funded Level)</h3>
-<p>After passing the test, you get a PRO Account.</p>
+<h4>Firm-Wide Rules</h4>
 <ul>
-    <li><strong>Environment:</strong> Simulated (SIM) account, but you are paid real money from simulated profits.</li>
-    <li><strong>Profit Split:</strong> 80% to the trader.</li>
-    <li><strong>Withdrawals:</strong> On-demand, available from day one.</li>
-    <li><strong>Drawdown:</strong> Changes to a peak balance (intraday) trailing drawdown.</li>
-    <li><strong>Buffer Requirement:</strong> You must maintain a minimum profit buffer before withdrawing. Withdrawing from the buffer closes the account.</li>
-    <li><strong>News Trading:</strong> Restricted for 1 minute before/after high-impact news (FOMC, NFP, CPI) and instrument-specific news (Oil Inventories, Bond Auctions).</li>
-    <li><strong>Max Accounts:</strong> Up to 5 PRO accounts.</li>
+    <li><strong>Max Loss Limit (Drawdown):</strong>
+        <ul>
+            <li><strong>Test Phase:</strong> Trailing drawdown is based on your End-of-Day balance.</li>
+            <li><strong>Pro and Pro+ Accounts:</strong> Trailing drawdown is based on your peak balance (includes realized and unrealized gains).</li>
+        </ul>
+    </li>
+    <li><strong>News Trading:</strong>
+        <ul>
+            <li><strong>Test Phase:</strong> Allowed without restrictions.</li>
+            <li><strong>Pro and Pro+ Accounts:</strong> Trading is restricted for 1 minute before and 1 minute after specific high-impact news events, including:
+                <ul>
+                    <li>FOMC meeting minutes/announcements</li>
+                    <li>Non-Farm Payroll (NFP)</li>
+                    <li>Consumer Price Index (CPI)</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><strong>Instrument-Specific News Restrictions:</strong>
+        <ul>
+            <li><strong>Crude Oil Inventories:</strong> Prohibits trading Crude Oil.</li>
+            <li><strong>Bond Auctions:</strong> Prohibits trading 10-Year Note and 30-Year Bond.</li>
+        </ul>
+    </li>
     <li><strong>Expert Advisors (EAs):</strong> Not allowed.</li>
+    <li><strong>Copy Trading:</strong> Allowed. Can be used for up to 5 accounts on a PRO+ account.</li>
 </ul>
-
-<h3>PRO+ Account (Upgraded Funded Level)</h3>
-<p>A trader can be upgraded to PRO+ by making $10,000 in a single day or showing consistent profitability.</p>
+<h3>Account Types & Payout Policy</h3>
+<h4>PRO Account</h4>
 <ul>
-    <li><strong>Environment:</strong> LIVE market account.</li>
-    <li><strong>Profit Split:</strong> Increases to 90%.</li>
-    <li><strong>Drawdown:</strong> Reverts back to an End of Day calculation.</li>
-    <li><strong>Buffer Requirement:</strong> No buffer requirement.</li>
-    <li><strong>Restrictions:</strong> No payout restrictions, no consistency rule, no daily loss limit. News trading restriction still applies.</li>
-    <li><strong>Copy Trading:</strong> Allowed for up to 5 accounts.</li>
+    <li><strong>Profit Split:</strong> 80%</li>
+    <li><strong>Payouts:</strong> On-demand, available from day one.</li>
+    <li><strong>Buffer Zone:</strong> Traders can withdraw profits at 80% once they reach the maximum drawdown level (the "buffer zone"). Withdrawing profits from within the buffer zone is possible but will result in the termination of the account.</li>
+    <li><strong>Upgrading to PRO+:</strong> A trader can be upgraded to PRO+ by either making $10,000 in profit in a single day or by demonstrating consistent profitability.</li>
 </ul>
-
-<h3>Important Tech & Payout Updates</h3>
-<p>As of May 15, 2025</p>
+<h4>PRO+ Account (Live Account)</h4>
 <ul>
-    <li><strong>Bank Identity Verification:</strong> The legal name provided during KYC must match the bank account owner's legal name for payouts.</li>
-    <li><strong>LLC Payouts:</strong> Payouts to an LLC bank account must be processed through Wise or PayPal.</li>
-    <li><strong>Plaid Reconnection:</strong> Users must reconnect their banking info via Plaid before their next payout.</li>
+    <li><strong>Status:</strong> Trader is directly routed to the exchange (not SIM or copy traded).</li>
+    <li><strong>Profit Split:</strong> 90%</li>
+    <li><strong>Buffer Zone:</strong> No buffer zone requirement.</li>
+    <li><strong>Restrictions:</strong> No payout restrictions, no consistency rule, no daily loss limit.</li>
+    <li><strong>Drawdown:</strong> End-of-day drawdown.</li>
+</ul>
+<h3>Important Tech & Payout Updates (As of May 15, 2025)</h3>
+<ul>
+    <li><strong>Bank Identity Verification:</strong> The legal name provided during KYC (Know Your Customer) must match the legal owner of the bank account used for payouts.</li>
+    <li><strong>LLC Payouts:</strong> Payouts to an LLC bank account must now be processed through Wise or PayPal.</li>
+    <li><strong>Plaid Reconnection:</strong> Existing Plaid connections were disconnected during a tech update. Users must reconnect their personal banking information via Plaid before their next payout request.</li>
 </ul>`,
     pros: [
         'Daily Payouts available from day one on PRO accounts',
@@ -183,33 +319,33 @@ export const mockPropFirms: PropFirm[] = [
     challengeType: '1-Step Evaluation', 
     accountTiers: tptAccountTiers,
     restrictedCountries: [
-      { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
-      { name: "Barbados", code: "BB" }, { name: "Belarus", code: "BY" }, { name: "Belize", code: "BZ" }, { name: "Benin", code: "BJ" },
-      { name: "Bosnia and Herzegovina", code: "BA" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" }, { name: "Burundi", code: "BI" },
-      { name: "Cameroon", code: "CM" }, { name: "Cape Verde", code: "CV" }, { name: "Cocos Islands", code: "CC" }, { name: "Comoros", code: "KM" },
-      { name: "Cook Islands", code: "CK" }, { name: "Croatia", code: "HR" }, { name: "Cuba", code: "CU" },
-      { name: "Djibouti", code: "DJ" }, { name: "Dominica", code: "DM" }, { name: "Equatorial Guinea", code: "GQ" },
-      { name: "Eritrea", code: "ER" }, { name: "Ethiopia", code: "ET" }, { name: "Falkland Islands", code: "FK" }, { name: "Fiji", code: "FJ" },
-      { name: "Gabon", code: "GA" }, { name: "Gambia", code: "GM" }, { name: "Gibraltar", code: "GI" }, { name: "Guinea", code: "GN" },
-      { name: "Guinea-Bissau", code: "GW" }, { name: "Guyana", code: "GY" }, { name: "Haiti", code: "HT" }, { name: "Heard Islands", code: "HM" },
-      { name: "Iran", code: "IR" }, { name: "Iraq", code: "IQ" }, { name: "Ivory Coast", code: "CI" }, { name: "Jamaica", code: "JM" },
-      { name: "Jordan", code: "JO" }, { name: "Kenya", code: "KE" }, { name: "Kiribati", code: "KI" }, { name: "Kosovo", code: "XK" },
-      { name: "Laos", code: "LA" }, { name: "Lebanon", code: "LB" }, { name: "Lesotho", code: "LS" }, { name: "Liberia", code: "LR" },
-      { name: "Libya", code: "LY" }, { name: "Malawi", code: "MW" }, { name: "Mali", code: "ML" }, { name: "Malta", code: "MT" },
-      { name: "Mauritania", code: "MR" }, { name: "Mauritius", code: "MU" }, { name: "Mayotte", code: "YT" }, { name: "Micronesia", code: "FM" },
-      { name: "Monaco", code: "MC" }, { name: "Mongolia", code: "MN" }, { name: "Montenegro", code: "ME" }, { name: "Montserrat", code: "MS" },
-      { name: "Morocco", code: "MA" }, { name: "Mozambique", code: "MZ" }, { name: "Myanmar", code: "MM" }, { name: "Namibia", code: "NA" },
-      { name: "Niger", code: "NE" }, { name: "Nigeria", code: "NG" }, { name: "Northern Mariana Islands", code: "MP" }, { name: "North Korea", code: "KP" },
-      { name: "North Macedonia", code: "MK" }, { name: "Pakistan", code: "PK" }, { name: "Papua New Guinea", code: "PG" }, { name: "Philippines", code: "PH" },
-      { name: "Qatar", code: "QA" }, { name: "Romania", code: "RO" }, { name: "Russia", code: "RU" }, { name: "Rwanda", code: "RW" },
-      { name: "Saint Vincent and the Grenadines", code: "VC" }, { name: "Sao Tome and Principe", code: "ST" }, { name: "Serbia", code: "RS" }, { name: "Seychelles", code: "SC" },
-      { name: "Sierra Leone", code: "SL" }, { name: "Slovenia", code: "SI" }, { name: "Somalia", code: "SO" }, { name: "South Africa", code: "ZA" },
-      { name: "South Georgia Islands", code: "GS" }, { name: "South Korea", code: "KR" }, { name: "Sri Lanka", code: "LK" }, { name: "Sudan", code: "SD" },
-      { name: "Suriname", code: "SR" }, { name: "Svalbard", code: "SJ" }, { name: "Syria", code: "SY" }, { name: "Tajikistan", code: "TJ" },
-      { name: "Tanzania", code: "TZ" }, { name: "Timor-Leste", code: "TL" }, { name: "Togo", code: "TG" }, { name: "Trinidad and Tobago", code: "TT" },
-      { name: "Turkey", code: "TR" }, { name: "Turkmenistan", code: "TM" }, { name: "Tuvalu", code: "TV" }, { name: "Uganda", code: "UG" },
-      { name: "Ukraine", code: "UA" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" }, { name: "Western Sahara", code: "EH" },
-      { name: "Yemen", code: "YE" }, { name: "Zambia", code: "ZM" }, { name: "Zimbabwe", code: "ZW" }
+        { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
+        { name: "Barbados", code: "BB" }, { name: "Belarus", code: "BY" }, { name: "Belize", code: "BZ" }, { name: "Benin", code: "BJ" },
+        { name: "Bosnia and Herzegovina", code: "BA" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" }, { name: "Burundi", code: "BI" },
+        { name: "Cameroon", code: "CM" }, { name: "Cape Verde", code: "CV" }, { name: "Cocos Islands", code: "CC" }, { name: "Comoros", code: "KM" },
+        { name: "Cook Islands", code: "CK" }, { name: "Croatia", code: "HR" }, { name: "Cuba", code: "CU" },
+        { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Djibouti", code: "DJ" }, { name: "Dominica", code: "DM" }, { name: "Equatorial Guinea", code: "GQ" },
+        { name: "Eritrea", code: "ER" }, { name: "Ethiopia", code: "ET" }, { name: "Falkland Islands", code: "FK" }, { name: "Fiji", code: "FJ" },
+        { name: "Gabon", code: "GA" }, { name: "Gambia", code: "GM" }, { name: "Gibraltar", code: "GI" }, { name: "Guinea", code: "GN" },
+        { name: "Guinea-Bissau", code: "GW" }, { name: "Guyana", code: "GY" }, { name: "Haiti", code: "HT" }, { name: "Heard Islands", code: "HM" },
+        { name: "Iran", code: "IR" }, { name: "Iraq", code: "IQ" }, { name: "Ivory Coast", code: "CI" }, { name: "Jamaica", code: "JM" },
+        { name: "Jordan", code: "JO" }, { name: "Kenya", code: "KE" }, { name: "Kiribati", code: "KI" }, { name: "Kosovo", code: "XK" },
+        { name: "Laos", code: "LA" }, { name: "Lebanon", code: "LB" }, { name: "Lesotho", code: "LS" }, { name: "Liberia", code: "LR" },
+        { name: "Libya", code: "LY" }, { name: "Malawi", code: "MW" }, { name: "Mali", code: "ML" }, { name: "Malta", code: "MT" },
+        { name: "Mauritania", code: "MR" }, { name: "Mauritius", code: "MU" }, { name: "Mayotte", code: "YT" }, { name: "Micronesia", code: "FM" },
+        { name: "Monaco", code: "MC" }, { name: "Mongolia", code: "MN" }, { name: "Montenegro", code: "ME" }, { name: "Montserrat", code: "MS" },
+        { name: "Morocco", code: "MA" }, { name: "Mozambique", code: "MZ" }, { name: "Myanmar", code: "MM" }, { name: "Namibia", code: "NA" },
+        { name: "Niger", code: "NE" }, { name: "Nigeria", code: "NG" }, { name: "Northern Mariana Islands", code: "MP" }, { name: "North Korea", code: "KP" },
+        { name: "North Macedonia", code: "MK" }, { name: "Pakistan", code: "PK" }, { name: "Papua New Guinea", code: "PG" }, { name: "Philippines", code: "PH" },
+        { name: "Qatar", code: "QA" }, { name: "Romania", code: "RO" }, { name: "Russia", code: "RU" }, { name: "Rwanda", code: "RW" },
+        { name: "Saint Vincent and the Grenadines", code: "VC" }, { name: "Sao Tome and Principe", code: "ST" }, { name: "Serbia", code: "RS" }, { name: "Seychelles", code: "SC" },
+        { name: "Sierra Leone", code: "SL" }, { name: "Slovenia", code: "SI" }, { name: "Somalia", code: "SO" }, { name: "South Africa", code: "ZA" },
+        { name: "South Georgia Islands", code: "GS" }, { name: "South Korea", code: "KR" }, { name: "Sri Lanka", code: "LK" }, { name: "Sudan", code: "SD" },
+        { name: "Suriname", code: "SR" }, { name: "Svalbard", code: "SJ" }, { name: "Syria", code: "SY" }, { name: "Tajikistan", code: "TJ" },
+        { name: "Tanzania", code: "TZ" }, { name: "Timor-Leste", code: "TL" }, { name: "Togo", code: "TG" }, { name: "Trinidad and Tobago", code: "TT" },
+        { name: "Turkey", code: "TR" }, { name: "Turkmenistan", code: "TM" }, { name: "Tuvalu", code: "TV" }, { name: "Uganda", code: "UG" },
+        { name: "Ukraine", code: "UA" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" }, { name: "Western Sahara", code: "EH" },
+        { name: "Yemen", code: "YE" }, { name: "Zambia", code: "ZM" }, { name: "Zimbabwe", code: "ZW" }
     ]
   },
   {
@@ -223,16 +359,16 @@ export const mockPropFirms: PropFirm[] = [
     dateCreated: 'November 2023',
     briefDescription: 'Offers a diverse range of futures funding plans including Starter, Expert, and direct-to-live evaluations with generous profit splits.',
     fullReview: `My Funded Futures provides a comprehensive suite of funding options for futures traders, featuring plans like Starter, Starter Plus, Expert, and Eval to Live. A standout benefit across most plans is the 100% profit split on the first $10,000 earned, which then adjusts to a 90/10 split. The firm emphasizes flexibility, with no minimum or maximum trading day requirements for evaluations, allowing traders to get funded in as little as one day. With 24/7 live support and a clear 4-step process (Choose, Challenge, Verify, Fund), they aim to provide a supportive environment for traders to succeed and eventually gain access to a live trading account with daily payouts.`,
-    tradingRules: `<h3>Leverage & Commissions</h3>
+    tradingRules: `<h3>Leverage (Max Contract Size)</h3>
 <ul>
-    <li><strong>Starter Plus Plan (Max Contracts):</strong>
+    <li><strong>Starter Plus Plan:</strong>
         <ul>
             <li>$50,000 Account: Up to 3 Contracts (30 Micros)</li>
             <li>$100,000 Account: Up to 6 Contracts (60 Micros)</li>
             <li>$150,000 Account: Up to 9 Contracts (90 Micros)</li>
         </ul>
     </li>
-    <li><strong>Expert Plan (Max Contracts):</strong>
+    <li><strong>Expert Plan:</strong>
         <ul>
             <li>$50,000 Account: Up to 5 Contracts (50 Micros)</li>
             <li>$100,000 Account: Up to 10 Contracts (100 Micros)</li>
@@ -241,7 +377,6 @@ export const mockPropFirms: PropFirm[] = [
     </li>
     <li><strong>Commissions:</strong> Details available at <a href="https://intercom.help/myfundedfutures/en/articles/8271708-commissions" target="_blank" rel="noopener noreferrer">My Funded Futures Commissions Page</a>.</li>
 </ul>
-
 <h3>Key Rules and Policies</h3>
 <h4>Consistency Rules:</h4>
 <ul>
@@ -259,7 +394,6 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>Inactivity:</strong> At least one trade must be placed every 7 days to keep a Sim-Funded account active. Traders must notify support if they plan to be inactive for a longer period.</li>
     <li><strong>Extension Fee:</strong> A fee of $99/month applies to extend an active Eval to Live Phase 1 account.</li>
 </ul>
-
 <h3>Payout Policy</h3>
 <ul>
     <li><strong>Profit Split:</strong> Traders keep 100% of the first $10,000 in profits. After that, the split is 90/10 (90% to the trader).</li>
@@ -322,7 +456,7 @@ export const mockPropFirms: PropFirm[] = [
     restrictedCountries: [
       { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
       { name: "Bahamas", code: "BS" }, { name: "Barbados", code: "BB" }, { name: "Belarus", code: "BY" }, { name: "Bosnia and Herzegovina", code: "BA" },
-      { name: "Botswana", code: "BW" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" }, { name: "Myanmar", code: "MM" }, // Burma
+      { name: "Botswana", code: "BW" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" }, { name: "Myanmar", code: "MM" },
       { name: "Burundi", code: "BI" }, { name: "Cambodia", code: "KH" }, { name: "Cameroon", code: "CM" }, { name: "Central African Republic", code: "CF" },
       { name: "China", code: "CN" }, { name: "Côte d'Ivoire", code: "CI" }, { name: "Crimea", code: "UA-43" }, { name: "Croatia", code: "HR" },
       { name: "Cuba", code: "CU" }, { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Ecuador", code: "EC" }, { name: "Ethiopia", code: "ET" },
@@ -353,9 +487,7 @@ export const mockPropFirms: PropFirm[] = [
     ceo: 'Brett Simberkoff',
     dateCreated: 'June 2024',
     briefDescription: 'Futures prop firm with multiple plans including Advanced (Intraday DD), Growth (EOD DD), and Straight to Sim Funded accounts.', 
-    fullReview: `Tradeify offers several distinct paths for futures traders, catering to different risk tolerances and preferences. Their programs are built on the NinjaTrader brokerage and support NinjaTrader, TradingView, and Tradovate platforms. Payouts are handled via Plane and Riseworks.
-    The main funding routes are the Advanced Plan, Growth Plan, and a Straight to Sim Funded option. The Advanced and Growth plans are 1-step evaluations with a 35% consistency rule, but differ in their drawdown models (Intraday vs. End-of-Day). The Straight to Sim plan allows traders to bypass evaluation for a one-time fee, but comes with a stricter 20% consistency rule and requires achieving specific profit goals before payouts.
-    Across all funded accounts, traders can keep 100% of their first $15,000 in profits, after which the split is 90/10. Tradeify has specific rules regarding EAs/bots (must be self-owned, no HFT), microscalping (50% of profit from trades > 5 seconds), and allows for news trading and copy trading between a trader's own accounts.`,
+    fullReview: `Tradeify offers several distinct paths for futures traders, catering to different risk tolerances and preferences. Their programs are built on the NinjaTrader brokerage and support NinjaTrader, TradingView, and Tradovate platforms. Payouts are handled via Plane and Riseworks. The main funding routes are the Advanced Plan, Growth Plan, and a Straight to Sim Funded option. The Advanced and Growth plans are 1-step evaluations with a 35% consistency rule, but differ in their drawdown models (Intraday vs. End-of-Day). The Straight to Sim plan allows traders to bypass evaluation for a one-time fee, but comes with a stricter 20% consistency rule and requires achieving specific profit goals before payouts. Across all funded accounts, traders can keep 100% of their first $15,000 in profits, after which the split is 90/10. Tradeify has specific rules regarding EAs/bots (must be self-owned, no HFT), microscalping (50% of profit from trades > 5 seconds), and allows for news trading and copy trading between a trader's own accounts.`,
     tradingRules: `<h3>Instruments and Assets</h3>
 <ul>
     <li><strong>Type of Instruments:</strong> Futures</li>
@@ -369,15 +501,14 @@ export const mockPropFirms: PropFirm[] = [
     </li>
     <li><strong>Commissions:</strong> A list of product commissions can be found at <a href="https://help.tradeify.co/en/articles/10468315-trading-commission-fees" target="_blank" rel="noopener noreferrer">this link</a>.</li>
 </ul>
-
 <h3>Trading Rules</h3>
+<h4>Consistency Rules</h4>
 <ul>
-    <li><strong>Consistency Rules:</strong>
-        <ul>
-            <li><strong>35% Rule:</strong> Applies to all Advanced/Growth Sim funded accounts. The maximum profit made in a single trading day cannot exceed 35% of the total profit.</li>
-            <li><strong>20% Rule:</strong> Applies to all Straight to Sim funded accounts. The maximum profit made in a single trading day cannot exceed 20% of the total profit.</li>
-        </ul>
-    </li>
+    <li><strong>35% Rule:</strong> Applies to all Advanced/Growth Sim funded accounts. The maximum profit made in a single trading day cannot exceed 35% of the total profit.</li>
+    <li><strong>20% Rule:</strong> Applies to all Straight to Sim funded accounts. The maximum profit made in a single trading day cannot exceed 20% of the total profit.</li>
+</ul>
+<h4>Firm-Wide Rules</h4>
+<ul>
     <li><strong>Good Faith Policy:</strong> Traders are prohibited from using strategies that exploit errors within the platform, such as price discrepancies or technical glitches.</li>
     <li><strong>Daily Loss Limit (DLL):</strong> For Growth and Straight to Sim Funded accounts, the DLL is removed once a certain profit target is met:
         <ul>
@@ -400,7 +531,6 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>Copy Trading:</strong> Allowed for up to 5 accounts that you own and manage.</li>
     <li><strong>News Trading/DCA/Flipping/Scaling:</strong> There are no rules against these strategies. However, "averaging into oblivion" (continuously adding to a losing position without a clear strategy) is discouraged.</li>
 </ul>
-
 <h3>Payout Policy</h3>
 <h4>Advanced and Growth Payouts</h4>
 <ul>
@@ -425,7 +555,6 @@ export const mockPropFirms: PropFirm[] = [
         </ul>
     </li>
 </ul>
-
 <h4>Straight to Sim Funded Payouts</h4>
 <ul>
     <li><strong>Payout Conditions:</strong>
@@ -451,7 +580,6 @@ export const mockPropFirms: PropFirm[] = [
         </ul>
     </li>
 </ul>
-
 <h4>Max SimFunded Profit Rule</h4>
 <p>The maximum amount a trader can earn from a SimFunded account is $80,000. After reaching this amount, you are moved to a live account with a maximum starting balance of $20,000. The total combined amount a trader can generate from Simulated Funded Payouts and the Live Transition is $100,000.</p>`,
     pros: [
@@ -490,7 +618,7 @@ export const mockPropFirms: PropFirm[] = [
     platforms: ['NinjaTrader', 'TradingView', 'Tradovate'], 
     payoutMethods: ['Plane', 'Riseworks'],
     paymentMethods: ['Credit Card'],
-    broker: 'NinjaTrader',
+    broker: 'Ninjatrader',
     rating: 4.8,
     minAccountSize: 25000, 
     maxAccountSize: 150000, 
@@ -502,7 +630,7 @@ export const mockPropFirms: PropFirm[] = [
     restrictedCountries: [
         { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
         { name: "Bahamas", code: "BS" }, { name: "Barbados", code: "BB" }, { name: "Belarus", code: "BY" }, { name: "Bosnia and Herzegovina", code: "BA" },
-        { name: "Botswana", code: "BW" }, { name: "Myanmar", code: "MM" }, { name: "Burundi", code: "BI" }, { name: "Cambodia", code: "KH" }, 
+        { name: "Botswana", code: "BW" }, { name: "Burma", code: "MM" }, { name: "Burundi", code: "BI" }, { name: "Cambodia", code: "KH" }, 
         { name: "Central African Republic", code: "CF" }, { name: "Côte d'Ivoire", code: "CI" }, { name: "Crimea", code: "UA-43" }, { name: "Cuba", code: "CU" },
         { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Ecuador", code: "EC" }, { name: "Ethiopia", code: "ET" }, { name: "Ghana", code: "GH" },
         { name: "Iceland", code: "IS" }, { name: "Indonesia", code: "ID" }, { name: "Iran", code: "IR" }, { name: "Iraq", code: "IQ" },
@@ -905,11 +1033,7 @@ export const mockPropFirms: PropFirm[] = [
     ceo: 'Khaled Ayesh',
     dateCreated: 'March 2025',
     briefDescription: 'Futures firm from the UAE offering 1-step evaluations and direct funding with a 90% profit split.',
-    fullReview: `FundingTicks, based in the United Arab Emirates, presents two primary funding paths for futures traders: a "Pro+" 1-step evaluation and a "Zero" direct-to-funded plan. Both routes offer a generous 90% profit split and utilize an End-of-Day trailing drawdown, a feature favored by many traders for its flexibility. The firm operates on the Tradovate brokerage, providing access to popular platforms like NinjaTrader and TradingView.
-
-For those preferring an evaluation, the Pro+ plan requires trading for a minimum of 5 qualifying days to pass. While news trading is allowed during evaluation, it becomes restricted in the funded Master account. Payouts from a Master account can be requested every 5 trading days.
-
-The Zero plan allows traders to bypass evaluation for a one-time fee, moving directly to a simulated funded account. This path has a stricter consistency rule (25%) and a payout structure based on hitting specific "Reward Targets." Payouts can be requested every 7 days. A notable rule for Zero accounts is that only EAs that function as risk managers are permitted, and inactivity for 7 days leads to account suspension.`,
+    fullReview: `FundingTicks, based in the United Arab Emirates, presents two primary funding paths for futures traders: a "Pro+" 1-step evaluation and a "Zero" direct-to-funded plan. Both routes offer a generous 90% profit split and utilize an End-of-Day trailing drawdown, a feature favored by many traders for its flexibility. The firm operates on the Tradovate brokerage, providing access to popular platforms like NinjaTrader and TradingView. For those preferring an evaluation, the Pro+ plan requires trading for a minimum of 5 qualifying days to pass. While news trading is allowed during evaluation, it becomes restricted in the funded Master account. Payouts from a Master account can be requested every 5 trading days. The Zero plan allows traders to bypass evaluation for a one-time fee, moving directly to a simulated funded account. This path has a stricter consistency rule (25%) and a payout structure based on hitting specific "Reward Targets." Payouts can be requested every 7 days. A notable rule for Zero accounts is that only EAs that function as risk managers are permitted, and inactivity for 7 days leads to account suspension.`,
     tradingRules: `<h3>Leverage & Commissions</h3>
 <ul>
   <li><strong>FundingTicks Zero Model (Max Contracts):</strong>
@@ -928,14 +1052,12 @@ The Zero plan allows traders to bypass evaluation for a one-time fee, moving dir
   </li>
   <li><strong>Commissions:</strong> Details available at <a href="https://help.fundingticks.com/hc/en-us/articles/33733389327377-Tradovate-Tradable-Instruments-and-Commissions" target="_blank" rel="noopener noreferrer">FundingTicks Commissions Page</a>.</li>
 </ul>
-
 <h3>Trading Rules</h3>
 <h4>Consistency Rules</h4>
 <ul>
     <li><strong>FundingTicks Pro+ Model:</strong> A 40% consistency rule applies during the evaluation period only. This means no single day can account for more than 40% of your total profit.</li>
     <li><strong>FundingTicks Zero Model:</strong> A 25% consistency rule applies for rewards. This means no single day can account for more than 25% of your total profits.</li>
 </ul>
-
 <h4>Firm-Wide Rules</h4>
 <ul>
     <li><strong>News Trading:</strong>
@@ -948,7 +1070,6 @@ The Zero plan allows traders to bypass evaluation for a one-time fee, moving dir
     <li><strong>Expert Advisors (EAs):</strong> Only EAs that function as risk managers are permitted. The use of any other type of third-party EA is strictly prohibited.</li>
     <li><strong>Inactivity Rule:</strong> Any trading account that is inactive for 7 consecutive days will be automatically suspended.</li>
 </ul>
-
 <h3>Payout Policy</h3>
 <h4>FundingTicks Pro+</h4>
 <ul>
@@ -969,7 +1090,6 @@ The Zero plan allows traders to bypass evaluation for a one-time fee, moving dir
         </ul>
     </li>
 </ul>
-
 <h4>FundingTicks Zero</h4>
 <ul>
     <li><strong>Payout Cycle:</strong> Rewards can be requested every 7 days at a 90/10 profit split.</li>
@@ -1039,24 +1159,24 @@ The Zero plan allows traders to bypass evaluation for a one-time fee, moving dir
     maxChallengeCost: 599,
     activationFee: 'Not specified',
     challengeType: '1-Step or Direct',
-    accountTiers: fundingTicksAccountTiers,
+    accountTiers: fundingticksAccountTiers,
     restrictedCountries: [
       { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
       { name: "Bahamas", code: "BS" }, { name: "Barbados", code: "BB" }, { name: "Belarus", code: "BY" }, { name: "Bosnia and Herzegovina", code: "BA" },
-      { name: "Botswana", code: "BW" }, { name: "Bulgaria", code: "BG" }, { name: "Myanmar", code: "MM" }, { name: "Burundi", code: "BI" },
+      { name: "Botswana", code: "BW" }, { name: "Bulgaria", code: "BG" }, { name: "Burma", code: "MM" }, { name: "Burundi", code: "BI" },
       { name: "Cambodia", code: "KH" }, { name: "Central African Republic", code: "CF" }, { name: "China", code: "CN" }, { name: "Colombia", code: "CO" },
       { name: "Côte d'Ivoire", code: "CI" }, { name: "Crimea", code: "UA-43" }, { name: "Croatia", code: "HR" }, { name: "Cuba", code: "CU" },
       { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Ecuador", code: "EC" }, { name: "Ethiopia", code: "ET" }, { name: "Ghana", code: "GH" },
       { name: "Hong Kong", code: "HK" }, { name: "Iceland", code: "IS" }, { name: "Indonesia", code: "ID" }, { name: "Iran", code: "IR" },
       { name: "Iraq", code: "IQ" }, { name: "Jamaica", code: "JM" }, { name: "Kosovo", code: "XK" }, { name: "Laos", code: "LA" },
       { name: "Lebanon", code: "LB" }, { name: "Liberia", code: "LR" }, { name: "Libya", code: "LY" }, { name: "Mauritius", code: "MU" },
-      { name: "Mongolia", code: "MN" }, { name: "Montenegro", code: "ME" }, { name: "Nicaragua", code: "NI" }, { name: "North Korea", code: "KP" },
-      { name: "Pakistan", code: "PK" }, { name: "Panama", code: "PA" }, { name: "Papua New Guinea", code: "PG" }, { name: "Romania", code: "RO" },
-      { name: "Russia", code: "RU" }, { name: "Serbia", code: "RS" }, { name: "Slovenia", code: "SI" }, { name: "Somalia", code: "SO" },
-      { name: "South Sudan", code: "SS" }, { name: "Sri Lanka", code: "LK" }, { name: "Sudan", code: "SD" }, { name: "Syria", code: "SY" },
-      { name: "Trinidad and Tobago", code: "TT" }, { name: "Tunisia", code: "TN" }, { name: "Turkey", code: "TR" }, { name: "Uganda", code: "UG" },
-      { name: "Ukraine", code: "UA" }, { name: "United Arab Emirates", code: "AE" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" },
-      { name: "Yemen", code: "YE" }, { name: "Zimbabwe", code: "ZW" }
+      { name: "Mongolia", code: "MN" }, { name: "Montenegro", code: "ME" }, { name: "Myanmar", code: "MM" }, { name: "Nicaragua", code: "NI" },
+      { name: "North Korea", code: "KP" }, { name: "Pakistan", code: "PK" }, { name: "Panama", code: "PA" }, { name: "Papua New Guinea", code: "PG" },
+      { name: "Romania", code: "RO" }, { name: "Russia", code: "RU" }, { name: "Serbia", code: "RS" }, { name: "Slovenia", code: "SI" },
+      { name: "Somalia", code: "SO" }, { name: "South Sudan", code: "SS" }, { name: "Sri Lanka", code: "LK" }, { name: "Sudan", code: "SD" },
+      { name: "Syria", code: "SY" }, { name: "Trinidad and Tobago", code: "TT" }, { name: "Tunisia", code: "TN" }, { name: "Turkey", code: "TR" },
+      { name: "Uganda", code: "UG" }, { name: "Ukraine", code: "UA" }, { name: "United Arab Emirates", code: "AE" }, { name: "Venezuela", code: "VE" },
+      { name: "Vietnam", code: "VN" }, { name: "Yemen", code: "YE" }, { name: "Zimbabwe", code: "ZW" }
     ],
   }
 ];
