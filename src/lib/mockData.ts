@@ -16,124 +16,35 @@ const tptAccountTiers: AccountTier[] = [
 ];
 
 const myFundedFuturesAccountTiers: AccountTier[] = [
-  // Starter Plus Plan
-  { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, profitTargetPercentage: 6, drawdownPercentage: 4 },
-  { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, profitTargetPercentage: 6, drawdownPercentage: 3 },
-  { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, profitTargetPercentage: 6, drawdownPercentage: 3 },
-  // Expert Plan
-  { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, drawdownRules: 'Trailing Drawdown with Buffer Zone' },
-  { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, drawdownRules: 'Trailing Drawdown with Buffer Zone' },
-  { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 375, drawdownRules: 'Trailing Drawdown with Buffer Zone' },
-  // Starter Plan
-  { id: 'mff-starter-50k-single', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, profitTargetPercentage: 6, drawdownPercentage: 5, drawdownRules: '$2,500 Trailing Drawdown' },
-  // Eval to Live Plan
-  { id: 'mff-1step-eval-live-50k', name: '$50K 1-Step Eval to Live', size: 50000, evaluationFee: 444, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1 },
-  { id: 'mff-2step-eval-live-50k', name: '$50K 2-Step Eval to Live', size: 50000, evaluationFee: 197, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1 },
+    // Starter Plus Plan
+    { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null },
+    { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
+    { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
+    // Expert Plan
+    { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, drawdownRules: 'Trailing Drawdown with Buffer Zone', profitTargetPercentage: null, dailyLossLimitPercentage: null },
+    { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, drawdownRules: 'Trailing Drawdown with Buffer Zone', profitTargetPercentage: null, dailyLossLimitPercentage: null },
+    { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 375, drawdownRules: 'Trailing Drawdown with Buffer Zone', profitTargetPercentage: null, dailyLossLimitPercentage: null },
+    // Starter Plan
+    { id: 'mff-starter-50k-single', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, profitTargetPercentage: 6, drawdownPercentage: 5, drawdownRules: '$2,500 Trailing Drawdown', dailyLossLimitPercentage: null }, // Assuming soft daily loss
+    // Eval to Live Plan
+    { id: 'mff-1step-eval-live-50k', name: '$50K 1-Step Eval to Live', size: 50000, evaluationFee: 444, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1 },
+    { id: 'mff-2step-eval-live-50k', name: '$50K 2-Step Eval to Live', size: 50000, evaluationFee: 197, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1 },
 ];
 
 const tradeifyAccountTiers: AccountTier[] = [
   // Advanced Plan (Evaluation)
-  { 
-    id: 'tradeify-adv-50k', 
-    name: '$50K Advanced Plan', 
-    size: 50000, 
-    evaluationFee: 69,
-    activationFee: 125, 
-    profitTargetPercentage: 6, 
-    drawdownPercentage: 4, 
-  },
-  { 
-    id: 'tradeify-adv-100k', 
-    name: '$100K Advanced Plan', 
-    size: 100000, 
-    evaluationFee: 109,
-    activationFee: 125, 
-    profitTargetPercentage: 6, 
-    drawdownPercentage: 3, 
-  },
-  { 
-    id: 'tradeify-adv-150k', 
-    name: '$150K Advanced Plan', 
-    size: 150000, 
-    evaluationFee: 129,
-    activationFee: 125, 
-    profitTargetPercentage: 6, 
-    drawdownPercentage: 3,
-  },
-  
+  { id: 'tradeify-adv-50k', name: '$50K Advanced Plan', size: 50000, evaluationFee: 69, activationFee: 125, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null },
+  { id: 'tradeify-adv-100k', name: '$100K Advanced Plan', size: 100000, evaluationFee: 109, activationFee: 125, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
+  { id: 'tradeify-adv-150k', name: '$150K Advanced Plan', size: 150000, evaluationFee: 129, activationFee: 125, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
   // Growth Plan (Evaluation)
-  { 
-    id: 'tradeify-growth-50k', 
-    name: '$50K Growth Plan', 
-    size: 50000, 
-    evaluationFee: 139,
-    activationFee: 0, 
-    profitTargetPercentage: 6, 
-    drawdownPercentage: 4,
-    dailyLossLimitPercentage: 2.5,
-  },
-  { 
-    id: 'tradeify-growth-100k', 
-    name: '$100K Growth Plan', 
-    size: 100000, 
-    evaluationFee: 249,
-    activationFee: 0, 
-    profitTargetPercentage: 6, 
-    drawdownPercentage: 3.5,
-    dailyLossLimitPercentage: 2.5,
-  },
-  { 
-    id: 'tradeify-growth-150k', 
-    name: '$150K Growth Plan', 
-    size: 150000, 
-    evaluationFee: 339,
-    activationFee: 0, 
-    profitTargetPercentage: 6, 
-    drawdownPercentage: 3.33,
-    dailyLossLimitPercentage: 2.5,
-  },
-  
+  { id: 'tradeify-growth-50k', name: '$50K Growth Plan', size: 50000, evaluationFee: 139, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
+  { id: 'tradeify-growth-100k', name: '$100K Growth Plan', size: 100000, evaluationFee: 249, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3.5, dailyLossLimitPercentage: 2.5 },
+  { id: 'tradeify-growth-150k', name: '$150K Growth Plan', size: 150000, evaluationFee: 339, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: 2.5 },
   // Straight to Sim Funded
-  { 
-    id: 'tradeify-sim-25k', 
-    name: '$25K Straight to Sim', 
-    size: 25000, 
-    evaluationFee: 349,
-    activationFee: 0, 
-    profitTargetPercentage: null, 
-    drawdownPercentage: 4,
-    dailyLossLimitPercentage: null, 
-  },
-  { 
-    id: 'tradeify-sim-50k', 
-    name: '$50K Straight to Sim', 
-    size: 50000, 
-    evaluationFee: 509,
-    activationFee: 0, 
-    profitTargetPercentage: null,
-    drawdownPercentage: 4,
-    dailyLossLimitPercentage: 2.5,
-  },
-  { 
-    id: 'tradeify-sim-100k', 
-    name: '$100K Straight to Sim', 
-    size: 100000, 
-    evaluationFee: 629,
-    activationFee: 0, 
-    profitTargetPercentage: null,
-    drawdownPercentage: 4,
-    dailyLossLimitPercentage: 2.5,
-  },
-  { 
-    id: 'tradeify-sim-150k', 
-    name: '$150K Straight to Sim', 
-    size: 150000, 
-    evaluationFee: 729,
-    activationFee: 0, 
-    profitTargetPercentage: null,
-    drawdownPercentage: 4,
-    dailyLossLimitPercentage: 2.5,
-  },
+  { id: 'tradeify-sim-25k', name: '$25K Straight to Sim', size: 25000, evaluationFee: 349, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: null },
+  { id: 'tradeify-sim-50k', name: '$50K Straight to Sim', size: 50000, evaluationFee: 509, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
+  { id: 'tradeify-sim-100k', name: '$100K Straight to Sim', size: 100000, evaluationFee: 629, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
+  { id: 'tradeify-sim-150k', name: '$150K Straight to Sim', size: 150000, evaluationFee: 729, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
 ];
 
 const bulenoxAccountTiers: AccountTier[] = [
@@ -244,7 +155,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Evaluation Drawdown', value: 'End-of-Day Trailing' },
       { label: 'Activation Fee', value: '$130 (One-Time)'}
  ],
-    promo: 'Code: MATCH',
+    promo: 'Code: EZ',
     offerBadgeLabel: '40% OFF + No Activation Fee',
     fundingModels: ['1-Step Evaluation'],
     profitSplit: '80% (PRO) / 90% (PRO+)',
@@ -403,26 +314,26 @@ export const mockPropFirms: PropFirm[] = [
     challengeType: '1-Step or 2-Step Evaluation',
     accountTiers: myFundedFuturesAccountTiers,
     restrictedCountries: [
-        { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
-        { name: "Bahamas", code: "BS" }, { name: "Barbados", code: "BB" }, { name: "Belarus", code: "BY" }, { name: "Bosnia and Herzegovina", code: "BA" },
-        { name: "Botswana", code: "BW" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" }, { name: "Myanmar", code: "MM" }, // Burma
-        { name: "Burundi", code: "BI" }, { name: "Cambodia", code: "KH" }, { name: "Cameroon", code: "CM" }, { name: "Central African Republic", code: "CF" },
-        { name: "China", code: "CN" }, { name: "Côte d'Ivoire", code: "CI" }, { name: "Crimea", code: "UA-43" }, { name: "Croatia", code: "HR" },
-        { name: "Cuba", code: "CU" }, { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Ecuador", code: "EC" }, { name: "Ethiopia", code: "ET" },
-        { name: "Ghana", code: "GH" }, { name: "Gibraltar", code: "GI" }, { name: "Haiti", code: "HT" }, { name: "Hong Kong", code: "HK" },
-        { name: "Iceland", code: "IS" }, { name: "Indonesia", code: "ID" }, { name: "Iran", code: "IR" }, { name: "Iraq", code: "IQ" },
-        { name: "Jamaica", code: "JM" }, { name: "Jordan", code: "JO" }, { name: "Kenya", code: "KE" }, { name: "Kosovo", code: "XK" },
-        { name: "Laos", code: "LA" }, { name: "Lebanon", code: "LB" }, { name: "Liberia", code: "LR" }, { name: "Libya", code: "LY" },
-        { name: "North Macedonia", code: "MK" }, { name: "Malaysia", code: "MY" }, { name: "Mali", code: "ML" }, { name: "Mauritius", code: "MU" },
-        { name: "Mongolia", code: "MN" }, { name: "Montenegro", code: "ME" }, { name: "Mozambique", code: "MZ" }, { name: "Namibia", code: "NA" },
-        { name: "Nicaragua", code: "NI" }, { name: "Nigeria", code: "NG" }, { name: "Pakistan", code: "PK" }, { name: "Panama", code: "PA" },
-        { name: "Papua New Guinea", code: "PG" }, { name: "Philippines", code: "PH" }, { name: "Qatar", code: "QA" }, { name: "Romania", code: "RO" },
-        { name: "Russia", code: "RU" }, { name: "Senegal", code: "SN" }, { name: "Serbia", code: "RS" }, { name: "Slovenia", code: "SI" },
-        { name: "Somalia", code: "SO" }, { name: "South Africa", code: "ZA" }, { name: "South Korea", code: "KR" }, { name: "South Sudan", code: "SS" },
-        { name: "Sri Lanka", code: "LK" }, { name: "Sudan", code: "SD" }, { name: "Syria", code: "SY" }, { name: "Tanzania", code: "TZ" },
-        { name: "Trinidad and Tobago", code: "TT" }, { name: "Tunisia", code: "TN" }, { name: "Turkey", code: "TR" }, { name: "Uganda", code: "UG" },
-        { name: "Ukraine", code: "UA" }, { name: "United Arab Emirates", code: "AE" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" },
-        { name: "Yemen", code: "YE" }, { name: "Zimbabwe", code: "ZW" }
+      { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
+      { name: "Bahamas", code: "BS" }, { name: "Barbados", code: "BB" }, { name: "Belarus", code: "BY" }, { name: "Bosnia and Herzegovina", code: "BA" },
+      { name: "Botswana", code: "BW" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" }, { name: "Myanmar", code: "MM" }, // Burma
+      { name: "Burundi", code: "BI" }, { name: "Cambodia", code: "KH" }, { name: "Cameroon", code: "CM" }, { name: "Central African Republic", code: "CF" },
+      { name: "China", code: "CN" }, { name: "Côte d'Ivoire", code: "CI" }, { name: "Crimea", code: "UA-43" }, { name: "Croatia", code: "HR" },
+      { name: "Cuba", code: "CU" }, { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Ecuador", code: "EC" }, { name: "Ethiopia", code: "ET" },
+      { name: "Ghana", code: "GH" }, { name: "Gibraltar", code: "GI" }, { name: "Haiti", code: "HT" }, { name: "Hong Kong", code: "HK" },
+      { name: "Iceland", code: "IS" }, { name: "Indonesia", code: "ID" }, { name: "Iran", code: "IR" }, { name: "Iraq", code: "IQ" },
+      { name: "Jamaica", code: "JM" }, { name: "Jordan", code: "JO" }, { name: "Kenya", code: "KE" }, { name: "Kosovo", code: "XK" },
+      { name: "Laos", code: "LA" }, { name: "Lebanon", code: "LB" }, { name: "Liberia", code: "LR" }, { name: "Libya", code: "LY" },
+      { name: "North Macedonia", code: "MK" }, { name: "Malaysia", code: "MY" }, { name: "Mali", code: "ML" }, { name: "Mauritius", code: "MU" },
+      { name: "Mongolia", code: "MN" }, { name: "Montenegro", code: "ME" }, { name: "Mozambique", code: "MZ" }, { name: "Namibia", code: "NA" },
+      { name: "Nicaragua", code: "NI" }, { name: "Nigeria", code: "NG" }, { name: "Pakistan", code: "PK" }, { name: "Panama", code: "PA" },
+      { name: "Papua New Guinea", code: "PG" }, { name: "Philippines", code: "PH" }, { name: "Qatar", code: "QA" }, { name: "Romania", code: "RO" },
+      { name: "Russia", code: "RU" }, { name: "Senegal", code: "SN" }, { name: "Serbia", code: "RS" }, { name: "Slovenia", code: "SI" },
+      { name: "Somalia", code: "SO" }, { name: "South Africa", code: "ZA" }, { name: "South Korea", code: "KR" }, { name: "South Sudan", code: "SS" },
+      { name: "Sri Lanka", code: "LK" }, { name: "Sudan", code: "SD" }, { name: "Syria", code: "SY" }, { name: "Tanzania", code: "TZ" },
+      { name: "Trinidad and Tobago", code: "TT" }, { name: "Tunisia", code: "TN" }, { name: "Turkey", code: "TR" }, { name: "Uganda", code: "UG" },
+      { name: "Ukraine", code: "UA" }, { name: "United Arab Emirates", code: "AE" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" },
+      { name: "Yemen", code: "YE" }, { name: "Zimbabwe", code: "ZW" }
     ],
   },
   {
@@ -1295,3 +1206,6 @@ export const mockFreeResources: FreeResourceItem[] = [
 
     
 
+
+
+  
