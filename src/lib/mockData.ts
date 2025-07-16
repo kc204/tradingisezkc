@@ -172,7 +172,7 @@ export const mockPropFirms: PropFirm[] = [
     briefDescription: 'Futures prop firm with a 1-step evaluation, daily payouts, and a path to a live PRO+ account with a 90% profit split.',
     fullReview: `Take Profit Trader (TPT) offers a direct route for futures traders with its 1-step evaluation. Upon passing the Test account, which utilizes a flexible End-of-Day (EOD) trailing drawdown, traders pay a one-time $130 activation fee to get a PRO account. PRO accounts are notable for offering daily payouts from the very first day and an 80% profit split. However, they switch to a more restrictive intraday trailing drawdown based on peak balance. For traders seeking a higher 90% profit share and a return to the EOD drawdown, an upgrade to a PRO+ account is available, which operates in a live market environment. A critical rule for funded traders is the restriction on trading during major news events in both PRO and PRO+ accounts.`,
     tradingRules: `<h3>Test Account (The Evaluation)</h3>
-<p>This is the initial step to prove you can trade profitably and manage risk.</p>
+<p>This is the initial step to prove you can trade profitably and manage risk. Maximum leverage is 3 contracts for the $25k account, up to 15 for the $150k account. Commissions are $5.00/round trip for standard contracts and $0.50 for micros.</p>
 <ul>
     <li><strong>Environment:</strong> You trade in a simulated (SIM) environment.</li>
     <li><strong>Drawdown:</strong> Your maximum loss is calculated at the End of the Day (EOD).</li>
@@ -205,12 +205,6 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>Buffer Requirement:</strong> There is no buffer zone requirement.</li>
     <li><strong>News Trading:</strong> The news trading restriction still applies.</li>
     <li><strong>Restrictions:</strong> No payout restrictions, no consistency rule, no daily loss limit.</li>
-</ul>
-
-<h3>Commissions & Leverage</h3>
-<ul>
-    <li><strong>Commissions:</strong> $5.00 per round trip for standard contracts, $0.50 per round trip for micro contracts.</li>
-    <li><strong>Max Contracts:</strong> $25k (3), $50k (6), $75k (9), $100k (12), $150k (15).</li>
 </ul>
 
 <h3>Important Tech & Payout Updates</h3>
@@ -271,7 +265,7 @@ export const mockPropFirms: PropFirm[] = [
       { name: "Barbados", code: "BB" }, { name: "Belarus", code: "BY" }, { name: "Belize", code: "BZ" }, { name: "Benin", code: "BJ" },
       { name: "Bosnia and Herzegovina", code: "BA" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" }, { name: "Burundi", code: "BI" },
       { name: "Cameroon", code: "CM" }, { name: "Cape Verde", code: "CV" }, { name: "Cocos Islands", code: "CC" }, { name: "Comoros", code: "KM" },
-      { name: "Congo Free State", code: "CD" }, { name: "Cook Islands", code: "CK" }, { name: "Croatia", code: "HR" }, { name: "Cuba", code: "CU" },
+      { name: "Cook Islands", code: "CK" }, { name: "Croatia", code: "HR" }, { name: "Cuba", code: "CU" },
       { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Djibouti", code: "DJ" }, { name: "Dominica", code: "DM" }, { name: "Equatorial Guinea", code: "GQ" },
       { name: "Eritrea", code: "ER" }, { name: "Ethiopia", code: "ET" }, { name: "Falkland Islands", code: "FK" }, { name: "Fiji", code: "FJ" },
       { name: "Gabon", code: "GA" }, { name: "Gambia", code: "GM" }, { name: "Gibraltar", code: "GI" }, { name: "Guinea", code: "GN" },
@@ -521,6 +515,7 @@ export const mockPropFirms: PropFirm[] = [
     instrumentTypes: ['Futures'],
     platforms: ['NinjaTrader', 'TradingView', 'Tradovate'], 
     payoutMethods: ['Plane', 'Riseworks'],
+    paymentMethods: [], // Data missing
     broker: 'NinjaTrader',
     rating: 4.8,
     minAccountSize: 25000, 
@@ -634,6 +629,8 @@ export const mockPropFirms: PropFirm[] = [
     instrumentTypes: ['Futures'],
     platforms: ['NinjaTrader', 'Tradovate', 'TradingView', 'Rithmic Trader Pro', 'MultiCharts', 'Bookmap', 'Jigsaw Daytrader', 'Sierra Chart', 'MotiveWave', 'VolSys', 'Quantower', 'ATAS Order Flow Trading', 'RTrader Pro', 'Investor RT'],
     broker: 'Rithmic, CQG',
+    paymentMethods: [], // Data missing
+    payoutMethods: [], // Data missing
     rating: 4.7,
     minAccountSize: 25000,
     maxAccountSize: 250000,
@@ -867,6 +864,7 @@ export const mockPropFirms: PropFirm[] = [
         'End-of-Day and Static drawdown options',
         'Proprietary ProjectX trading platform'
     ],
+    isFeatured: false,
     keyInfoSnippets: [
         { label: 'Profit Split', value: '100%' },
         { label: 'Account Types', value: 'S2F, Trail, Static' },
@@ -882,8 +880,9 @@ export const mockPropFirms: PropFirm[] = [
     instrumentTypes: ['Futures'],
     platforms: ['ProjectX'],
     broker: 'Proprietary',
+    paymentMethods: [], // Data missing
+    payoutMethods: [], // Data missing
     rating: 4.7,
-    isFeatured: false,
     minAccountSize: 25000,
     maxAccountSize: 300000, 
     minChallengeCost: 150, 
@@ -979,6 +978,7 @@ The Zero plan allows traders to bypass evaluation for a one-time fee, moving dir
     instrumentTypes: ['Futures'],
     platforms: ['NinjaTrader', 'TradingView', 'Tradovate'],
     broker: 'Tradovate',
+    paymentMethods: [], // Data missing
     payoutMethods: ['Bank Wire Transfer', 'Crypto', 'Riseworks'],
     rating: 4.5, // Placeholder rating
     minAccountSize: 25000,
@@ -1213,3 +1213,4 @@ export const mockFreeResources: FreeResourceItem[] = [
 
 
   
+
