@@ -64,6 +64,12 @@ const nextConfig: NextConfig = {
         hostname: 'daytraders.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'flagsapi.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },

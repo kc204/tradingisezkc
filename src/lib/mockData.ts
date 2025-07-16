@@ -17,7 +17,7 @@ const tptAccountTiers: AccountTier[] = [
 
 const myFundedFuturesAccountTiers: AccountTier[] = [
   // Starter Plan
-  { id: 'mff-starter-50k', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: 2.5, drawdownRules: '$2,500 Trailing Drawdown' },
+  { id: 'mff-starter-50k', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 5, dailyLossLimitPercentage: null, drawdownRules: '$2,500 Trailing Drawdown' },
   // Starter Plus Plan
   { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null, drawdownRules: '$2,000 End-of-Day Trailing Drawdown' },
   { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$3,000 End-of-Day Trailing Drawdown' },
@@ -254,6 +254,8 @@ export const mockPropFirms: PropFirm[] = [
     logoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScaa7I9uipZeRoUofIMr2QMJQ-HJv_hNF5FA&s',
     websiteUrl: 'https://myfundedfutures.com/', 
     affiliateLink: 'https://myfundedfutures.com/?aff_id=1030', 
+    ceo: 'Matthew Leech',
+    dateCreated: 'November 2023',
     briefDescription: 'Offers a diverse range of futures funding plans including Starter, Expert, and direct-to-live evaluations with generous profit splits.',
     fullReview: `My Funded Futures provides a comprehensive suite of funding options for futures traders, featuring plans like Starter, Starter Plus, Expert, and Eval to Live. A standout benefit across most plans is the 100% profit split on the first $10,000 earned, which then adjusts to a 90/10 split. The firm emphasizes flexibility, with no minimum or maximum trading day requirements for evaluations, allowing traders to get funded in as little as one day. With 24/7 live support and a clear 4-step process (Choose, Challenge, Verify, Fund), they aim to provide a supportive environment for traders to succeed and eventually gain access to a live trading account with daily payouts.`,
     tradingRules: `<h3>How to Get Funded (The 4-Step Process)</h3>
@@ -269,43 +271,34 @@ export const mockPropFirms: PropFirm[] = [
 <p>
   <strong>4. Get Funded:</strong> Once you are verified, you will receive a simulated funded account and can start earning based on the profit split rules.
 </p>
-
-<h3>Rules for the Evaluation Phase (The Challenge)</h3>
-<p>To pass the challenge and get a sim-funded account, you must follow these rules:</p>
+<h3>Key Rules and Policies</h3>
+<h4>Consistency Rules:</h4>
 <ul>
-    <li><strong>Achieve the Profit Target:</strong> You must reach your account's specific profit goal without hitting your maximum loss limit.</li>
-    <li><strong>Complete 5 Trading Sessions:</strong> You need to place at least one trade in five different trading sessions.</li>
-    <li><strong>40% Consistency Rule (for Starter plans):</strong> No single trading day can account for more than 40% of your total profits.</li>
-    <li><strong>No Weekend Positions:</strong> All trades must be closed before the weekend.</li>
-    <li><strong>No Vacation Pauses:</strong> You cannot pause an evaluation account for vacation.</li>
+    <li><strong>Starter Plus:</strong> 50% rule during the evaluation stage only.</li>
+    <li><strong>Starter Plan:</strong> No consistency rule in evaluation; 40% rule on Sim-Funded accounts.</li>
+    <li><strong>Milestone Plan:</strong> 20% rule applies to all phases.</li>
+    <li><strong>Eval to Live Plan (1-Step):</strong> 20% rule during evaluation only.</li>
+    <li><strong>Eval to Live Plan (2-Steps):</strong> 40% rule in Phase 1; 50% rule in Phase 2.</li>
 </ul>
-
-<h3>Rules for Sim-Funded Accounts (After Passing)</h3>
-<p>Once you are funded, the rules are divided between Starter and Expert accounts.</p>
-<h4>Rules for All Funded Accounts</h4>
+<h4>Firm-Wide Rules:</h4>
 <ul>
-    <li><strong>Stay Active:</strong> You must place at least one trade every seven days.</li>
-    <li><strong>Notify for Vacation:</strong> If you need to be away, you must email support to avoid deactivation.</li>
-    <li><strong>Max Accounts:</strong> You can have up to three sim-funded accounts per household.</li>
-    <li><strong>End-of-Day Drawdown:</strong> You must not let your account value exceed the maximum trailing loss limit, which is calculated at the end of the day.</li>
+    <li><strong>News Trading:</strong> Allowed during the evaluation stage for all accounts. On funded Starter and Expert accounts, traders must not trade for 2 minutes before and after Tier 1 high-impact news. Milestone, Eval to Live, and Starter Plus accounts are exempt from news trading restrictions.</li>
+    <li><strong>Automated Trading:</strong> The use of AI, bots, or any fully automated trading systems is strictly prohibited. Semi-automated trading is permitted if the trader is actively managing the system.</li>
+    <li><strong>Copy Trading:</strong> Allowed across all My Funded Futures accounts.</li>
+    <li><strong>Inactivity:</strong> At least one trade must be placed every 7 days to keep a Sim-Funded account active. Traders must notify support if they plan to be inactive for a longer period.</li>
+    <li><strong>Extension Fee:</strong> A fee of $99/month applies to extend an active Eval to Live Phase 1 account.</li>
 </ul>
-
-<h4>Starter Account Rules</h4>
+<h3>Payout Policy</h3>
 <ul>
-    <li><strong>Payouts:</strong> You can request a payout after every 5 winning days.</li>
-    <li><strong>Scaling:</strong> You must follow the firm's scaling rules, which limit the number of contracts you can trade based on your account balance.</li>
-    <li><strong>Consistency:</strong> The 40% consistency rule still applies to each payout cycle.</li>
-    <li><strong>Minimum Withdrawal:</strong> $250.</li>
-    <li><strong>Resets:</strong> These accounts are eligible to be reset if a rule is broken.</li>
-</ul>
-
-<h4>Expert Account Rules</h4>
-<ul>
-    <li><strong>Payouts:</strong> You can request a payout every 14 calendar days.</li>
-    <li><strong>Scaling:</strong> There are no scaling restrictions.</li>
-    <li><strong>Consistency:</strong> There is no consistency rule.</li>
-    <li><strong>Minimum Withdrawal:</strong> $1,000.</li>
-    <li><strong>Resets:</strong> These accounts cannot be reset.</li>
+    <li><strong>Profit Split:</strong> Traders keep 100% of the first $10,000 in profits. After that, the split is 90/10 (90% to the trader).</li>
+    <li><strong>Payout Eligibility:</strong>
+        <ul>
+            <li><strong>Milestone Accounts:</strong> Eligible upon reaching the profit target while respecting the consistency rule.</li>
+            <li><strong>Starter and Starter Plus Accounts:</strong> Eligible after achieving 5 winning trading days.</li>
+            <li><strong>Expert Accounts:</strong> Eligible for a payout every 14 days.</li>
+            <li><strong>Eval To Live:</strong> 80% profit split with daily payouts available. The minimum withdrawal is $200 on the Live Funded Account.</li>
+        </ul>
+    </li>
 </ul>`,
     pros: [
         'Multiple account plans to suit different trading styles (Starter, Expert, Eval-to-Live)',
@@ -316,10 +309,10 @@ export const mockPropFirms: PropFirm[] = [
         '24/7 Live Support'
     ],
     cons: [
-        '40% consistency rule applies to Starter plans',
+        'Consistency rules vary significantly between plans',
         'Maximum of 3 accounts per household',
-        'Expert accounts are not resettable',
-        'Inactivity rules require frequent trading'
+        'News trading restrictions on some funded accounts',
+        'Inactivity rules require weekly trading'
     ],
     keyFeatures: [
         '100% profit split up to $10K, then 90/10',
@@ -331,7 +324,7 @@ export const mockPropFirms: PropFirm[] = [
     keyInfoSnippets: [
       { label: 'Profit Split', value: 'Up to 100% on first $10k, then 90%' },
       { label: 'Drawdown Type', value: 'EOD Trailing / Trailing' },
-      { label: 'Platforms', value: 'TradingView, NinjaTrader, Tradovate' },
+      { label: 'Platforms', value: 'TradingView, NinjaTrader, Tradovate & more' },
       { label: 'Account Types', value: 'Starter, Expert, Eval-to-Live'},
     ],
     offerBadgeLabel: '100% up to $10K Profit',
@@ -341,9 +334,11 @@ export const mockPropFirms: PropFirm[] = [
     profitTarget: 'Varies by plan',
     assets: ['Futures'],
     instrumentTypes: ['Futures'],
-    platforms: ['TradingView', 'NinjaTrader', 'Tradovate'],
-    broker: 'Tradovate',
-    rating: 4.7,
+    platforms: ['Atas Orderflow Trading', 'NinjaTrader', 'Quantower', 'TradingView', 'Tradovate', 'Volbook', 'Volsys', 'Volumetrica Trading'],
+    broker: 'DXFeed, Tradovate',
+    paymentMethods: ['Credit/Debit Card', 'Crypto', 'Plaid'],
+    payoutMethods: ['ACH', 'Riseworks'],
+    rating: 4.9,
     isFeatured: false,
     minAccountSize: 50000, 
     maxAccountSize: 150000,
@@ -352,6 +347,28 @@ export const mockPropFirms: PropFirm[] = [
     activationFee: 'None', 
     challengeType: '1-Step or 2-Step Evaluation',
     accountTiers: myFundedFuturesAccountTiers,
+    restrictedCountries: [
+      { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
+      { name: "Bahamas", code: "BS" }, { name: "Barbados", code: "BB" }, { name: "Belarus", code: "BY" }, { name: "Bosnia and Herzegovina", code: "BA" },
+      { name: "Botswana", code: "BW" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" }, { name: "Burma", code: "MM" },
+      { name: "Burundi", code: "BI" }, { name: "Cambodia", code: "KH" }, { name: "Cameroon", code: "CM" }, { name: "Central African Republic", code: "CF" },
+      { name: "China", code: "CN" }, { name: "Côte d'Ivoire", code: "CI" }, { name: "Crimea", code: "UA" }, { name: "Croatia", code: "HR" },
+      { name: "Cuba", code: "CU" }, { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Ecuador", code: "EC" }, { name: "Ethiopia", code: "ET" },
+      { name: "Ghana", code: "GH" }, { name: "Gibraltar", code: "GI" }, { name: "Haiti", code: "HT" }, { name: "Hong Kong", code: "HK" },
+      { name: "Iceland", code: "IS" }, { name: "Indonesia", code: "ID" }, { name: "Iran", code: "IR" }, { name: "Iraq", code: "IQ" },
+      { name: "Jamaica", code: "JM" }, { name: "Jordan", code: "JO" }, { name: "Kenya", code: "KE" }, { name: "Kosovo", code: "XK" },
+      { name: "Laos", code: "LA" }, { name: "Lebanon", code: "LB" }, { name: "Liberia", code: "LR" }, { name: "Libya", code: "LY" },
+      { name: "Macedonia", code: "MK" }, { name: "Malaysia", code: "MY" }, { name: "Mali", code: "ML" }, { name: "Mauritius", code: "MU" },
+      { name: "Mongolia", code: "MN" }, { name: "Montenegro", code: "ME" }, { name: "Mozambique", code: "MZ" }, { name: "Namibia", code: "NA" },
+      { name: "Nicaragua", code: "NI" }, { name: "Nigeria", code: "NG" }, { name: "Pakistan", code: "PK" }, { name: "Panama", code: "PA" },
+      { name: "Papua New Guinea", code: "PG" }, { name: "Philippines", code: "PH" }, { name: "Qatar", code: "QA" }, { name: "Romania", code: "RO" },
+      { name: "Russia", code: "RU" }, { name: "Senegal", code: "SN" }, { name: "Serbia", code: "RS" }, { name: "Slovenia", code: "SI" },
+      { name: "Somalia", code: "SO" }, { name: "South Africa", code: "ZA" }, { name: "South Korea", code: "KR" }, { name: "South Sudan", code: "SS" },
+      { name: "Sri Lanka", code: "LK" }, { name: "Sudan", code: "SD" }, { name: "Syria", code: "SY" }, { name: "Tanzania", code: "TZ" },
+      { name: "Trinidad and Tobago", code: "TT" }, { name: "Tunisia", code: "TN" }, { name: "Turkey", code: "TR" }, { name: "Uganda", code: "UG" },
+      { name: "Ukraine", code: "UA" }, { name: "United Arab Emirates", code: "AE" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" },
+      { name: "Yemen", code: "YE" }, { name: "Zimbabwe", code: "ZW" }
+    ],
   },
   {
     id: '4',
@@ -361,6 +378,7 @@ export const mockPropFirms: PropFirm[] = [
     websiteUrl: 'https://tradeify.co/', 
     affiliateLink: 'https://tradeify.co/YOUR-AFFILIATE-ID',
     isFeatured: true, 
+    ceo: 'Brett Simberkoff',
     briefDescription: 'Futures prop firm with multiple plans including Advanced (Intraday DD), Growth (EOD DD), and Straight to Sim Funded accounts.', 
     fullReview: `Tradeify offers several distinct paths for futures traders, catering to different risk tolerances and preferences. Their programs are built on the NinjaTrader brokerage and support NinjaTrader, TradingView, and Tradovate platforms. Payouts are handled via Plane and Riseworks.
     The main funding routes are the Advanced Plan, Growth Plan, and a Straight to Sim Funded option. The Advanced and Growth plans are 1-step evaluations with a 35% consistency rule, but differ in their drawdown models (Intraday vs. End-of-Day). The Straight to Sim plan allows traders to bypass evaluation for a one-time fee, but comes with a stricter 20% consistency rule and requires achieving specific profit goals before payouts.
@@ -839,6 +857,8 @@ export const mockPropFirms: PropFirm[] = [
     websiteUrl: '#', // Placeholder
     affiliateLink: '#', // Placeholder
     isFeatured: false,
+    ceo: 'Khaled Ayesh',
+    dateCreated: 'March 2025',
     briefDescription: 'Futures firm from the UAE offering 1-step evaluations and direct funding with a 90% profit split.',
     fullReview: `FundedTicks, based in the United Arab Emirates, presents two primary funding paths for futures traders: a "Pro+" 1-step evaluation and a "Zero" direct-to-funded plan. Both routes offer a generous 90% profit split and utilize an End-of-Day trailing drawdown, a feature favored by many traders for its flexibility. The firm operates on the Tradovate brokerage, providing access to popular platforms like NinjaTrader and TradingView.
 
@@ -853,7 +873,7 @@ The Zero plan allows traders to bypass evaluation for a one-time fee, moving dir
     <li><strong>Max Loss:</strong> End-of-Day trailing drawdown.</li>
     <li><strong>Consistency Rule:</strong> During evaluation, no single day's profit can exceed 40% of total profit. This rule does not apply to funded Master accounts.</li>
     <li><strong>News Trading:</strong> Allowed during evaluation. Restricted for 1-5 minutes before/after major news in a Master account.</li>
-    <li><strong>Payouts (Master Account):</strong> Request 60% of profits every 5 trading days. The remaining 40% is held for transfer to a future live account.</li>
+    <li><strong>Payouts (Master Account):</strong> Request 60% of your profits every 5 trading days. The remaining 40% is held for transfer to a future live account.</li>
     <li><strong>Minimum Daily Profit for Payout Cycle:</strong> $100 for 25k, $150 for 50k, $200 for 100k.</li>
 </ul>
 
@@ -1127,6 +1147,7 @@ export const mockFreeResources: FreeResourceItem[] = [
 
 
   
+
 
 
 

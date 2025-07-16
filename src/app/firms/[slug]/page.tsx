@@ -2,6 +2,7 @@
 
 
 
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -9,7 +10,7 @@ import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import OfferBox from '@/components/propfirms/OfferBox';
-import { ExternalLink, Info, Star, ThumbsUp, Lightbulb, ShieldCheck, FileText, Briefcase, CreditCard, Banknote, CandlestickChart, TowerControl } from 'lucide-react';
+import { ExternalLink, Info, Star, ThumbsUp, Lightbulb, ShieldCheck, FileText, Briefcase, CreditCard, Banknote, CandlestickChart, TowerControl, Ban } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import TrueCostCalculator from '@/components/compare/TrueCostCalculator'; // Import the calculator
@@ -52,6 +53,19 @@ const DetailBadge = ({ children, icon }: { children: React.ReactNode, icon?: Rea
         {icon && <span className="mr-2">{icon}</span>}
         {children}
     </div>
+);
+
+const CountryBadge = ({ name, code }: { name: string, code: string }) => (
+  <div className="inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium bg-muted text-muted-foreground">
+    <Image 
+      src={`https://flagsapi.com/${code.toUpperCase()}/flat/64.png`}
+      alt={`${name} flag`}
+      width={20}
+      height={15}
+      className="mr-2"
+    />
+    {name}
+  </div>
 );
 
 
@@ -145,6 +159,20 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
               <CardContent className="prose max-w-none break-words dark:prose-invert">
                 {/* Using dangerouslySetInnerHTML assuming the content is trusted markdown-like text */}
                 <div dangerouslySetInnerHTML={{ __html: firm.tradingRules.replace(/### (.*?)\n/g, '<h3>$1</h3>').replace(/- \*\*(.*?):\*\* (.*?)\n/g, '<p><strong>$1:</strong> $2</p>').replace(/- (.*?)\n/g, '<ul><li>$1</li></ul>').replace(/<\/ul>\s*<ul>/g, '') }} />
+              </CardContent>
+            </Card>
+          )}
+
+          {firm.restrictedCountries && firm.restrictedCountries.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center"><Ban className="mr-2 h-5 w-5 text-primary" /> Restricted Countries</CardTitle>
+                <CardDescription>Services are not available to residents of the following locations.</CardDescription>
+              </CardHeader>
+              <CardContent className="flex flex-wrap gap-2">
+                {firm.restrictedCountries.map(country => (
+                  <CountryBadge key={country.code} name={country.name} code={country.code} />
+                ))}
               </CardContent>
             </Card>
           )}

@@ -58,6 +58,9 @@ export interface PropFirm {
   broker?: string;
   paymentMethods?: string[];
   payoutMethods?: string[];
+  ceo?: string;
+  dateCreated?: string;
+  restrictedCountries?: { name: string; code: string }[];
 }
 
 export interface Article {
