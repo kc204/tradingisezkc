@@ -79,14 +79,19 @@ export const mockPropFirms: PropFirm[] = [
     dateCreated: 'March 2021',
     briefDescription: 'Futures prop firm with a 1-step evaluation, daily payouts, and a path to a live PRO+ account with a 90% profit split.',
     fullReview: `Take Profit Trader (TPT) offers a direct route for futures traders with its 1-step evaluation. Upon passing the Test account, which utilizes a flexible End-of-Day (EOD) trailing drawdown, traders pay a one-time $130 activation fee to get a PRO account. PRO accounts are notable for offering daily payouts from the very first day and an 80% profit split. However, they switch to a more restrictive intraday trailing drawdown based on peak balance. For traders seeking a higher 90% profit share and a return to the EOD drawdown, an upgrade to a PRO+ account is available, which operates in a live market environment. A critical rule for funded traders is the restriction on trading during major news events in both PRO and PRO+ accounts.`,
-    tradingRules: `<h3>Leverage & Commissions</h3>
+    tradingRules: `<h3>Leverage (Maximum Contracts)</h3>
 <ul>
     <li><strong>$25,000 Account:</strong> 3 Contracts / 30 Micros</li>
     <li><strong>$50,000 Account:</strong> 6 Contracts / 60 Micros</li>
     <li><strong>$75,000 Account:</strong> 9 Contracts / 90 Micros</li>
     <li><strong>$100,000 Account:</strong> 12 Contracts / 120 Micros</li>
     <li><strong>$150,000 Account:</strong> 15 Contracts / 150 Micros</li>
-    <li><strong>Commissions:</strong> $5.00/round trip (Standard), $0.50/round trip (Micro)</li>
+</ul>
+
+<h3>Commissions</h3>
+<ul>
+    <li><strong>Standard Contracts:</strong> $5.00 per round trip</li>
+    <li><strong>Micro Contracts:</strong> $0.50 per round trip</li>
 </ul>
 
 <h3>Test Account (The Evaluation)</h3>
@@ -124,6 +129,7 @@ export const mockPropFirms: PropFirm[] = [
 </ul>
 
 <h3>Important Tech & Payout Updates</h3>
+<p>As of May 15, 2025</p>
 <ul>
     <li><strong>Bank Identity Verification:</strong> The legal name provided during KYC must match the bank account owner's legal name for payouts.</li>
     <li><strong>LLC Payouts:</strong> Payouts to an LLC bank account must be processed through Wise or PayPal.</li>
@@ -182,7 +188,7 @@ export const mockPropFirms: PropFirm[] = [
       { name: "Bosnia and Herzegovina", code: "BA" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" }, { name: "Burundi", code: "BI" },
       { name: "Cameroon", code: "CM" }, { name: "Cape Verde", code: "CV" }, { name: "Cocos Islands", code: "CC" }, { name: "Comoros", code: "KM" },
       { name: "Cook Islands", code: "CK" }, { name: "Croatia", code: "HR" }, { name: "Cuba", code: "CU" },
-      { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Djibouti", code: "DJ" }, { name: "Dominica", code: "DM" }, { name: "Equatorial Guinea", code: "GQ" },
+      { name: "Djibouti", code: "DJ" }, { name: "Dominica", code: "DM" }, { name: "Equatorial Guinea", code: "GQ" },
       { name: "Eritrea", code: "ER" }, { name: "Ethiopia", code: "ET" }, { name: "Falkland Islands", code: "FK" }, { name: "Fiji", code: "FJ" },
       { name: "Gabon", code: "GA" }, { name: "Gambia", code: "GM" }, { name: "Gibraltar", code: "GI" }, { name: "Guinea", code: "GN" },
       { name: "Guinea-Bissau", code: "GW" }, { name: "Guyana", code: "GY" }, { name: "Haiti", code: "HT" }, { name: "Heard Islands", code: "HM" },
@@ -345,57 +351,109 @@ export const mockPropFirms: PropFirm[] = [
     affiliateLink: 'https://tradeify.co/YOUR-AFFILIATE-ID',
     isFeatured: true, 
     ceo: 'Brett Simberkoff',
+    dateCreated: 'June 2024',
     briefDescription: 'Futures prop firm with multiple plans including Advanced (Intraday DD), Growth (EOD DD), and Straight to Sim Funded accounts.', 
     fullReview: `Tradeify offers several distinct paths for futures traders, catering to different risk tolerances and preferences. Their programs are built on the NinjaTrader brokerage and support NinjaTrader, TradingView, and Tradovate platforms. Payouts are handled via Plane and Riseworks.
     The main funding routes are the Advanced Plan, Growth Plan, and a Straight to Sim Funded option. The Advanced and Growth plans are 1-step evaluations with a 35% consistency rule, but differ in their drawdown models (Intraday vs. End-of-Day). The Straight to Sim plan allows traders to bypass evaluation for a one-time fee, but comes with a stricter 20% consistency rule and requires achieving specific profit goals before payouts.
     Across all funded accounts, traders can keep 100% of their first $15,000 in profits, after which the split is 90/10. Tradeify has specific rules regarding EAs/bots (must be self-owned, no HFT), microscalping (50% of profit from trades > 5 seconds), and allows for news trading and copy trading between a trader's own accounts.`,
-    tradingRules: `<h3>Universal Trading Rules (Applies to most accounts)</h3>
+    tradingRules: `<h3>Instruments and Assets</h3>
 <ul>
-    <li><strong>Good Faith Policy:</strong> You cannot use strategies that exploit platform errors or price discrepancies.</li>
-    <li><strong>EA/Bots/Algos:</strong> Allowed only if you are the sole owner and it is not a High-Frequency Trading (HFT) bot. You must be able to prove ownership.</li>
-    <li><strong>Microscalping:</strong> At least 50% of your total profit must come from trades held for longer than 5 seconds.</li>
-    <li><strong>Inactivity:</strong> You must place at least one trade per week on each account to keep it active.</li>
-    <li><strong>Copy Trading:</strong> Allowed between up to 5 accounts that you own and manage yourself.</li>
-    <li><strong>News Trading & DCA:</strong> There are no restrictions against trading during news events or using Dollar-Cost Averaging (DCA).</li>
+    <li><strong>Type of Instruments:</strong> Futures</li>
+    <li><strong>Leverage (Max Contracts):</strong>
+        <ul>
+            <li>$25k Accounts: Up to 1 Contract (10 micros)</li>
+            <li>$50k Accounts: Up to 5 Contracts (50 Micros)</li>
+            <li>$100k Accounts: Up to 10 Contracts (100 Micros)</li>
+            <li>$150k Accounts: Up to 15 Contracts (150 Micros)</li>
+        </ul>
+    </li>
+    <li><strong>Commissions:</strong> A list of product commissions can be found at <a href="https://help.tradeify.co/en/articles/10468315-trading-commission-fees" target="_blank" rel="noopener noreferrer">this link</a>.</li>
 </ul>
 
-<h3>Advanced Plan (Evaluation)</h3>
-<p>This is a 1-step evaluation with an intraday trailing drawdown.</p>
+<h3>Trading Rules</h3>
 <ul>
-    <li><strong>Consistency Rule:</strong> 35% (Your highest-earning day cannot be more than 35% of your total profit).</li>
-    <li><strong>Payout Policy:</strong>
+    <li><strong>Consistency Rules:</strong>
         <ul>
-            <li><strong>Frequency:</strong> You can request payouts twice a month (1st-5th and 15th-20th).</li>
-            <li><strong>Minimum Days:</strong> 10 trading days are required between payouts. At least 5 of those days must have profits greater than $150-$250, depending on account size.</li>
-            <li><strong>Profit Buffer:</strong> Your account balance must be at least $100 over the Trailing Max Drawdown limit.</li>
-            <li><strong>Payout Tiers:</strong> Payouts have minimum and maximum limits that scale up over your first six payouts. For a $100k account, the first payout is capped at $2,000, and the sixth is capped at $5,000.</li>
+            <li><strong>35% Rule:</strong> Applies to all Advanced/Growth Sim funded accounts. The maximum profit made in a single trading day cannot exceed 35% of the total profit.</li>
+            <li><strong>20% Rule:</strong> Applies to all Straight to Sim funded accounts. The maximum profit made in a single trading day cannot exceed 20% of the total profit.</li>
+        </ul>
+    </li>
+    <li><strong>Good Faith Policy:</strong> Traders are prohibited from using strategies that exploit errors within the platform, such as price discrepancies or technical glitches.</li>
+    <li><strong>Daily Loss Limit (DLL):</strong> For Growth and Straight to Sim Funded accounts, the DLL is removed once a certain profit target is met:
+        <ul>
+            <li>$25k accounts: No DLL.</li>
+            <li>$50k accounts: DLL removed when End-of-Day balance is above $3,000 profit.</li>
+            <li>$100k accounts: DLL removed when End-of-Day balance is above $6,000 profit.</li>
+            <li>$150k accounts: DLL removed when End-of-Day balance is above $9,000 profit.</li>
+        </ul>
+    </li>
+    <li><strong>EA/Bots/Algorithmic Trading:</strong> Allowed only under these conditions:
+        <ul>
+            <li>You must be the sole owner of the bot/strategy.</li>
+            <li>The bot must be used exclusively within Tradeify (not other firms).</li>
+            <li>High-Frequency Trading (HFT) bots are not allowed.</li>
+            <li>The firm reserves the right to request verification.</li>
+        </ul>
+    </li>
+    <li><strong>Microscalping:</strong> 50% or more of your total profit must come from trades held for longer than 5 seconds.</li>
+    <li><strong>Inactivity Rule:</strong> You must place at least one trade per week (Monday-Friday) to keep an account active.</li>
+    <li><strong>Copy Trading:</strong> Allowed for up to 5 accounts that you own and manage.</li>
+    <li><strong>News Trading/DCA/Flipping/Scaling:</strong> There are no rules against these strategies. However, "averaging into oblivion" (continuously adding to a losing position without a clear strategy) is discouraged.</li>
+</ul>
+
+<h3>Payout Policy</h3>
+<h4>Advanced and Growth Payouts</h4>
+<ul>
+    <li><strong>Payout Conditions:</strong>
+        <ul>
+            <li>Abide by the 35% Consistency Rule.</li>
+            <li>A minimum of 10 Trading Days is required.</li>
+            <li>At least 5 of those days must show a profit greater than: $150 for 50k accounts, $200 for 100k accounts, $250 for 150k accounts.</li>
+            <li>Maintain an account balance of at least $100 over the Trailing Max Drawdown limit.</li>
+        </ul>
+    </li>
+    <li><strong>Minimum Payouts:</strong> $500 for 50k, $1,000 for 100k, $1,500 for 150k accounts.</li>
+    <li><strong>Maximum Payout Tiers:</strong>
+        <ul>
+            <li>1st Payout: up to $1,500 ($50k), $2,000 ($100k), $2,500 ($150k)</li>
+            <li>2nd Payout: up to $1,750 ($50k), $2,500 ($100k), $3,000 ($150k)</li>
+            <li>3rd Payout: up to $2,000 ($50k), $3,000 ($100k), $3,500 ($150k)</li>
+            <li>4th Payout: up to $2,250 ($50k), $3,500 ($100k), $4,000 ($150k)</li>
+            <li>5th Payout: up to $2,500 ($50k), $4,000 ($100k), $4,500 ($150k)</li>
+            <li>6th Payout: up to $3,000 ($50k), $5,000 ($100k), $5,500 ($150k)</li>
+            <li>After 6th Payout: All future payouts can be up to $25,000.</li>
         </ul>
     </li>
 </ul>
 
-<h3>Growth Plan (Evaluation)</h3>
-<p>This is a 1-step evaluation with a more flexible End-of-Day drawdown.</p>
+<h4>Straight to Sim Funded Payouts</h4>
 <ul>
-    <li><strong>Consistency Rule:</strong> 35% (Same as the Advanced plan).</li>
-    <li><strong>Daily Loss Limit:</strong> A soft daily loss limit applies but is permanently removed once you reach a specific profit milestone (e.g., $6,000 profit on a $100k account).</li>
-    <li><strong>Payout Policy:</strong> Same as the Advanced plan (10 trading day minimum, tiered payouts, etc.).</li>
-</ul>
-
-<h3>Straight to Sim Funded</h3>
-<p>This plan allows you to skip the evaluation and trade a sim-funded account directly.</p>
-<ul>
-    <li><strong>Consistency Rule:</strong> 20% (Stricter than evaluation accounts).</li>
-    <li><strong>Daily Loss Limit:</strong> A soft daily loss limit applies but is permanently removed after reaching a profit milestone (same as Growth plan).</li>
-    <li><strong>Payout Policy:</strong>
+    <li><strong>Payout Conditions:</strong>
         <ul>
-            <li><strong>Frequency:</strong> You must trade a minimum of 10 days before your first payout.</li>
-            <li><strong>Profit Goals:</strong> You must achieve a specific profit percentage goal before each payout (e.g., 6% for the first payout, then lower percentages for subsequent ones).</li>
-            <li><strong>Minimum Payout:</strong> $1,000.</li>
-            <li><strong>Payout Tiers:</strong> Maximum withdrawal amounts are tiered. For a $100k account, payouts 1-3 are capped at $2,500, and subsequent payouts are capped at $3,000.</li>
+            <li>Abide by the 20% Consistency Rule.</li>
+            <li>A minimum of 10 Trading Days is required.</li>
+            <li>Must meet Payout Profit Goals between requests.</li>
         </ul>
     </li>
-    <li><strong>Max Earnings:</strong> The maximum you can earn from a SimFunded account is $80,000 before being evaluated for a transition to a live account.</li>
-</ul>`,
+    <li><strong>Payout Profit Goals (% of starting balance):</strong>
+        <ul>
+            <li>$25k Account: 1st Payout: 6%; 2nd: 4%; 3rd: 4%.</li>
+            <li>$50k Account: 1st Payout: 6%; 2nd: 4%; 3rd+: 4%.</li>
+            <li>$100k Account: 1st Payout: 6%; 2nd: 3%; 3rd+: 2.5%.</li>
+            <li>$150k Account: 1st Payout: 6%; 2nd: 3%; 3rd+: 2%.</li>
+        </ul>
+    </li>
+    <li><strong>Minimum Payout:</strong> $1,000</li>
+    <li><strong>Payout Tiers:</strong>
+        <ul>
+            <li>Payouts 1 to 3: $1,000 ($25k), $2,000 ($50k), $2,500 ($100k), $3,000 ($150k)</li>
+            <li>4th Payout and Beyond: $1,000 ($25k), $2,500 ($50k), $3,000 ($100k), $3,500 ($150k)</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>Max SimFunded Profit Rule</h4>
+<p>The maximum amount a trader can earn from a SimFunded account is $80,000. After reaching this amount, you are moved to a live account with a maximum starting balance of $20,000. The total combined amount a trader can generate from Simulated Funded Payouts and the Live Transition is $100,000.</p>`,
     pros: [
       "Multiple plans: Intraday, EOD, and Instant Funding",
       "100% profit split on first $15,000, then 90/10", 
@@ -421,16 +479,17 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Platforms', value: 'NinjaTrader, Tradovate, TradingView' },
       { label: 'Funding Types', value: 'Advanced (IDD), Growth (EOD), Instant Sim'}
     ],
-    offerBadgeLabel: '100% First $15K Profit!', 
+    offerBadgeLabel: '35% OFF ALL ACCOUNTS', 
+    promo: 'Code: MATCH',
     fundingModels: ["Advanced Plan (Intraday DD)", "Growth Plan (EOD DD)", "Straight to Sim Funded"],
     profitSplit: '100% on first $15,000, then 90/10', 
     drawdownRules: 'Advanced: Intraday trailing. Growth & Sim: End-of-day trailing.',
     profitTarget: 'Challenges: 6%. Sim Funded: Payout-based goals.',
-    assets: ['Futures (CME, COMEX, NYMEX, CBOT, Coinbase Digital - Nano BTC/ETH)'], 
+    assets: ['Futures'], 
     instrumentTypes: ['Futures'],
     platforms: ['NinjaTrader', 'TradingView', 'Tradovate'], 
     payoutMethods: ['Plane', 'Riseworks'],
-    paymentMethods: ['Credit/Debit Card', 'Crypto'],
+    paymentMethods: ['Credit Card'],
     broker: 'NinjaTrader',
     rating: 4.8,
     minAccountSize: 25000, 
@@ -439,7 +498,23 @@ export const mockPropFirms: PropFirm[] = [
     maxChallengeCost: 729,
     activationFee: '$125 (Advanced Plan), $0 (Growth/Sim)', 
     challengeType: 'Evaluation or Direct Funding',
-    accountTiers: tradeifyAccountTiers, 
+    accountTiers: tradeifyAccountTiers,
+    restrictedCountries: [
+        { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
+        { name: "Bahamas", code: "BS" }, { name: "Barbados", code: "BB" }, { name: "Belarus", code: "BY" }, { name: "Bosnia and Herzegovina", code: "BA" },
+        { name: "Botswana", code: "BW" }, { name: "Myanmar", code: "MM" }, { name: "Burundi", code: "BI" }, { name: "Cambodia", code: "KH" }, 
+        { name: "Central African Republic", code: "CF" }, { name: "Côte d'Ivoire", code: "CI" }, { name: "Crimea", code: "UA-43" }, { name: "Cuba", code: "CU" },
+        { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Ecuador", code: "EC" }, { name: "Ethiopia", code: "ET" }, { name: "Ghana", code: "GH" },
+        { name: "Iceland", code: "IS" }, { name: "Indonesia", code: "ID" }, { name: "Iran", code: "IR" }, { name: "Iraq", code: "IQ" },
+        { name: "Jamaica", code: "JM" }, { name: "Kosovo", code: "XK" }, { name: "Laos", code: "LA" }, { name: "Lebanon", code: "LB" },
+        { name: "Liberia", code: "LR" }, { name: "Libya", code: "LY" }, { name: "Mauritius", code: "MU" }, { name: "Mongolia", code: "MN" },
+        { name: "Montenegro", code: "ME" }, { name: "Nicaragua", code: "NI" }, { name: "North Korea", code: "KP" }, { name: "Pakistan", code: "PK" },
+        { name: "Panama", code: "PA" }, { name: "Papua New Guinea", code: "PG" }, { name: "Russia", code: "RU" }, { name: "Somalia", code: "SO" },
+        { name: "South Sudan", code: "SS" }, { name: "Sri Lanka", code: "LK" }, { name: "Sudan", code: "SD" }, { name: "Syria", code: "SY" },
+        { name: "Trinidad and Tobago", code: "TT" }, { name: "Tunisia", code: "TN" }, { name: "Turkey", code: "TR" }, { name: "Uganda", code: "UG" },
+        { name: "Ukraine", code: "UA" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" }, { name: "Yemen", code: "YE" },
+        { name: "Zimbabwe", code: "ZW" }
+    ],
   },
   {
     id: '5',
@@ -1209,3 +1284,5 @@ export const mockFreeResources: FreeResourceItem[] = [
 
 
   
+
+    
