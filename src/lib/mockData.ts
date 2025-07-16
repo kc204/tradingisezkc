@@ -19,7 +19,7 @@ const myFundedFuturesAccountTiers: AccountTier[] = [
   // Starter Plus Plan
   { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null, drawdownRules: '$2,000 End-of-Day Trailing Drawdown' },
   { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$3,000 End-of-Day Trailing Drawdown' },
-  { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: null, drawdownRules: '$4,500 End-of-Day Trailing Drawdown' },
+  { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, drawdownRules: '$4,500 End-of-Day Trailing Drawdown' },
   // Expert Plan
   { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, activationFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
   { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, activationFee: 0, profitTargetPercentage: null, drawdownRules: 'Trailing Drawdown with Buffer Zone', dailyLossLimitPercentage: null },
@@ -404,7 +404,7 @@ export const mockPropFirms: PropFirm[] = [
       { name: "Botswana", code: "BW" }, { name: "Bulgaria", code: "BG" }, { name: "Burkina Faso", code: "BF" }, { name: "Burma", code: "MM" },
       { name: "Burundi", code: "BI" }, { name: "Cambodia", code: "KH" }, { name: "Cameroon", code: "CM" }, { name: "Central African Republic", code: "CF" },
       { name: "China", code: "CN" }, { name: "Côte d'Ivoire", code: "CI" }, { name: "Crimea", code: "UA-43" }, { name: "Croatia", code: "HR" },
-      { name: "Cuba", code: "CU" }, { name: "Democratic Republic of the Congo", code: "CD" }, { name: "Ecuador", code: "EC" }, { name: "Ethiopia", code: "ET" },
+      { name: "Cuba", code: "CU" }, { name: "Ecuador", code: "EC" }, { name: "Ethiopia", code: "ET" },
       { name: "Ghana", code: "GH" }, { name: "Gibraltar", code: "GI" }, { name: "Haiti", code: "HT" }, { name: "Hong Kong", code: "HK" },
       { name: "Iceland", code: "IS" }, { name: "Indonesia", code: "ID" }, { name: "Iran", code: "IR" }, { name: "Iraq", code: "IQ" },
       { name: "Jamaica", code: "JM" }, { name: "Jordan", code: "JO" }, { name: "Kenya", code: "KE" }, { name: "Kosovo", code: "XK" },
@@ -1213,4 +1213,5 @@ export const mockFreeResources: FreeResourceItem[] = [
 
 
   
+
 
