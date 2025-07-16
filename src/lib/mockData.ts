@@ -303,25 +303,21 @@ export const mockPropFirms: PropFirm[] = [
     fullReview: `My Funded Futures provides a comprehensive suite of funding options for futures traders, featuring plans like Starter, Starter Plus, Expert, and Eval to Live. A standout benefit across most plans is the 100% profit split on the first $10,000 earned, which then adjusts to a 90/10 split. The firm emphasizes flexibility, with no minimum or maximum trading day requirements for evaluations, allowing traders to get funded in as little as one day. With 24/7 live support and a clear 4-step process (Choose, Challenge, Verify, Fund), they aim to provide a supportive environment for traders to succeed and eventually gain access to a live trading account with daily payouts.`,
     tradingRules: `<h3>General Rules & Benefits</h3>
 <ul>
-    <li><strong>Profit Split:</strong> You keep 100% of your first $10,000 in profits. After that, you receive a 90% profit split (80% on Eval-to-Live).</li>
+    <li><strong>Profit Split:</strong> You keep 100% of your first $10,000 in profits. After that, you receive a 90% profit split.</li>
     <li><strong>Trading Days:</strong> There are no maximum or minimum trading day requirements for the evaluation. You can get funded in as little as one trading day.</li>
+    <li><strong>Payouts:</strong> Payouts are available as often as weekly on the Starter plan once you have 5 winning days. For other accounts, you can withdraw when you are ready after meeting the objectives.</li>
     <li><strong>Path to a Live Account:</strong> On a simulated funded account from the Starter plan, you can gain access to a live trading account with daily payouts after 30 winning days or by achieving the withdrawal threshold.</li>
-    <li><strong>Support:</strong> 24/7 live support is available.</li>
+    <li><strong>Support:</strong> They offer 24/7 live support.</li>
 </ul>
 
 <h3>How to Get Funded (The 4-Step Process)</h3>
-<p>
-  <strong>1. Choose Your Account:</strong> Select the account type and size that fits your strategy.
-</p>
-<p>
-  <strong>2. Take the 1-Step Challenge:</strong> Pass the evaluation by meeting the specified trading objectives to prove your skills.
-</p>
-<p>
-  <strong>3. Get Verified:</strong> After passing the challenge, you go through a verification step to demonstrate consistency.
-</p>
-<p>
-  <strong>4. Get Funded:</strong> Once you are verified, you will receive a simulated funded account and can start earning based on the profit split rules.
-</p>
+<ol>
+  <li><strong>Choose Your Account:</strong> Select the account type and size that fits your strategy.</li>
+  <li><strong>Take the 1-Step Challenge:</strong> Pass the evaluation by meeting the specified trading objectives to prove your skills.</li>
+  <li><strong>Get Verified:</strong> After passing the challenge, you go through a verification step to demonstrate consistency.</li>
+  <li><strong>Get Funded:</strong> Once you are verified, you will receive a simulated funded account and can start earning based on the profit split rules.</li>
+</ol>
+
 <h3>Key Rules and Policies</h3>
 <h4>Consistency Rules:</h4>
 <ul>
@@ -515,7 +511,7 @@ export const mockPropFirms: PropFirm[] = [
     instrumentTypes: ['Futures'],
     platforms: ['NinjaTrader', 'TradingView', 'Tradovate'], 
     payoutMethods: ['Plane', 'Riseworks'],
-    paymentMethods: [], // Data missing
+    paymentMethods: ['Credit/Debit Card', 'Crypto'],
     broker: 'NinjaTrader',
     rating: 4.8,
     minAccountSize: 25000, 
@@ -629,8 +625,8 @@ export const mockPropFirms: PropFirm[] = [
     instrumentTypes: ['Futures'],
     platforms: ['NinjaTrader', 'Tradovate', 'TradingView', 'Rithmic Trader Pro', 'MultiCharts', 'Bookmap', 'Jigsaw Daytrader', 'Sierra Chart', 'MotiveWave', 'VolSys', 'Quantower', 'ATAS Order Flow Trading', 'RTrader Pro', 'Investor RT'],
     broker: 'Rithmic, CQG',
-    paymentMethods: [], // Data missing
-    payoutMethods: [], // Data missing
+    paymentMethods: ['Credit/Debit Card', 'Crypto'],
+    payoutMethods: ['Bank Wire', 'Crypto', 'Zelle'],
     rating: 4.7,
     minAccountSize: 25000,
     maxAccountSize: 250000,
@@ -880,8 +876,8 @@ export const mockPropFirms: PropFirm[] = [
     instrumentTypes: ['Futures'],
     platforms: ['ProjectX'],
     broker: 'Proprietary',
-    paymentMethods: [], // Data missing
-    payoutMethods: [], // Data missing
+    paymentMethods: ['Credit/Debit Card', 'Crypto'],
+    payoutMethods: ['Bank Wire', 'Crypto', 'ACH'],
     rating: 4.7,
     minAccountSize: 25000,
     maxAccountSize: 300000, 
@@ -978,7 +974,7 @@ The Zero plan allows traders to bypass evaluation for a one-time fee, moving dir
     instrumentTypes: ['Futures'],
     platforms: ['NinjaTrader', 'TradingView', 'Tradovate'],
     broker: 'Tradovate',
-    paymentMethods: [], // Data missing
+    paymentMethods: ['Credit/Debit Card', 'Crypto'],
     payoutMethods: ['Bank Wire Transfer', 'Crypto', 'Riseworks'],
     rating: 4.5, // Placeholder rating
     minAccountSize: 25000,
@@ -1215,3 +1211,6 @@ export const mockFreeResources: FreeResourceItem[] = [
   
 
 
+
+
+    
