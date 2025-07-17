@@ -118,7 +118,192 @@ const ftmoAccountTiers: AccountTier[] = [
   { id: 'ftmo-swing-200k', name: '€200,000 Swing', size: 200000, evaluationFee: 1080, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
 ];
 
+const mavenAccountTiers: AccountTier[] = [
+  // Instant Funding (10 Day Payout)
+  { id: 'maven-instant-2k-mt5', name: '$2K Instant (MT5/Match Trader)', size: 2000, evaluationFee: 19.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-instant-2k-ctrader', name: '$2K Instant (cTrader)', size: 2000, evaluationFee: 39.00, platform: 'cTrader' },
+  { id: 'maven-instant-5k-mt5', name: '$5K Instant (MT5/Match Trader)', size: 5000, evaluationFee: 29.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-instant-5k-ctrader', name: '$5K Instant (cTrader)', size: 5000, evaluationFee: 49.00, platform: 'cTrader' },
+  { id: 'maven-instant-10k-mt5', name: '$10K Instant (MT5/Match Trader)', size: 10000, evaluationFee: 58.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-instant-10k-ctrader', name: '$10K Instant (cTrader)', size: 10000, evaluationFee: 78.00, platform: 'cTrader' },
+  { id: 'maven-instant-20k-mt5', name: '$20K Instant (MT5/Match Trader)', size: 20000, evaluationFee: 116.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-instant-20k-ctrader', name: '$20K Instant (cTrader)', size: 20000, evaluationFee: 136.00, platform: 'cTrader' },
+  { id: 'maven-instant-50k-mt5', name: '$50K Instant (MT5/Match Trader)', size: 50000, evaluationFee: 290.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-instant-50k-ctrader', name: '$50K Instant (cTrader)', size: 50000, evaluationFee: 409.00, platform: 'cTrader' },
+  { id: 'maven-instant-100k-mt5', name: '$100K Instant (MT5/Match Trader)', size: 100000, evaluationFee: 549.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-instant-100k-ctrader', name: '$100K Instant (cTrader)', size: 100000, evaluationFee: 569.00, platform: 'cTrader' },
+  // Instant Mini (Immediate Payouts)
+  { id: 'maven-mini-2k-mt5', name: '$2K Instant Mini (MT5/Match Trader)', size: 2000, evaluationFee: 19.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-mini-2k-ctrader', name: '$2K Instant Mini (cTrader)', size: 2000, evaluationFee: 39.00, platform: 'cTrader' },
+  { id: 'maven-mini-5k-mt5', name: '$5K Instant Mini (MT5/Match Trader)', size: 5000, evaluationFee: 22.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-mini-5k-ctrader', name: '$5K Instant Mini (cTrader)', size: 5000, evaluationFee: 42.00, platform: 'cTrader' },
+  { id: 'maven-mini-10k-mt5', name: '$10K Instant Mini (MT5/Match Trader)', size: 10000, evaluationFee: 44.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-mini-10k-ctrader', name: '$10K Instant Mini (cTrader)', size: 10000, evaluationFee: 64.00, platform: 'cTrader' },
+  { id: 'maven-mini-20k-mt5', name: '$20K Instant Mini (MT5/Match Trader)', size: 20000, evaluationFee: 88.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-mini-20k-ctrader', name: '$20K Instant Mini (cTrader)', size: 20000, evaluationFee: 108.00, platform: 'cTrader' },
+  { id: 'maven-mini-50k-mt5', name: '$50K Instant Mini (MT5/Match Trader)', size: 50000, evaluationFee: 220.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-mini-50k-ctrader', name: '$50K Instant Mini (cTrader)', size: 50000, evaluationFee: 240.00, platform: 'cTrader' },
+  { id: 'maven-mini-100k-mt5', name: '$100K Instant Mini (MT5/Match Trader)', size: 100000, evaluationFee: 440.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-mini-100k-ctrader', name: '$100K Instant Mini (cTrader)', size: 100000, evaluationFee: 460.00, platform: 'cTrader' },
+  // 1-Step Challenges
+  { id: 'maven-1step-2k-mt5', name: '$2K 1-Step (MT5/Match Trader)', size: 2000, evaluationFee: 15.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-1step-2k-ctrader', name: '$2K 1-Step (cTrader)', size: 2000, evaluationFee: 35.00, platform: 'cTrader' },
+  { id: 'maven-1step-5k-mt5', name: '$5K 1-Step (MT5/Match Trader)', size: 5000, evaluationFee: 19.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-1step-5k-ctrader', name: '$5K 1-Step (cTrader)', size: 5000, evaluationFee: 39.00, platform: 'cTrader' },
+  { id: 'maven-1step-10k-mt5', name: '$10K 1-Step (MT5/Match Trader)', size: 10000, evaluationFee: 38.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-1step-10k-ctrader', name: '$10K 1-Step (cTrader)', size: 10000, evaluationFee: 58.00, platform: 'cTrader' },
+  { id: 'maven-1step-20k-mt5', name: '$20K 1-Step (MT5/Match Trader)', size: 20000, evaluationFee: 76.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-1step-20k-ctrader', name: '$20K 1-Step (cTrader)', size: 20000, evaluationFee: 96.00, platform: 'cTrader' },
+  { id: 'maven-1step-50k-mt5', name: '$50K 1-Step (MT5/Match Trader)', size: 50000, evaluationFee: 190.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-1step-50k-ctrader', name: '$50K 1-Step (cTrader)', size: 50000, evaluationFee: 210.00, platform: 'cTrader' },
+  { id: 'maven-1step-100k-mt5', name: '$100K 1-Step (MT5/Match Trader)', size: 100000, evaluationFee: 380.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-1step-100k-ctrader', name: '$100K 1-Step (cTrader)', size: 100000, evaluationFee: 400.00, platform: 'cTrader' },
+  // 2-Steps Challenges
+  { id: 'maven-2step-2k-mt5', name: '$2K 2-Steps (MT5/Match Trader)', size: 2000, evaluationFee: 19.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-2step-2k-ctrader', name: '$2K 2-Steps (cTrader)', size: 2000, evaluationFee: 39.00, platform: 'cTrader' },
+  { id: 'maven-2step-5k-mt5', name: '$5K 2-Steps (MT5/Match Trader)', size: 5000, evaluationFee: 22.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-2step-5k-ctrader', name: '$5K 2-Steps (cTrader)', size: 5000, evaluationFee: 42.00, platform: 'cTrader' },
+  { id: 'maven-2step-10k-mt5', name: '$10K 2-Steps (MT5/Match Trader)', size: 10000, evaluationFee: 44.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-2step-10k-ctrader', name: '$10K 2-Steps (cTrader)', size: 10000, evaluationFee: 64.00, platform: 'cTrader' },
+  { id: 'maven-2step-20k-mt5', name: '$20K 2-Steps (MT5/Match Trader)', size: 20000, evaluationFee: 88.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-2step-20k-ctrader', name: '$20K 2-Steps (cTrader)', size: 20000, evaluationFee: 108.00, platform: 'cTrader' },
+  { id: 'maven-2step-50k-mt5', name: '$50K 2-Steps (MT5/Match Trader)', size: 50000, evaluationFee: 220.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-2step-100k-mt5', name: '$100K 2-Steps (MT5/Match Trader)', size: 100000, evaluationFee: 440.00, platform: 'MT5/Match Trader' },
+  // 3-Steps Challenges
+  { id: 'maven-3step-2k-mt5', name: '$2K 3-Steps (MT5/Match Trader)', size: 2000, evaluationFee: 13.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-3step-2k-ctrader', name: '$2K 3-Steps (cTrader)', size: 2000, evaluationFee: 33.00, platform: 'cTrader' },
+  { id: 'maven-3step-5k-mt5', name: '$5K 3-Steps (MT5/Match Trader)', size: 5000, evaluationFee: 17.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-3step-5k-ctrader', name: '$5K 3-Steps (cTrader)', size: 5000, evaluationFee: 37.00, platform: 'cTrader' },
+  { id: 'maven-3step-10k-mt5', name: '$10K 3-Steps (MT5/Match Trader)', size: 10000, evaluationFee: 34.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-3step-10k-ctrader', name: '$10K 3-Steps (cTrader)', size: 10000, evaluationFee: 54.00, platform: 'cTrader' },
+  { id: 'maven-3step-20k-mt5', name: '$20K 3-Steps (MT5/Match Trader)', size: 20000, evaluationFee: 68.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-3step-20k-ctrader', name: '$20K 3-Steps (cTrader)', size: 20000, evaluationFee: 88.00, platform: 'cTrader' },
+  { id: 'maven-3step-50k-mt5', name: '$50K 3-Steps (MT5/Match Trader)', size: 50000, evaluationFee: 170.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-3step-50k-ctrader', name: '$50K 3-Steps (cTrader)', size: 50000, evaluationFee: 190.00, platform: 'cTrader' },
+  { id: 'maven-3step-100k-mt5', name: '$100K 3-Steps (MT5/Match Trader)', size: 100000, evaluationFee: 299.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-3step-100k-ctrader', name: '$100K 3-Steps (cTrader)', size: 100000, evaluationFee: 319.00, platform: 'cTrader' },
+];
+
+
 export const mockPropFirms: PropFirm[] = [
+  {
+    id: '13',
+    slug: 'maven',
+    name: 'Maven',
+    logoUrl: 'https://placehold.co/100x50.png?text=Maven',
+    websiteUrl: '#',
+    affiliateLink: '#',
+    isFeatured: false,
+    ceo: 'Jon Alexander',
+    dateCreated: 'November 2022',
+    briefDescription: 'A versatile prop firm from Saint Lucia offering Instant, 1-Step, 2-Step, and 3-Step CFD challenges with a unique 20% consistency rule for withdrawals.',
+    fullReview: `Maven is a modern prop firm based in Saint Lucia, offering an exceptionally wide array of funding programs for CFD traders. Their offerings are diverse, including Instant Funding (with regular and 'Mini' immediate payout versions), and multi-step challenges (1-Step, 2-Steps, 3-Steps). This variety caters to virtually every type of trader, from those who want to prove their skills over multiple phases to those who prefer direct funding. A core feature across their Instant programs is a strict 20% consistency rule, which dictates that no single trading day can account for more than 20% of total profits for a withdrawal to be eligible. The firm enforces several unique rules, such as a 1% floating PnL limit on instant accounts and a ban on copy trading and most EAs. With an 80% profit split and bi-weekly payouts, Maven positions itself as a competitive option for traders who can operate within their specific risk management framework.`,
+    tradingRules: `<h3>Leverage</h3>
+<ul>
+  <li><strong>FX:</strong> 1:75</li>
+  <li><strong>Metals:</strong> 1:20</li>
+  <li><strong>Indices:</strong> 1:20</li>
+  <li><strong>Crypto:</strong> 1:2</li>
+  <li><strong>Other Commodities:</strong> 1:20</li>
+</ul>
+<h3>Commissions</h3>
+<ul>
+  <li><strong>FX:</strong> $4 per lot</li>
+  <li><strong>Metals, Indices, Crypto, Other Commodities:</strong> $0</li>
+</ul>
+<h3>Key Firm Rules</h3>
+<h4>Consistency Rule (Instant Funding Only)</h4>
+<p>A 20% consistency score is required for withdrawals. This means your single best trading day cannot exceed 20% of your total profit. Formula: (Biggest winning day &divide; Total profit) &times; 100%. If your score is too high, you must continue trading to lower it before requesting a payout.</p>
+<h4>Prohibited Practices</h4>
+<ul>
+  <li><strong>Excessive Scalping:</strong> Holding 50% or more of trades for less than one minute.</li>
+  <li><strong>Martingale:</strong> Opening 5 simultaneous positions in drawdown on the same pair.</li>
+  <li><strong>All-In Trading:</strong> Making a single trade with no stop-loss or risking more than the drawdown limit.</li>
+</ul>
+<h4>News Trading</h4>
+<p>Trades cannot be opened or closed within 2 minutes before or after a red folder news event. Violations will disqualify an account.</p>
+<h4>Withdrawal & Profit Rules</h4>
+<ul>
+  <li><strong>Withdrawal Cap:</strong> Maximum of $10,000 can be withdrawn per two withdrawal cycles. Account balances are reset after two cycles.</li>
+  <li><strong>Funded Stage Profit Consistency:</strong> For accounts over $5,000 in profit, no single day or trade can account for more than 50% of the total profit.</li>
+  <li><strong>Account Restoration:</strong> A "Buyback" fee can be paid to restore a funded account without a new challenge.</li>
+</ul>
+<h4>Technical and Other Rules</h4>
+<ul>
+  <li><strong>Copy Trading & EAs:</strong> Prohibited.</li>
+  <li><strong>IP Address Rule:</strong> IP address for all phases and the live account must be from the same geographical region unless proof of travel is provided.</li>
+  <li><strong>Instant Program Floating PnL Rule:</strong> Account equity cannot drop more than 1% below the balance.</li>
+  <li><strong>Instant Program Minimum Withdrawal:</strong> A minimum profit of 3% is required to request a payout.</li>
+</ul>
+<h3>Maven Mini Rules</h3>
+<ul>
+  <li><strong>Payout:</strong> One-time payout account. Account is closed after withdrawal.</li>
+  <li><strong>Trade Limit:</strong> Only 1 trade can be open at a time.</li>
+  <li><strong>Floating PnL:</strong> 1% maximum loss in floating PnL.</li>
+  <li><strong>Withdrawal:</strong> Requires 3% profit target and a consistency score of 20% or lower.</li>
+</ul>
+<h3>Payout Policy</h3>
+<ul>
+  <li><strong>Profit Split:</strong> 80%</li>
+  <li><strong>Withdrawal Frequency:</strong> Every 10 business days.</li>
+</ul>`,
+    pros: [
+      'Extremely wide variety of funding programs (Instant, 1, 2, and 3-Step)',
+      'Offers "Mini" instant accounts with immediate payout options',
+      'Clear rules on leverage and commissions',
+      'Ability to "buyback" a failed funded account',
+    ],
+    cons: [
+      'Strict 20% consistency rule for Instant Funding withdrawals',
+      'News trading is restricted',
+      'Copy trading and EAs are prohibited',
+      'Withdrawal cap of $10,000 per two cycles can be limiting',
+      'IP address must remain in the same geographical region'
+    ],
+    keyFeatures: [
+      'Instant, 1-Step, 2-Step, and 3-Step Challenges',
+      '80% Profit Split',
+      'Strict consistency and news trading rules',
+      'CFD Trading on FX, Metals, Indices, Crypto'
+    ],
+    keyInfoSnippets: [
+      { label: 'Profit Split', value: '80%' },
+      { label: 'Funding Models', value: 'Instant, 1/2/3-Step' },
+      { label: 'Platforms', value: 'cTrader, Match Trader, MT5' },
+      { label: 'Assets', value: 'CFDs' }
+    ],
+    fundingModels: ['Instant Funding', '1-Step Evaluation', '2-Step Evaluation', '3-Step Evaluation'],
+    profitSplit: '80%',
+    drawdownRules: 'Varies by program (2-4% Daily, 3-8% Max)',
+    profitTarget: 'Varies by program',
+    assets: ['FX', 'Metals', 'Indices', 'Crypto', 'Other Commodities'],
+    instrumentTypes: ['CFD'],
+    platforms: ['cTrader', 'Match Trader', 'MT5'],
+    broker: 'Datafeed Provider',
+    paymentMethods: ['Credit/Debit Card', 'Crypto', 'Korapay'],
+    payoutMethods: ['Bank Transfer', 'Crypto'],
+    rating: 4.7,
+    minAccountSize: 2000,
+    maxAccountSize: 100000,
+    minChallengeCost: 13.00,
+    maxChallengeCost: 569.00,
+    challengeType: 'Instant, 1-Step, 2-Step, or 3-Step',
+    accountTiers: mavenAccountTiers,
+    restrictedCountries: [
+        { name: "Afghanistan", code: "AF" }, { name: "Belarus", code: "BY" }, { name: "Bosnia and Herzegovina", code: "BA" },
+        { name: "British Virgin Islands", code: "VG" }, { name: "Burundi", code: "BI" }, { name: "Central African Republic", code: "CF" },
+        { name: "China", code: "CN" }, { name: "Congo (Congo-Brazzaville)", code: "CG" }, { name: "Congo (Kinshasa)", code: "CD" },
+        { name: "Cuba", code: "CU" }, { name: "Eritrea", code: "ER" }, { name: "Guinea", code: "GN" }, { name: "Haiti", code: "HT" },
+        { name: "Hong Kong", code: "HK" }, { name: "Iran", code: "IR" }, { name: "Lebanon", code: "LB" }, { name: "Libya", code: "LY" },
+        { name: "Mali", code: "ML" }, { name: "Moldova", code: "MD" }, { name: "Myanmar", code: "MM" }, { name: "Nicaragua", code: "NI" },
+        { name: "North Korea", code: "KP" }, { name: "Palestinian Territory", code: "PS" }, { name: "Papua New Guinea", code: "PG" },
+        { name: "Russia", code: "RU" }, { name: "Saint Helena", code: "SH" }, { name: "Saint Lucia", code: "LC" },
+        { name: "Saint Pierre and Miquelon", code: "PM" }, { name: "Samoa", code: "WS" }, { name: "Sierra Leone", code: "SL" },
+        { name: "Somalia", code: "SO" }, { name: "South Sudan", code: "SS" }, { name: "Sudan", code: "SD" }, { name: "Syria", code: "SY" },
+        { name: "Tunisia", code: "TN" }, { name: "Ukraine", code: "UA" }, { name: "Vanuatu", code: "VU" }, { name: "Venezuela", code: "VE" },
+        { name: "Yemen", code: "YE" }, { name: "Zimbabwe", code: "ZW" }
+    ],
+  },
   {
     id: '12',
     slug: 'ftmo',
@@ -1528,7 +1713,7 @@ export const mockPropFirms: PropFirm[] = [
       '1-Step (Pro+) and Direct (Zero) funding models',
       'End-of-Day Trailing Drawdown',
       'No Daily Loss Limit',
-      'Payouts every 5-7 days'
+      'Payout\'s every 5-7 days'
     ],
     keyInfoSnippets: [
       { label: 'Profit Split', value: '90%' },
@@ -1772,35 +1957,3 @@ export const mockFreeResources: FreeResourceItem[] = [
     bookListings: sampleBookListings,
   },
 ];
-
-    
-
-    
-
-
-
-  
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-    
-
-
-
-  
-
-    
-
-
-  
