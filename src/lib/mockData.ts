@@ -90,16 +90,17 @@ const alphaCapitalAccountTiers: AccountTier[] = [
 const the5ersAccountTiers: AccountTier[] = [
   // High Stakes (2-Step)
   { id: '5ers-hs-5k', name: '$5,000 High Stakes', size: 5000, evaluationFee: 39, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
+  { id: '5ers-hs-10k', name: '$10,000 High Stakes', size: 10000, evaluationFee: 78, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
   { id: '5ers-hs-20k', name: '$20,000 High Stakes', size: 20000, evaluationFee: 165, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: '5ers-hs-60k', name: '$60,000 High Stakes', size: 60000, evaluationFee: 300, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: '5ers-hs-100k', name: '$100,000 High Stakes', size: 100000, evaluationFee: 495, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  // Hyper-Growth (Instant)
-  { id: '5ers-hg-10k', name: '$10,000 Hyper-Growth', size: 10000, evaluationFee: 260, profitTargetPercentage: 10, dailyLossLimitPercentage: 3, drawdownPercentage: 6 },
-  { id: '5ers-hg-20k', name: '$20,000 Hyper-Growth', size: 20000, evaluationFee: 450, profitTargetPercentage: 10, dailyLossLimitPercentage: 3, drawdownPercentage: 6 },
-  { id: '5ers-hg-40k', name: '$40,000 Hyper-Growth', size: 40000, evaluationFee: 850, profitTargetPercentage: 10, dailyLossLimitPercentage: 3, drawdownPercentage: 6 },
+  { id: '5ers-hs-60k', name: '$60,000 High Stakes', size: 60000, evaluationFee: 329, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
+  { id: '5ers-hs-100k', name: '$100,000 High Stakes', size: 100000, evaluationFee: 545, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
+  // Hyper-Growth (1-Step)
+  { id: '5ers-hg-5k', name: '$5,000 Hyper-Growth', size: 5000, evaluationFee: 260, profitTargetPercentage: 10, dailyLossLimitPercentage: 3, drawdownPercentage: 6 },
+  { id: '5ers-hg-10k', name: '$10,000 Hyper-Growth', size: 10000, evaluationFee: 450, profitTargetPercentage: 10, dailyLossLimitPercentage: 3, drawdownPercentage: 6 },
+  { id: '5ers-hg-20k', name: '$20,000 Hyper-Growth', size: 20000, evaluationFee: 850, profitTargetPercentage: 10, dailyLossLimitPercentage: 3, drawdownPercentage: 6 },
   // Bootcamp (3-Step)
-  { id: '5ers-bc-100k', name: '$100,000 Bootcamp', size: 100000, evaluationFee: 95, activationFee: 215, profitTargetPercentage: 6, drawdownPercentage: 5 },
-  { id: '5ers-bc-250k', name: '$250,000 Bootcamp', size: 250000, evaluationFee: 225, activationFee: 350, profitTargetPercentage: 6, drawdownPercentage: 5 },
+  { id: '5ers-bc-100k', name: '$100,000 Bootcamp', size: 100000, evaluationFee: 95, activationFee: 215, profitTargetPercentage: 6, dailyLossLimitPercentage: 3, drawdownPercentage: 5 },
+  { id: '5ers-bc-250k', name: '$250,000 Bootcamp', size: 250000, evaluationFee: 225, activationFee: 350, profitTargetPercentage: 6, dailyLossLimitPercentage: 3, drawdownPercentage: 5 },
 ];
 
 
@@ -149,10 +150,14 @@ export const mockPropFirms: PropFirm[] = [
   <li>Allowed only if they set a Stop Loss (SL) on every position.</li>
   <li>Prohibited EAs include those that copy signals, perform tick scalping, latency/reverse/hedge arbitrage, or use emulators.</li>
 </ul>
-<h4>Program-Specific Rules</h4>
+<h4>High Stakes Program Specific Rules</h4>
+<p>A minimum of 3 profitable days is required. A profitable day is defined as a day where closed positions generate a profit of at least 0.5% of the initial balance.</p>
+<h4>Bootcamp Program Specific Rules</h4>
 <ul>
-  <li><strong>High Stakes Program:</strong> Minimum of 3 profitable days required (profit > 0.5% of initial balance).</li>
-  <li><strong>Bootcamp Program:</strong> Mandatory Stop Loss on all positions, risking no more than 2% of account balance. A 3% daily pause applies in the funded stage. 5 risk violations lead to account termination.</li>
+    <li>A stop-loss is mandatory for all positions.</li>
+    <li>The stop-loss must not risk more than 2% of the account balance per position.</li>
+    <li>A 3% daily pause (soft breach) applies during the funded stage.</li>
+    <li>5 risk violations (e.g., no SL, or risking more than 2%) lead to automatic account termination.</li>
 </ul>
 <h4>Prohibited Practices</h4>
 <p>Taking consistent one-sided bets, exploiting price discrepancies (arbitrage), using bracket strategies around news, and exploiting system errors are all prohibited.</p>
@@ -863,7 +868,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Funding Types', value: 'Advanced (IDD), Growth (EOD), Instant Sim'}
     ],
     offerBadgeLabel: '35% OFF ALL ACCOUNTS', 
-    promo: 'Code: MATCH',
+    promo: 'Code: EZ',
     fundingModels: ["Advanced Plan (Intraday DD)", "Growth Plan (EOD DD)", "Straight to Sim Funded"],
     profitSplit: '100% on first $15,000, then 90/10', 
     drawdownRules: 'Advanced: Intraday trailing. Growth & Sim: End-of-day trailing.',
