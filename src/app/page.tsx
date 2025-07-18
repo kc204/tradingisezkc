@@ -1,5 +1,4 @@
 
-
 'use client'; 
 
 import FirmCard from '@/components/propfirms/FirmCard';
@@ -212,7 +211,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount, ta
         { key: 'dailyloss', label: 'Daily Loss', sticky: '', className: 'hidden sm:table-cell' },
         { key: 'maxloss', label: 'Max Loss', sticky: '', className: '' },
         { key: 'payoutfrequency', label: 'Payout Freq.', sticky: '', className: 'hidden md:table-cell' },
-        { key: 'price', label: 'Price', sticky: 'right', className: 'min-w-[150px]' },
+        { key: 'price', label: 'Price', sticky: 'right', className: 'min-w-[110px]' },
     ];
 
     const getSortIndicator = (key: string) => {
@@ -281,20 +280,20 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                     <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden sm:table-cell">{formatPercentage(challenge.dailyLoss)}</td>
                     <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.maxLoss)}</td>
                     <td className="px-2 md:px-4 py-3 text-xs text-gray-300 max-w-[200px] truncate hidden md:table-cell" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
-                        <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
-                            <div className="text-right">
+                    <td className="px-2 py-3 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
+                        <div className="flex flex-col sm:flex-row items-center justify-center sm:gap-3" onClick={(e) => e.stopPropagation()}>
+                            <div className="text-center sm:text-right mb-2 sm:mb-0">
                                  {applyDiscount && challenge.promoDiscountPercent > 0 ? (
                                     <>
-                                        <p className="font-semibold text-green-400">{formatCurrency(finalPrice)}</p>
+                                        <p className="font-semibold text-green-400 text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
                                         <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
                                     </>
                                 ) : (
-                                    <p className="font-semibold text-white">{formatCurrency(finalPrice)}</p>
+                                    <p className="font-semibold text-white text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
                                 )}
-                                <p className="text-xs text-gray-500">{challenge.paymentType}</p>
+                                <p className="text-xs text-gray-500 hidden sm:block">{challenge.paymentType}</p>
                             </div>
-                            <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
+                            <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-transparent text-xs sm:text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
                                 Buy
                             </a>
                         </div>
@@ -489,7 +488,7 @@ const FullCompareSection = () => {
   }
 
   return (
-        <main>
+        <main className="px-0 sm:px-1 md:px-0">
           <ControlBar 
             filters={filters}
             setFilters={setFilters}
@@ -566,7 +565,7 @@ export default function Home() {
       {/* Featured Prop Firms Section END */}
 
       {/* Comparison Table Section */}
-      <section className="py-12 md:-mx-4">
+      <section className="py-12 -mx-4 sm:mx-0">
         <div className="container mx-auto px-1 md:px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-2">Compare Prop Firms</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">The EZ-iest Way to Compare Prop Firm Challenges.</p>
