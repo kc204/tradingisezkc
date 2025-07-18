@@ -200,7 +200,21 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
     );
 };
 
-const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount, isScrolled }: any) => {
+const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: any) => {
+    const [isScrolled, setIsScrolled] = useState(false);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const container = scrollContainerRef.current;
+        if (!container) return;
+
+        const handleScroll = () => {
+            setIsScrolled(container.scrollLeft > 10);
+        };
+        container.addEventListener('scroll', handleScroll, { passive: true });
+        return () => container.removeEventListener('scroll', handleScroll);
+    }, [challenges]);
+
     const columns = [
         { key: 'firm', label: 'Firm / Rank', sticky: 'left', className: 'min-w-[200px] md:min-w-[250px]' },
         { key: 'accountsize', label: 'Size', sticky: '', className: 'hidden sm:table-cell' },
@@ -222,12 +236,12 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount, is
 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative -mx-4 sm:mx-0">
-            <div className="overflow-x-auto">
+            <div ref={scrollContainerRef} className="overflow-x-auto">
                 <table className="min-w-full text-sm">
                     <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 md:px-4 py-3 text-left text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'} ${col.className}`}>
+                                <th key={col.key} scope="col" className={`px-2 md:px-4 py-3 text-left text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-transparent' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'} ${col.className}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-1 md:gap-2 hover:text-white transition-colors">
                                         {col.label}
                                         <span className="hidden md:inline">{getSortIndicator(col.key)}</span>
@@ -255,7 +269,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                     <td className="sticky left-0 bg-transparent p-0 z-0">
                         <div className="flex items-center bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm px-2 md:px-4 py-3 h-full">
                              <img className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
-                            <div className={cn('overflow-hidden transition-all duration-300', isScrolled ? 'w-0 opacity-0 ml-0' : 'w-40 opacity-100 ml-3')}>
+                            <div className={`ml-3 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0 ml-0' : 'w-40 opacity-100'}`}>
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">
                                     <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
@@ -356,26 +370,8 @@ const FullCompareSection = () => {
   const [filters, setFilters] = useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures' });
   const [sortConfig, setSortConfig] = useState({ key: 'price', direction: 'ascending' });
   const [currentPage, setCurrentPage] = useState(1);
-  const [isScrolled, setIsScrolled] = useState(false);
   const rowsPerPage = 8;
   
-  const tableContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const container = tableContainerRef.current;
-    if (!container) return;
-
-    const table = container.querySelector('.overflow-x-auto');
-    if (!table) return;
-
-    const handleScroll = () => {
-      setIsScrolled(table.scrollLeft > 10);
-    };
-    table.addEventListener('scroll', handleScroll, { passive: true });
-    return () => table.removeEventListener('scroll', handleScroll);
-  }, [loading]); // Re-attach listener when data loads
-
-
   useEffect(() => {
     const { db } = getFirebase();
     if (!db) {
@@ -488,7 +484,7 @@ const FullCompareSection = () => {
   }
 
   return (
-        <main ref={tableContainerRef} className="px-0 sm:px-1 md:px-0">
+        <main className="px-0 sm:px-1 md:px-0">
           <ControlBar 
             filters={filters}
             setFilters={setFilters}
@@ -502,7 +498,6 @@ const FullCompareSection = () => {
             requestSort={requestSort}
             sortConfig={sortConfig}
             applyDiscount={filters.applyDiscount}
-            isScrolled={isScrolled}
           />
            {totalPages > 1 && (
             <Pagination
@@ -608,15 +603,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
-
-
-
-
-    
-
-
-
