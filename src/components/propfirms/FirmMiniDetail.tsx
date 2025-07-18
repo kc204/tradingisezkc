@@ -73,10 +73,10 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
   }, []);
 
   return (
-    <div className="h-full flex flex-col">
+    <>
       {isSticky && (
           <div
-          className="sticky top-0 z-20 bg-background/95 backdrop-blur-sm py-3 px-4 border-b"
+          className="sticky top-0 z-20 bg-background/95 backdrop-blur-sm py-3 px-4 border-b shrink-0"
           >
           <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
               <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
@@ -87,7 +87,7 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
           <p className="text-xs text-muted-foreground mt-2 text-center">(Affiliate Link)</p>
           </div>
       )}
-      <ScrollArea className="flex-grow" ref={scrollAreaRef}>
+      <ScrollArea className="flex-1" ref={scrollAreaRef}>
         <div className="relative space-y-6 text-foreground p-4 sm:p-6">
           <div ref={offerBoxRef}>
             <OfferBox firm={firm} hideCta={isSticky} />
@@ -140,7 +140,7 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
           )}
         </div>
       </ScrollArea>
-    </div>
+    </>
   );
 };
 
