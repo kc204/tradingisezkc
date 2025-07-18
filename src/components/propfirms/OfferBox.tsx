@@ -10,11 +10,10 @@ import { cn } from '@/lib/utils';
 
 interface OfferBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   firm: PropFirm;
-  hideCta?: boolean;
 }
 
 const OfferBox = React.forwardRef<HTMLDivElement, OfferBoxProps>(
-  ({ firm, className, hideCta = false, ...props }, ref) => {
+  ({ firm, className, ...props }, ref) => {
     return (
       <Card ref={ref} className={cn('shadow-xl border-2 border-primary', className)} {...props}>
         <CardHeader className="pb-4">
@@ -65,7 +64,7 @@ const OfferBox = React.forwardRef<HTMLDivElement, OfferBoxProps>(
               </div>
             )}
         </CardContent>
-        <CardFooter className={cn('flex-col items-stretch pt-4 transition-opacity duration-300', { 'opacity-0': hideCta, 'pointer-events-none': hideCta })}>
+        <CardFooter className='flex-col items-stretch pt-4'>
            <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
             <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
               Claim Offer &amp; Visit {firm.name}

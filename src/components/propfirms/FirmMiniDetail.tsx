@@ -48,7 +48,7 @@ const CountryBadge = ({ name, code }: { name: string, code: string }) => (
 const StickyCta = ({ firm, isVisible }: { firm: PropFirm, isVisible: boolean }) => (
     <div className={cn(
         "sticky top-0 z-10 p-4 bg-background/80 backdrop-blur-sm border-b transition-all duration-300",
-        isVisible ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
+        isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
     )}>
         <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
             <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
@@ -88,10 +88,10 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
 
     return (
         <div className="relative h-full flex flex-col">
-            <StickyCta firm={firm} isVisible={isOfferBoxVisible} />
+            <StickyCta firm={firm} isVisible={!isOfferBoxVisible} />
             <ScrollArea className="flex-1">
-                <div className="relative space-y-6 text-foreground p-4 sm:p-6 pt-0">
-                    <OfferBox ref={offerBoxRef} firm={firm} hideCta={true} />
+                <div className="relative space-y-6 text-foreground p-4 sm:p-6">
+                    <OfferBox ref={offerBoxRef} firm={firm} />
                     <Card>
                         <CardHeader>
                             <CardTitle className="text-xl flex items-center">Firm Overview</CardTitle>
