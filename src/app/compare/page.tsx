@@ -260,10 +260,10 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
     
     return (
         <Dialog>
-            <DialogTrigger asChild>
-                <tr className="group hover:bg-white/5 transition-colors duration-200 cursor-pointer">
+            <tr className="group hover:bg-white/5 transition-colors duration-200 cursor-pointer">
+                <DialogTrigger asChild>
                     <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky left-0 z-0 bg-transparent">
-                        <div className="flex items-center group-hover:bg-gray-800/80 bg-black/20 backdrop-blur-sm p-2 rounded-lg">
+                        <div className="flex items-center">
                             <Image data-ai-hint="logo" className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} width={44} height={44}/>
                             <div className={`ml-3 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
@@ -274,40 +274,40 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                             </div>
                         </div>
                     </td>
-                    <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
-                    <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
-                    <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
-                    <td className="px-2 py-3 sm:px-4 whitespace-nowrap">
-                        <div className="flex items-center gap-2">
-                            <span className="text-sm text-white">{challenge.profitSplit}%</span>
-                            <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
+                </DialogTrigger>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap">
+                    <div className="flex items-center gap-2">
+                        <span className="text-sm text-white">{challenge.profitSplit}%</span>
+                        <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
+                    </div>
+                </td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.profitTarget)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.dailyLoss)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxLoss)}</td>
+                <td className="px-2 py-3 sm:px-4 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
+                    <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+                        <div className="text-right">
+                            {applyDiscount && challenge.promoDiscountPercent > 0 ? (
+                                <>
+                                    <p className="font-semibold text-green-400 text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
+                                    <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
+                                </>
+                            ) : (
+                                <p className="font-semibold text-white text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
+                            )}
+                            <p className="text-xs text-gray-500">{challenge.paymentType}</p>
                         </div>
-                    </td>
-                    <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
-                    <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.profitTarget)}</td>
-                    <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.dailyLoss)}</td>
-                    <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxLoss)}</td>
-                    <td className="px-2 py-3 sm:px-4 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-                    <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
-                        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
-                            <div className="text-right">
-                                {applyDiscount && challenge.promoDiscountPercent > 0 ? (
-                                    <>
-                                        <p className="font-semibold text-green-400 text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
-                                        <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
-                                    </>
-                                ) : (
-                                    <p className="font-semibold text-white text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
-                                )}
-                                <p className="text-xs text-gray-500">{challenge.paymentType}</p>
-                            </div>
-                            <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 border border-transparent text-xs sm:text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
-                                Buy
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </DialogTrigger>
+                        <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 border border-transparent text-xs sm:text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
+                            Buy
+                        </a>
+                    </div>
+                </td>
+            </tr>
             {firm && (
                 <DialogContent className="max-w-4xl p-0 border-0">
                     <FirmMiniDetail firm={firm} />
