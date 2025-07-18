@@ -51,9 +51,9 @@ const StickyCta = ({ firm, isVisible }: { firm: PropFirm, isVisible: boolean }) 
         isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
     )}>
         <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
-            <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
-                Claim Offer &amp; Visit {firm.name}
-                <ExternalLink className="ml-2 h-4 w-4" />
+            <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                <span className="truncate">Claim Offer &amp; Visit {firm.name}</span>
+                <ExternalLink className="ml-2 h-4 w-4 flex-shrink-0" />
             </Link>
         </Button>
         <p className="text-xs text-muted-foreground mt-2 text-center">(Affiliate Link)</p>
@@ -88,7 +88,7 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
         <div className="relative h-full w-full">
             <StickyCta firm={firm} isVisible={!isOfferBoxVisible} />
             <ScrollArea className="h-full w-full">
-                <div className="space-y-4 text-foreground p-4 sm:p-6">
+                <div className="space-y-4 text-foreground p-4">
                     <OfferBox ref={offerBoxRef} firm={firm} />
                     <Card>
                         <CardHeader>

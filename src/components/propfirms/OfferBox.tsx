@@ -66,9 +66,9 @@ const OfferBox = React.forwardRef<HTMLDivElement, OfferBoxProps>(
         </CardContent>
         <CardFooter className='flex-col items-stretch pt-4'>
            <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
-            <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
-              Claim Offer &amp; Visit {firm.name}
-              <ExternalLink className="ml-2 h-4 w-4" />
+            <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+              <span className="truncate">Claim Offer &amp; Visit {firm.name}</span>
+              <ExternalLink className="ml-2 h-4 w-4 flex-shrink-0" />
             </Link>
           </Button>
           <p className="text-xs text-muted-foreground mt-2 text-center">(Affiliate Link)</p>

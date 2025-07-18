@@ -553,7 +553,7 @@ export default function Home() {
       )}
 
       <section className="py-12">
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-2">Compare Prop Firms</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">The EZ-iest Way to Compare Prop Firm Challenges.</p>
             
