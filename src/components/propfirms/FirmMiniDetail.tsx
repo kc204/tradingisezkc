@@ -72,7 +72,7 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
   }, []);
 
   return (
-    <ScrollArea className="h-[85vh] sm:h-[75vh]" ref={scrollAreaRef}>
+    <ScrollArea className="h-full" ref={scrollAreaRef}>
       <div className="relative space-y-6 text-foreground p-4 sm:p-6">
         {isSticky && (
             <div
