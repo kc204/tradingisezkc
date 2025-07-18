@@ -47,7 +47,7 @@ const CountryBadge = ({ name, code }: { name: string, code: string }) => (
 
 const StickyCta = ({ firm, isVisible }: { firm: PropFirm, isVisible: boolean }) => (
     <div className={cn(
-        "sticky top-0 z-10 p-4 bg-background/80 backdrop-blur-sm border-b transition-all duration-300",
+        "absolute top-0 left-0 right-0 z-10 p-4 bg-background/80 backdrop-blur-sm border-b transition-all duration-300",
         isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
     )}>
         <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
@@ -60,7 +60,6 @@ const StickyCta = ({ firm, isVisible }: { firm: PropFirm, isVisible: boolean }) 
     </div>
 );
 
-
 const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
     const [isOfferBoxVisible, setIsOfferBoxVisible] = useState(true);
     const offerBoxRef = useRef<HTMLDivElement>(null);
@@ -70,7 +69,7 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
             ([entry]) => {
                 setIsOfferBoxVisible(entry.isIntersecting);
             },
-            { threshold: 0.1 }
+            { rootMargin: "-1px 0px 0px 0px", threshold: 0 } // Trigger when the top of the element passes the top of the viewport
         );
 
         const currentRef = offerBoxRef.current;
@@ -85,12 +84,11 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
         };
     }, []);
 
-
     return (
-        <div className="relative h-full flex flex-col">
+        <div className="relative h-full w-full">
             <StickyCta firm={firm} isVisible={!isOfferBoxVisible} />
-            <ScrollArea className="flex-1">
-                <div className="relative space-y-6 text-foreground px-4 sm:px-6 pb-6">
+            <ScrollArea className="h-full w-full">
+                <div className="space-y-6 text-foreground p-4 sm:p-6">
                     <OfferBox ref={offerBoxRef} firm={firm} />
                     <Card>
                         <CardHeader>
@@ -144,3 +142,5 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
 };
 
 export default FirmMiniDetail;
+
+    
