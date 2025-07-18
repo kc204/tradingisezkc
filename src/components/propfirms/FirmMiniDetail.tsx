@@ -1,3 +1,4 @@
+
 // src/components/propfirms/FirmMiniDetail.tsx
 'use client';
 import { useState, useEffect, useRef } from 'react';
@@ -77,7 +78,7 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
       <div className="relative space-y-6 text-foreground p-4">
         {/* Sticky Header for CTA */}
         <div
-          className={`sticky top-0 z-20 bg-background/95 backdrop-blur-sm py-3 mb-4 border-b transition-all duration-300 ${
+          className={`sticky top-0 z-20 bg-background/95 backdrop-blur-sm py-3 border-b transition-all duration-300 ${
             isSticky ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
           }`}
         >
