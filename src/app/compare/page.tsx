@@ -143,7 +143,6 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
 };
 
 const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: any) => {
-    const [isScrolled, setIsScrolled] = useState(false);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     const getSortIndicator = (key: string) => {
@@ -151,19 +150,6 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
         return sortConfig.direction === 'ascending' ? '▲' : '▼';
     };
 
-    useEffect(() => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
-
-        const handleScroll = () => {
-            setIsScrolled(container.scrollLeft > 10);
-        };
-
-        container.addEventListener('scroll', handleScroll);
-        handleScroll();
-        return () => container.removeEventListener('scroll', handleScroll);
-    }, [challenges]);
-    
     const columns = [
         { key: 'firm', label: 'Firm / Rank', sticky: 'left' },
         { key: 'accountsize', label: 'Account Size' },
@@ -195,7 +181,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
-                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} />)}
+                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} />)}
                     </tbody>
                 </table>
             </div>
@@ -203,7 +189,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     );
 };
 
-const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
+const ChallengeRow = ({ challenge, applyDiscount }: any) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
     const firm = mockPropFirms.find(f => f.slug === challenge.firmId) || null;
     
@@ -220,7 +206,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                             <div className="w-11 h-11 relative flex-shrink-0">
                                 <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
                             </div>
-                            <div className={`flex flex-col justify-center flex-shrink-0 transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'opacity-100'}`}>
+                            <div className="flex flex-col justify-center flex-shrink-0">
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">
                                     <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
