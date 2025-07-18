@@ -264,54 +264,52 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
         <div className="space-y-4 mb-6">
             <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
                 <div className="flex items-center gap-4 flex-wrap">
-                    <div className="flex items-center p-1 bg-muted rounded-full">
-                        <Button onClick={() => handleChallengeTypeChange('futures')} variant={filters.challengeType === 'futures' ? 'default' : 'ghost'} className="rounded-full">
+                    <div className="flex items-center p-1 bg-white/5 rounded-full">
+                        <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
                             Futures
-                        </Button>
-                        <Button onClick={() => handleChallengeTypeChange('cfd')} variant={filters.challengeType === 'cfd' ? 'default' : 'ghost'} className="rounded-full">
+                        </button>
+                        <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
                             CFD
-                        </Button>
+                        </button>
                     </div>
                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-muted-foreground mr-2">Sizes:</span>
+                        <span className="font-semibold text-gray-400 mr-2">Sizes:</span>
                         {sizes.map(size => (
-                            <Button
+                            <button
                                 key={size}
                                 onClick={() => toggleSizeFilter(size)}
-                                variant={filters.accountSize.includes(size) ? 'default' : 'outline'}
-                                className="rounded-full"
+                                className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all duration-300 ${filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
                             >
                                 {formatShortCurrency(size)}
-                            </Button>
+                            </button>
                         ))}
                     </div>
                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-muted-foreground mr-2">Steps:</span>
+                        <span className="font-semibold text-gray-400 mr-2">Steps:</span>
                         {stepsOptions.map(step => (
-                            <Button
+                            <button
                                 key={step}
                                 onClick={() => toggleStepFilter(step)}
-                                variant={filters.steps.includes(step) ? 'default' : 'outline'}
-                                className="rounded-full"
+                                className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all duration-300 ${filters.steps.includes(step) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
                             >
                                 {typeof step === 'number' ? `${step} Step${step > 1 ? 's' : ''}` : step}
-                            </Button>
+                            </button>
                         ))}
                     </div>
                     <div className="flex items-center space-x-2">
-                        <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${filters.applyDiscount ? 'bg-accent' : 'bg-muted'}`}>
+                        <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${filters.applyDiscount ? 'bg-orange-500' : 'bg-gray-600'}`}>
                             <span className={`pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform h-5 w-5 ${filters.applyDiscount ? 'translate-x-5' : 'translate-x-0'}`}></span>
                         </button>
-                        <label className="text-sm font-semibold text-foreground">Apply Discount</label>
+                        <label className="text-sm font-semibold text-gray-300">Apply Discount</label>
                     </div>
                 </div>
                 <div className="relative flex-grow w-full md:flex-grow-0 md:w-auto">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                    <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-input border-border rounded-full h-11 pl-12 pr-4 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+                    <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
             </div>
-            <h2 className="text-xl font-bold tracking-tight text-foreground/90">
-                {filters.challengeType === 'futures' ? 'Futures' : 'CFD'} Prop Firm Challenges <span className="ml-2 text-primary font-medium bg-primary/10 px-2 py-1 rounded-md text-base">Showing {filteredCount} of {totalCount}</span>
+            <h2 className="text-xl font-bold tracking-tight text-white/90">
+                {filters.challengeType === 'futures' ? 'Futures' : 'CFD'} Prop Firm Challenges <span className="ml-2 text-blue-400 font-medium bg-blue-500/10 px-2 py-1 rounded-md text-base">Showing {filteredCount} of {totalCount}</span>
             </h2>
         </div>
     );
@@ -322,7 +320,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }) 
     const scrollContainerRef = useRef(null);
 
     const getSortIndicator = (key) => {
-        if (sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-muted-foreground" />;
+        if (sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
         return sortConfig.direction === 'ascending' ? '▲' : '▼';
     };
 
@@ -354,14 +352,14 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }) 
     ];
 
     return (
-        <div className="bg-card backdrop-blur-sm rounded-xl border border-border shadow-2xl shadow-black/20 relative">
+        <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
                 <table className="min-w-full text-sm">
-                    <thead className="border-b border-border">
+                    <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-card backdrop-blur-sm' : 'right-0 bg-card'}` : 'bg-muted/50'}`}>
-                                    <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-foreground transition-colors">
+                                <th key={col.key} scope="col" className={`px-4 py-3 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                    <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
                                         {col.label}
                                         <span>{getSortIndicator(col.key)}</span>
                                     </button>
@@ -369,7 +367,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }) 
                             ))}
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-border">
+                    <tbody className="divide-y divide-white/5">
                         {challenges.map(challenge => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} />)}
                     </tbody>
                 </table>
@@ -382,51 +380,49 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
 
     return (
-        <tr className="group hover:bg-muted/50 transition-colors duration-200">
-            <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-card group-hover:bg-muted/80 backdrop-blur-sm">
+        <tr className="group hover:bg-white/5 transition-colors duration-200">
+            <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
                 <div className="flex items-center">
-                    <img className="h-11 w-11 rounded-lg object-cover border-2 border-border flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
+                    <img className="h-11 w-11 rounded-lg object-cover border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
                     <div className={`ml-4 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
-                        <div className="text-sm font-medium text-foreground truncate">{challenge.firmName}</div>
-                        <div className="flex items-center text-xs text-muted-foreground mt-1">
+                        <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
+                        <div className="flex items-center text-xs text-gray-400 mt-1">
                             <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
                             {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
                         </div>
                     </div>
                 </div>
             </td>
-            <td className="px-4 py-3 whitespace-nowrap text-foreground font-medium">{formatCurrency(challenge.accountSize)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-foreground">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-foreground">{formatCurrency(challenge.activationFee)}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
             <td className="px-4 py-3 whitespace-nowrap">
                 <div className="flex items-center gap-2">
-                    <span className="text-sm text-foreground">{challenge.profitSplit}%</span>
-                    <div className="w-16 h-1.5 bg-muted rounded-full overflow-hidden"><div className="h-full bg-primary" style={{width: `${challenge.profitSplit}%`}}></div></div>
+                    <span className="text-sm text-white">{challenge.profitSplit}%</span>
+                    <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
                 </div>
             </td>
-            <td className="px-4 py-3 whitespace-nowrap text-foreground">{formatCurrency(challenge.maxAllocation)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-foreground">{challenge.profitTarget.join('% / ')}%</td>
-            <td className="px-4 py-3 whitespace-nowrap text-foreground">{formatPercentage(challenge.dailyLoss)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-foreground">{formatPercentage(challenge.maxLoss)}</td>
-            <td className="px-4 py-3 text-xs text-muted-foreground max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-            <td className="px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-card group-hover:bg-muted">
+            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-white">{challenge.profitTarget.join('% / ')}%</td>
+            <td className="px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.dailyLoss)}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.maxLoss)}</td>
+            <td className="px-4 py-3 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
+            <td className="px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
                 <div className="flex items-center gap-3">
                     <div className="text-right">
                          {applyDiscount && challenge.promoDiscountPercent > 0 ? (
                             <>
                                 <p className="font-semibold text-green-400">{formatCurrency(finalPrice)}</p>
-                                <p className="text-xs text-muted-foreground line-through">{formatCurrency(challenge.price)}</p>
+                                <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
                             </>
                         ) : (
-                            <p className="font-semibold text-foreground">{formatCurrency(finalPrice)}</p>
+                            <p className="font-semibold text-white">{formatCurrency(finalPrice)}</p>
                         )}
-                        <p className="text-xs text-muted-foreground">{challenge.paymentType}</p>
+                        <p className="text-xs text-gray-500">{challenge.paymentType}</p>
                     </div>
-                    <Button asChild>
-                      <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm">
+                    <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
                         Buy
-                      </a>
-                    </Button>
+                    </a>
                 </div>
             </td>
         </tr>
@@ -441,32 +437,29 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
     return (
         <nav className="flex justify-center items-center space-x-2 mt-6">
-            <Button
+            <button
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                variant="outline"
-                size="sm"
+                className="px-3 py-1.5 text-sm font-medium rounded-md bg-white/5 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/10"
             >
                 Previous
-            </Button>
+            </button>
             {pageNumbers.map(number => (
-                <Button
+                <button
                     key={number}
                     onClick={() => onPageChange(number)}
-                    variant={currentPage === number ? 'default' : 'outline'}
-                    size="sm"
+                    className={`px-3 py-1.5 text-sm font-medium rounded-md ${currentPage === number ? 'bg-blue-600 text-white' : 'bg-white/5 text-white hover:bg-white/10'}`}
                 >
                     {number}
-                </Button>
+                </button>
             ))}
-            <Button
+            <button
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                variant="outline"
-                size="sm"
+                className="px-3 py-1.5 text-sm font-medium rounded-md bg-white/5 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/10"
             >
                 Next
-            </Button>
+            </button>
         </nav>
     );
 };
@@ -620,3 +613,4 @@ export default function ComparePage() {
     </div>
   );
 }
+```
