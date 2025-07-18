@@ -48,7 +48,7 @@ const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
         trustpilotReviewCount: Math.floor((firm.rating || 3.5) * 150), // Approximate review count
         accountSize: tier.size,
         maxAllocation: firm.maxAccountSize || tier.size,
-        steps: tier.challengeType?.includes('2-Step') ? 2 : (firm.challengeType?.includes('3-Step') ? 3 : 1),
+        steps: tier.challengeType?.includes('2-Step') ? 2 : (tier.challengeType?.includes('3-Step') ? 3 : 1),
         isInstant: tier.challengeType === 'Instant Funding',
         price: tier.evaluationFee,
         paymentType: 'One Time', // Defaulting, can be customized if data is available
@@ -147,7 +147,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                         <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
                             Futures
                         </button>
-                        <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+                        <button onClick={()={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
                             CFD
                         </button>
                     </div>
@@ -237,7 +237,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                     <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-4 py-3 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
                                         {col.label}
                                         <span>{getSortIndicator(col.key)}</span>
@@ -260,10 +260,10 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
 
     return (
         <tr className="group hover:bg-white/5 transition-colors duration-200">
-            <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
                 <div className="flex items-center">
                     <img data-ai-hint="logo" className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
-                    <div className={`ml-4 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
+                    <div className={`ml-3 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
                         <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                         <div className="flex items-center text-xs text-gray-400 mt-1">
                             <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
@@ -272,34 +272,34 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                     </div>
                 </div>
             </td>
-            <td className="px-4 py-3 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
-            <td className="px-4 py-3 whitespace-nowrap">
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap">
                 <div className="flex items-center gap-2">
                     <span className="text-sm text-white">{challenge.profitSplit}%</span>
                     <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
                 </div>
             </td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.profitTarget)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.dailyLoss)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.maxLoss)}</td>
-            <td className="px-4 py-3 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-            <td className="px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
-                <div className="flex items-center gap-3">
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.profitTarget)}</td>
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.dailyLoss)}</td>
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxLoss)}</td>
+            <td className="px-2 py-3 sm:px-4 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
+                <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
                     <div className="text-right">
                          {applyDiscount && challenge.promoDiscountPercent > 0 ? (
                             <>
-                                <p className="font-semibold text-green-400">{formatCurrency(finalPrice)}</p>
+                                <p className="font-semibold text-green-400 text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
                                 <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
                             </>
                         ) : (
-                            <p className="font-semibold text-white">{formatCurrency(finalPrice)}</p>
+                            <p className="font-semibold text-white text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
                         )}
                         <p className="text-xs text-gray-500">{challenge.paymentType}</p>
                     </div>
-                    <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
+                    <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 border border-transparent text-xs sm:text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
                         Buy
                     </a>
                 </div>
