@@ -583,7 +583,7 @@ export default function ComparePage() {
     <div className="font-sans text-foreground p-4 sm:p-6 lg:p-8">
       <div className="max-w-full mx-auto">
         <header className="mb-10 text-center">
-          <h1 className="text-5xl font-extrabold text-foreground tracking-tight">Tradingis<span className="text-primary">EZ</span></h1>
+          <h1 className="text-5xl font-extrabold text-foreground tracking-tight">Compare Prop Firms</h1>
           <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">The EZ-iest Way to Compare Prop Firm Challenges.</p>
         </header>
         <main>
@@ -613,3 +613,4 @@ export default function ComparePage() {
     </div>
   );
 }
+```
