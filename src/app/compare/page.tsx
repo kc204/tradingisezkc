@@ -3,11 +3,15 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, onSnapshot, doc, setDoc, getDocs, writeBatch } from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
 import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from '@/components/ui/dialog';
+import FirmMiniDetail from '@/components/propfirms/FirmMiniDetail';
+import { ScrollArea } from '@/components/ui/scroll-area';
+
 
 // --- Helper function to flatten firms into challenges ---
 const flattenFirmsToChallenges = (firms: PropFirm[]) => {
@@ -37,6 +41,7 @@ const flattenFirmsToChallenges = (firms: PropFirm[]) => {
           payoutFrequency: 'Varies',
           affiliateLink: firm.affiliateLink,
           challengeType: firm.instrumentTypes?.includes('Futures') ? 'futures' : 'cfd',
+          rawFirmData: firm, // Pass full firm data
         });
       });
     }
@@ -257,52 +262,67 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
 
     return (
-        <tr className="group hover:bg-white/5 transition-colors duration-200">
-            <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
-                <div className="flex items-center">
-                    <img className="h-11 w-11 rounded-lg object-cover border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
-                    <div className={`ml-4 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
-                        <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
-                        <div className="flex items-center text-xs text-gray-400 mt-1">
-                            <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
-                            {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
+        <Dialog>
+            <DialogTrigger asChild>
+                <tr className="group hover:bg-white/5 transition-colors duration-200 cursor-pointer">
+                    <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
+                        <div className="flex items-center">
+                            <img className="h-11 w-11 rounded-lg object-cover border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
+                            <div className={`ml-4 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
+                                <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
+                                <div className="flex items-center text-xs text-gray-400 mt-1">
+                                    <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
+                                    {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </td>
-            <td className="px-4 py-3 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
-            <td className="px-4 py-3 whitespace-nowrap">
-                <div className="flex items-center gap-2">
-                    <span className="text-sm text-white">{challenge.profitSplit}%</span>
-                    <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
-                </div>
-            </td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{challenge.profitTarget?.join('% / ')}%</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.dailyLoss)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.maxLoss)}</td>
-            <td className="px-4 py-3 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-            <td className="px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
-                <div className="flex items-center gap-3">
-                    <div className="text-right">
-                         {applyDiscount && challenge.promoDiscountPercent > 0 ? (
-                            <>
-                                <p className="font-semibold text-green-400">{formatCurrency(finalPrice)}</p>
-                                <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
-                            </>
-                        ) : (
-                            <p className="font-semibold text-white">{formatCurrency(finalPrice)}</p>
-                        )}
-                        <p className="text-xs text-gray-500">{challenge.paymentType}</p>
-                    </div>
-                    <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
-                        Buy
-                    </a>
-                </div>
-            </td>
-        </tr>
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
+                    <td className="px-4 py-3 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
+                    <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm text-white">{challenge.profitSplit}%</span>
+                            <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
+                        </div>
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
+                    <td className="px-4 py-3 whitespace-nowrap text-white">{challenge.profitTarget?.join('% / ')}%</td>
+                    <td className="px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.dailyLoss)}</td>
+                    <td className="px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.maxLoss)}</td>
+                    <td className="px-4 py-3 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
+                    <td className="px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
+                        <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
+                            <div className="text-right">
+                                 {applyDiscount && challenge.promoDiscountPercent > 0 ? (
+                                    <>
+                                        <p className="font-semibold text-green-400">{formatCurrency(finalPrice)}</p>
+                                        <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
+                                    </>
+                                ) : (
+                                    <p className="font-semibold text-white">{formatCurrency(finalPrice)}</p>
+                                )}
+                                <p className="text-xs text-gray-500">{challenge.paymentType}</p>
+                            </div>
+                            <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
+                                Buy
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[90vh] bg-background">
+                <DialogHeader>
+                    <DialogTitle className="text-2xl">{challenge.firmName} Details</DialogTitle>
+                    <DialogDescription>
+                        An overview of {challenge.firmName}'s offerings and rules.
+                    </DialogDescription>
+                </DialogHeader>
+                <ScrollArea className="h-[75vh] p-4">
+                     <FirmMiniDetail firm={challenge.rawFirmData} />
+                </ScrollArea>
+            </DialogContent>
+        </Dialog>
     );
 };
 
@@ -368,7 +388,9 @@ export default function ComparePage() {
             const batch = writeBatch(db);
             ALL_MOCK_DATA.forEach((challenge) => {
                 const docRef = doc(db, "challenges", challenge.id);
-                batch.set(docRef, challenge);
+                // We need to remove rawFirmData before saving to Firestore
+                const { rawFirmData, ...challengeToSave } = challenge;
+                batch.set(docRef, challengeToSave);
             });
             await batch.commit();
             console.log("Finished populating data.");
@@ -378,7 +400,12 @@ export default function ComparePage() {
     populateDataIfNeeded();
 
     const unsubscribe = onSnapshot(challengesCollectionRef, (snapshot) => {
-      const challengesData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const challengesData = snapshot.docs.map(doc => {
+          const data = doc.data();
+          // Find the full firm data from mockPropFirms to add back
+          const firm = mockPropFirms.find(f => f.id === data.firmId);
+          return { id: doc.id, ...data, rawFirmData: firm };
+      });
       setChallenges(challengesData);
       setLoading(false);
     }, (error) => {
