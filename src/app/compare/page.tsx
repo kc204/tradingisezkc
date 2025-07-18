@@ -311,16 +311,14 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                     </td>
                 </tr>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] bg-background">
-                <DialogHeader>
+            <DialogContent className="max-w-4xl max-h-[90vh] bg-background p-0">
+                <DialogHeader className="p-4 border-b">
                     <DialogTitle className="text-2xl">{challenge.firmName} Details</DialogTitle>
                     <DialogDescription>
                         An overview of {challenge.firmName}'s offerings and rules.
                     </DialogDescription>
                 </DialogHeader>
-                <ScrollArea className="h-[75vh] p-4">
-                     <FirmMiniDetail firm={challenge.rawFirmData} />
-                </ScrollArea>
+                 <FirmMiniDetail firm={challenge.rawFirmData} />
             </DialogContent>
         </Dialog>
     );
