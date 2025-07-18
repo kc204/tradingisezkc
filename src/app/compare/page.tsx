@@ -312,7 +312,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                 </tr>
             </DialogTrigger>
             {firm && (
-                <DialogContent className="w-[95vw] max-w-[95vw] sm:max-w-4xl h-[90vh] sm:h-auto p-0 border-0">
+                <DialogContent className="max-w-[95%] sm:max-w-4xl max-h-[90vh] p-0 border-0">
                     <FirmMiniDetail firm={firm} />
                 </DialogContent>
             )}
