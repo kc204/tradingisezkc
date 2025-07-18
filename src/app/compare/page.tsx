@@ -474,13 +474,13 @@ export default function ComparePage() {
   }
 
   return (
-    <div className="font-sans text-white -mx-4 sm:mx-0 sm:p-6 lg:p-8">
+    <div className="font-sans text-white">
       <div className="max-w-full mx-auto">
         <header className="mb-10 text-center px-4">
           <h1 className="text-5xl font-extrabold text-white tracking-tight">Compare Prop Firms</h1>
           <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">The EZ-iest Way to Compare Prop Firm Challenges.</p>
         </header>
-        <main className="px-1 md:px-0">
+        <main>
           <ControlBar 
             filters={filters}
             setFilters={setFilters}
