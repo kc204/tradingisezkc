@@ -18,6 +18,7 @@ import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/
 import OfferBox from '@/components/propfirms/OfferBox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import FirmMiniDetail from '@/components/propfirms/FirmMiniDetail';
 
 const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
     const challengeType = firm.instrumentTypes?.includes('Futures') ? 'futures' : 'cfd';
@@ -261,38 +262,13 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     );
 };
 
-const DetailItem = ({ label, children }: { label: string, children: React.ReactNode }) => (
-    <div>
-        <h4 className="text-sm font-semibold text-muted-foreground mb-2">{label}</h4>
-        <div className="flex flex-wrap gap-2">
-            {children}
-        </div>
-    </div>
-);
-
-const DetailBadge = ({ children, icon }: { children: React.ReactNode, icon?: React.ReactNode }) => (
-    <div className="inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium bg-muted text-muted-foreground">
-        {icon && <span className="mr-2">{icon}</span>}
-        {children}
-    </div>
-);
-
-const CountryBadge = ({ name, code }: { name: string, code: string }) => (
-  <div className="inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium bg-muted text-muted-foreground">
-    <Image 
-      src={`https://flagsapi.com/${code.toUpperCase()}/flat/64.png`}
-      alt={`${name} flag`}
-      width={20}
-      height={15}
-      className="mr-2"
-    />
-    {name}
-  </div>
-);
-
 const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
     const firm = mockPropFirms.find(f => f.slug === challenge.firmId) || null;
+    
+    if (!firm) {
+        return <tr className="group hover:bg-white/5 transition-colors duration-200 cursor-pointer"><td colSpan={11}>Firm data not found for challenge ID {challenge.id}</td></tr>;
+    }
     
     return (
         <Dialog>
@@ -346,61 +322,10 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                     </td>
                 </tr>
             </DialogTrigger>
-            {firm && (
-                <DialogContent className="max-w-4xl w-full h-[90vh] p-0 flex flex-col">
-                    <DialogTitle className="sr-only">{firm.name} Details</DialogTitle>
-                    <ScrollArea className="flex-1">
-                        <div className="relative space-y-6 text-foreground p-4 sm:p-6">
-                            <OfferBox firm={firm} />
-                             <Card>
-                                <CardHeader>
-                                    <CardTitle className="text-xl flex items-center">Firm Overview</CardTitle>
-                                </CardHeader>
-                                <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
-                                {firm.broker && <DetailItem label="Broker"><DetailBadge icon={<Briefcase className="w-4 h-4" />}>{firm.broker}</DetailBadge></DetailItem>}
-                                {firm.platforms && firm.platforms.length > 0 && <DetailItem label="Platforms">{firm.platforms.map(p => <DetailBadge key={p}>{p}</DetailBadge>)}</DetailItem>}
-                                {firm.paymentMethods && firm.paymentMethods.length > 0 && <DetailItem label="Payment Methods">{firm.paymentMethods.map(p => <DetailBadge key={p} icon={<CreditCard className="w-4 h-4" />}>{p}</DetailBadge>)}</DetailItem>}
-                                {firm.payoutMethods && firm.payoutMethods.length > 0 && <DetailItem label="Payout Methods">{firm.payoutMethods.map(p => <DetailBadge key={p} icon={<Banknote className="w-4 h-4" />}>{p}</DetailBadge>)}</DetailItem>}
-                                </CardContent>
-                            </Card>
-                            
-                            <Card>
-                                <CardHeader>
-                                <CardTitle className="text-xl flex items-center"><CandlestickChart className="mr-2 h-5 w-5 text-primary" /> Instruments and Assets</CardTitle>
-                                </CardHeader>
-                                <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
-                                    {firm.instrumentTypes && firm.instrumentTypes.length > 0 && <DetailItem label="Type of Instruments">{firm.instrumentTypes.map(i => <DetailBadge key={i}>{i}</DetailBadge>)}</DetailItem>}
-                                    {firm.assets && firm.assets.length > 0 && <DetailItem label="Assets">{firm.assets.map(a => <DetailBadge key={a}>{a}</DetailBadge>)}</DetailItem>}
-                                </CardContent>
-                            </Card>
-
-                            {firm.tradingRules && (
-                                <Card>
-                                <CardHeader>
-                                    <CardTitle className="text-xl flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
-                                </CardHeader>
-                                <CardContent className="prose prose-sm max-w-none break-words dark:prose-invert">
-                                    <div dangerouslySetInnerHTML={{ __html: firm.tradingRules.replace(/### (.*?)\n/g, '<h3>$1</h3>').replace(/- \*\*(.*?):\*\* (.*?)\n/g, '<p><strong>$1:</strong> $2</p>').replace(/- (.*?)\n/g, '<ul><li>$1</li></ul>').replace(/<\/ul>\s*<ul>/g, '') }} />
-                                </CardContent>
-                                </Card>
-                            )}
-
-                            {firm.restrictedCountries && firm.restrictedCountries.length > 0 && (
-                                <Card>
-                                <CardHeader>
-                                    <CardTitle className="text-xl flex items-center"><Ban className="mr-2 h-5 w-5 text-primary" /> Restricted Countries</CardTitle>
-                                </CardHeader>
-                                <CardContent className="flex flex-wrap gap-2">
-                                    {firm.restrictedCountries.map(country => (
-                                    <CountryBadge key={country.code} name={country.name} code={country.code} />
-                                    ))}
-                                </CardContent>
-                                </Card>
-                            )}
-                        </div>
-                    </ScrollArea>
-                </DialogContent>
-            )}
+            <DialogContent className="max-w-4xl w-[95vw] sm:w-full h-[90vh] p-0 flex flex-col">
+                <DialogTitle className="sr-only">{firm.name} Details</DialogTitle>
+                <FirmMiniDetail firm={firm} />
+            </DialogContent>
         </Dialog>
     );
 };
