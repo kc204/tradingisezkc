@@ -193,18 +193,18 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
     );
 };
 
-const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount, tableContainerRef }: any) => {
+const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount, isScrolled }: any) => {
     const columns = [
         { key: 'firm', label: 'Firm / Rank', sticky: 'left', className: 'min-w-[200px] md:min-w-[250px]' },
-        { key: 'accountsize', label: 'Size', sticky: '', className: '' },
+        { key: 'accountsize', label: 'Size', sticky: '', className: 'hidden sm:table-cell' },
         { key: 'steps', label: 'Steps', sticky: '', className: '' },
-        { key: 'activationfee', label: 'Activation Fee', sticky: '', className: 'hidden sm:table-cell' },
-        { key: 'profitsplit', label: 'Split', sticky: '', className: '' },
-        { key: 'maxallocation', label: 'Max Allocation', sticky: '', className: 'hidden md:table-cell' },
+        { key: 'activationfee', label: 'Activation Fee', sticky: '', className: 'hidden md:table-cell' },
+        { key: 'profitsplit', label: 'Split', sticky: '', className: 'hidden sm:table-cell' },
+        { key: 'maxallocation', label: 'Max Allocation', sticky: '', className: 'hidden lg:table-cell' },
         { key: 'profittarget', label: 'Target', sticky: '', className: 'hidden sm:table-cell' },
-        { key: 'dailyloss', label: 'Daily Loss', sticky: '', className: 'hidden sm:table-cell' },
+        { key: 'dailyloss', label: 'Daily Loss', sticky: '', className: 'hidden md:table-cell' },
         { key: 'maxloss', label: 'Max Loss', sticky: '', className: '' },
-        { key: 'payoutfrequency', label: 'Payout Freq.', sticky: '', className: 'hidden md:table-cell' },
+        { key: 'payoutfrequency', label: 'Payout Freq.', sticky: '', className: 'hidden lg:table-cell' },
         { key: 'price', label: 'Price', sticky: 'right', className: 'min-w-[110px]' },
     ];
 
@@ -215,7 +215,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount, ta
 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative -mx-4 sm:mx-0">
-            <div ref={tableContainerRef} className="overflow-x-auto">
+            <div className="overflow-x-auto">
                 <table className="min-w-full text-sm">
                     <thead className="border-b border-white/10">
                         <tr>
@@ -230,7 +230,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount, ta
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
-                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} />)}
+                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} />)}
                     </tbody>
                 </table>
             </div>
@@ -238,7 +238,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount, ta
     );
 };
 
-const ChallengeRow = ({ challenge, applyDiscount }: any) => {
+const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
 
     return (
@@ -248,7 +248,7 @@ const ChallengeRow = ({ challenge, applyDiscount }: any) => {
                     <td className="px-2 md:px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
                         <div className="flex items-center">
                             <img className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
-                            <div className="flex-shrink-0 overflow-hidden w-auto ml-3">
+                            <div className={cn('flex-shrink-0 overflow-hidden transition-all duration-300', isScrolled ? 'w-0 opacity-0 ml-0' : 'w-40 opacity-100 ml-3')}>
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">
                                     <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
@@ -257,20 +257,20 @@ const ChallengeRow = ({ challenge, applyDiscount }: any) => {
                             </div>
                         </div>
                     </td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
+                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white font-medium hidden sm:table-cell">{formatCurrency(challenge.accountSize)}</td>
                     <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden sm:table-cell">{formatCurrency(challenge.activationFee)}</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap">
+                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden md:table-cell">{formatCurrency(challenge.activationFee)}</td>
+                    <td className="px-2 md:px-4 py-3 whitespace-nowrap hidden sm:table-cell">
                         <div className="flex items-center gap-2">
                             <span className="text-sm text-white">{challenge.profitSplit}%</span>
                             <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
                         </div>
                     </td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden md:table-cell">{formatCurrency(challenge.maxAllocation)}</td>
+                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden lg:table-cell">{formatCurrency(challenge.maxAllocation)}</td>
                     <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden sm:table-cell">{challenge.profitTarget?.join('% / ')}%</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden sm:table-cell">{formatPercentage(challenge.dailyLoss)}</td>
+                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden md:table-cell">{formatPercentage(challenge.dailyLoss)}</td>
                     <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.maxLoss)}</td>
-                    <td className="px-2 md:px-4 py-3 text-xs text-gray-300 max-w-[200px] truncate hidden md:table-cell" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
+                    <td className="px-2 md:px-4 py-3 text-xs text-gray-300 max-w-[200px] truncate hidden lg:table-cell" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
                     <td className="px-2 py-3 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
                         <div className="flex flex-col sm:flex-row items-center justify-center sm:gap-3" onClick={(e) => e.stopPropagation()}>
                             <div className="text-center sm:text-right mb-2 sm:mb-0">
@@ -348,9 +348,24 @@ export default function ComparePage() {
   const [filters, setFilters] = useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures' });
   const [sortConfig, setSortConfig] = useState({ key: 'price', direction: 'ascending' });
   const [currentPage, setCurrentPage] = useState(1);
+  const [isScrolled, setIsScrolled] = useState(false);
   const rowsPerPage = 8;
   
   const tableContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = tableContainerRef.current;
+    if (!container) return;
+
+    const table = container.querySelector('.overflow-x-auto');
+    if (!table) return;
+
+    const handleScroll = () => {
+      setIsScrolled(table.scrollLeft > 10);
+    };
+    table.addEventListener('scroll', handleScroll, { passive: true });
+    return () => table.removeEventListener('scroll', handleScroll);
+  }, [loading]);
 
   useEffect(() => {
     const { db } = getFirebase();
@@ -470,7 +485,7 @@ export default function ComparePage() {
           <h1 className="text-5xl font-extrabold text-white tracking-tight">Compare Prop Firms</h1>
           <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">The EZ-iest Way to Compare Prop Firm Challenges.</p>
         </header>
-        <main className="px-1 md:px-0">
+        <main ref={tableContainerRef} className="px-1 md:px-0">
           <ControlBar 
             filters={filters}
             setFilters={setFilters}
@@ -484,7 +499,7 @@ export default function ComparePage() {
             requestSort={requestSort}
             sortConfig={sortConfig}
             applyDiscount={filters.applyDiscount}
-            tableContainerRef={tableContainerRef}
+            isScrolled={isScrolled}
           />
            {totalPages > 1 && (
             <Pagination
