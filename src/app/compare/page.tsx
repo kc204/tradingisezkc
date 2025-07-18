@@ -1,57 +1,176 @@
 
-
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
-import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { mockPropFirms } from '@/lib/mockData';
+import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { PropFirm } from '@/lib/types';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from '@/components/ui/dialog';
-import FirmMiniDetail from '@/components/propfirms/FirmMiniDetail';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { cn } from '@/lib/utils';
+import { mockPropFirms } from '@/lib/mockData';
 
+// --- MOCK DATA (for initial population if Firestore is empty) ---
+const MOCK_FUTURES_CHALLENGES_DATA = [
+  {
+    id: 'mff-starter-100k',
+    firmId: 'my-funded-futures',
+    firmName: 'My Funded Futures',
+    logoUrl: 'https://placehold.co/100x100.png',
+    trustpilotRating: 4.4,
+    trustpilotReviewCount: 693,
+    accountSize: 100000,
+    maxAllocation: 400000,
+    steps: 1,
+    isInstant: false,
+    price: 267,
+    paymentType: 'Monthly',
+    promoDiscountPercent: 50,
+    activationFee: null,
+    profitTarget: 6000,
+    dailyLoss: null,
+    maxLoss: 3000,
+    profitSplit: 90,
+    payoutFrequency: '5 winning days of $200 min',
+    affiliateLink: '#',
+    challengeType: 'futures',
+  },
+  {
+    id: 'apex-static-100k',
+    firmName: 'Apex Trader Funding',
+    logoUrl: 'https://placehold.co/100x100.png',
+    trustpilotRating: 3.6,
+    trustpilotReviewCount: 37,
+    accountSize: 100000,
+    maxAllocation: 300000,
+    steps: 1,
+    isInstant: false,
+    price: 137,
+    paymentType: 'Monthly',
+    promoDiscountPercent: 80,
+    activationFee: 220,
+    profitTarget: 2000,
+    dailyLoss: null,
+    maxLoss: 625,
+    profitSplit: 100,
+    payoutFrequency: '8 active days, 5 days >$50 profit',
+    affiliateLink: '#',
+    challengeType: 'futures',
+  },
+  {
+    id: 'topstep-100k',
+    firmName: 'Topstep',
+    logoUrl: 'https://placehold.co/100x100.png',
+    trustpilotRating: 4.4,
+    trustpilotReviewCount: 47,
+    accountSize: 100000,
+    maxAllocation: 150000,
+    steps: 1,
+    isInstant: false,
+    price: 149,
+    paymentType: 'Monthly',
+    promoDiscountPercent: 0,
+    activationFee: 149,
+    profitTarget: 6000,
+    dailyLoss: 2000,
+    maxLoss: 3000,
+    profitSplit: 90,
+    payoutFrequency: '5 winning days >$200 profit',
+    affiliateLink: '#',
+    challengeType: 'futures',
+  },
+  {
+    id: 'elite-trader-100k-instant',
+    firmName: 'Elite Trader',
+    logoUrl: 'https://placehold.co/100x100.png',
+    trustpilotRating: 4.5,
+    trustpilotReviewCount: 300,
+    accountSize: 100000,
+    maxAllocation: 100000,
+    steps: 1,
+    isInstant: true,
+    price: 750,
+    paymentType: 'One Time',
+    promoDiscountPercent: 0,
+    activationFee: 0,
+    profitTarget: 5000,
+    dailyLoss: 2000,
+    maxLoss: 4000,
+    profitSplit: 80,
+    payoutFrequency: 'On-Demand',
+    affiliateLink: '#',
+    challengeType: 'futures',
+  }
+];
 
-// --- Helper function to flatten firms into challenges ---
-const flattenFirmsToChallenges = (firms: PropFirm[]) => {
-  const challenges: any[] = [];
-  firms.forEach(firm => {
-    if (firm.accountTiers && firm.accountTiers.length > 0) {
-      firm.accountTiers.forEach(tier => {
-        challenges.push({
-          id: `${firm.id}-${tier.id}`,
-          firmId: firm.id,
-          firmName: firm.name,
-          logoUrl: firm.logoUrl,
-          trustpilotRating: firm.rating || 0,
-          trustpilotReviewCount: Math.floor((firm.rating || 3.5) * 150),
-          accountSize: tier.size,
-          maxAllocation: firm.maxAccountSize || 0,
-          steps: firm.challengeType?.includes('1-Step') ? 1 : firm.challengeType?.includes('2-Step') ? 2 : (firm.challengeType?.includes('3-Step') ? 3 : 1),
-          isInstant: firm.challengeType?.toLowerCase().includes('instant') || false,
-          price: tier.evaluationFee,
-          paymentType: 'One Time', // Defaulting, can be customized
-          promoDiscountPercent: tier.discountPercentage ? tier.discountPercentage * 100 : 0,
-          activationFee: tier.activationFee,
-          profitTarget: tier.profitTargetPercentage ? [tier.profitTargetPercentage] : [0],
-          dailyLoss: tier.dailyLossLimitPercentage,
-          maxLoss: tier.drawdownPercentage,
-          profitSplit: parseInt(firm.profitSplit || '80', 10),
-          payoutFrequency: 'Varies',
-          affiliateLink: firm.affiliateLink,
-          challengeType: firm.instrumentTypes?.includes('Futures') ? 'futures' : 'cfd',
-          rawFirmData: firm, // Pass full firm data
-        });
-      });
-    }
-  });
-  return challenges;
-};
+const MOCK_CFD_CHALLENGES_DATA = [
+ {
+    id: 'ftmo-challenge-100k',
+    firmName: 'FTMO',
+    logoUrl: 'https://placehold.co/100x100.png',
+    trustpilotRating: 4.8,
+    trustpilotReviewCount: 1500,
+    accountSize: 100000,
+    maxAllocation: 400000,
+    steps: 2,
+    isInstant: false,
+    price: 540,
+    paymentType: 'One Time',
+    promoDiscountPercent: 0,
+    activationFee: null,
+    profitTarget: 10000,
+    dailyLoss: 5000,
+    maxLoss: 10000,
+    profitSplit: 90,
+    payoutFrequency: 'On-Demand after 14 days',
+    affiliateLink: '#',
+    challengeType: 'cfd',
+  },
+  {
+    id: 'the-funded-trader-100k',
+    firmName: 'The Funded Trader',
+    logoUrl: 'https://placehold.co/100x100.png',
+    trustpilotRating: 4.6,
+    trustpilotReviewCount: 1200,
+    accountSize: 100000,
+    maxAllocation: 600000,
+    steps: 2,
+    isInstant: false,
+    price: 549,
+    paymentType: 'One Time',
+    promoDiscountPercent: 10,
+    activationFee: null,
+    profitTarget: 8000,
+    dailyLoss: 6000,
+    maxLoss: 12000,
+    profitSplit: 80,
+    payoutFrequency: 'Bi-Weekly',
+    affiliateLink: '#',
+    challengeType: 'cfd',
+  },
+  {
+    id: 'true-forex-funds-100k-instant',
+    firmName: 'True Forex Funds',
+    logoUrl: 'https://placehold.co/100x100.png',
+    trustpilotRating: 4.7,
+    trustpilotReviewCount: 1800,
+    accountSize: 100000,
+    maxAllocation: 400000,
+    steps: 1,
+    isInstant: true,
+    price: 998,
+    paymentType: 'One Time',
+    promoDiscountPercent: 5,
+    activationFee: null,
+    profitTarget: 0,
+    dailyLoss: 5000,
+    maxLoss: 10000,
+    profitSplit: 80,
+    payoutFrequency: 'On-Demand',
+    affiliateLink: '#',
+    challengeType: 'cfd',
+  }
+];
 
-const ALL_MOCK_DATA = flattenFirmsToChallenges(mockPropFirms);
+const ALL_MOCK_DATA = [...MOCK_FUTURES_CHALLENGES_DATA, ...MOCK_CFD_CHALLENGES_DATA];
 
 
 // --- Firebase Configuration ---
@@ -66,30 +185,20 @@ const firebaseConfig = {
 
 let app: any;
 let db: any;
-
-function getFirebase() {
-    if (app && db) {
-        return { app, db };
+try {
+    if (!firebaseConfig.projectId) {
+      throw new Error("Firebase project ID is missing");
     }
-    try {
-        if (!firebaseConfig.projectId) {
-            console.warn("Firebase config is missing. Using mock data.");
-            return { app: null, db: null };
-        }
-        app = initializeApp(firebaseConfig);
-        db = getFirestore(app);
-        return { app, db };
-    } catch (error) {
-        console.error("Firebase initialization error:", error);
-        return { app: null, db: null };
-    }
+    app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+} catch (error) {
+    console.warn("Firebase initialization failed or config is missing, will use mock data.", error);
+    db = null;
 }
-
 
 // --- Helper Functions ---
 const formatCurrency = (value: any) => value == null ? 'N/A' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
 const formatShortCurrency = (value: any) => value == null ? 'N/A' : `$${value/1000}K`;
-const formatPercentage = (value: any) => value == null ? 'N/A' : `${value}%`;
 
 // --- Child Components ---
 const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCount, totalCount }: any) => {
@@ -197,6 +306,11 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     const [isScrolled, setIsScrolled] = useState(false);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+    const getSortIndicator = (key: string) => {
+        if (sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
+        return sortConfig.direction === 'ascending' ? '▲' : '▼';
+    };
+
     useEffect(() => {
         const container = scrollContainerRef.current;
         if (!container) return;
@@ -204,40 +318,37 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
         const handleScroll = () => {
             setIsScrolled(container.scrollLeft > 10);
         };
-        container.addEventListener('scroll', handleScroll, { passive: true });
+
+        container.addEventListener('scroll', handleScroll);
+        handleScroll();
         return () => container.removeEventListener('scroll', handleScroll);
     }, [challenges]);
-
+    
     const columns = [
-        { key: 'firm', label: 'Firm / Rank', sticky: 'left', className: 'min-w-[200px] md:min-w-[250px]' },
-        { key: 'accountsize', label: 'Size', sticky: '', className: 'hidden sm:table-cell' },
-        { key: 'steps', label: 'Steps', sticky: '', className: '' },
-        { key: 'activationfee', label: 'Activation Fee', sticky: '', className: 'hidden md:table-cell' },
-        { key: 'profitsplit', label: 'Split', sticky: '', className: 'hidden sm:table-cell' },
-        { key: 'maxallocation', label: 'Max Allocation', sticky: '', className: 'hidden lg:table-cell' },
-        { key: 'profittarget', label: 'Target', sticky: '', className: 'hidden sm:table-cell' },
-        { key: 'dailyloss', label: 'Daily Loss', sticky: '', className: 'hidden md:table-cell' },
-        { key: 'maxloss', label: 'Max Loss', sticky: '', className: '' },
-        { key: 'payoutfrequency', label: 'Payout Freq.', sticky: '', className: 'hidden lg:table-cell' },
-        { key: 'price', label: 'Price', sticky: 'right', className: 'min-w-[110px]' },
+        { key: 'firm', label: 'Firm / Rank', sticky: 'left' },
+        { key: 'accountsize', label: 'Account Size' },
+        { key: 'steps', label: 'Steps' },
+        { key: 'activationfee', label: 'Activation Fee' },
+        { key: 'profitsplit', label: 'Profit Split' },
+        { key: 'maxallocation', label: 'Max Allocation' },
+        { key: 'profittarget', label: 'Profit Target' },
+        { key: 'dailyloss', label: 'Daily Loss' },
+        { key: 'maxloss', label: 'Max Loss' },
+        { key: 'payoutfrequency', label: 'Payout Freq.' },
+        { key: 'price', label: 'Prices', sticky: 'right' },
     ];
 
-    const getSortIndicator = (key: string) => {
-        if (sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
-        return sortConfig.direction === 'ascending' ? '▲' : '▼';
-    };
-
     return (
-        <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative -mx-4 sm:mx-0">
+        <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
                 <table className="min-w-full text-sm">
                     <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 md:px-4 py-3 text-left text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-transparent' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'} ${col.className}`}>
-                                    <button onClick={() => requestSort(col.key)} className="flex items-center gap-1 md:gap-2 hover:text-white transition-colors">
+                                <th key={col.key} scope="col" className={`px-4 py-3 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                    <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
                                         {col.label}
-                                        <span className="hidden md:inline">{getSortIndicator(col.key)}</span>
+                                        <span>{getSortIndicator(col.key)}</span>
                                     </button>
                                 </th>
                             ))}
@@ -256,103 +367,85 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
 
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <tr className="group hover:bg-white/5 transition-colors duration-200 cursor-pointer">
-                    <td className="sticky left-0 bg-transparent p-0 z-0">
-                        <div className="flex items-center bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm px-2 md:px-4 py-3 h-full">
-                            <img className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
-                            <div className={`ml-3 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
-                                <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
-                                <div className="flex items-center text-xs text-gray-400 mt-1">
-                                    <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
-                                    {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
-                                </div>
-                            </div>
+        <tr className="group hover:bg-white/5 transition-colors duration-200">
+            <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
+                <div className="flex items-center">
+                    <img data-ai-hint="logo" className="h-11 w-11 rounded-lg object-cover border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
+                    <div className={`ml-4 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
+                        <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
+                        <div className="flex items-center text-xs text-gray-400 mt-1">
+                            <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
+                            {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
                         </div>
-                    </td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white font-medium hidden sm:table-cell">{formatCurrency(challenge.accountSize)}</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden md:table-cell">{formatCurrency(challenge.activationFee)}</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap hidden sm:table-cell">
-                        <div className="flex items-center gap-2">
-                            <span className="text-sm text-white">{challenge.profitSplit}%</span>
-                            <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
-                        </div>
-                    </td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden lg:table-cell">{formatCurrency(challenge.maxAllocation)}</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden sm:table-cell">{challenge.profitTarget?.join('% / ')}%</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden md:table-cell">{formatPercentage(challenge.dailyLoss)}</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.maxLoss)}</td>
-                    <td className="px-2 md:px-4 py-3 text-xs text-gray-300 max-w-[200px] truncate hidden lg:table-cell" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-                    <td className="px-2 py-3 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
-                        <div className="flex flex-col sm:flex-row items-center justify-center sm:gap-3" onClick={(e) => e.stopPropagation()}>
-                            <div className="text-center sm:text-right mb-2 sm:mb-0">
-                                 {applyDiscount && challenge.promoDiscountPercent > 0 ? (
-                                    <>
-                                        <p className="font-semibold text-green-400 text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
-                                        <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
-                                    </>
-                                ) : (
-                                    <p className="font-semibold text-white text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
-                                )}
-                                <p className="text-xs text-gray-500 hidden sm:block">{challenge.paymentType}</p>
-                            </div>
-                            <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-transparent text-xs sm:text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
-                                Buy
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] bg-background p-0">
-                <DialogHeader className="p-4 border-b">
-                    <DialogTitle className="text-2xl">{challenge.firmName} Details</DialogTitle>
-                    <DialogDescription>
-                        An overview of {challenge.firmName}'s offerings and rules.
-                    </DialogDescription>
-                </DialogHeader>
-                 <FirmMiniDetail firm={challenge.rawFirmData} />
-            </DialogContent>
-        </Dialog>
+                    </div>
+                </div>
+            </td>
+            <td className="px-4 py-3 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
+            <td className="px-4 py-3 whitespace-nowrap">
+                <div className="flex items-center gap-2">
+                    <span className="text-sm text-white">{challenge.profitSplit}%</span>
+                    <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
+                </div>
+            </td>
+            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.profitTarget)}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.dailyLoss)}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.maxLoss)}</td>
+            <td className="px-4 py-3 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
+            <td className="px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
+                <div className="flex items-center gap-3">
+                    <div className="text-right">
+                         {applyDiscount && challenge.promoDiscountPercent > 0 ? (
+                            <>
+                                <p className="font-semibold text-green-400">{formatCurrency(finalPrice)}</p>
+                                <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
+                            </>
+                        ) : (
+                            <p className="font-semibold text-white">{formatCurrency(finalPrice)}</p>
+                        )}
+                        <p className="text-xs text-gray-500">{challenge.paymentType}</p>
+                    </div>
+                    <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
+                        Buy
+                    </a>
+                </div>
+            </td>
+        </tr>
     );
 };
 
 const Pagination = ({ currentPage, totalPages, onPageChange }: any) => {
     const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
+    for(let i = 1; i <= totalPages; i++) {
         pageNumbers.push(i);
     }
 
     return (
-        <nav className="flex justify-center items-center space-x-2 mt-6">
-            <button
-                onClick={() => onPageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="px-3 py-1.5 text-sm font-medium rounded-md bg-white/5 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/10"
-            >
-                Previous
-            </button>
-            {pageNumbers.map(number => (
-                <button
-                    key={number}
-                    onClick={() => onPageChange(number)}
-                    className={`px-3 py-1.5 text-sm font-medium rounded-md ${currentPage === number ? 'bg-blue-600 text-white' : 'bg-white/5 text-white hover:bg-white/10'}`}
-                >
-                    {number}
-                </button>
-            ))}
-            <button
-                onClick={() => onPageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="px-3 py-1.5 text-sm font-medium rounded-md bg-white/5 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/10"
-            >
-                Next
-            </button>
+        <nav className="mt-6 flex justify-center">
+            <ul className="inline-flex items-center -space-x-px">
+                <li>
+                    <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1} className="px-3 py-2 ml-0 leading-tight text-gray-400 bg-white/5 border border-gray-700 rounded-l-lg hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <ChevronLeft className="w-4 h-4"/>
+                    </button>
+                </li>
+                {pageNumbers.map(number => (
+                     <li key={number}>
+                        <button onClick={() => onPageChange(number)} className={`px-3 py-2 leading-tight border border-gray-700 ${currentPage === number ? 'bg-blue-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}`}>
+                            {number}
+                        </button>
+                    </li>
+                ))}
+                <li>
+                    <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages} className="px-3 py-2 leading-tight text-gray-400 bg-white/5 border border-gray-700 rounded-r-lg hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <ChevronRight className="w-4 h-4"/>
+                    </button>
+                </li>
+            </ul>
         </nav>
-    );
-};
-
+    )
+}
 
 // --- Main App Component ---
 export default function ComparePage() {
@@ -362,12 +455,10 @@ export default function ComparePage() {
   const [filters, setFilters] = useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures' });
   const [sortConfig, setSortConfig] = useState({ key: 'price', direction: 'ascending' });
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 8;
+  const ROWS_PER_PAGE = 8;
   
   useEffect(() => {
-    const { db } = getFirebase();
     if (!db) {
-        console.log("Using mock data as Firebase is not available.");
         setChallenges(ALL_MOCK_DATA);
         setLoading(false);
         return;
@@ -380,7 +471,6 @@ export default function ComparePage() {
             const batch = writeBatch(db);
             ALL_MOCK_DATA.forEach((challenge) => {
                 const docRef = doc(db, "challenges", challenge.id);
-                // We need to remove rawFirmData before saving to Firestore
                 const { rawFirmData, ...challengeToSave } = challenge;
                 batch.set(docRef, challengeToSave);
             });
@@ -389,15 +479,10 @@ export default function ComparePage() {
         }
     };
     
-    populateDataIfNeeded();
+    populateDataIfNeeded().catch(console.error);
 
     const unsubscribe = onSnapshot(challengesCollectionRef, (snapshot) => {
-      const challengesData = snapshot.docs.map(doc => {
-          const data = doc.data();
-          // Find the full firm data from mockPropFirms to add back
-          const firm = mockPropFirms.find(f => f.id === data.firmId);
-          return { id: doc.id, ...data, rawFirmData: firm };
-      });
+      const challengesData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setChallenges(challengesData);
       setLoading(false);
     }, (error) => {
@@ -434,8 +519,7 @@ export default function ComparePage() {
         const key = sortConfig.key;
 
         if (key === 'firm') { aValue = a.firmName; bValue = b.firmName; }
-        else if (key === 'price') { aValue = a.price * (1 - (filters.applyDiscount ? a.promoDiscountPercent / 100 : 0)); bValue = b.price * (1 - (filters.applyDiscount ? b.promoDiscountPercent / 100 : 0)); }
-        else if (key === 'profittarget') { aValue = a.profitTarget[0]; bValue = b.profitTarget[0]; }
+        else if (key === 'price') { aValue = a.price * (1 - (filters.applyDiscount ? (a.promoDiscountPercent || 0) / 100 : 0)); bValue = b.price * (1 - (filters.applyDiscount ? (b.promoDiscountPercent || 0) / 100 : 0)); }
         else { aValue = a[(key as keyof typeof a)] ?? -Infinity; bValue = b[(key as keyof typeof b)] ?? -Infinity; }
         
         if (aValue < bValue) return sortConfig.direction === 'ascending' ? -1 : 1;
@@ -445,8 +529,8 @@ export default function ComparePage() {
     return filtered;
   }, [challenges, searchTerm, filters, sortConfig]);
 
-  const totalPages = Math.ceil(filteredAndSortedChallenges.length / rowsPerPage);
-  const paginatedChallenges = filteredAndSortedChallenges.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  const totalPages = Math.ceil(filteredAndSortedChallenges.length / ROWS_PER_PAGE);
+  const paginatedChallenges = filteredAndSortedChallenges.slice((currentPage - 1) * ROWS_PER_PAGE, currentPage * ROWS_PER_PAGE);
 
   useEffect(() => {
     setCurrentPage(1);
