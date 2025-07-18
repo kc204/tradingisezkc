@@ -3,7 +3,10 @@ import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
 import OfferBox from '@/components/propfirms/OfferBox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban } from 'lucide-react';
+import { Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+
 
 const DetailItem = ({ label, children }: { label: string, children: React.ReactNode }) => (
     <div>
@@ -37,7 +40,18 @@ const CountryBadge = ({ name, code }: { name: string, code: string }) => (
 
 const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
   return (
-    <div className="space-y-6 text-foreground">
+    <div className="relative space-y-6 text-foreground">
+      {/* Sticky Header for CTA */}
+      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-sm py-3 mb-4 border-b">
+         <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
+            <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
+              Claim Offer &amp; Visit {firm.name}
+              <ExternalLink className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+          <p className="text-xs text-muted-foreground mt-2 text-center">(Affiliate Link)</p>
+      </div>
+
       <OfferBox firm={firm} />
 
       <Card>

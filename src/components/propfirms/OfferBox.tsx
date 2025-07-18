@@ -1,4 +1,3 @@
-
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -63,13 +62,7 @@ const OfferBox = ({ firm, className }: OfferBoxProps) => {
               </ul>
             </div>
           )}
-          <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
-            <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
-              Claim Offer &amp; Visit {firm.name}
-              <ExternalLink className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-          <p className="text-xs text-muted-foreground mt-2 text-center">(Affiliate Link)</p>
+          {/* CTA Button has been moved to FirmMiniDetail for sticky behavior */}
         </>
       </CardContent>
     </Card>
