@@ -548,6 +548,22 @@ export default function Home() {
           </StarBorder>
         </div>
       </div>
+      
+      {/* Featured Prop Firms Section START */}
+      {featuredFirms.length > 0 && (
+        <section className="py-12">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-foreground mb-10">Featured Prop Firms</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredFirms.map(firm => (
+                <FirmCard key={firm.id} firm={firm} />
+              ))}
+            </div>
+            
+          </div>
+        </section>
+      )}
+      {/* Featured Prop Firms Section END */}
 
       {/* Comparison Table Section */}
       <section className="py-12">
@@ -567,22 +583,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Featured Prop Firms Section START */}
-      {featuredFirms.length > 0 && (
-        <section className="py-12">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-10">Featured Prop Firms</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredFirms.map(firm => (
-                <FirmCard key={firm.id} firm={firm} />
-              ))}
-            </div>
-            
-          </div>
-        </section>
-      )}
-      {/* Featured Prop Firms Section END */}
 
       {/* Featured Free Resources Section START */}
       {featuredFreeResources.length > 0 && (
@@ -610,6 +610,7 @@ export default function Home() {
     </div>
   );
 }
+
 
 
 
