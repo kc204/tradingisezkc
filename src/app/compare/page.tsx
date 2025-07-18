@@ -352,13 +352,13 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }) 
     ];
 
     return (
-        <div className="bg-card backdrop-blur-sm rounded-xl border border-border shadow-2xl shadow-black/20 relative">
+        <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-border/50 shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
                 <table className="min-w-full text-sm">
-                    <thead className="border-b border-border">
+                    <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-card/80 backdrop-blur-sm' : 'right-0 bg-card/80 backdrop-blur-sm'}` : 'bg-muted/50'}`}>
+                                <th key={col.key} scope="col" className={`px-4 py-3 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-foreground transition-colors">
                                         {col.label}
                                         <span>{getSortIndicator(col.key)}</span>
@@ -367,7 +367,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }) 
                             ))}
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-border">
+                    <tbody className="divide-y divide-white/5">
                         {challenges.map(challenge => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} />)}
                     </tbody>
                 </table>
@@ -380,13 +380,13 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
 
     return (
-        <tr className="group hover:bg-muted/50 transition-colors duration-200">
-            <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-card/80 backdrop-blur-sm group-hover:bg-muted/80">
+        <tr className="group hover:bg-white/5 transition-colors duration-200">
+            <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
                 <div className="flex items-center">
-                    <img className="h-11 w-11 rounded-lg object-cover border-2 border-border flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
+                    <img className="h-11 w-11 rounded-lg object-cover border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
                     <div className={`ml-4 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
                         <div className="text-sm font-medium text-foreground truncate">{challenge.firmName}</div>
-                        <div className="flex items-center text-xs text-muted-foreground mt-1">
+                        <div className="flex items-center text-xs text-gray-400 mt-1">
                             <Star className="h-3.5 w-3.5 text-secondary mr-1" />
                             {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
                         </div>
@@ -407,7 +407,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }) => {
             <td className="px-4 py-3 whitespace-nowrap text-foreground">{formatPercentage(challenge.dailyLoss)}</td>
             <td className="px-4 py-3 whitespace-nowrap text-foreground">{formatPercentage(challenge.maxLoss)}</td>
             <td className="px-4 py-3 text-xs text-muted-foreground max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-            <td className="px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-card/80 backdrop-blur-sm group-hover:bg-muted/80">
+            <td className="px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
                 <div className="flex items-center gap-3">
                     <div className="text-right">
                          {applyDiscount && challenge.promoDiscountPercent > 0 ? (
@@ -523,7 +523,7 @@ export default function ComparePage() {
 
   if (loading) {
     return (
-      <div className="bg-background min-h-screen flex items-center justify-center text-foreground font-sans">
+      <div className="bg-gradient-to-br from-gray-900 to-black min-h-screen flex items-center justify-center text-foreground font-sans">
         <div className="flex items-center gap-3">
           <svg className="animate-spin h-5 w-5 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -536,7 +536,7 @@ export default function ComparePage() {
   }
 
   return (
-    <div className="bg-background min-h-screen p-4 sm:p-6 lg:p-8 font-sans text-foreground">
+    <div className="bg-gradient-to-br from-gray-900 to-black min-h-screen p-4 sm:p-6 lg:p-8 font-sans text-white">
       <div className="max-w-full mx-auto">
         <header className="mb-10 text-center">
           <h1 className="text-5xl font-extrabold text-foreground tracking-tight">Tradingis<span className="text-primary">EZ</span></h1>
