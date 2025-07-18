@@ -19,51 +19,6 @@ export default function Home() {
   const recentArticles = mockArticles.slice(0, 3);
   const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3);
   
-  const economicCalendarScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-events.js";
-  const economicCalendarConfig = {
-    "colorTheme": "dark",
-    "isTransparent": false, 
-    "width": "100%",
-    "height": "100%",
-    "locale": "en",
-    "importanceFilter": "-1,0,1",
-    "currencyFilter": "USD,EUR,JPY,GBP,CAD,AUD,CHF,CNY,KRW"
-  };
-  const economicCalendarContainerStyles = { height: '500px', width: '100%' };
-
-  const chartsScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
-  const chartsConfig = {
-    "autosize": true,
-    "symbol": "BITSTAMP:BTCUSD",
-    "interval": "D",
-    "timezone": "Etc/UTC",
-    "theme": "dark",
-    "style": "1",
-    "locale": "en",
-    "enable_publishing": false,
-    "allow_symbol_change": true,
-    "calendar": false,
-    "support_host": "https://www.tradingview.com",
-    "backgroundColor": "rgba(0,0,0,0)", 
-    "gridColor": "rgba(255,255,255,0.05)", 
-  };
-  const chartContainerStyles = { height: '500px', width: '100%' };
-
-  const newsScriptSrc = "https://s3.tradingview.com/external-embedding/embed-widget-timeline.js";
-  const newsConfig = {
-    "feedMode": "all_symbols",
-    "colorTheme": "dark",
-    "isTransparent": false, 
-    "displayMode": "regular",
-    "width": "100%",
-    "height": "100%",
-    "locale": "en"
-  };
-  const newsContainerStyles = { height: '600px', width: '100%' };
-
-  const tradingViewAffiliateLink = "https://www.tradingview.com/?aff_id=152856";
-  const tradingViewLinkText = "Track all markets on TradingView";
-
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
@@ -144,85 +99,6 @@ export default function Home() {
         </section>
       )}
       {/* Featured Free Resources Section END */}
-
-      {/* Market Outlook Section START */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-10 relative z-10">
-            Market Outlook
-          </h2>
-          {isClient && ( 
-            <Tabs defaultValue="economic-calendar" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 relative z-20">
-                <TabsTrigger value="economic-calendar">Economic Calendar</TabsTrigger>
-                <TabsTrigger value="charts">Charts</TabsTrigger>
-                <TabsTrigger value="news">News</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="economic-calendar" className="relative">
-                <div className="relative mt-4">
-                  <div className="absolute inset-0">
-                    {/* Glow effect was here - removed for this rollback */}
-                  </div>
-                  <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={economicCalendarContainerStyles}>
-                    <TradingViewWidget
-                      scriptSrc={economicCalendarScriptSrc}
-                      config={economicCalendarConfig}
-                      widgetKey="calendar"
-                    />
-                     <div className="text-center mt-4">
-                      <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                        {tradingViewLinkText}
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="charts" className="relative">
-                 <div className="relative mt-4">
-                  <div className="absolute inset-0">
-                    {/* Glow effect was here - removed for this rollback */}
-                  </div>
-                  <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={chartContainerStyles}>
-                    <TradingViewWidget
-                      scriptSrc={chartsScriptSrc}
-                      config={chartsConfig}
-                      widgetKey="charts"
-                    />
-                     <div className="text-center mt-4">
-                      <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                        {tradingViewLinkText}
-                      </Link>
-                    </div>
-                  </div>
-                 </div>
-              </TabsContent>
-
-              <TabsContent value="news" className="relative">
-                 <div className="relative mt-4">
-                  <div className="absolute inset-0">
-                    {/* Glow effect was here - removed for this rollback */}
-                  </div>
-                  <div className="relative z-10 rounded-lg bg-card p-1 md:p-2" style={newsContainerStyles}>
-                    <TradingViewWidget
-                      scriptSrc={newsScriptSrc}
-                      config={newsConfig}
-                      widgetKey="news"
-                    />
-                    <div className="text-center mt-4">
-                      <Link href={tradingViewAffiliateLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                        {tradingViewLinkText}
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </TabsContent>
-            </Tabs>
-          )}
-        </div>
-      </section>
-      {/* Market Outlook Section END */}
 
     </div>
   );
