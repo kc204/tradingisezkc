@@ -297,7 +297,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                         ))}
                     </div>
                     <div className="flex items-center space-x-2">
-                        <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${filters.applyDiscount ? 'bg-primary' : 'bg-muted'}`}>
+                        <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${filters.applyDiscount ? 'bg-accent' : 'bg-muted'}`}>
                             <span className={`pointer-events-none block rounded-full bg-background shadow-lg ring-0 transition-transform h-5 w-5 ${filters.applyDiscount ? 'translate-x-5' : 'translate-x-0'}`}></span>
                         </button>
                         <label className="text-sm font-semibold text-muted-foreground">Apply Discount</label>
@@ -352,13 +352,13 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }) 
     ];
 
     return (
-        <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-border/50 shadow-2xl shadow-black/20 relative">
+        <div className="bg-card backdrop-blur-sm rounded-xl border border-border/50 shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
                 <table className="min-w-full text-sm">
-                    <thead className="border-b border-white/10">
+                    <thead className="border-b border-border/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-4 py-3 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                <th key={col.key} scope="col" className={`px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-card/80 backdrop-blur-sm' : 'right-0 bg-card/80 backdrop-blur-sm'}` : 'bg-card/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-foreground transition-colors">
                                         {col.label}
                                         <span>{getSortIndicator(col.key)}</span>
@@ -367,7 +367,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }) 
                             ))}
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5">
+                    <tbody className="divide-y divide-border/50">
                         {challenges.map(challenge => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} />)}
                     </tbody>
                 </table>
@@ -380,13 +380,13 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
 
     return (
-        <tr className="group hover:bg-white/5 transition-colors duration-200">
-            <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
+        <tr className="group hover:bg-muted/50 transition-colors duration-200">
+            <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-card group-hover:bg-muted/80 backdrop-blur-sm">
                 <div className="flex items-center">
-                    <img className="h-11 w-11 rounded-lg object-cover border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
+                    <img className="h-11 w-11 rounded-lg object-cover border-2 border-border/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
                     <div className={`ml-4 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
                         <div className="text-sm font-medium text-foreground truncate">{challenge.firmName}</div>
-                        <div className="flex items-center text-xs text-gray-400 mt-1">
+                        <div className="flex items-center text-xs text-muted-foreground mt-1">
                             <Star className="h-3.5 w-3.5 text-secondary mr-1" />
                             {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
                         </div>
@@ -407,7 +407,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }) => {
             <td className="px-4 py-3 whitespace-nowrap text-foreground">{formatPercentage(challenge.dailyLoss)}</td>
             <td className="px-4 py-3 whitespace-nowrap text-foreground">{formatPercentage(challenge.maxLoss)}</td>
             <td className="px-4 py-3 text-xs text-muted-foreground max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-            <td className="px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
+            <td className="px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-card group-hover:bg-muted/80 backdrop-blur-sm">
                 <div className="flex items-center gap-3">
                     <div className="text-right">
                          {applyDiscount && challenge.promoDiscountPercent > 0 ? (
@@ -431,6 +431,45 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }) => {
     );
 };
 
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+    }
+
+    return (
+        <nav className="flex justify-center items-center space-x-2 mt-6">
+            <Button
+                onClick={() => onPageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                variant="outline"
+                size="sm"
+            >
+                Previous
+            </Button>
+            {pageNumbers.map(number => (
+                <Button
+                    key={number}
+                    onClick={() => onPageChange(number)}
+                    variant={currentPage === number ? 'default' : 'outline'}
+                    size="sm"
+                >
+                    {number}
+                </Button>
+            ))}
+            <Button
+                onClick={() => onPageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                variant="outline"
+                size="sm"
+            >
+                Next
+            </Button>
+        </nav>
+    );
+};
+
+
 // --- Main App Component ---
 export default function ComparePage() {
   const [challenges, setChallenges] = useState([]);
@@ -438,6 +477,8 @@ export default function ComparePage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures' });
   const [sortConfig, setSortConfig] = useState({ key: 'price', direction: 'ascending' });
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 8;
 
   useEffect(() => {
     const { db } = getFirebase();
@@ -513,6 +554,14 @@ export default function ComparePage() {
     return filtered;
   }, [challenges, searchTerm, filters, sortConfig]);
 
+  const totalPages = Math.ceil(filteredAndSortedChallenges.length / rowsPerPage);
+  const paginatedChallenges = filteredAndSortedChallenges.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters, searchTerm]);
+
+
   const requestSort = (key) => {
     let direction = 'ascending';
     if (sortConfig.key === key && sortConfig.direction === 'ascending') {
@@ -552,15 +601,21 @@ export default function ComparePage() {
             totalCount={challenges.filter(c => c.challengeType === filters.challengeType).length}
           />
           <ChallengeTable 
-            challenges={filteredAndSortedChallenges} 
+            challenges={paginatedChallenges} 
             requestSort={requestSort}
             sortConfig={sortConfig}
             applyDiscount={filters.applyDiscount}
           />
+           {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          )}
         </main>
       </div>
     </div>
   );
 }
 
-    
