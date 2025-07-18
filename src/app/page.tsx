@@ -275,7 +275,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                 <tr className="group hover:bg-white/5 transition-colors duration-200 cursor-pointer">
                     <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
                         <div className="flex items-center">
-                            <img className="h-11 w-11 rounded-lg object-cover border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
+                            <img className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
                             <div className={`ml-4 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">
@@ -610,4 +610,5 @@ export default function Home() {
     </div>
   );
 }
+
 
