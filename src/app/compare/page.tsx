@@ -11,7 +11,7 @@ import { mockPropFirms } from '@/lib/mockData';
 import Image from 'next/image';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
 import OfferBox from '@/components/propfirms/OfferBox';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 
