@@ -90,7 +90,7 @@ const ComparisonTable = ({ items, firms }: ComparisonTableProps) => {
     },
     { 
       label: 'Challenge Type', 
-      getValue: (item: ExpandedFirmTier) => item.firm.challengeType || '-' 
+      getValue: (item: ExpandedFirmTier) => item.tier.challengeType || item.firm.challengeType || '-' 
     },
     {
       label: 'Drawdown Rules',

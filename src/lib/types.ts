@@ -1,5 +1,4 @@
 
-
 export interface GlobalOffer {
   id: string;
   text: string;
@@ -14,12 +13,13 @@ export interface AccountTier {
   evaluationFee: number;
   activationFee?: number; // Optional, as not all tiers/firms have it
   resetFee?: number; // Optional, typical cost for one reset
-  // Future: could include tier-specific profit split, drawdown, etc.
   discountPercentage?: number; // Optional field for discounts
   profitTargetPercentage?: number | null;
   drawdownPercentage?: number | null;
   dailyLossLimitPercentage?: number | null;
   drawdownRules?: string; // For text-based rules like "Trailing Threshold"
+  platform?: string; // For platform-specific pricing, e.g., Maven
+  challengeType?: string; // e.g., '1-Step', 'Instant Funding'
 }
 
 export interface PropFirm {

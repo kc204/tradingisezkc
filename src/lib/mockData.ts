@@ -8,211 +8,211 @@ export const mockGlobalOffers: GlobalOffer[] = [
 ];
 
 const tptAccountTiers: AccountTier[] = [
-    { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, profitTargetPercentage: 6, dailyLossLimitPercentage: 2, drawdownPercentage: 6, activationFee: 130 },
-    { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.2, drawdownPercentage: 4, activationFee: 130 },
-    { id: 'tpt-eval-75k', name: '$75K Evaluation', size: 75000, evaluationFee: 245, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.13, drawdownPercentage: 3.33, activationFee: 130 },
-    { id: 'tpt-eval-100k', name: '$100K Evaluation', size: 100000, evaluationFee: 330, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.2, drawdownPercentage: 3, activationFee: 130 },
-    { id: 'tpt-eval-150k', name: '$150K Evaluation', size: 150000, evaluationFee: 360, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.2, drawdownPercentage: 3, activationFee: 130 },
+    { id: 'tpt-eval-25k', name: '$25K Evaluation', size: 25000, evaluationFee: 150, profitTargetPercentage: 6, dailyLossLimitPercentage: 2, drawdownPercentage: 6, activationFee: 130, challengeType: '1-Step' },
+    { id: 'tpt-eval-50k', name: '$50K Evaluation', size: 50000, evaluationFee: 170, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.2, drawdownPercentage: 4, activationFee: 130, challengeType: '1-Step' },
+    { id: 'tpt-eval-75k', name: '$75K Evaluation', size: 75000, evaluationFee: 245, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.13, drawdownPercentage: 3.33, activationFee: 130, challengeType: '1-Step' },
+    { id: 'tpt-eval-100k', name: '$100K Evaluation', size: 100000, evaluationFee: 330, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.2, drawdownPercentage: 3, activationFee: 130, challengeType: '1-Step' },
+    { id: 'tpt-eval-150k', name: '$150K Evaluation', size: 150000, evaluationFee: 360, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.2, drawdownPercentage: 3, activationFee: 130, challengeType: '1-Step' },
 ];
 
 const myFundedFuturesAccountTiers: AccountTier[] = [
     // Starter Plus Plan
-    { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null },
-    { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
-    { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
+    { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null, challengeType: '1-Step' },
+    { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, challengeType: '1-Step' },
+    { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, challengeType: '1-Step' },
     // Expert Plan
-    { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, drawdownRules: 'Trailing Drawdown with Buffer Zone', profitTargetPercentage: null, dailyLossLimitPercentage: null },
-    { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, drawdownRules: 'Trailing Drawdown with Buffer Zone', profitTargetPercentage: null, dailyLossLimitPercentage: null },
-    { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 375, drawdownRules: 'Trailing Drawdown with Buffer Zone', profitTargetPercentage: null, dailyLossLimitPercentage: null },
+    { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, drawdownRules: 'Trailing Drawdown with Buffer Zone', profitTargetPercentage: null, dailyLossLimitPercentage: null, challengeType: '1-Step' },
+    { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, drawdownRules: 'Trailing Drawdown with Buffer Zone', profitTargetPercentage: null, dailyLossLimitPercentage: null, challengeType: '1-Step' },
+    { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 375, drawdownRules: 'Trailing Drawdown with Buffer Zone', profitTargetPercentage: null, dailyLossLimitPercentage: null, challengeType: '1-Step' },
     // Starter Plan
-    { id: 'mff-starter-50k-single', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, profitTargetPercentage: 6, drawdownPercentage: 5, drawdownRules: '$2,500 Trailing Drawdown', dailyLossLimitPercentage: null }, // Assuming soft daily loss
+    { id: 'mff-starter-50k-single', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, profitTargetPercentage: 6, drawdownPercentage: 5, drawdownRules: '$2,500 Trailing Drawdown', dailyLossLimitPercentage: null, challengeType: '1-Step' },
     // Eval to Live Plan
-    { id: 'mff-1step-eval-live-50k', name: '$50K 1-Step Eval to Live', size: 50000, evaluationFee: 444, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1 },
-    { id: 'mff-2step-eval-live-50k', name: '$50K 2-Step Eval to Live', size: 50000, evaluationFee: 197, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1 },
+    { id: 'mff-1step-eval-live-50k', name: '$50K 1-Step Eval to Live', size: 50000, evaluationFee: 444, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1, challengeType: '1-Step' },
+    { id: 'mff-2step-eval-live-50k', name: '$50K 2-Step Eval to Live', size: 50000, evaluationFee: 197, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1, challengeType: '2-Step' },
 ];
 
 const tradeifyAccountTiers: AccountTier[] = [
   // Advanced Plan (Evaluation)
-  { id: 'tradeify-adv-50k', name: '$50K Advanced Plan', size: 50000, evaluationFee: 69, activationFee: 125, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null },
-  { id: 'tradeify-adv-100k', name: '$100K Advanced Plan', size: 100000, evaluationFee: 109, activationFee: 125, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
-  { id: 'tradeify-adv-150k', name: '$150K Advanced Plan', size: 150000, evaluationFee: 129, activationFee: 125, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null },
+  { id: 'tradeify-adv-50k', name: '$50K Advanced Plan', size: 50000, evaluationFee: 69, activationFee: 125, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null, challengeType: '1-Step' },
+  { id: 'tradeify-adv-100k', name: '$100K Advanced Plan', size: 100000, evaluationFee: 109, activationFee: 125, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, challengeType: '1-Step' },
+  { id: 'tradeify-adv-150k', name: '$150K Advanced Plan', size: 150000, evaluationFee: 129, activationFee: 125, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, challengeType: '1-Step' },
   // Growth Plan (Evaluation)
-  { id: 'tradeify-growth-50k', name: '$50K Growth Plan', size: 50000, evaluationFee: 139, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
-  { id: 'tradeify-growth-100k', name: '$100K Growth Plan', size: 100000, evaluationFee: 249, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3.5, dailyLossLimitPercentage: 2.5 },
-  { id: 'tradeify-growth-150k', name: '$150K Growth Plan', size: 150000, evaluationFee: 339, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: 2.5 },
+  { id: 'tradeify-growth-50k', name: '$50K Growth Plan', size: 50000, evaluationFee: 139, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5, challengeType: '1-Step' },
+  { id: 'tradeify-growth-100k', name: '$100K Growth Plan', size: 100000, evaluationFee: 249, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3.5, dailyLossLimitPercentage: 2.5, challengeType: '1-Step' },
+  { id: 'tradeify-growth-150k', name: '$150K Growth Plan', size: 150000, evaluationFee: 339, activationFee: 0, profitTargetPercentage: 6, drawdownPercentage: 3.33, dailyLossLimitPercentage: 2.5, challengeType: '1-Step' },
   // Straight to Sim Funded
-  { id: 'tradeify-sim-25k', name: '$25K Straight to Sim', size: 25000, evaluationFee: 349, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: null },
-  { id: 'tradeify-sim-50k', name: '$50K Straight to Sim', size: 50000, evaluationFee: 509, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
-  { id: 'tradeify-sim-100k', name: '$100K Straight to Sim', size: 100000, evaluationFee: 629, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
-  { id: 'tradeify-sim-150k', name: '$150K Straight to Sim', size: 150000, evaluationFee: 729, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5 },
+  { id: 'tradeify-sim-25k', name: '$25K Straight to Sim', size: 25000, evaluationFee: 349, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: null, challengeType: 'Instant Funding' },
+  { id: 'tradeify-sim-50k', name: '$50K Straight to Sim', size: 50000, evaluationFee: 509, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5, challengeType: 'Instant Funding' },
+  { id: 'tradeify-sim-100k', name: '$100K Straight to Sim', size: 100000, evaluationFee: 629, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5, challengeType: 'Instant Funding' },
+  { id: 'tradeify-sim-150k', name: '$150K Straight to Sim', size: 150000, evaluationFee: 729, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 4, dailyLossLimitPercentage: 2.5, challengeType: 'Instant Funding' },
 ];
 
 const bulenoxAccountTiers: AccountTier[] = [
-  { id: 'bulenox-qual-25k', name: '$25K Qualification', size: 25000, evaluationFee: 145, activationFee: 148, drawdownPercentage: 6, profitTargetPercentage: 6 }, // $1500 target, $1500 max drawdown
-  { id: 'bulenox-qual-50k', name: '$50K Qualification', size: 50000, evaluationFee: 175, activationFee: 148, drawdownPercentage: 5, profitTargetPercentage: 6 }, // $3000 target, $2500 max drawdown
-  { id: 'bulenox-qual-100k', name: '$100K Qualification', size: 100000, evaluationFee: 215, activationFee: 248, drawdownPercentage: 3, profitTargetPercentage: 6 }, // $6000 target, $3000 max drawdown
-  { id: 'bulenox-qual-150k', name: '$150K Qualification', size: 150000, evaluationFee: 325, activationFee: 498, drawdownPercentage: 3, profitTargetPercentage: 6 }, // $9000 target, $4500 max drawdown
-  { id: 'bulenox-qual-250k', name: '$250K Qualification', size: 250000, evaluationFee: 535, activationFee: 898, drawdownPercentage: 2.2, profitTargetPercentage: 6 }, // $15000 target, $5500 max drawdown
+  { id: 'bulenox-qual-25k', name: '$25K Qualification', size: 25000, evaluationFee: 145, activationFee: 148, drawdownPercentage: 6, profitTargetPercentage: 6, challengeType: '1-Step' },
+  { id: 'bulenox-qual-50k', name: '$50K Qualification', size: 50000, evaluationFee: 175, activationFee: 148, drawdownPercentage: 5, profitTargetPercentage: 6, challengeType: '1-Step' },
+  { id: 'bulenox-qual-100k', name: '$100K Qualification', size: 100000, evaluationFee: 215, activationFee: 248, drawdownPercentage: 3, profitTargetPercentage: 6, challengeType: '1-Step' },
+  { id: 'bulenox-qual-150k', name: '$150K Qualification', size: 150000, evaluationFee: 325, activationFee: 498, drawdownPercentage: 3, profitTargetPercentage: 6, challengeType: '1-Step' },
+  { id: 'bulenox-qual-250k', name: '$250K Qualification', size: 250000, evaluationFee: 535, activationFee: 898, drawdownPercentage: 2.2, profitTargetPercentage: 6, challengeType: '1-Step' },
 ];
 
 const fundingticksAccountTiers: AccountTier[] = [
   // 1-Step Accounts (Monthly Fee) / Pro+
-  { id: 'ft-pro-25k', name: '25k Pro+ (Evaluation)', size: 25000, evaluationFee: 99, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
-  { id: 'ft-pro-50k', name: '50k Pro+ (Evaluation)', size: 50000, evaluationFee: 125, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
-  { id: 'ft-pro-100k', name: '100k Pro+ (Evaluation)', size: 100000, evaluationFee: 199, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
+  { id: 'ft-pro-25k', name: '25k Pro+ (Evaluation)', size: 25000, evaluationFee: 99, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing', challengeType: '1-Step' },
+  { id: 'ft-pro-50k', name: '50k Pro+ (Evaluation)', size: 50000, evaluationFee: 125, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing', challengeType: '1-Step' },
+  { id: 'ft-pro-100k', name: '100k Pro+ (Evaluation)', size: 100000, evaluationFee: 199, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing', challengeType: '1-Step' },
   // Instant Accounts (One-Time Fee) / Zero
-  { id: 'ft-zero-25k', name: '25k Zero (Instant)', size: 25000, evaluationFee: 333, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
-  { id: 'ft-zero-50k', name: '50k Zero (Instant)', size: 50000, evaluationFee: 499, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
-  { id: 'ft-zero-100k', name: '100k Zero (Instant)', size: 100000, evaluationFee: 599, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing' },
+  { id: 'ft-zero-25k', name: '25k Zero (Instant)', size: 25000, evaluationFee: 333, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing', challengeType: 'Instant Funding' },
+  { id: 'ft-zero-50k', name: '50k Zero (Instant)', size: 50000, evaluationFee: 499, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing', challengeType: 'Instant Funding' },
+  { id: 'ft-zero-100k', name: '100k Zero (Instant)', size: 100000, evaluationFee: 599, activationFee: 0, profitTargetPercentage: null, drawdownPercentage: 0, dailyLossLimitPercentage: null, drawdownRules: 'EOD Trailing', challengeType: 'Instant Funding' },
 ];
 
 const topstepAccountTiers: AccountTier[] = [
-    { id: 'topstep-50k', name: '$50K Challenge Account', size: 50000, evaluationFee: 49, activationFee: 149, profitTargetPercentage: 6, dailyLossLimitPercentage: 2, drawdownPercentage: 4 },
-    { id: 'topstep-100k', name: '$100K Challenge Account', size: 100000, evaluationFee: 99, activationFee: 149, profitTargetPercentage: 6, dailyLossLimitPercentage: 2, drawdownPercentage: 3 },
-    { id: 'topstep-150k', name: '$150K Challenge Account', size: 150000, evaluationFee: 149, activationFee: 149, profitTargetPercentage: 6, dailyLossLimitPercentage: 2, drawdownPercentage: 3 },
+    { id: 'topstep-50k', name: '$50K Challenge Account', size: 50000, evaluationFee: 49, activationFee: 149, profitTargetPercentage: 6, dailyLossLimitPercentage: 2, drawdownPercentage: 4, challengeType: '1-Step' },
+    { id: 'topstep-100k', name: '$100K Challenge Account', size: 100000, evaluationFee: 99, activationFee: 149, profitTargetPercentage: 6, dailyLossLimitPercentage: 2, drawdownPercentage: 3, challengeType: '1-Step' },
+    { id: 'topstep-150k', name: '$150K Challenge Account', size: 150000, evaluationFee: 149, activationFee: 149, profitTargetPercentage: 6, dailyLossLimitPercentage: 2, drawdownPercentage: 3, challengeType: '1-Step' },
 ];
 
 const alphaCapitalAccountTiers: AccountTier[] = [
   // Alpha Pro (2 Steps)
-  { id: 'ac-pro-5k', name: '$5,000 Alpha Pro', size: 5000, evaluationFee: 50.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ac-pro-10k', name: '$10,000 Alpha Pro', size: 10000, evaluationFee: 97.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ac-pro-25k', name: '$25,000 Alpha Pro', size: 25000, evaluationFee: 197.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ac-pro-50k', name: '$50,000 Alpha Pro', size: 50000, evaluationFee: 297.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ac-pro-100k', name: '$100,000 Alpha Pro', size: 100000, evaluationFee: 497.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ac-pro-200k', name: '$200,000 Alpha Pro', size: 200000, evaluationFee: 997.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
+  { id: 'ac-pro-5k', name: '$5,000 Alpha Pro', size: 5000, evaluationFee: 50.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ac-pro-10k', name: '$10,000 Alpha Pro', size: 10000, evaluationFee: 97.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ac-pro-25k', name: '$25,000 Alpha Pro', size: 25000, evaluationFee: 197.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ac-pro-50k', name: '$50,000 Alpha Pro', size: 50000, evaluationFee: 297.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ac-pro-100k', name: '$100,000 Alpha Pro', size: 100000, evaluationFee: 497.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ac-pro-200k', name: '$200,000 Alpha Pro', size: 200000, evaluationFee: 997.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
   // Alpha Swing (2 Steps)
-  { id: 'ac-swing-5k', name: '$5,000 Alpha Swing', size: 5000, evaluationFee: 70.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ac-swing-10k', name: '$10,000 Alpha Swing', size: 10000, evaluationFee: 147.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ac-swing-100k', name: '$100,000 Alpha Swing', size: 100000, evaluationFee: 577.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ac-swing-200k', name: '$200,000 Alpha Swing', size: 200000, evaluationFee: 1097.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
+  { id: 'ac-swing-5k', name: '$5,000 Alpha Swing', size: 5000, evaluationFee: 70.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ac-swing-10k', name: '$10,000 Alpha Swing', size: 10000, evaluationFee: 147.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ac-swing-100k', name: '$100,000 Alpha Swing', size: 100000, evaluationFee: 577.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ac-swing-200k', name: '$200,000 Alpha Swing', size: 200000, evaluationFee: 1097.00, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
 ];
 
 const the5ersAccountTiers: AccountTier[] = [
   // High Stakes (2-Step)
-  { id: '5ers-hs-5k', name: '$5,000 High Stakes', size: 5000, evaluationFee: 39, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: '5ers-hs-10k', name: '$10,000 High Stakes', size: 10000, evaluationFee: 78, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: '5ers-hs-20k', name: '$20,000 High Stakes', size: 20000, evaluationFee: 165, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: '5ers-hs-60k', name: '$60,000 High Stakes', size: 60000, evaluationFee: 329, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: '5ers-hs-100k', name: '$100,000 High Stakes', size: 100000, evaluationFee: 545, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
+  { id: '5ers-hs-5k', name: '$5,000 High Stakes', size: 5000, evaluationFee: 39, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: '5ers-hs-10k', name: '$10,000 High Stakes', size: 10000, evaluationFee: 78, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: '5ers-hs-20k', name: '$20,000 High Stakes', size: 20000, evaluationFee: 165, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: '5ers-hs-60k', name: '$60,000 High Stakes', size: 60000, evaluationFee: 329, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: '5ers-hs-100k', name: '$100,000 High Stakes', size: 100000, evaluationFee: 545, profitTargetPercentage: 8, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
   // Hyper-Growth (1-Step)
-  { id: '5ers-hg-5k', name: '$5,000 Hyper-Growth', size: 5000, evaluationFee: 260, profitTargetPercentage: 10, dailyLossLimitPercentage: 3, drawdownPercentage: 6 },
-  { id: '5ers-hg-10k', name: '$10,000 Hyper-Growth', size: 10000, evaluationFee: 450, profitTargetPercentage: 10, dailyLossLimitPercentage: 3, drawdownPercentage: 6 },
-  { id: '5ers-hg-20k', name: '$20,000 Hyper-Growth', size: 20000, evaluationFee: 850, profitTargetPercentage: 10, dailyLossLimitPercentage: 3, drawdownPercentage: 6 },
+  { id: '5ers-hg-5k', name: '$5,000 Hyper-Growth', size: 5000, evaluationFee: 260, profitTargetPercentage: 10, dailyLossLimitPercentage: 3, drawdownPercentage: 6, challengeType: 'Instant Funding' },
+  { id: '5ers-hg-10k', name: '$10,000 Hyper-Growth', size: 10000, evaluationFee: 450, profitTargetPercentage: 10, dailyLossLimitPercentage: 3, drawdownPercentage: 6, challengeType: 'Instant Funding' },
+  { id: '5ers-hg-20k', name: '$20,000 Hyper-Growth', size: 20000, evaluationFee: 850, profitTargetPercentage: 10, dailyLossLimitPercentage: 3, drawdownPercentage: 6, challengeType: 'Instant Funding' },
   // Bootcamp (3-Step)
-  { id: '5ers-bc-100k', name: '$100,000 Bootcamp', size: 100000, evaluationFee: 95, activationFee: 215, profitTargetPercentage: 6, dailyLossLimitPercentage: 3, drawdownPercentage: 5 },
-  { id: '5ers-bc-250k', name: '$250,000 Bootcamp', size: 250000, evaluationFee: 225, activationFee: 350, profitTargetPercentage: 6, dailyLossLimitPercentage: 3, drawdownPercentage: 5 },
+  { id: '5ers-bc-100k', name: '$100,000 Bootcamp', size: 100000, evaluationFee: 95, activationFee: 215, profitTargetPercentage: 6, dailyLossLimitPercentage: 3, drawdownPercentage: 5, challengeType: '3-Step' },
+  { id: '5ers-bc-250k', name: '$250,000 Bootcamp', size: 250000, evaluationFee: 225, activationFee: 350, profitTargetPercentage: 6, dailyLossLimitPercentage: 3, drawdownPercentage: 5, challengeType: '3-Step' },
 ];
 
 const ftmoAccountTiers: AccountTier[] = [
   // Normal and Swing have the same price, just different rules.
   // We can represent this with a `name` property.
-  { id: 'ftmo-normal-10k', name: '€10,000 Normal', size: 10000, evaluationFee: 155, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ftmo-normal-25k', name: '€25,000 Normal', size: 25000, evaluationFee: 250, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ftmo-normal-50k', name: '€50,000 Normal', size: 50000, evaluationFee: 345, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ftmo-normal-100k', name: '€100,000 Normal', size: 100000, evaluationFee: 540, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ftmo-normal-200k', name: '€200,000 Normal', size: 200000, evaluationFee: 1080, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ftmo-swing-10k', name: '€10,000 Swing', size: 10000, evaluationFee: 155, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ftmo-swing-25k', name: '€25,000 Swing', size: 25000, evaluationFee: 250, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ftmo-swing-50k', name: '€50,000 Swing', size: 50000, evaluationFee: 345, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ftmo-swing-100k', name: '€100,000 Swing', size: 100000, evaluationFee: 540, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
-  { id: 'ftmo-swing-200k', name: '€200,000 Swing', size: 200000, evaluationFee: 1080, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10 },
+  { id: 'ftmo-normal-10k', name: '€10,000 Normal', size: 10000, evaluationFee: 155, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ftmo-normal-25k', name: '€25,000 Normal', size: 25000, evaluationFee: 250, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ftmo-normal-50k', name: '€50,000 Normal', size: 50000, evaluationFee: 345, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ftmo-normal-100k', name: '€100,000 Normal', size: 100000, evaluationFee: 540, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ftmo-normal-200k', name: '€200,000 Normal', size: 200000, evaluationFee: 1080, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ftmo-swing-10k', name: '€10,000 Swing', size: 10000, evaluationFee: 155, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ftmo-swing-25k', name: '€25,000 Swing', size: 25000, evaluationFee: 250, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ftmo-swing-50k', name: '€50,000 Swing', size: 50000, evaluationFee: 345, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ftmo-swing-100k', name: '€100,000 Swing', size: 100000, evaluationFee: 540, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
+  { id: 'ftmo-swing-200k', name: '€200,000 Swing', size: 200000, evaluationFee: 1080, profitTargetPercentage: 10, dailyLossLimitPercentage: 5, drawdownPercentage: 10, challengeType: '2-Step' },
 ];
 
 const mavenAccountTiers: AccountTier[] = [
   // Instant Funding (10 Day Payouts)
-  { id: 'maven-instant-2k-mt5', name: '$2,000 Instant', size: 2000, evaluationFee: 19.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-instant-2k-ctrader', name: '$2,000 Instant (cTrader)', size: 2000, evaluationFee: 39.00, platform: 'cTrader' },
-  { id: 'maven-instant-5k-mt5', name: '$5,000 Instant', size: 5000, evaluationFee: 29.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-instant-5k-ctrader-alt', name: '$5,000 Instant (cTrader)', size: 5000, evaluationFee: 49.00, platform: 'cTrader' },
-  { id: 'maven-instant-10k-mt5', name: '$10,000 Instant', size: 10000, evaluationFee: 58.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-instant-10k-ctrader', name: '$10,000 Instant (cTrader)', size: 10000, evaluationFee: 78.00, platform: 'cTrader' },
-  { id: 'maven-instant-20k-mt5', name: '$20,000 Instant', size: 20000, evaluationFee: 116.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-instant-20k-ctrader-alt', name: '$20,000 Instant (cTrader)', size: 20000, evaluationFee: 136.00, platform: 'cTrader' },
-  { id: 'maven-instant-50k-mt5', name: '$50,000 Instant', size: 50000, evaluationFee: 290.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-instant-50k-ctrader-alt', name: '$50,000 Instant (cTrader)', size: 50000, evaluationFee: 409.00, platform: 'cTrader' },
-  { id: 'maven-instant-100k-mt5', name: '$100,000 Instant', size: 100000, evaluationFee: 549.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-instant-100k-ctrader', name: '$100,000 Instant (cTrader)', size: 100000, evaluationFee: 569.00, platform: 'cTrader' },
+  { id: 'maven-instant-2k-mt5', name: '$2,000 Instant', size: 2000, evaluationFee: 19.00, platform: 'MT5/Match Trader', challengeType: 'Instant Funding' },
+  { id: 'maven-instant-2k-ctrader', name: '$2,000 Instant (cTrader)', size: 2000, evaluationFee: 39.00, platform: 'cTrader', challengeType: 'Instant Funding' },
+  { id: 'maven-instant-5k-mt5', name: '$5,000 Instant', size: 5000, evaluationFee: 29.00, platform: 'MT5/Match Trader', challengeType: 'Instant Funding' },
+  { id: 'maven-instant-5k-ctrader-alt', name: '$5,000 Instant (cTrader)', size: 5000, evaluationFee: 49.00, platform: 'cTrader', challengeType: 'Instant Funding' },
+  { id: 'maven-instant-10k-mt5', name: '$10,000 Instant', size: 10000, evaluationFee: 58.00, platform: 'MT5/Match Trader', challengeType: 'Instant Funding' },
+  { id: 'maven-instant-10k-ctrader', name: '$10,000 Instant (cTrader)', size: 10000, evaluationFee: 78.00, platform: 'cTrader', challengeType: 'Instant Funding' },
+  { id: 'maven-instant-20k-mt5', name: '$20,000 Instant', size: 20000, evaluationFee: 116.00, platform: 'MT5/Match Trader', challengeType: 'Instant Funding' },
+  { id: 'maven-instant-20k-ctrader-alt', name: '$20,000 Instant (cTrader)', size: 20000, evaluationFee: 136.00, platform: 'cTrader', challengeType: 'Instant Funding' },
+  { id: 'maven-instant-50k-mt5', name: '$50,000 Instant', size: 50000, evaluationFee: 290.00, platform: 'MT5/Match Trader', challengeType: 'Instant Funding' },
+  { id: 'maven-instant-50k-ctrader-alt', name: '$50,000 Instant (cTrader)', size: 50000, evaluationFee: 409.00, platform: 'cTrader', challengeType: 'Instant Funding' },
+  { id: 'maven-instant-100k-mt5', name: '$100,000 Instant', size: 100000, evaluationFee: 549.00, platform: 'MT5/Match Trader', challengeType: 'Instant Funding' },
+  { id: 'maven-instant-100k-ctrader', name: '$100,000 Instant (cTrader)', size: 100000, evaluationFee: 569.00, platform: 'cTrader', challengeType: 'Instant Funding' },
   
   // Instant Mini (Immediate Payouts)
-  { id: 'maven-mini-2k-mt5', name: '$2,000 Instant Mini', size: 2000, evaluationFee: 19.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-mini-2k-ctrader', name: '$2,000 Instant Mini (cTrader)', size: 2000, evaluationFee: 39.00, platform: 'cTrader' },
-  { id: 'maven-mini-5k-mt5', name: '$5,000 Instant Mini', size: 5000, evaluationFee: 22.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-mini-5k-ctrader', name: '$5,000 Instant Mini (cTrader)', size: 5000, evaluationFee: 42.00, platform: 'cTrader' },
-  { id: 'maven-mini-10k-mt5', name: '$10,000 Instant Mini', size: 10000, evaluationFee: 44.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-mini-10k-ctrader-alt', name: '$10,000 Instant Mini (cTrader)', size: 10000, evaluationFee: 64.00, platform: 'cTrader' },
-  { id: 'maven-mini-20k-mt5', name: '$20,000 Instant Mini', size: 20000, evaluationFee: 88.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-mini-20k-ctrader-alt', name: '$20,000 Instant Mini (cTrader)', size: 20000, evaluationFee: 108.00, platform: 'cTrader' },
-  { id: 'maven-mini-50k-mt5', name: '$50,000 Instant Mini', size: 50000, evaluationFee: 220.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-mini-50k-ctrader-alt', name: '$50,000 Instant Mini (cTrader)', size: 50000, evaluationFee: 240.00, platform: 'cTrader' },
-  { id: 'maven-mini-100k-mt5', name: '$100,000 Instant Mini', size: 100000, evaluationFee: 440.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-mini-100k-ctrader', name: '$100,000 Instant Mini (cTrader)', size: 100000, evaluationFee: 460.00, platform: 'cTrader' },
+  { id: 'maven-mini-2k-mt5', name: '$2,000 Instant Mini', size: 2000, evaluationFee: 19.00, platform: 'MT5/Match Trader', challengeType: 'Instant Funding' },
+  { id: 'maven-mini-2k-ctrader', name: '$2,000 Instant Mini (cTrader)', size: 2000, evaluationFee: 39.00, platform: 'cTrader', challengeType: 'Instant Funding' },
+  { id: 'maven-mini-5k-mt5', name: '$5,000 Instant Mini', size: 5000, evaluationFee: 22.00, platform: 'MT5/Match Trader', challengeType: 'Instant Funding' },
+  { id: 'maven-mini-5k-ctrader', name: '$5,000 Instant Mini (cTrader)', size: 5000, evaluationFee: 42.00, platform: 'cTrader', challengeType: 'Instant Funding' },
+  { id: 'maven-mini-10k-mt5', name: '$10,000 Instant Mini', size: 10000, evaluationFee: 44.00, platform: 'MT5/Match Trader', challengeType: 'Instant Funding' },
+  { id: 'maven-mini-10k-ctrader-alt', name: '$10,000 Instant Mini (cTrader)', size: 10000, evaluationFee: 64.00, platform: 'cTrader', challengeType: 'Instant Funding' },
+  { id: 'maven-mini-20k-mt5', name: '$20,000 Instant Mini', size: 20000, evaluationFee: 88.00, platform: 'MT5/Match Trader', challengeType: 'Instant Funding' },
+  { id: 'maven-mini-20k-ctrader-alt', name: '$20,000 Instant Mini (cTrader)', size: 20000, evaluationFee: 108.00, platform: 'cTrader', challengeType: 'Instant Funding' },
+  { id: 'maven-mini-50k-mt5', name: '$50,000 Instant Mini', size: 50000, evaluationFee: 220.00, platform: 'MT5/Match Trader', challengeType: 'Instant Funding' },
+  { id: 'maven-mini-50k-ctrader-alt', name: '$50,000 Instant Mini (cTrader)', size: 50000, evaluationFee: 240.00, platform: 'cTrader', challengeType: 'Instant Funding' },
+  { id: 'maven-mini-100k-mt5', name: '$100,000 Instant Mini', size: 100000, evaluationFee: 440.00, platform: 'MT5/Match Trader', challengeType: 'Instant Funding' },
+  { id: 'maven-mini-100k-ctrader', name: '$100,000 Instant Mini (cTrader)', size: 100000, evaluationFee: 460.00, platform: 'cTrader', challengeType: 'Instant Funding' },
 
   // 1-Step Challenges
-  { id: 'maven-1step-2k-mt5', name: '$2,000 1-Step', size: 2000, evaluationFee: 15.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-1step-2k-ctrader', name: '$2,000 1-Step (cTrader)', size: 2000, evaluationFee: 35.00, platform: 'cTrader' },
-  { id: 'maven-1step-5k-mt5', name: '$5,000 1-Step', size: 5000, evaluationFee: 19.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-1step-5k-ctrader', name: '$5,000 1-Step (cTrader)', size: 5000, evaluationFee: 39.00, platform: 'cTrader' },
-  { id: 'maven-1step-10k-mt5', name: '$10,000 1-Step', size: 10000, evaluationFee: 38.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-1step-10k-ctrader', name: '$10,000 1-Step (cTrader)', size: 10000, evaluationFee: 58.00, platform: 'cTrader' },
-  { id: 'maven-1step-20k-mt5', name: '$20,000 1-Step', size: 20000, evaluationFee: 76.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-1step-20k-ctrader', name: '$20,000 1-Step (cTrader)', size: 20000, evaluationFee: 96.00, platform: 'cTrader' },
-  { id: 'maven-1step-50k-mt5', name: '$50,000 1-Step', size: 50000, evaluationFee: 190.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-1step-50k-ctrader', name: '$50,000 1-Step (cTrader)', size: 50000, evaluationFee: 210.00, platform: 'cTrader' },
-  { id: 'maven-1step-100k-mt5', name: '$100,000 1-Step', size: 100000, evaluationFee: 380.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-1step-100k-ctrader', name: '$100,000 1-Step (cTrader)', size: 100000, evaluationFee: 400.00, platform: 'cTrader' },
+  { id: 'maven-1step-2k-mt5', name: '$2,000 1-Step', size: 2000, evaluationFee: 15.00, platform: 'MT5/Match Trader', challengeType: '1-Step' },
+  { id: 'maven-1step-2k-ctrader', name: '$2,000 1-Step (cTrader)', size: 2000, evaluationFee: 35.00, platform: 'cTrader', challengeType: '1-Step' },
+  { id: 'maven-1step-5k-mt5', name: '$5,000 1-Step', size: 5000, evaluationFee: 19.00, platform: 'MT5/Match Trader', challengeType: '1-Step' },
+  { id: 'maven-1step-5k-ctrader', name: '$5,000 1-Step (cTrader)', size: 5000, evaluationFee: 39.00, platform: 'cTrader', challengeType: '1-Step' },
+  { id: 'maven-1step-10k-mt5', name: '$10,000 1-Step', size: 10000, evaluationFee: 38.00, platform: 'MT5/Match Trader', challengeType: '1-Step' },
+  { id: 'maven-1step-10k-ctrader', name: '$10,000 1-Step (cTrader)', size: 10000, evaluationFee: 58.00, platform: 'cTrader', challengeType: '1-Step' },
+  { id: 'maven-1step-20k-mt5', name: '$20,000 1-Step', size: 20000, evaluationFee: 76.00, platform: 'MT5/Match Trader', challengeType: '1-Step' },
+  { id: 'maven-1step-20k-ctrader', name: '$20,000 1-Step (cTrader)', size: 20000, evaluationFee: 96.00, platform: 'cTrader', challengeType: '1-Step' },
+  { id: 'maven-1step-50k-mt5', name: '$50,000 1-Step', size: 50000, evaluationFee: 190.00, platform: 'MT5/Match Trader', challengeType: '1-Step' },
+  { id: 'maven-1step-50k-ctrader', name: '$50,000 1-Step (cTrader)', size: 50000, evaluationFee: 210.00, platform: 'cTrader', challengeType: '1-Step' },
+  { id: 'maven-1step-100k-mt5', name: '$100,000 1-Step', size: 100000, evaluationFee: 380.00, platform: 'MT5/Match Trader', challengeType: '1-Step' },
+  { id: 'maven-1step-100k-ctrader', name: '$100,000 1-Step (cTrader)', size: 100000, evaluationFee: 400.00, platform: 'cTrader', challengeType: '1-Step' },
   
   // 2-Steps Challenges
-  { id: 'maven-2step-2k-mt5', name: '$2,000 2-Steps', size: 2000, evaluationFee: 19.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-2step-2k-ctrader', name: '$2,000 2-Steps (cTrader)', size: 2000, evaluationFee: 39.00, platform: 'cTrader' },
-  { id: 'maven-2step-5k-mt5', name: '$5,000 2-Steps', size: 5000, evaluationFee: 22.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-2step-5k-ctrader', name: '$5,000 2-Steps (cTrader)', size: 5000, evaluationFee: 42.00, platform: 'cTrader' },
-  { id: 'maven-2step-10k-mt5', name: '$10,000 2-Steps', size: 10000, evaluationFee: 44.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-2step-10k-ctrader', name: '$10,000 2-Steps (cTrader)', size: 10000, evaluationFee: 64.00, platform: 'cTrader' },
-  { id: 'maven-2step-20k-mt5', name: '$20,000 2-Steps', size: 20000, evaluationFee: 88.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-2step-20k-ctrader', name: '$20,000 2-Steps (cTrader)', size: 20000, evaluationFee: 108.00, platform: 'cTrader' },
-  { id: 'maven-2step-50k-mt5', name: '$50,000 2-Steps', size: 50000, evaluationFee: 220.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-2step-100k-mt5', name: '$100,000 2-Steps', size: 100000, evaluationFee: 440.00, platform: 'MT5/Match Trader' },
+  { id: 'maven-2step-2k-mt5', name: '$2,000 2-Steps', size: 2000, evaluationFee: 19.00, platform: 'MT5/Match Trader', challengeType: '2-Step' },
+  { id: 'maven-2step-2k-ctrader', name: '$2,000 2-Steps (cTrader)', size: 2000, evaluationFee: 39.00, platform: 'cTrader', challengeType: '2-Step' },
+  { id: 'maven-2step-5k-mt5', name: '$5,000 2-Steps', size: 5000, evaluationFee: 22.00, platform: 'MT5/Match Trader', challengeType: '2-Step' },
+  { id: 'maven-2step-5k-ctrader', name: '$5,000 2-Steps (cTrader)', size: 5000, evaluationFee: 42.00, platform: 'cTrader', challengeType: '2-Step' },
+  { id: 'maven-2step-10k-mt5', name: '$10,000 2-Steps', size: 10000, evaluationFee: 44.00, platform: 'MT5/Match Trader', challengeType: '2-Step' },
+  { id: 'maven-2step-10k-ctrader', name: '$10,000 2-Steps (cTrader)', size: 10000, evaluationFee: 64.00, platform: 'cTrader', challengeType: '2-Step' },
+  { id: 'maven-2step-20k-mt5', name: '$20,000 2-Steps', size: 20000, evaluationFee: 88.00, platform: 'MT5/Match Trader', challengeType: '2-Step' },
+  { id: 'maven-2step-20k-ctrader', name: '$20,000 2-Steps (cTrader)', size: 20000, evaluationFee: 108.00, platform: 'cTrader', challengeType: '2-Step' },
+  { id: 'maven-2step-50k-mt5', name: '$50,000 2-Steps', size: 50000, evaluationFee: 220.00, platform: 'MT5/Match Trader', challengeType: '2-Step' },
+  { id: 'maven-2step-100k-mt5', name: '$100,000 2-Steps', size: 100000, evaluationFee: 440.00, platform: 'MT5/Match Trader', challengeType: '2-Step' },
   
   // 3-Steps Challenges
-  { id: 'maven-3step-2k-mt5', name: '$2,000 3-Steps', size: 2000, evaluationFee: 13.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-3step-2k-ctrader', name: '$2,000 3-Steps (cTrader)', size: 2000, evaluationFee: 33.00, platform: 'cTrader' },
-  { id: 'maven-3step-5k-mt5', name: '$5,000 3-Steps', size: 5000, evaluationFee: 17.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-3step-5k-ctrader', name: '$5,000 3-Steps (cTrader)', size: 5000, evaluationFee: 37.00, platform: 'cTrader' },
-  { id: 'maven-3step-10k-mt5', name: '$10,000 3-Steps', size: 10000, evaluationFee: 34.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-3step-10k-ctrader', name: '$10,000 3-Steps (cTrader)', size: 10000, evaluationFee: 54.00, platform: 'cTrader' },
-  { id: 'maven-3step-20k-mt5', name: '$20,000 3-Steps', size: 20000, evaluationFee: 68.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-3step-20k-ctrader', name: '$20,000 3-Steps (cTrader)', size: 20000, evaluationFee: 88.00, platform: 'cTrader' },
-  { id: 'maven-3step-50k-mt5', name: '$50,000 3-Steps', size: 50000, evaluationFee: 170.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-3step-50k-ctrader', name: '$50,000 3-Steps (cTrader)', size: 50000, evaluationFee: 190.00, platform: 'cTrader' },
-  { id: 'maven-3step-100k-mt5', name: '$100,000 3-Steps', size: 100000, evaluationFee: 299.00, platform: 'MT5/Match Trader' },
-  { id: 'maven-3step-100k-ctrader', name: '$100,000 3-Steps (cTrader)', size: 100000, evaluationFee: 319.00, platform: 'cTrader' },
+  { id: 'maven-3step-2k-mt5', name: '$2,000 3-Steps', size: 2000, evaluationFee: 13.00, platform: 'MT5/Match Trader', challengeType: '3-Step' },
+  { id: 'maven-3step-2k-ctrader', name: '$2,000 3-Steps (cTrader)', size: 2000, evaluationFee: 33.00, platform: 'cTrader', challengeType: '3-Step' },
+  { id: 'maven-3step-5k-mt5', name: '$5,000 3-Steps', size: 5000, evaluationFee: 17.00, platform: 'MT5/Match Trader', challengeType: '3-Step' },
+  { id: 'maven-3step-5k-ctrader', name: '$5,000 3-Steps (cTrader)', size: 5000, evaluationFee: 37.00, platform: 'cTrader', challengeType: '3-Step' },
+  { id: 'maven-3step-10k-mt5', name: '$10,000 3-Steps', size: 10000, evaluationFee: 34.00, platform: 'MT5/Match Trader', challengeType: '3-Step' },
+  { id: 'maven-3step-10k-ctrader', name: '$10,000 3-Steps (cTrader)', size: 10000, evaluationFee: 54.00, platform: 'cTrader', challengeType: '3-Step' },
+  { id: 'maven-3step-20k-mt5', name: '$20,000 3-Steps', size: 20000, evaluationFee: 68.00, platform: 'MT5/Match Trader', challengeType: '3-Step' },
+  { id: 'maven-3step-20k-ctrader', name: '$20,000 3-Steps (cTrader)', size: 20000, evaluationFee: 88.00, platform: 'cTrader', challengeType: '3-Step' },
+  { id: 'maven-3step-50k-mt5', name: '$50,000 3-Steps', size: 50000, evaluationFee: 170.00, platform: 'MT5/Match Trader', challengeType: '3-Step' },
+  { id: 'maven-3step-50k-ctrader', name: '$50,000 3-Steps (cTrader)', size: 50000, evaluationFee: 190.00, platform: 'cTrader', challengeType: '3-Step' },
+  { id: 'maven-3step-100k-mt5', name: '$100,000 3-Steps', size: 100000, evaluationFee: 299.00, platform: 'MT5/Match Trader', challengeType: '3-Step' },
+  { id: 'maven-3step-100k-ctrader', name: '$100,000 3-Steps (cTrader)', size: 100000, evaluationFee: 319.00, platform: 'cTrader', challengeType: '3-Step' },
 ];
 
 const apexTraderFundingAccountTiers: AccountTier[] = [
   // Rithmic & NinjaTrader
-  { id: 'atf-rithmic-25k', name: '$25,000 Rithmic/Ninja', size: 25000, evaluationFee: 157.00, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 6, platform: "Rithmic/NinjaTrader" },
-  { id: 'atf-rithmic-50k', name: '$50,000 Rithmic/Ninja', size: 50000, evaluationFee: 177.00, activationFee: 140, profitTargetPercentage: 6, drawdownPercentage: 5, platform: "Rithmic/NinjaTrader" },
-  { id: 'atf-rithmic-100k-static', name: '$100,000 Static Rithmic/Ninja', size: 100000, evaluationFee: 147.00, activationFee: 220, profitTargetPercentage: 2, drawdownRules: '$625 Static', platform: "Rithmic/NinjaTrader" },
-  { id: 'atf-rithmic-100k', name: '$100,000 Rithmic/Ninja', size: 100000, evaluationFee: 297.00, activationFee: 220, profitTargetPercentage: 6, drawdownPercentage: 3, platform: "Rithmic/NinjaTrader" },
-  { id: 'atf-rithmic-150k', name: '$150,000 Rithmic/Ninja', size: 150000, evaluationFee: 397.00, activationFee: 260, profitTargetPercentage: 6, drawdownPercentage: 3.3, platform: "Rithmic/NinjaTrader" },
-  { id: 'atf-rithmic-250k', name: '$250,000 Rithmic/Ninja', size: 250000, evaluationFee: 497.00, activationFee: 300, profitTargetPercentage: 6, drawdownPercentage: 2.6, platform: "Rithmic/NinjaTrader" },
-  { id: 'atf-rithmic-300k', name: '$300,000 Rithmic/Ninja', size: 300000, evaluationFee: 597.00, activationFee: 340, profitTargetPercentage: 6.67, drawdownPercentage: 2.5, platform: "Rithmic/NinjaTrader" },
+  { id: 'atf-rithmic-25k', name: '$25,000 Rithmic/Ninja', size: 25000, evaluationFee: 157.00, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 6, platform: "Rithmic/NinjaTrader", challengeType: '1-Step' },
+  { id: 'atf-rithmic-50k', name: '$50,000 Rithmic/Ninja', size: 50000, evaluationFee: 177.00, activationFee: 140, profitTargetPercentage: 6, drawdownPercentage: 5, platform: "Rithmic/NinjaTrader", challengeType: '1-Step' },
+  { id: 'atf-rithmic-100k-static', name: '$100,000 Static Rithmic/Ninja', size: 100000, evaluationFee: 147.00, activationFee: 220, profitTargetPercentage: 2, drawdownRules: '$625 Static', platform: "Rithmic/NinjaTrader", challengeType: '1-Step' },
+  { id: 'atf-rithmic-100k', name: '$100,000 Rithmic/Ninja', size: 100000, evaluationFee: 297.00, activationFee: 220, profitTargetPercentage: 6, drawdownPercentage: 3, platform: "Rithmic/NinjaTrader", challengeType: '1-Step' },
+  { id: 'atf-rithmic-150k', name: '$150,000 Rithmic/Ninja', size: 150000, evaluationFee: 397.00, activationFee: 260, profitTargetPercentage: 6, drawdownPercentage: 3.3, platform: "Rithmic/NinjaTrader", challengeType: '1-Step' },
+  { id: 'atf-rithmic-250k', name: '$250,000 Rithmic/Ninja', size: 250000, evaluationFee: 497.00, activationFee: 300, profitTargetPercentage: 6, drawdownPercentage: 2.6, platform: "Rithmic/NinjaTrader", challengeType: '1-Step' },
+  { id: 'atf-rithmic-300k', name: '$300,000 Rithmic/Ninja', size: 300000, evaluationFee: 597.00, activationFee: 340, profitTargetPercentage: 6.67, drawdownPercentage: 2.5, platform: "Rithmic/NinjaTrader", challengeType: '1-Step' },
   // Tradovate & NinjaTrader
-  { id: 'atf-tradovate-25k', name: '$25,000 Tradovate/Ninja', size: 25000, evaluationFee: 167.00, activationFee: 150, profitTargetPercentage: 6, drawdownPercentage: 6, platform: "Tradovate/NinjaTrader" },
-  { id: 'atf-tradovate-50k', name: '$50,000 Tradovate/Ninja', size: 50000, evaluationFee: 187.00, activationFee: 160, profitTargetPercentage: 6, drawdownPercentage: 5, platform: "Tradovate/NinjaTrader" },
-  { id: 'atf-tradovate-100k-static', name: '$100,000 Static Tradovate/Ninja', size: 100000, evaluationFee: 157.00, activationFee: 240, profitTargetPercentage: 2, drawdownRules: '$625 Static', platform: "Tradovate/NinjaTrader" },
-  { id: 'atf-tradovate-100k', name: '$100,000 Tradovate/Ninja', size: 100000, evaluationFee: 297.00, activationFee: 240, profitTargetPercentage: 6, drawdownPercentage: 3, platform: "Tradovate/NinjaTrader" },
-  { id: 'atf-tradovate-150k', name: '$150,000 Tradovate/Ninja', size: 150000, evaluationFee: 397.00, activationFee: 280, profitTargetPercentage: 6, drawdownPercentage: 3.3, platform: "Tradovate/NinjaTrader" },
-  { id: 'atf-tradovate-250k', name: '$250,000 Tradovate/Ninja', size: 250000, evaluationFee: 497.00, activationFee: 320, profitTargetPercentage: 6, drawdownPercentage: 2.6, platform: "Tradovate/NinjaTrader" },
-  { id: 'atf-tradovate-300k', name: '$300,000 Tradovate/Ninja', size: 300000, evaluationFee: 597.00, activationFee: 360, profitTargetPercentage: 6.67, drawdownPercentage: 2.5, platform: "Tradovate/NinjaTrader" },
+  { id: 'atf-tradovate-25k', name: '$25,000 Tradovate/Ninja', size: 25000, evaluationFee: 167.00, activationFee: 150, profitTargetPercentage: 6, drawdownPercentage: 6, platform: "Tradovate/NinjaTrader", challengeType: '1-Step' },
+  { id: 'atf-tradovate-50k', name: '$50,000 Tradovate/Ninja', size: 50000, evaluationFee: 187.00, activationFee: 160, profitTargetPercentage: 6, drawdownPercentage: 5, platform: "Tradovate/NinjaTrader", challengeType: '1-Step' },
+  { id: 'atf-tradovate-100k-static', name: '$100,000 Static Tradovate/Ninja', size: 100000, evaluationFee: 157.00, activationFee: 240, profitTargetPercentage: 2, drawdownRules: '$625 Static', platform: "Tradovate/NinjaTrader", challengeType: '1-Step' },
+  { id: 'atf-tradovate-100k', name: '$100,000 Tradovate/Ninja', size: 100000, evaluationFee: 297.00, activationFee: 240, profitTargetPercentage: 6, drawdownPercentage: 3, platform: "Tradovate/NinjaTrader", challengeType: '1-Step' },
+  { id: 'atf-tradovate-150k', name: '$150,000 Tradovate/Ninja', size: 150000, evaluationFee: 397.00, activationFee: 280, profitTargetPercentage: 6, drawdownPercentage: 3.3, platform: "Tradovate/NinjaTrader", challengeType: '1-Step' },
+  { id: 'atf-tradovate-250k', name: '$250,000 Tradovate/Ninja', size: 250000, evaluationFee: 497.00, activationFee: 320, profitTargetPercentage: 6, drawdownPercentage: 2.6, platform: "Tradovate/NinjaTrader", challengeType: '1-Step' },
+  { id: 'atf-tradovate-300k', name: '$300,000 Tradovate/Ninja', size: 300000, evaluationFee: 597.00, activationFee: 360, profitTargetPercentage: 6.67, drawdownPercentage: 2.5, platform: "Tradovate/NinjaTrader", challengeType: '1-Step' },
   // WealthCharts
-  { id: 'atf-wealthcharts-25k', name: '$25,000 WealthCharts', size: 25000, evaluationFee: 147.00, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 6, platform: "WealthCharts" },
-  { id: 'atf-wealthcharts-50k', name: '$50,000 WealthCharts', size: 50000, evaluationFee: 167.00, activationFee: 140, profitTargetPercentage: 6, drawdownPercentage: 5, platform: "WealthCharts" },
-  { id: 'atf-wealthcharts-100k-static', name: '$100,000 Static WealthCharts', size: 100000, evaluationFee: 137.00, activationFee: 220, profitTargetPercentage: 2, drawdownRules: '$625 Static', platform: "WealthCharts" },
-  { id: 'atf-wealthcharts-100k', name: '$100,000 WealthCharts', size: 100000, evaluationFee: 297.00, activationFee: 220, profitTargetPercentage: 6, drawdownPercentage: 3, platform: "WealthCharts" },
-  { id: 'atf-wealthcharts-150k', name: '$150,000 WealthCharts', size: 150000, evaluationFee: 397.00, activationFee: 260, profitTargetPercentage: 6, drawdownPercentage: 3.3, platform: "WealthCharts" },
-  { id: 'atf-wealthcharts-250k', name: '$250,000 WealthCharts', size: 250000, evaluationFee: 497.00, activationFee: 300, profitTargetPercentage: 6, drawdownPercentage: 2.6, platform: "WealthCharts" },
-  { id: 'atf-wealthcharts-300k', name: '$300,000 WealthCharts', size: 300000, evaluationFee: 597.00, activationFee: 340, profitTargetPercentage: 6.67, drawdownPercentage: 2.5, platform: "WealthCharts" },
+  { id: 'atf-wealthcharts-25k', name: '$25,000 WealthCharts', size: 25000, evaluationFee: 147.00, activationFee: 130, profitTargetPercentage: 6, drawdownPercentage: 6, platform: "WealthCharts", challengeType: '1-Step' },
+  { id: 'atf-wealthcharts-50k', name: '$50,000 WealthCharts', size: 50000, evaluationFee: 167.00, activationFee: 140, profitTargetPercentage: 6, drawdownPercentage: 5, platform: "WealthCharts", challengeType: '1-Step' },
+  { id: 'atf-wealthcharts-100k-static', name: '$100,000 Static WealthCharts', size: 100000, evaluationFee: 137.00, activationFee: 220, profitTargetPercentage: 2, drawdownRules: '$625 Static', platform: "WealthCharts", challengeType: '1-Step' },
+  { id: 'atf-wealthcharts-100k', name: '$100,000 WealthCharts', size: 100000, evaluationFee: 297.00, activationFee: 220, profitTargetPercentage: 6, drawdownPercentage: 3, platform: "WealthCharts", challengeType: '1-Step' },
+  { id: 'atf-wealthcharts-150k', name: '$150,000 WealthCharts', size: 150000, evaluationFee: 397.00, activationFee: 260, profitTargetPercentage: 6, drawdownPercentage: 3.3, platform: "WealthCharts", challengeType: '1-Step' },
+  { id: 'atf-wealthcharts-250k', name: '$250,000 WealthCharts', size: 250000, evaluationFee: 497.00, activationFee: 300, profitTargetPercentage: 6, drawdownPercentage: 2.6, platform: "WealthCharts", challengeType: '1-Step' },
+  { id: 'atf-wealthcharts-300k', name: '$300,000 WealthCharts', size: 300000, evaluationFee: 597.00, activationFee: 340, profitTargetPercentage: 6.67, drawdownPercentage: 2.5, platform: "WealthCharts", challengeType: '1-Step' },
 ];
 
 
@@ -1728,17 +1728,17 @@ export const mockPropFirms: PropFirm[] = [
     challengeType: '1-Step or Instant Funding',
     accountTiers: [
         // S2F Accounts
-        { id: 'dt-s2f-25k', name: '25K S2F Account', size: 25000, evaluationFee: 370, activationFee: 0, drawdownRules: '$1,000 (End of Day)', profitTargetPercentage: null },
-        { id: 'dt-s2f-50k', name: '50K S2F Account', size: 50000, evaluationFee: 570, activationFee: 0, drawdownRules: '$2,500 (End of Day)', dailyLossLimitPercentage: 2.5, profitTargetPercentage: null },
-        { id: 'dt-s2f-150k', name: '150K S2F Account', size: 150000, evaluationFee: 825, activationFee: 0, drawdownRules: '$6,000 (End of Day)', dailyLossLimitPercentage: 2.5, profitTargetPercentage: null },
+        { id: 'dt-s2f-25k', name: '25K S2F Account', size: 25000, evaluationFee: 370, activationFee: 0, drawdownRules: '$1,000 (End of Day)', profitTargetPercentage: null, challengeType: 'Instant Funding' },
+        { id: 'dt-s2f-50k', name: '50K S2F Account', size: 50000, evaluationFee: 570, activationFee: 0, drawdownRules: '$2,500 (End of Day)', dailyLossLimitPercentage: 2.5, profitTargetPercentage: null, challengeType: 'Instant Funding' },
+        { id: 'dt-s2f-150k', name: '150K S2F Account', size: 150000, evaluationFee: 825, activationFee: 0, drawdownRules: '$6,000 (End of Day)', dailyLossLimitPercentage: 2.5, profitTargetPercentage: null, challengeType: 'Instant Funding' },
         // Trail Accounts
-        { id: 'dt-trail-25k', name: '25K TRAIL Account', size: 25000, evaluationFee: 249, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1,500 Trailing Threshold' },
-        { id: 'dt-trail-50k', name: '50K TRAIL Account', size: 50000, evaluationFee: 379, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$2,500 Trailing Threshold' },
-        { id: 'dt-trail-75k', name: '75K TRAIL Account', size: 75000, evaluationFee: 449, activationFee: 130, profitTargetPercentage: 5.67, drawdownRules: '$2,750 Trailing Threshold' },
+        { id: 'dt-trail-25k', name: '25K TRAIL Account', size: 25000, evaluationFee: 249, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1,500 Trailing Threshold', challengeType: '1-Step' },
+        { id: 'dt-trail-50k', name: '50K TRAIL Account', size: 50000, evaluationFee: 379, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$2,500 Trailing Threshold', challengeType: '1-Step' },
+        { id: 'dt-trail-75k', name: '75K TRAIL Account', size: 75000, evaluationFee: 449, activationFee: 130, profitTargetPercentage: 5.67, drawdownRules: '$2,750 Trailing Threshold', challengeType: '1-Step' },
         // Static Accounts
-        { id: 'dt-static-25k', name: '25K STATIC Account', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 10, drawdownRules: '$750 Total Drawdown' },
-        { id: 'dt-static-50k', name: '50K STATIC Account', size: 50000, evaluationFee: 200, activationFee: 130, profitTargetPercentage: 7.5, drawdownRules: '$1,000 Total Drawdown' },
-        { id: 'dt-static-75k', name: '75K STATIC Account', size: 75000, evaluationFee: 250, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1,250 Total Drawdown' },
+        { id: 'dt-static-25k', name: '25K STATIC Account', size: 25000, evaluationFee: 150, activationFee: 130, profitTargetPercentage: 10, drawdownRules: '$750 Total Drawdown', challengeType: '1-Step' },
+        { id: 'dt-static-50k', name: '50K STATIC Account', size: 50000, evaluationFee: 200, activationFee: 130, profitTargetPercentage: 7.5, drawdownRules: '$1,000 Total Drawdown', challengeType: '1-Step' },
+        { id: 'dt-static-75k', name: '75K STATIC Account', size: 75000, evaluationFee: 250, activationFee: 130, profitTargetPercentage: 6, drawdownRules: '$1,250 Total Drawdown', challengeType: '1-Step' },
     ],
   },
   {
@@ -2096,4 +2096,3 @@ export const mockFreeResources: FreeResourceItem[] = [
     bookListings: sampleBookListings,
   },
 ];
-
