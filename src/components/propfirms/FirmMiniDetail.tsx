@@ -69,7 +69,7 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
             ([entry]) => {
                 setIsOfferBoxVisible(entry.isIntersecting);
             },
-            { rootMargin: "-1px 0px 0px 0px", threshold: 0 } // Trigger when the top of the element passes the top of the viewport
+            { rootMargin: "-1px 0px 0px 0px", threshold: [0, 1] }
         );
 
         const currentRef = offerBoxRef.current;
@@ -142,5 +142,3 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
 };
 
 export default FirmMiniDetail;
-
-    
