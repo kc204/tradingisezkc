@@ -5,172 +5,64 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
 import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
-import type { PropFirm } from '@/lib/types';
+import type { PropFirm, AccountTier } from '@/lib/types';
 import { mockPropFirms } from '@/lib/mockData';
 
-// --- MOCK DATA (for initial population if Firestore is empty) ---
-const MOCK_FUTURES_CHALLENGES_DATA = [
-  {
-    id: 'mff-starter-100k',
-    firmId: 'my-funded-futures',
-    firmName: 'My Funded Futures',
-    logoUrl: 'https://placehold.co/100x100.png',
-    trustpilotRating: 4.4,
-    trustpilotReviewCount: 693,
-    accountSize: 100000,
-    maxAllocation: 400000,
-    steps: 1,
-    isInstant: false,
-    price: 267,
-    paymentType: 'Monthly',
-    promoDiscountPercent: 50,
-    activationFee: null,
-    profitTarget: 6000,
-    dailyLoss: null,
-    maxLoss: 3000,
-    profitSplit: 90,
-    payoutFrequency: '5 winning days of $200 min',
-    affiliateLink: '#',
-    challengeType: 'futures',
-  },
-  {
-    id: 'apex-static-100k',
-    firmName: 'Apex Trader Funding',
-    logoUrl: 'https://placehold.co/100x100.png',
-    trustpilotRating: 3.6,
-    trustpilotReviewCount: 37,
-    accountSize: 100000,
-    maxAllocation: 300000,
-    steps: 1,
-    isInstant: false,
-    price: 137,
-    paymentType: 'Monthly',
-    promoDiscountPercent: 80,
-    activationFee: 220,
-    profitTarget: 2000,
-    dailyLoss: null,
-    maxLoss: 625,
-    profitSplit: 100,
-    payoutFrequency: '8 active days, 5 days >$50 profit',
-    affiliateLink: '#',
-    challengeType: 'futures',
-  },
-  {
-    id: 'topstep-100k',
-    firmName: 'Topstep',
-    logoUrl: 'https://placehold.co/100x100.png',
-    trustpilotRating: 4.4,
-    trustpilotReviewCount: 47,
-    accountSize: 100000,
-    maxAllocation: 150000,
-    steps: 1,
-    isInstant: false,
-    price: 149,
-    paymentType: 'Monthly',
-    promoDiscountPercent: 0,
-    activationFee: 149,
-    profitTarget: 6000,
-    dailyLoss: 2000,
-    maxLoss: 3000,
-    profitSplit: 90,
-    payoutFrequency: '5 winning days >$200 profit',
-    affiliateLink: '#',
-    challengeType: 'futures',
-  },
-  {
-    id: 'elite-trader-100k-instant',
-    firmName: 'Elite Trader',
-    logoUrl: 'https://placehold.co/100x100.png',
-    trustpilotRating: 4.5,
-    trustpilotReviewCount: 300,
-    accountSize: 100000,
-    maxAllocation: 100000,
-    steps: 1,
-    isInstant: true,
-    price: 750,
-    paymentType: 'One Time',
-    promoDiscountPercent: 0,
-    activationFee: 0,
-    profitTarget: 5000,
-    dailyLoss: 2000,
-    maxLoss: 4000,
-    profitSplit: 80,
-    payoutFrequency: 'On-Demand',
-    affiliateLink: '#',
-    challengeType: 'futures',
-  }
-];
+// --- TRANSFORMED MOCK DATA ---
+const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
+    const challengeType = firm.instrumentTypes?.includes('Futures') ? 'futures' : 'cfd';
+    
+    if (!firm.accountTiers || firm.accountTiers.length === 0) {
+        // Return a single placeholder if no tiers are defined to ensure the firm can still be listed
+        return [{
+            id: `${firm.id}-default`,
+            firmId: firm.slug,
+            firmName: firm.name,
+            logoUrl: firm.logoUrl,
+            trustpilotRating: firm.rating || 0,
+            trustpilotReviewCount: Math.floor((firm.rating || 3.5) * 150),
+            accountSize: firm.minAccountSize || 0,
+            maxAllocation: firm.maxAccountSize || firm.minAccountSize || 0,
+            steps: firm.challengeType?.includes('2-Step') ? 2 : (firm.challengeType?.includes('3-Step') ? 3 : 1),
+            isInstant: firm.challengeType === 'Instant Funding',
+            price: firm.minChallengeCost || 0,
+            paymentType: 'One Time',
+            promoDiscountPercent: parseFloat(firm.offerBadgeLabel?.match(/(\d+)%?/)?.[1] || '0'),
+            activationFee: firm.activationFee === 'None' ? 0 : (parseInt(firm.activationFee?.replace('$', '') || '0', 10) || null),
+            profitTarget: null, // Cannot be easily determined without tier data
+            dailyLoss: null, // Cannot be easily determined without tier data
+            maxLoss: null, // Cannot be easily determined without tier data
+            profitSplit: parseInt(firm.profitSplit?.split('%')[0] || '80', 10),
+            payoutFrequency: 'Varies',
+            affiliateLink: firm.affiliateLink,
+            challengeType: challengeType,
+        }];
+    }
 
-const MOCK_CFD_CHALLENGES_DATA = [
- {
-    id: 'ftmo-challenge-100k',
-    firmName: 'FTMO',
-    logoUrl: 'https://placehold.co/100x100.png',
-    trustpilotRating: 4.8,
-    trustpilotReviewCount: 1500,
-    accountSize: 100000,
-    maxAllocation: 400000,
-    steps: 2,
-    isInstant: false,
-    price: 540,
-    paymentType: 'One Time',
-    promoDiscountPercent: 0,
-    activationFee: null,
-    profitTarget: 10000,
-    dailyLoss: 5000,
-    maxLoss: 10000,
-    profitSplit: 90,
-    payoutFrequency: 'On-Demand after 14 days',
-    affiliateLink: '#',
-    challengeType: 'cfd',
-  },
-  {
-    id: 'the-funded-trader-100k',
-    firmName: 'The Funded Trader',
-    logoUrl: 'https://placehold.co/100x100.png',
-    trustpilotRating: 4.6,
-    trustpilotReviewCount: 1200,
-    accountSize: 100000,
-    maxAllocation: 600000,
-    steps: 2,
-    isInstant: false,
-    price: 549,
-    paymentType: 'One Time',
-    promoDiscountPercent: 10,
-    activationFee: null,
-    profitTarget: 8000,
-    dailyLoss: 6000,
-    maxLoss: 12000,
-    profitSplit: 80,
-    payoutFrequency: 'Bi-Weekly',
-    affiliateLink: '#',
-    challengeType: 'cfd',
-  },
-  {
-    id: 'true-forex-funds-100k-instant',
-    firmName: 'True Forex Funds',
-    logoUrl: 'https://placehold.co/100x100.png',
-    trustpilotRating: 4.7,
-    trustpilotReviewCount: 1800,
-    accountSize: 100000,
-    maxAllocation: 400000,
-    steps: 1,
-    isInstant: true,
-    price: 998,
-    paymentType: 'One Time',
-    promoDiscountPercent: 5,
-    activationFee: null,
-    profitTarget: 0,
-    dailyLoss: 5000,
-    maxLoss: 10000,
-    profitSplit: 80,
-    payoutFrequency: 'On-Demand',
-    affiliateLink: '#',
-    challengeType: 'cfd',
-  }
-];
-
-const ALL_MOCK_DATA = [...MOCK_FUTURES_CHALLENGES_DATA, ...MOCK_CFD_CHALLENGES_DATA];
+    return firm.accountTiers.map(tier => ({
+        id: tier.id,
+        firmId: firm.slug,
+        firmName: firm.name,
+        logoUrl: firm.logoUrl,
+        trustpilotRating: firm.rating || 0,
+        trustpilotReviewCount: Math.floor((firm.rating || 3.5) * 150), // Approximate review count
+        accountSize: tier.size,
+        maxAllocation: firm.maxAccountSize || tier.size,
+        steps: tier.challengeType?.includes('2-Step') ? 2 : (firm.challengeType?.includes('3-Step') ? 3 : 1),
+        isInstant: tier.challengeType === 'Instant Funding',
+        price: tier.evaluationFee,
+        paymentType: 'One Time', // Defaulting, can be customized if data is available
+        promoDiscountPercent: parseFloat(firm.offerBadgeLabel?.match(/(\d+)%?/)?.[1] || '0'),
+        activationFee: tier.activationFee,
+        profitTarget: tier.profitTargetPercentage ? tier.size * (tier.profitTargetPercentage / 100) : null,
+        dailyLoss: tier.dailyLossLimitPercentage ? tier.size * (tier.dailyLossLimitPercentage / 100) : null,
+        maxLoss: tier.drawdownPercentage ? tier.size * (tier.drawdownPercentage / 100) : null,
+        profitSplit: parseInt(firm.profitSplit?.split('%')[0] || '80', 10),
+        payoutFrequency: 'Varies',
+        affiliateLink: firm.affiliateLink,
+        challengeType: challengeType,
+    }));
+});
 
 
 // --- Firebase Configuration ---
@@ -245,7 +137,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
     };
 
     const sizes = [25000, 50000, 100000, 150000, 200000];
-    const stepsOptions: (number | string)[] = [1, 2, 3, 4, 'Instant'];
+    const stepsOptions: (number | string)[] = [1, 2, 3, 'Instant'];
 
     return (
         <div className="space-y-4 mb-6">
@@ -307,7 +199,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     const getSortIndicator = (key: string) => {
-        if (sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
+        if (!sortConfig || sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
         return sortConfig.direction === 'ascending' ? '▲' : '▼';
     };
 
@@ -370,7 +262,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
         <tr className="group hover:bg-white/5 transition-colors duration-200">
             <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
                 <div className="flex items-center">
-                    <img data-ai-hint="logo" className="h-11 w-11 rounded-lg object-cover border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
+                    <img data-ai-hint="logo" className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
                     <div className={`ml-4 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
                         <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                         <div className="flex items-center text-xs text-gray-400 mt-1">
@@ -453,13 +345,13 @@ export default function ComparePage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures' });
-  const [sortConfig, setSortConfig] = useState({ key: 'price', direction: 'ascending' });
+  const [sortConfig, setSortConfig] = useState<{key: string, direction: string}>({ key: 'price', direction: 'ascending' });
   const [currentPage, setCurrentPage] = useState(1);
   const ROWS_PER_PAGE = 8;
   
   useEffect(() => {
     if (!db) {
-        setChallenges(ALL_MOCK_DATA);
+        setChallenges(ALL_CHALLENGES_DATA);
         setLoading(false);
         return;
     }
@@ -469,10 +361,13 @@ export default function ComparePage() {
         if (snapshot.empty) {
             console.log("Firestore 'challenges' collection is empty. Populating with mock data.");
             const batch = writeBatch(db);
-            ALL_MOCK_DATA.forEach((challenge) => {
+            ALL_CHALLENGES_DATA.forEach((challenge) => {
+                if (!challenge.id) {
+                    console.warn('Challenge data is missing id, skipping:', challenge);
+                    return;
+                }
                 const docRef = doc(db, "challenges", challenge.id);
-                const { rawFirmData, ...challengeToSave } = challenge;
-                batch.set(docRef, challengeToSave);
+                batch.set(docRef, challenge);
             });
             await batch.commit();
             console.log("Finished populating data.");
@@ -488,7 +383,7 @@ export default function ComparePage() {
     }, (error) => {
         console.error("Error fetching data from Firestore:", error);
         console.log("Falling back to mock data.");
-        setChallenges(ALL_MOCK_DATA);
+        setChallenges(ALL_CHALLENGES_DATA);
         setLoading(false);
     });
 
@@ -508,6 +403,7 @@ export default function ComparePage() {
 
     if (filters.steps.length > 0) {
         filtered = filtered.filter(c => {
+            if (!c) return false;
             const stepMatch = filters.steps.includes(c.steps);
             const instantMatch = filters.steps.includes('Instant') && c.isInstant;
             return stepMatch || instantMatch;
@@ -515,6 +411,7 @@ export default function ComparePage() {
     }
     
     filtered.sort((a, b) => {
+        if (!a || !b) return 0;
         let aValue, bValue;
         const key = sortConfig.key;
 
@@ -593,3 +490,5 @@ export default function ComparePage() {
     </div>
   );
 }
+
+    
