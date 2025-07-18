@@ -14,7 +14,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
 import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
 import FirmMiniDetail from '@/components/propfirms/FirmMiniDetail';
 
 
@@ -317,7 +317,8 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                 </tr>
             </DialogTrigger>
             {firm && (
-                 <DialogContent className="max-w-[95%] sm:max-w-4xl max-h-[90vh] p-0 border-0">
+                 <DialogContent className="max-w-none w-auto sm:max-w-4xl p-0 border-0">
+                    <DialogTitle className="sr-only">{firm.name} Details</DialogTitle>
                     <FirmMiniDetail firm={firm} />
                 </DialogContent>
             )}
