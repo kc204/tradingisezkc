@@ -567,7 +567,7 @@ export default function ComparePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-foreground font-sans">
+      <div className="flex items-center justify-center text-foreground font-sans p-4">
         <div className="flex items-center gap-3">
           <svg className="animate-spin h-5 w-5 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -580,7 +580,7 @@ export default function ComparePage() {
   }
 
   return (
-    <div className="min-h-screen p-4 sm:p-6 lg:p-8 font-sans text-foreground">
+    <div className="font-sans text-foreground p-4 sm:p-6 lg:p-8">
       <div className="max-w-full mx-auto">
         <header className="mb-10 text-center">
           <h1 className="text-5xl font-extrabold text-foreground tracking-tight">Tradingis<span className="text-primary">EZ</span></h1>
@@ -613,4 +613,3 @@ export default function ComparePage() {
     </div>
   );
 }
-```
