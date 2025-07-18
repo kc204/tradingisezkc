@@ -245,9 +245,9 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
         <Dialog>
             <DialogTrigger asChild>
                 <tr className="group hover:bg-white/5 transition-colors duration-200 cursor-pointer">
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
-                        <div className="flex items-center">
-                            <img className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
+                    <td className="sticky left-0 bg-transparent p-0 z-0">
+                        <div className="flex items-center bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm px-2 md:px-4 py-3 h-full">
+                             <img className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
                             <div className={cn('overflow-hidden transition-all duration-300', isScrolled ? 'w-0 opacity-0 ml-0' : 'w-40 opacity-100 ml-3')}>
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">
@@ -518,6 +518,7 @@ export default function ComparePage() {
 
 
     
+
 
 
 
