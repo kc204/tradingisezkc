@@ -17,7 +17,7 @@ export interface Filters {
   platforms?: string[];
   fundingModel?: string;
   maxAccountSize?: number;
-  accountSize?: number; // New filter for specific account size
+  accountSize?: number;
 }
 
 interface FirmSearchFilterProps {
@@ -29,7 +29,7 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
   const [fundingModel, setFundingModel] = useState('all');
-  const [accountSize, setAccountSize] = useState('all'); // New state for account size filter
+  const [accountSize, setAccountSize] = useState('all');
   
   const [openPlatformPopover, setOpenPlatformPopover] = useState(false);
 
@@ -50,11 +50,13 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
     return Array.from(platforms).sort();
   }, [allFirms]);
 
-  const allFundingModels = useMemo(() => {
-    const models = new Set<string>();
-    allFirms.forEach(firm => firm.fundingModels?.forEach(m => models.add(m)));
-    return Array.from(models).sort();
-  }, [allFirms]);
+  const challengeTypes = [
+    '1-Step',
+    '2-Step',
+    '3-Step',
+    '4-Step',
+    'Instant Funding'
+  ];
   
   const allAccountSizes = useMemo(() => {
     const sizes = new Set<number>();
@@ -134,7 +136,7 @@ const FirmSearchFilter = ({ allFirms, onFilterChange }: FirmSearchFilterProps) =
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Funding Models</SelectItem>
-            {allFundingModels.map(model => (
+            {challengeTypes.map(model => (
               <SelectItem key={model} value={model}>{model}</SelectItem>
             ))}
           </SelectContent>
