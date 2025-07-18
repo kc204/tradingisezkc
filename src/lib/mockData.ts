@@ -289,7 +289,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Daily Drawdown', value: 'None' },
       { label: 'Platforms', value: 'Rithmic, Tradovate, NinjaTrader, etc.' }
     ],
-    fundingModels: ['1-Step Evaluation'],
+    fundingModels: ['1-Step'],
     profitSplit: '100%',
     drawdownRules: 'Trailing Threshold or Static (varies)',
     profitTarget: 'Varies by account size',
@@ -304,7 +304,7 @@ export const mockPropFirms: PropFirm[] = [
     maxAccountSize: 300000,
     minChallengeCost: 137.00,
     maxChallengeCost: 597.00,
-    challengeType: '1-Step Evaluation',
+    challengeType: '1-Step',
     accountTiers: apexTraderFundingAccountTiers,
     restrictedCountries: [
       { name: "Afghanistan", code: "AF" }, { name: "Algeria", code: "DZ" }, { name: "Azerbaijan", code: "AZ" }, { name: "Bahrain", code: "BH" }, { name: "Bangladesh", code: "BD" }, 
@@ -357,7 +357,7 @@ export const mockPropFirms: PropFirm[] = [
 <ul>
   <li><strong>Excessive Scalping:</strong> Holding 50% or more of trades for less than a minute.</li>
   <li><strong>Martingale:</strong> Opening 5 simultaneous positions in drawdown on the same pair.</li>
-  <li><strong>All-In Trading:</strong> Making a single trade with no stop-loss or risking more than the drawdown limit.</li>
+  <li><strong>All-In Trading:</strong> Making a single trade with no stop-loss or risking more than the drawdown limit to pass or fail a challenge.</li>
 </ul>
 <h4>News Trading</h4>
 <p>Trades cannot be opened or closed within 2 minutes before or after a red folder news event. Violations will disqualify an account.</p>
@@ -411,7 +411,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Platforms', value: 'cTrader, Match Trader, MT5' },
       { label: 'Assets', value: 'CFDs' }
     ],
-    fundingModels: ['Instant Funding', '1-Step Evaluation', '2-Step Evaluation', '3-Step Evaluation'],
+    fundingModels: ['Instant Funding', '1-Step', '2-Step', '3-Step'],
     profitSplit: '80%',
     drawdownRules: 'Varies by program (2-4% Daily, 3-8% Max)',
     profitTarget: 'Varies by program',
@@ -525,7 +525,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Platforms', value: 'MT4, MT5, cTrader' },
       { label: 'Assets', value: 'CFDs (FX, Stocks, Crypto, etc.)' }
     ],
-    fundingModels: ['2-Step Evaluation'],
+    fundingModels: ['2-Step'],
     profitSplit: '80% (Scales to 90%)',
     drawdownRules: '10% Max Loss, 5% Daily Loss',
     profitTarget: '10% (Step 1), 5% (Step 2)',
@@ -540,7 +540,7 @@ export const mockPropFirms: PropFirm[] = [
     maxAccountSize: 200000,
     minChallengeCost: 155,
     maxChallengeCost: 1080,
-    challengeType: '2-Step Evaluation (Normal/Swing)',
+    challengeType: '2-Step',
     accountTiers: ftmoAccountTiers,
     restrictedCountries: [
       { name: "Afghanistan", code: "AF" }, { name: "Anguilla", code: "AI" }, { name: "Antarctica", code: "AQ" }, { name: "Antigua and Barbuda", code: "AG" },
@@ -653,7 +653,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Platform', value: 'MT5' },
       { label: 'Assets', value: 'CFDs (FX, Indices, Crypto, etc.)' }
     ],
-    fundingModels: ['Instant Funding', '2-Step Evaluation', '3-Step Evaluation'],
+    fundingModels: ['Instant Funding', '2-Step', '3-Step'],
     profitSplit: 'Scales from 50-80% up to 100%',
     drawdownRules: 'Varies by program (5%-10% max loss)',
     profitTarget: 'Varies by program (6-10%)',
@@ -765,7 +765,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Platforms', value: 'cTrader, DXTrade, MT5, TradeLocker' },
       { label: 'Payouts', value: 'Biweekly or On-Demand' }
     ],
-    fundingModels: ['2-Step Evaluation', '3-Step Evaluation'],
+    fundingModels: ['2-Step', '3-Step'],
     profitSplit: '80%',
     drawdownRules: '5% Daily Loss, 10% Max Loss',
     profitTarget: '10% (Phase 1), 5% (Phase 2)',
@@ -780,7 +780,7 @@ export const mockPropFirms: PropFirm[] = [
     maxAccountSize: 200000,
     minChallengeCost: 50,
     maxChallengeCost: 1097,
-    challengeType: '2-Step Evaluation',
+    challengeType: '2-Step & 3-Step',
     accountTiers: alphaCapitalAccountTiers,
     restrictedCountries: [
       { name: "Afghanistan", code: "AF" }, { name: "Belarus", code: "BY" }, { name: "Burundi", code: "BI" },
@@ -872,7 +872,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Evaluation', value: '1-Step Trading Combine' },
       { label: 'Founded', value: '2012' }
     ],
-    fundingModels: ['1-Step Evaluation (Monthly Subscription)'],
+    fundingModels: ['1-Step'],
     profitSplit: '100% on first $10,000, then 90%',
     drawdownRules: 'Trailing Drawdown',
     profitTarget: '6%',
@@ -888,7 +888,7 @@ export const mockPropFirms: PropFirm[] = [
     minChallengeCost: 49,
     maxChallengeCost: 149,
     activationFee: '$149',
-    challengeType: '1-Step Evaluation',
+    challengeType: '1-Step',
     accountTiers: topstepAccountTiers,
     restrictedCountries: [
       { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
@@ -904,8 +904,8 @@ export const mockPropFirms: PropFirm[] = [
       { name: "Russia", code: "RU" }, { name: "Senegal", code: "SN" }, { name: "Serbia", code: "RS" }, { name: "Slovenia", code: "SI" },
       { name: "Somalia", code: "SO" }, { name: "South Africa", code: "ZA" }, { name: "South Sudan", code: "SS" }, { name: "Sudan", code: "SD" },
       { name: "Syria", code: "SY" }, { name: "Tanzania", code: "TZ" }, { name: "Trinidad and Tobago", code: "TT" }, { name: "Turkey", code: "TR" },
-      { name: "Ukraine", code: "UA" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" }, { name: "Yemen", code: "YE" },
-      { name: "Zimbabwe", code: "ZW" }
+      { name: "Ukraine", code: "UA" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" }, { name: 'Yemen', code: 'YE' },
+      { name: 'Zimbabwe', code: 'ZW' }
     ]
   },
   {
@@ -1018,7 +1018,7 @@ export const mockPropFirms: PropFirm[] = [
  ],
     promo: 'Code: EZ',
     offerBadgeLabel: '40% OFF + No Activation Fee',
-    fundingModels: ['1-Step Evaluation'],
+    fundingModels: ['1-Step'],
     profitSplit: '80% (PRO) / 90% (PRO+)',
     drawdownRules: 'EOD Trailing (Evaluation) / Peak Balance Trailing (Funded)',
     profitTarget: '6%',
@@ -1035,7 +1035,7 @@ export const mockPropFirms: PropFirm[] = [
     minChallengeCost: 150, 
     maxChallengeCost: 360,
     activationFee: '$130 (One-Time)',
-    challengeType: '1-Step Evaluation', 
+    challengeType: '1-Step', 
     accountTiers: tptAccountTiers,
     restrictedCountries: [
       { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
@@ -1064,7 +1064,7 @@ export const mockPropFirms: PropFirm[] = [
       { name: "Tanzania", code: "TZ" }, { name: "Timor-Leste", code: "TL" }, { name: "Togo", code: "TG" }, { name: "Trinidad and Tobago", code: "TT" },
       { name: "Turkey", code: "TR" }, { name: "Turkmenistan", code: "TM" }, { name: "Tuvalu", code: "TV" }, { name: "Uganda", code: "UG" },
       { name: "Ukraine", code: "UA" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" }, { name: "Western Sahara", code: "EH" },
-      { name: "Yemen", code: "YE" }, { name: "Zambia", code: "ZM" }, { name: "Zimbabwe", code: "ZW" }
+      { name: 'Yemen', code: 'YE' }, { name: 'Zambia', code: 'ZM' }, { name: 'Zimbabwe', code: 'ZW' }
     ]
   },
   {
@@ -1153,7 +1153,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Account Types', value: 'Starter, Expert, Eval-to-Live'},
     ],
     offerBadgeLabel: '100% up to $10K Profit',
-    fundingModels: ['Monthly Subscription', 'One-Time Payment'],
+    fundingModels: ['1-Step', '2-Step'],
     profitSplit: '100% on first $10,000, then 90% (80% on Eval-to-Live)',
     drawdownRules: 'End-of-Day Trailing or Trailing Drawdown (varies by plan)',
     profitTarget: 'Varies by plan',
@@ -1170,7 +1170,7 @@ export const mockPropFirms: PropFirm[] = [
     minChallengeCost: 97, 
     maxChallengeCost: 444, 
     activationFee: 'None', 
-    challengeType: '1-Step or 2-Step Evaluation',
+    challengeType: '1-Step or 2-Step',
     accountTiers: myFundedFuturesAccountTiers,
     restrictedCountries: [
       { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
@@ -1192,7 +1192,7 @@ export const mockPropFirms: PropFirm[] = [
       { name: "Sri Lanka", code: "LK" }, { name: "Sudan", code: "SD" }, { name: "Syria", code: "SY" }, { name: "Tanzania", code: "TZ" },
       { name: "Trinidad and Tobago", code: "TT" }, { name: "Tunisia", code: "TN" }, { name: "Turkey", code: "TR" }, { name: "Uganda", code: "UG" },
       { name: "Ukraine", code: "UA" }, { name: "United Arab Emirates", code: "AE" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" },
-      { name: "Yemen", code: "YE" }, { name: "Zimbabwe", code: "ZW" }
+      { name: 'Yemen', code: 'YE' }, { name: 'Zimbabwe', code: 'ZW' }
     ],
   },
   {
@@ -1328,7 +1328,7 @@ export const mockPropFirms: PropFirm[] = [
     ],
     offerBadgeLabel: '35% OFF ALL ACCOUNTS', 
     promo: 'Code: EZ',
-    fundingModels: ["Advanced Plan (Intraday DD)", "Growth Plan (EOD DD)", "Straight to Sim Funded"],
+    fundingModels: ["1-Step", "Instant Funding"],
     profitSplit: '100% on first $15,000, then 90/10', 
     drawdownRules: 'Advanced: Intraday trailing. Growth & Sim: End-of-day trailing.',
     profitTarget: 'Challenges: 6%. Sim Funded: Payout-based goals.',
@@ -1344,7 +1344,7 @@ export const mockPropFirms: PropFirm[] = [
     minChallengeCost: 69,
     maxChallengeCost: 729,
     activationFee: '$125 (Advanced Plan), $0 (Growth/Sim)', 
-    challengeType: 'Evaluation or Direct Funding',
+    challengeType: '1-Step or Instant Funding',
     accountTiers: tradeifyAccountTiers,
     restrictedCountries: [
       { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
@@ -1359,8 +1359,8 @@ export const mockPropFirms: PropFirm[] = [
       { name: "Panama", code: "PA" }, { name: "Papua New Guinea", code: "PG" }, { name: "Russia", code: "RU" }, { name: "Somalia", code: "SO" },
       { name: "South Sudan", code: "SS" }, { name: "Sri Lanka", code: "LK" }, { name: "Sudan", code: "SD" }, { name: "Syria", code: "SY" },
       { name: "Trinidad and Tobago", code: "TT" }, { name: "Tunisia", code: "TN" }, { name: "Turkey", code: "TR" }, { name: "Uganda", code: "UG" },
-      { name: "Ukraine", code: "UA" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" }, { name: "Yemen", code: "YE" },
-      { name: "Zimbabwe", code: "ZW" }
+      { name: "Ukraine", code: "UA" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" }, { name: 'Yemen', code: 'YE' },
+      { name: 'Zimbabwe', code: 'ZW' }
     ],
   },
   {
@@ -1458,7 +1458,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Platforms', value: 'Rithmic/CQG Compatible' },
     ],
     promo: '90% off all accounts',
-    fundingModels: ['Evaluation (Monthly Subscription)'],
+    fundingModels: ['1-Step'],
     profitSplit: '100% of first $10k, then 90/10',
     drawdownRules: 'Trailing or EOD (stops at initial balance)',
     profitTarget: 'Varies by account size (e.g., $1,500 on $25k)',
@@ -1474,7 +1474,7 @@ export const mockPropFirms: PropFirm[] = [
     minChallengeCost: 145, 
     maxChallengeCost: 535,
     activationFee: 'One-time fee, varies by account size',
-    challengeType: '1-Step Evaluation',
+    challengeType: '1-Step',
     accountTiers: bulenoxAccountTiers,
   },
   {
@@ -1709,7 +1709,7 @@ export const mockPropFirms: PropFirm[] = [
         { label: 'Drawdown', value: 'EOD, Trailing, or Static' }
     ],
     offerBadgeLabel: '100% Profit Split!',
-    fundingModels: ['Straight to Funded', 'Evaluation (Trail)', 'Evaluation (Static)'],
+    fundingModels: ['Instant Funding', '1-Step'],
     profitSplit: '100%',
     drawdownRules: 'Varies by account type (End-of-Day, Trailing, or Static)',
     profitTarget: 'Varies for evaluation accounts, none for S2F',
@@ -1725,7 +1725,7 @@ export const mockPropFirms: PropFirm[] = [
     minChallengeCost: 150, 
     maxChallengeCost: 825, 
     activationFee: 'None (S2F) / $130 (Trail/Static)',
-    challengeType: 'Evaluation or Direct Funding',
+    challengeType: '1-Step or Instant Funding',
     accountTiers: [
         // S2F Accounts
         { id: 'dt-s2f-25k', name: '25K S2F Account', size: 25000, evaluationFee: 370, activationFee: 0, drawdownRules: '$1,000 (End of Day)', profitTargetPercentage: null },
@@ -1861,7 +1861,7 @@ export const mockPropFirms: PropFirm[] = [
       { label: 'Platforms', value: 'Tradovate, NinjaTrader, TradingView' }
     ],
     offerBadgeLabel: '35% OFF all accounts',
-    fundingModels: ["1-Step Evaluation (Pro+)", "Direct Funded (Zero)"],
+    fundingModels: ["1-Step", "Instant Funding"],
     profitSplit: '90%',
     drawdownRules: 'End-of-Day trailing drawdown',
     profitTarget: '5 qualifying days (Pro+), Reward Targets (Zero)',
@@ -1877,7 +1877,7 @@ export const mockPropFirms: PropFirm[] = [
     minChallengeCost: 99,
     maxChallengeCost: 599,
     activationFee: 'Not specified',
-    challengeType: '1-Step or Direct',
+    challengeType: '1-Step or Instant Funding',
     accountTiers: fundingticksAccountTiers,
     restrictedCountries: [
       { name: "Afghanistan", code: "AF" }, { name: "Albania", code: "AL" }, { name: "Algeria", code: "DZ" }, { name: "Angola", code: "AO" },
@@ -1895,7 +1895,7 @@ export const mockPropFirms: PropFirm[] = [
       { name: "Somalia", code: "SO" }, { name: "South Sudan", code: "SS" }, { name: "Sri Lanka", code: "LK" }, { name: "Sudan", code: "SD" },
       { name: "Syria", code: "SY" }, { name: "Trinidad and Tobago", code: "TT" }, { name: "Tunisia", code: "TN" }, { name: "Turkey", code: "TR" },
       { name: "Uganda", code: "UG" }, { name: "Ukraine", code: "UA" }, { name: "United Arab Emirates", code: "AE" }, { name: "Venezuela", code: "VE" },
-      { name: "Vietnam", code: "VN" }, { name: "Yemen", code: "YE" }, { name: "Zimbabwe", code: "ZW" }
+      { name: "Vietnam", code: "VN" }, { name: 'Yemen', code: 'YE' }, { name: 'Zimbabwe', code: 'ZW' }
     ],
   }
 ];
@@ -2096,3 +2096,4 @@ export const mockFreeResources: FreeResourceItem[] = [
     bookListings: sampleBookListings,
   },
 ];
+
