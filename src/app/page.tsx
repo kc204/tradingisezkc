@@ -201,33 +201,11 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
 };
 
 const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: any) => {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-
     const getSortIndicator = (key: string) => {
         if (sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
         return sortConfig.direction === 'ascending' ? '▲' : '▼';
     };
 
-    useEffect(() => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
-
-        const handleScroll = () => {
-            if (container) {
-                setIsScrolled(container.scrollLeft > 10);
-            }
-        };
-
-        container.addEventListener('scroll', handleScroll);
-        handleScroll();
-        return () => {
-            if (container) {
-                container.removeEventListener('scroll', handleScroll);
-            }
-        };
-    }, [challenges]);
-    
     const columns = [
         { key: 'firm', label: 'Firm / Rank', sticky: 'left' },
         { key: 'accountsize', label: 'Account Size' },
@@ -244,7 +222,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
-            <div ref={scrollContainerRef} className="overflow-x-auto">
+            <div className="overflow-x-auto">
                 <table className="min-w-full text-sm">
                     <thead className="border-b border-white/10">
                         <tr>
@@ -259,7 +237,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
-                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} />)}
+                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} />)}
                     </tbody>
                 </table>
             </div>
@@ -267,7 +245,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     );
 };
 
-const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
+const ChallengeRow = ({ challenge, applyDiscount }: any) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
 
     return (
@@ -277,7 +255,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                     <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
                         <div className="flex items-center">
                             <img className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
-                            <div className={`ml-3 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
+                            <div className="ml-3">
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">
                                     <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
@@ -623,3 +601,6 @@ export default function Home() {
     
 
 
+
+
+    
