@@ -1,4 +1,3 @@
-
 'use client'; 
 
 import FirmCard from '@/components/propfirms/FirmCard';
@@ -37,9 +36,9 @@ const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
         paymentType: 'One Time', // Defaulting, can be customized if data is available
         promoDiscountPercent: parseFloat(firm.offerBadgeLabel?.match(/(\d+)%?/)?.[1] || '0'),
         activationFee: tier.activationFee,
-        profitTarget: tier.profitTargetPercentage ? tier.size * (tier.profitTargetPercentage / 100) : 0,
+        profitTarget: tier.profitTargetPercentage ? tier.size * (tier.profitTargetPercentage / 100) : null,
         dailyLoss: tier.dailyLossLimitPercentage ? tier.size * (tier.dailyLossLimitPercentage / 100) : null,
-        maxLoss: tier.drawdownPercentage ? tier.size * (tier.drawdownPercentage / 100) : 0,
+        maxLoss: tier.drawdownPercentage ? tier.size * (tier.drawdownPercentage / 100) : null,
         profitSplit: parseInt(firm.profitSplit?.split('%')[0] || '80', 10),
         payoutFrequency: 'Varies',
         affiliateLink: firm.affiliateLink,
@@ -381,6 +380,7 @@ const FullCompareSection = () => {
 
     if (filters.steps.length > 0) {
         filtered = filtered.filter(c => {
+            if (!c) return false;
             const stepMatch = filters.steps.includes(c.steps);
             const instantMatch = filters.steps.includes('Instant') && c.isInstant;
             return stepMatch || instantMatch;
@@ -388,6 +388,7 @@ const FullCompareSection = () => {
     }
     
     filtered.sort((a, b) => {
+        if (!a || !b) return 0;
         let aValue, bValue;
         const key = sortConfig.key;
 
@@ -404,7 +405,7 @@ const FullCompareSection = () => {
 
   useEffect(() => {
       setCurrentPage(1);
-  }, [filteredAndSortedChallenges]);
+  }, [filters, searchTerm]);
 
   const paginatedChallenges = useMemo(() => {
       const startIndex = (currentPage - 1) * ROWS_PER_PAGE;
