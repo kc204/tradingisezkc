@@ -2,7 +2,10 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, onSnapshot, doc, setDoc, getDocs, writeBatch } from 'firebase/firestore';
 import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 // --- MOCK DATA (for initial population if Firestore is empty) ---
 const MOCK_FUTURES_CHALLENGES_DATA = [
@@ -261,52 +264,52 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
         <div className="space-y-4 mb-6">
             <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
                 <div className="flex items-center gap-4 flex-wrap">
-                    <div className="flex items-center p-1 bg-white/5 rounded-full">
-                        <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+                    <div className="flex items-center p-1 bg-card rounded-full">
+                        <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
                             Futures
                         </button>
-                        <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+                        <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
                             CFD
                         </button>
                     </div>
                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-gray-400 mr-2">Sizes:</span>
+                        <span className="font-semibold text-muted-foreground mr-2">Sizes:</span>
                         {sizes.map(size => (
                             <button
                                 key={size}
                                 onClick={() => toggleSizeFilter(size)}
-                                className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all duration-300 ${filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                                className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all duration-300 ${filters.accountSize.includes(size) ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30' : 'bg-muted text-muted-foreground hover:bg-muted/80'}`}
                             >
                                 {formatShortCurrency(size)}
                             </button>
                         ))}
                     </div>
                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-gray-400 mr-2">Steps:</span>
+                        <span className="font-semibold text-muted-foreground mr-2">Steps:</span>
                         {stepsOptions.map(step => (
                             <button
                                 key={step}
                                 onClick={() => toggleStepFilter(step)}
-                                className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all duration-300 ${filters.steps.includes(step) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                                className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all duration-300 ${filters.steps.includes(step) ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30' : 'bg-muted text-muted-foreground hover:bg-muted/80'}`}
                             >
                                 {typeof step === 'number' ? `${step} Step${step > 1 ? 's' : ''}` : step}
                             </button>
                         ))}
                     </div>
                     <div className="flex items-center space-x-2">
-                        <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${filters.applyDiscount ? 'bg-blue-600' : 'bg-gray-600'}`}>
-                            <span className={`pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform h-5 w-5 ${filters.applyDiscount ? 'translate-x-5' : 'translate-x-0'}`}></span>
+                        <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${filters.applyDiscount ? 'bg-primary' : 'bg-muted'}`}>
+                            <span className={`pointer-events-none block rounded-full bg-background shadow-lg ring-0 transition-transform h-5 w-5 ${filters.applyDiscount ? 'translate-x-5' : 'translate-x-0'}`}></span>
                         </button>
-                        <label className="text-sm font-semibold text-gray-300">Apply Discount</label>
+                        <label className="text-sm font-semibold text-muted-foreground">Apply Discount</label>
                     </div>
                 </div>
                 <div className="relative flex-grow w-full md:flex-grow-0 md:w-auto">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
-                    <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                    <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-card border border-border rounded-full h-11 pl-12 pr-4 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
                 </div>
             </div>
-            <h2 className="text-xl font-bold tracking-tight text-white/90">
-                {filters.challengeType === 'futures' ? 'Futures' : 'CFD'} Prop Firm Challenges <span className="ml-2 text-blue-400 font-medium bg-blue-500/10 px-2 py-1 rounded-md text-base">Showing {filteredCount} of {totalCount}</span>
+            <h2 className="text-xl font-bold tracking-tight text-foreground/90">
+                {filters.challengeType === 'futures' ? 'Futures' : 'CFD'} Prop Firm Challenges <span className="ml-2 text-primary font-medium bg-primary/10 px-2 py-1 rounded-md text-base">Showing {filteredCount} of {totalCount}</span>
             </h2>
         </div>
     );
@@ -317,7 +320,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }) 
     const scrollContainerRef = useRef(null);
 
     const getSortIndicator = (key) => {
-        if (sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
+        if (sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-muted-foreground" />;
         return sortConfig.direction === 'ascending' ? '▲' : '▼';
     };
 
@@ -349,14 +352,14 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }) 
     ];
 
     return (
-        <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
+        <div className="bg-card backdrop-blur-sm rounded-xl border border-border shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
                 <table className="min-w-full text-sm">
-                    <thead className="border-b border-white/10">
+                    <thead className="border-b border-border">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-4 py-3 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-black/20 backdrop-blur-sm'}` : 'bg-gray-800/95'}`}>
-                                    <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
+                                <th key={col.key} scope="col" className={`px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-card/80 backdrop-blur-sm' : 'right-0 bg-card/80 backdrop-blur-sm'}` : 'bg-muted/50'}`}>
+                                    <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-foreground transition-colors">
                                         {col.label}
                                         <span>{getSortIndicator(col.key)}</span>
                                     </button>
@@ -364,7 +367,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }) 
                             ))}
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5">
+                    <tbody className="divide-y divide-border">
                         {challenges.map(challenge => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} />)}
                     </tbody>
                 </table>
@@ -377,49 +380,51 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
 
     return (
-        <tr className="group hover:bg-white/5 transition-colors duration-200">
-            <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 backdrop-blur-sm group-hover:bg-gray-800/80">
+        <tr className="group hover:bg-muted/50 transition-colors duration-200">
+            <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-card/80 backdrop-blur-sm group-hover:bg-muted/80">
                 <div className="flex items-center">
-                    <img className="h-11 w-11 rounded-lg object-cover border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
+                    <img className="h-11 w-11 rounded-lg object-cover border-2 border-border flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
                     <div className={`ml-4 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
-                        <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
-                        <div className="flex items-center text-xs text-gray-400 mt-1">
-                            <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
+                        <div className="text-sm font-medium text-foreground truncate">{challenge.firmName}</div>
+                        <div className="flex items-center text-xs text-muted-foreground mt-1">
+                            <Star className="h-3.5 w-3.5 text-secondary mr-1" />
                             {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
                         </div>
                     </div>
                 </div>
             </td>
-            <td className="px-4 py-3 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-foreground font-medium">{formatCurrency(challenge.accountSize)}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-foreground">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-foreground">{formatCurrency(challenge.activationFee)}</td>
             <td className="px-4 py-3 whitespace-nowrap">
                 <div className="flex items-center gap-2">
-                    <span className="text-sm text-white">{challenge.profitSplit}%</span>
-                    <div className="w-16 h-1.5 bg-gray-700 rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
+                    <span className="text-sm text-foreground">{challenge.profitSplit}%</span>
+                    <div className="w-16 h-1.5 bg-muted rounded-full overflow-hidden"><div className="h-full bg-primary" style={{width: `${challenge.profitSplit}%`}}></div></div>
                 </div>
             </td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{challenge.profitTarget.join('% / ')}%</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.dailyLoss)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.maxLoss)}</td>
-            <td className="px-4 py-3 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-            <td className="px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-black/20 backdrop-blur-sm group-hover:bg-gray-800/80">
+            <td className="px-4 py-3 whitespace-nowrap text-foreground">{formatCurrency(challenge.maxAllocation)}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-foreground">{challenge.profitTarget.join('% / ')}%</td>
+            <td className="px-4 py-3 whitespace-nowrap text-foreground">{formatPercentage(challenge.dailyLoss)}</td>
+            <td className="px-4 py-3 whitespace-nowrap text-foreground">{formatPercentage(challenge.maxLoss)}</td>
+            <td className="px-4 py-3 text-xs text-muted-foreground max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
+            <td className="px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-card/80 backdrop-blur-sm group-hover:bg-muted/80">
                 <div className="flex items-center gap-3">
                     <div className="text-right">
                          {applyDiscount && challenge.promoDiscountPercent > 0 ? (
                             <>
-                                <p className="font-semibold text-green-400">{formatCurrency(finalPrice)}</p>
-                                <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
+                                <p className="font-semibold text-success">{formatCurrency(finalPrice)}</p>
+                                <p className="text-xs text-muted-foreground line-through">{formatCurrency(challenge.price)}</p>
                             </>
                         ) : (
-                            <p className="font-semibold text-white">{formatCurrency(finalPrice)}</p>
+                            <p className="font-semibold text-foreground">{formatCurrency(finalPrice)}</p>
                         )}
-                        <p className="text-xs text-gray-500">{challenge.paymentType}</p>
+                        <p className="text-xs text-muted-foreground">{challenge.paymentType}</p>
                     </div>
-                    <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+                    <Button asChild>
+                      <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer">
                         Buy
-                    </a>
+                      </a>
+                    </Button>
                 </div>
             </td>
         </tr>
@@ -518,9 +523,9 @@ export default function ComparePage() {
 
   if (loading) {
     return (
-      <div className="bg-gradient-to-br from-gray-900 to-black min-h-screen flex items-center justify-center text-white font-sans">
+      <div className="bg-background min-h-screen flex items-center justify-center text-foreground font-sans">
         <div className="flex items-center gap-3">
-          <svg className="animate-spin h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <svg className="animate-spin h-5 w-5 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
@@ -531,11 +536,11 @@ export default function ComparePage() {
   }
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-black min-h-screen p-4 sm:p-6 lg:p-8 font-sans text-white">
+    <div className="bg-background min-h-screen p-4 sm:p-6 lg:p-8 font-sans text-foreground">
       <div className="max-w-full mx-auto">
         <header className="mb-10 text-center">
-          <h1 className="text-5xl font-extrabold text-white tracking-tight">Tradingis<span className="text-blue-400">EZ</span></h1>
-          <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">The EZ-iest Way to Compare Prop Firm Challenges.</p>
+          <h1 className="text-5xl font-extrabold text-foreground tracking-tight">Tradingis<span className="text-primary">EZ</span></h1>
+          <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">The EZ-iest Way to Compare Prop Firm Challenges.</p>
         </header>
         <main>
           <ControlBar 
