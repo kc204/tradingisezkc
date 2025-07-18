@@ -1,4 +1,3 @@
-
 import type { GlobalOffer, PropFirm, Article, TradingResource, FreeResourceItem, VideoLesson, BookListing, AccountTier } from './types';
 
 export const mockGlobalOffers: GlobalOffer[] = [
@@ -319,7 +318,7 @@ export const mockPropFirms: PropFirm[] = [
       { name: "Mongolia", code: "MN" }, { name: "Morocco", code: "MA" }, { name: "Mozambique", code: "MZ" }, { name: "Namibia", code: "NA" }, { name: "Nepal", code: "NP" }, 
       { name: "New Caledonia", code: "NC" }, { name: "Niger", code: "NE" }, { name: "Nigeria", code: "NG" }, { name: "Occupied Palestinian Territory", code: "PS" }, 
       { name: "Oman", code: "OM" }, { name: "Pakistan", code: "PK" }, { name: "Qatar", code: "QA" }, { name: "Reunion", code: "RE" }, { name: "Russia", code: "RU" }, 
-      { name: "Rwanda", code: "RW" }, { name: "Saint Pierre and Miquelon", code: "PM" }, { name: "Saudi Arabia", code: "SA" }, { name: "Senegal", code: "SN" }, 
+      { name: "Rwanda", code: "RW" }, { name: "Saint Pierre and Miquelon", code: "PM" }, { name: "Senegal", code: "SN" }, 
       { name: "Serbia", code: "RS" }, { name: "Somalia", code: "SO" }, { name: "South Africa", code: "ZA" }, { name: "Sri Lanka", code: "LK" }, { name: "Syria", code: "SY" }, 
       { name: "Tanzania", code: "TZ" }, { name: "Togo", code: "TG" }, { name: "Trinidad and Tobago", code: "TT" }, { name: "Tunisia", code: "TN" }, { name: "Turkey", code: "TR" }, 
       { name: "Uganda", code: "UG" }, { name: "Ukraine", code: "UA" }, { name: "Uzbekistan", code: "UZ" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" }, 
@@ -1064,8 +1063,8 @@ export const mockPropFirms: PropFirm[] = [
       { name: "Svalbard", code: "SJ" }, { name: "Syria", code: "SY" }, { name: "Tajikistan", code: "TJ" },
       { name: "Tanzania", code: "TZ" }, { name: "Timor-Leste", code: "TL" }, { name: "Togo", code: "TG" }, { name: "Trinidad and Tobago", code: "TT" },
       { name: "Turkey", code: "TR" }, { name: "Turkmenistan", code: "TM" }, { name: "Tuvalu", code: "TV" }, { name: "Uganda", code: "UG" },
-      { name: "Ukraine", code: "UA" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" }, { name: "Western Sahara", code: "EH" },
-      { name: 'Yemen', code: 'YE' }, { name: 'Zambia', code: 'ZM' }, { name: 'Zimbabwe', code: 'ZW' }
+      { name: "Ukraine", code: "UA" }, { name: "Venezuela", code: "VE" }, { name: "Vietnam", code: "VN" }, { name: 'Yemen', code: 'YE' },
+      { name: 'Zambia', code: 'ZM' }, { name: 'Zimbabwe', code: 'ZW' }
     ]
   },
   {
@@ -1840,7 +1839,7 @@ export const mockPropFirms: PropFirm[] = [
       "Offers both 1-step evaluation and direct funding",
       "No daily loss limit on accounts",
       "Uses flexible End-of-Day trailing drawdown",
-      "Frequent payout cycles (every 5 or 7 days)"
+      "Payouts every 5-7 days"
     ],
     cons: [
       "Strict consistency rules for payouts/rewards",
@@ -1853,7 +1852,7 @@ export const mockPropFirms: PropFirm[] = [
       '1-Step (Pro+) and Direct (Zero) funding models',
       'End-of-Day Trailing Drawdown',
       'No Daily Loss Limit',
-      'Payouts every 5-7 days'
+      'Payout\'s every 5-7 days'
     ],
     keyInfoSnippets: [
       { label: 'Profit Split', value: '90%' },
@@ -2097,3 +2096,33 @@ export const mockFreeResources: FreeResourceItem[] = [
     bookListings: sampleBookListings,
   },
 ];
+
+
+export const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
+  if (!firm.accountTiers || firm.accountTiers.length === 0) {
+    return [];
+  }
+  return firm.accountTiers.map(tier => ({
+    id: `${firm.slug}-${tier.id}`,
+    firmId: firm.slug,
+    firmName: firm.name,
+    logoUrl: firm.logoUrl,
+    trustpilotRating: firm.rating || 0,
+    trustpilotReviewCount: firm.rating ? Math.floor(firm.rating * (250 + (parseInt(firm.id, 10) % 10) * 10)) : 50,
+    accountSize: tier.size,
+    maxAllocation: firm.maxAccountSize || 0,
+    steps: tier.challengeType?.includes('Step') ? parseInt(tier.challengeType.split('-')[0], 10) : 0,
+    isInstant: tier.challengeType?.toLowerCase().includes('instant') || false,
+    price: tier.evaluationFee,
+    paymentType: firm.fundingModels?.includes('1-Step') ? 'Monthly' : 'One Time', // Simplified logic
+    promoDiscountPercent: firm.offerBadgeLabel ? parseInt(firm.offerBadgeLabel.match(/(\d+)%?/)?.[1] || '0', 10) : 0,
+    activationFee: tier.activationFee || null,
+    profitTarget: tier.profitTargetPercentage ? tier.size * (tier.profitTargetPercentage / 100) : null,
+    dailyLoss: tier.dailyLossLimitPercentage ? tier.size * (tier.dailyLossLimitPercentage / 100) : null,
+    maxLoss: tier.drawdownPercentage ? tier.size * (tier.drawdownPercentage / 100) : null,
+    profitSplit: firm.profitSplit ? parseInt(firm.profitSplit.split('%')[0], 10) : 80,
+    payoutFrequency: 'Varies', // This would need more detailed mapping
+    affiliateLink: firm.affiliateLink,
+    challengeType: firm.instrumentTypes?.includes('Futures') ? 'futures' : 'cfd',
+  }));
+});

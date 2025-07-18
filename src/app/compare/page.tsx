@@ -7,68 +7,13 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
 import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight, Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban } from 'lucide-react';
 import type { PropFirm } from '@/lib/types';
-import { mockPropFirms } from '@/lib/mockData';
+import { ALL_CHALLENGES_DATA, mockPropFirms } from '@/lib/mockData';
 import Image from 'next/image';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
 import OfferBox from '@/components/propfirms/OfferBox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import FirmMiniDetail from '@/components/propfirms/FirmMiniDetail';
-
-
-const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
-    const challengeType = firm.instrumentTypes?.includes('Futures') ? 'futures' : 'cfd';
-    
-    if (!firm.accountTiers || firm.accountTiers.length === 0) {
-        return [{
-            id: `${firm.id}-default`,
-            firmId: firm.slug,
-            firmName: firm.name,
-            logoUrl: firm.logoUrl,
-            trustpilotRating: firm.rating || 0,
-            trustpilotReviewCount: Math.floor((firm.rating || 3.5) * 150),
-            accountSize: firm.minAccountSize || 0,
-            maxAllocation: firm.maxAccountSize || firm.minAccountSize || 0,
-            steps: firm.challengeType?.includes('2-Step') ? 2 : (firm.challengeType?.includes('3-Step') ? 3 : 1),
-            isInstant: firm.challengeType === 'Instant Funding',
-            price: firm.minChallengeCost || 0,
-            paymentType: 'One Time',
-            promoDiscountPercent: parseFloat(firm.offerBadgeLabel?.match(/(\d+)%?/)?.[1] || '0'),
-            activationFee: firm.activationFee === 'None' ? 0 : (parseInt(firm.activationFee?.replace('$', '') || '0', 10) || null),
-            profitTarget: null, 
-            dailyLoss: null,
-            maxLoss: null,
-            profitSplit: parseInt(firm.profitSplit?.split('%')[0] || '80', 10),
-            payoutFrequency: 'Varies',
-            affiliateLink: firm.affiliateLink,
-            challengeType: challengeType,
-        }];
-    }
-
-    return firm.accountTiers.map(tier => ({
-        id: tier.id,
-        firmId: firm.slug,
-        firmName: firm.name,
-        logoUrl: firm.logoUrl,
-        trustpilotRating: firm.rating || 0,
-        trustpilotReviewCount: Math.floor((firm.rating || 3.5) * 150), 
-        accountSize: tier.size,
-        maxAllocation: firm.maxAccountSize || tier.size,
-        steps: tier.challengeType?.includes('2-Step') ? 2 : (tier.challengeType?.includes('3-Step') ? 3 : 1),
-        isInstant: tier.challengeType === 'Instant Funding',
-        price: tier.evaluationFee,
-        paymentType: 'One Time', 
-        promoDiscountPercent: parseFloat(firm.offerBadgeLabel?.match(/(\d+)%?/)?.[1] || '0'),
-        activationFee: tier.activationFee,
-        profitTarget: tier.profitTargetPercentage ? tier.size * (tier.profitTargetPercentage / 100) : null,
-        dailyLoss: tier.dailyLossLimitPercentage ? tier.size * (tier.dailyLossLimitPercentage / 100) : null,
-        maxLoss: tier.drawdownPercentage ? tier.size * (tier.drawdownPercentage / 100) : null,
-        profitSplit: parseInt(firm.profitSplit?.split('%')[0] || '80', 10),
-        payoutFrequency: 'Varies',
-        affiliateLink: firm.affiliateLink,
-        challengeType: challengeType,
-    }));
-});
 
 
 const firebaseConfig = {
@@ -271,11 +216,11 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
             <DialogTrigger asChild>
                 <tr className="group hover:bg-white/5 transition-colors duration-200 cursor-pointer">
                     <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky left-0 z-0 bg-transparent">
-                         <div className="flex items-center">
+                        <div className="flex items-center gap-3">
                             <div className="w-11 h-11 relative flex-shrink-0">
                                 <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
                             </div>
-                            <div className={`ml-3 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
+                            <div className={`flex flex-col justify-center flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">
                                     <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
@@ -318,7 +263,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                     </td>
                 </tr>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl w-[95vw] sm:w-[90vw] h-[90vh] p-0 flex flex-col">
+            <DialogContent className="w-[95vw] h-[90vh] max-w-lg md:w-full md:max-w-4xl md:h-auto p-0 flex flex-col">
                 <DialogTitle className="sr-only">{firm.name} Details</DialogTitle>
                 <FirmMiniDetail firm={firm} />
             </DialogContent>
