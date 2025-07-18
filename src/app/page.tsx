@@ -200,19 +200,19 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
     );
 };
 
-const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: any) => {
+const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount, tableContainerRef, isScrolled }: any) => {
     const columns = [
-        { key: 'firm', label: 'Firm / Rank', sticky: 'left', className: '' },
-        { key: 'accountsize', label: 'Account Size', sticky: '', className: '' },
+        { key: 'firm', label: 'Firm / Rank', sticky: 'left', className: 'min-w-[200px] md:min-w-[250px]' },
+        { key: 'accountsize', label: 'Size', sticky: '', className: '' },
         { key: 'steps', label: 'Steps', sticky: '', className: '' },
         { key: 'activationfee', label: 'Activation Fee', sticky: '', className: 'hidden sm:table-cell' },
-        { key: 'profitsplit', label: 'Profit Split', sticky: '', className: '' },
+        { key: 'profitsplit', label: 'Split', sticky: '', className: '' },
         { key: 'maxallocation', label: 'Max Allocation', sticky: '', className: 'hidden md:table-cell' },
-        { key: 'profittarget', label: 'Profit Target', sticky: '', className: 'hidden sm:table-cell' },
+        { key: 'profittarget', label: 'Target', sticky: '', className: 'hidden sm:table-cell' },
         { key: 'dailyloss', label: 'Daily Loss', sticky: '', className: 'hidden sm:table-cell' },
         { key: 'maxloss', label: 'Max Loss', sticky: '', className: '' },
         { key: 'payoutfrequency', label: 'Payout Freq.', sticky: '', className: 'hidden md:table-cell' },
-        { key: 'price', label: 'Prices', sticky: 'right', className: '' },
+        { key: 'price', label: 'Price', sticky: 'right', className: 'min-w-[150px]' },
     ];
 
     const getSortIndicator = (key: string) => {
@@ -222,29 +222,28 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
-            <div className="overflow-x-auto">
+            <div ref={tableContainerRef} className="overflow-x-auto">
                 <table className="min-w-full text-sm">
                     <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
                                 <th key={col.key} scope="col" className={`px-2 md:px-4 py-3 text-left text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'} ${col.className}`}>
-                                    <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
+                                    <button onClick={() => requestSort(col.key)} className="flex items-center gap-1 md:gap-2 hover:text-white transition-colors">
                                         {col.label}
-                                        <span>{getSortIndicator(col.key)}</span>
+                                        <span className="hidden md:inline">{getSortIndicator(col.key)}</span>
                                     </button>
                                 </th>
                             ))}
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
-                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} />)}
+                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} />)}
                     </tbody>
                 </table>
             </div>
         </div>
     );
 };
-
 
 const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
@@ -256,7 +255,10 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                     <td className="px-2 md:px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
                         <div className="flex items-center">
                             <img className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
-                            <div className="ml-3">
+                            <div className={cn(
+                                'ml-3 flex-shrink-0 overflow-hidden transition-all duration-300',
+                                isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'
+                            )}>
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">
                                     <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
@@ -358,6 +360,10 @@ const FullCompareSection = () => {
   const [sortConfig, setSortConfig] = useState({ key: 'price', direction: 'ascending' });
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 8;
+  
+  const [isScrolled, setIsScrolled] = useState(false);
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+
 
   useEffect(() => {
     const { db } = getFirebase();
@@ -404,6 +410,18 @@ const FullCompareSection = () => {
 
     return () => unsubscribe();
   }, []);
+  
+  // Scroll handler for collapsing firm name
+  useEffect(() => {
+    const container = tableContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => setIsScrolled(container.scrollLeft > 20);
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [loading]); // Rerun when loading is finished and ref is set
+
 
   const filteredAndSortedChallenges = useMemo(() => {
     let filtered = challenges.filter(c => c.challengeType === filters.challengeType);
@@ -485,6 +503,8 @@ const FullCompareSection = () => {
             requestSort={requestSort}
             sortConfig={sortConfig}
             applyDiscount={filters.applyDiscount}
+            tableContainerRef={tableContainerRef}
+            isScrolled={isScrolled}
           />
            {totalPages > 1 && (
             <Pagination
@@ -546,8 +566,8 @@ export default function Home() {
       {/* Featured Prop Firms Section END */}
 
       {/* Comparison Table Section */}
-      <section className="py-12">
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-12 md:-mx-4">
+        <div className="container mx-auto px-1 md:px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-2">Compare Prop Firms</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">The EZ-iest Way to Compare Prop Firm Challenges.</p>
             
