@@ -50,11 +50,11 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
     
     const handleScroll = () => {
       if (offerBoxRef.current && scrollContainer) {
-        const offerBoxBottom = offerBoxRef.current.getBoundingClientRect().bottom;
-        const scrollContainerTop = scrollContainer.getBoundingClientRect().top;
+        const offerBoxRect = offerBoxRef.current.getBoundingClientRect();
+        const scrollContainerRect = scrollContainer.getBoundingClientRect();
         
-        // When the bottom of the offer box is scrolled past the top of the container, make CTA sticky
-        if (offerBoxBottom < scrollContainerTop) {
+        // When the bottom of the offer box is scrolled above the top of the container, make CTA sticky
+        if (offerBoxRect.bottom < scrollContainerRect.top) {
           setIsSticky(true);
         } else {
           setIsSticky(false);
@@ -75,21 +75,21 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
 
   return (
     <ScrollArea className="h-[75vh]" ref={scrollAreaRef}>
-      <div className="relative space-y-6 text-foreground p-4 pt-0">
-        {/* Sticky Header for CTA */}
-        <div
-          className={`sticky top-0 z-20 bg-background/95 backdrop-blur-sm py-3 border-b transition-all duration-300 ${
-            isSticky ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
-          }`}
-        >
-          <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
-            <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
-              Claim Offer &amp; Visit {firm.name}
-              <ExternalLink className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-          <p className="text-xs text-muted-foreground mt-2 text-center">(Affiliate Link)</p>
-        </div>
+      <div className="relative space-y-6 text-foreground p-4">
+        {/* Sticky Header for CTA - Conditionally rendered to prevent layout shift */}
+        {isSticky && (
+            <div
+            className="sticky top-0 z-20 bg-background/95 backdrop-blur-sm py-3 border-b"
+            >
+            <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
+                <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
+                Claim Offer &amp; Visit {firm.name}
+                <ExternalLink className="ml-2 h-4 w-4" />
+                </Link>
+            </Button>
+            <p className="text-xs text-muted-foreground mt-2 text-center">(Affiliate Link)</p>
+            </div>
+        )}
 
         <OfferBox firm={firm} ref={offerBoxRef} hideCta={isSticky} />
 
