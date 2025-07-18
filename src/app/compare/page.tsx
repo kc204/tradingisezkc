@@ -265,7 +265,9 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                 <tr className="group hover:bg-white/5 transition-colors duration-200 cursor-pointer">
                     <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky left-0 z-0 bg-transparent">
                         <div className="flex items-center">
-                            <Image data-ai-hint="logo" className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} width={44} height={44}/>
+                            <div className="w-11 h-11 relative flex-shrink-0">
+                                <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
+                            </div>
                             <div className={`ml-3 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">
@@ -310,7 +312,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                 </tr>
             </DialogTrigger>
             {firm && (
-                <DialogContent className="max-w-4xl p-0 border-0">
+                <DialogContent className="w-[95vw] max-w-[95vw] sm:max-w-4xl p-0 border-0">
                     <FirmMiniDetail firm={firm} />
                 </DialogContent>
             )}
