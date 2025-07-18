@@ -193,33 +193,6 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
 };
 
 const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: any) => {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-    const getSortIndicator = (key: string) => {
-        if (sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
-        return sortConfig.direction === 'ascending' ? '▲' : '▼';
-    };
-
-    useEffect(() => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
-
-        const handleScroll = () => {
-            if (container) {
-                setIsScrolled(container.scrollLeft > 10);
-            }
-        };
-
-        container.addEventListener('scroll', handleScroll);
-        handleScroll();
-        return () => {
-            if (container) {
-                container.removeEventListener('scroll', handleScroll);
-            }
-        };
-    }, [challenges]);
-    
     const columns = [
         { key: 'firm', label: 'Firm / Rank', sticky: 'left' },
         { key: 'accountsize', label: 'Account Size' },
@@ -234,9 +207,15 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
         { key: 'price', label: 'Prices', sticky: 'right' },
     ];
 
+    const getSortIndicator = (key: string) => {
+        if (sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
+        return sortConfig.direction === 'ascending' ? '▲' : '▼';
+    };
+
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
-            <div ref={scrollContainerRef} className="overflow-x-auto">
+            {/* Desktop Table */}
+            <div className="overflow-x-auto hidden md:block">
                 <table className="min-w-full text-sm">
                     <thead className="border-b border-white/10">
                         <tr>
@@ -251,9 +230,16 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
-                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} />)}
+                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} />)}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Mobile Card List */}
+            <div className="md:hidden space-y-4 p-4">
+                {challenges.map((challenge: any) => (
+                    <ChallengeCard key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} />
+                ))}
             </div>
         </div>
     );
@@ -269,7 +255,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                     <td className="px-4 py-3 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
                         <div className="flex items-center">
                             <img className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
-                            <div className={`ml-4 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
+                            <div className="ml-3">
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">
                                     <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
@@ -324,6 +310,74 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
         </Dialog>
     );
 };
+
+const ChallengeCard = ({ challenge, applyDiscount }: any) => {
+    const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
+
+    const CardRow = ({ label, value }: { label: string, value: React.ReactNode }) => (
+        <div className="flex justify-between items-center text-sm py-2 border-b border-white/10 last:border-b-0">
+            <span className="text-gray-400">{label}</span>
+            <span className="font-medium text-white">{value}</span>
+        </div>
+    );
+
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                <div className="bg-black/40 rounded-lg border border-white/10 p-4 space-y-3 cursor-pointer">
+                    <div className="flex justify-between items-center pb-3 border-b border-white/20">
+                        <div className="flex items-center">
+                            <img className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
+                            <div className="ml-3">
+                                <div className="text-lg font-bold text-white truncate">{challenge.firmName}</div>
+                                <div className="flex items-center text-xs text-gray-400 mt-1">
+                                    <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
+                                    {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
+                                </div>
+                            </div>
+                        </div>
+                         <div className="text-right">
+                             {applyDiscount && challenge.promoDiscountPercent > 0 ? (
+                                <>
+                                    <p className="font-semibold text-lg text-green-400">{formatCurrency(finalPrice)}</p>
+                                    <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
+                                </>
+                            ) : (
+                                <p className="font-semibold text-lg text-white">{formatCurrency(finalPrice)}</p>
+                            )}
+                            <p className="text-xs text-gray-500">{challenge.paymentType}</p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                        <CardRow label="Account Size" value={formatCurrency(challenge.accountSize)} />
+                        <CardRow label="Steps" value={challenge.isInstant ? 'Instant' : `${challenge.steps} Step`} />
+                        <CardRow label="Profit Split" value={`${challenge.profitSplit}%`} />
+                        <CardRow label="Max Allocation" value={formatCurrency(challenge.maxAllocation)} />
+                        <CardRow label="Profit Target" value={`${challenge.profitTarget?.join('% / ')}%`} />
+                        <CardRow label="Max Loss" value={formatPercentage(challenge.maxLoss)} />
+                    </div>
+
+                    <div className="pt-3" onClick={(e) => e.stopPropagation()}>
+                         <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
+                                Buy Now
+                         </a>
+                    </div>
+                </div>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[90vh] bg-background p-0">
+                 <DialogHeader className="p-4 border-b">
+                    <DialogTitle className="text-2xl">{challenge.firmName} Details</DialogTitle>
+                    <DialogDescription>
+                        An overview of {challenge.firmName}'s offerings and rules.
+                    </DialogDescription>
+                </DialogHeader>
+                 <FirmMiniDetail firm={challenge.rawFirmData} />
+            </DialogContent>
+        </Dialog>
+    );
+};
+
 
 const Pagination = ({ currentPage, totalPages, onPageChange }: any) => {
     const pageNumbers = [];
@@ -516,5 +570,3 @@ export default function ComparePage() {
     </div>
   );
 }
-
-    
