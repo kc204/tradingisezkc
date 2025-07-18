@@ -147,7 +147,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                         <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
                             Futures
                         </button>
-                        <button onClick={()={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+                        <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
                             CFD
                         </button>
                     </div>
@@ -490,5 +490,7 @@ export default function ComparePage() {
     </div>
   );
 }
+
+    
 
     
