@@ -52,7 +52,8 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
         const offerBoxRect = offerBoxRef.current.getBoundingClientRect();
         const scrollContainerRect = scrollContainer.getBoundingClientRect();
         
-        if (offerBoxRect.bottom < scrollContainerRect.top) {
+        // When the top of the offer box goes above the top of the scroll container, make CTA sticky
+        if (offerBoxRect.top < scrollContainerRect.top) {
           setIsSticky(true);
         } else {
           setIsSticky(false);
@@ -72,71 +73,74 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
   }, []);
 
   return (
-    <ScrollArea className="h-full" ref={scrollAreaRef}>
-      <div className="relative space-y-6 text-foreground p-4 sm:p-6">
-        {isSticky && (
-            <div
-            className="sticky top-0 z-20 bg-background/95 backdrop-blur-sm py-3 border-b"
-            >
-            <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
-                <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
-                Claim Offer &amp; Visit {firm.name}
-                <ExternalLink className="ml-2 h-4 w-4" />
-                </Link>
-            </Button>
-            <p className="text-xs text-muted-foreground mt-2 text-center">(Affiliate Link)</p>
-            </div>
-        )}
+    <div className="h-full flex flex-col">
+      {isSticky && (
+          <div
+          className="sticky top-0 z-20 bg-background/95 backdrop-blur-sm py-3 px-4 border-b"
+          >
+          <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
+              <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
+              Claim Offer &amp; Visit {firm.name}
+              <ExternalLink className="ml-2 h-4 w-4" />
+              </Link>
+          </Button>
+          <p className="text-xs text-muted-foreground mt-2 text-center">(Affiliate Link)</p>
+          </div>
+      )}
+      <ScrollArea className="flex-grow" ref={scrollAreaRef}>
+        <div className="relative space-y-6 text-foreground p-4 sm:p-6">
+          <div ref={offerBoxRef}>
+            <OfferBox firm={firm} hideCta={isSticky} />
+          </div>
 
-        <OfferBox firm={firm} ref={offerBoxRef} hideCta={isSticky} />
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-xl flex items-center">Firm Overview</CardTitle>
-          </CardHeader>
-          <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
-            {firm.broker && <DetailItem label="Broker"><DetailBadge icon={<Briefcase className="w-4 h-4" />}>{firm.broker}</DetailBadge></DetailItem>}
-            {firm.platforms && firm.platforms.length > 0 && <DetailItem label="Platforms">{firm.platforms.map(p => <DetailBadge key={p}>{p}</DetailBadge>)}</DetailItem>}
-            {firm.paymentMethods && firm.paymentMethods.length > 0 && <DetailItem label="Payment Methods">{firm.paymentMethods.map(p => <DetailBadge key={p} icon={<CreditCard className="w-4 h-4" />}>{p}</DetailBadge>)}</DetailItem>}
-            {firm.payoutMethods && firm.payoutMethods.length > 0 && <DetailItem label="Payout Methods">{firm.payoutMethods.map(p => <DetailBadge key={p} icon={<Banknote className="w-4 h-4" />}>{p}</DetailBadge>)}</DetailItem>}
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-xl flex items-center"><CandlestickChart className="mr-2 h-5 w-5 text-primary" /> Instruments and Assets</CardTitle>
-          </CardHeader>
-          <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
-              {firm.instrumentTypes && firm.instrumentTypes.length > 0 && <DetailItem label="Type of Instruments">{firm.instrumentTypes.map(i => <DetailBadge key={i}>{i}</DetailBadge>)}</DetailItem>}
-              {firm.assets && firm.assets.length > 0 && <DetailItem label="Assets">{firm.assets.map(a => <DetailBadge key={a}>{a}</DetailBadge>)}</DetailItem>}
-          </CardContent>
-        </Card>
-
-        {firm.tradingRules && (
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
+              <CardTitle className="text-xl flex items-center">Firm Overview</CardTitle>
             </CardHeader>
-            <CardContent className="prose prose-sm max-w-none break-words dark:prose-invert">
-               <div dangerouslySetInnerHTML={{ __html: firm.tradingRules.replace(/### (.*?)\n/g, '<h3>$1</h3>').replace(/- \*\*(.*?):\*\* (.*?)\n/g, '<p><strong>$1:</strong> $2</p>').replace(/- (.*?)\n/g, '<ul><li>$1</li></ul>').replace(/<\/ul>\s*<ul>/g, '') }} />
+            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
+              {firm.broker && <DetailItem label="Broker"><DetailBadge icon={<Briefcase className="w-4 h-4" />}>{firm.broker}</DetailBadge></DetailItem>}
+              {firm.platforms && firm.platforms.length > 0 && <DetailItem label="Platforms">{firm.platforms.map(p => <DetailBadge key={p}>{p}</DetailBadge>)}</DetailItem>}
+              {firm.paymentMethods && firm.paymentMethods.length > 0 && <DetailItem label="Payment Methods">{firm.paymentMethods.map(p => <DetailBadge key={p} icon={<CreditCard className="w-4 h-4" />}>{p}</DetailBadge>)}</DetailItem>}
+              {firm.payoutMethods && firm.payoutMethods.length > 0 && <DetailItem label="Payout Methods">{firm.payoutMethods.map(p => <DetailBadge key={p} icon={<Banknote className="w-4 h-4" />}>{p}</DetailBadge>)}</DetailItem>}
             </CardContent>
           </Card>
-        )}
-
-        {firm.restrictedCountries && firm.restrictedCountries.length > 0 && (
+          
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl flex items-center"><Ban className="mr-2 h-5 w-5 text-primary" /> Restricted Countries</CardTitle>
+              <CardTitle className="text-xl flex items-center"><CandlestickChart className="mr-2 h-5 w-5 text-primary" /> Instruments and Assets</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-wrap gap-2">
-              {firm.restrictedCountries.map(country => (
-                <CountryBadge key={country.code} name={country.name} code={country.code} />
-              ))}
+            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
+                {firm.instrumentTypes && firm.instrumentTypes.length > 0 && <DetailItem label="Type of Instruments">{firm.instrumentTypes.map(i => <DetailBadge key={i}>{i}</DetailBadge>)}</DetailItem>}
+                {firm.assets && firm.assets.length > 0 && <DetailItem label="Assets">{firm.assets.map(a => <DetailBadge key={a}>{a}</DetailBadge>)}</DetailItem>}
             </CardContent>
           </Card>
-        )}
-      </div>
-    </ScrollArea>
+
+          {firm.tradingRules && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
+              </CardHeader>
+              <CardContent className="prose prose-sm max-w-none break-words dark:prose-invert">
+                 <div dangerouslySetInnerHTML={{ __html: firm.tradingRules.replace(/### (.*?)\n/g, '<h3>$1</h3>').replace(/- \*\*(.*?):\*\* (.*?)\n/g, '<p><strong>$1:</strong> $2</p>').replace(/- (.*?)\n/g, '<ul><li>$1</li></ul>').replace(/<\/ul>\s*<ul>/g, '') }} />
+              </CardContent>
+            </Card>
+          )}
+
+          {firm.restrictedCountries && firm.restrictedCountries.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl flex items-center"><Ban className="mr-2 h-5 w-5 text-primary" /> Restricted Countries</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-wrap gap-2">
+                {firm.restrictedCountries.map(country => (
+                  <CountryBadge key={country.code} name={country.name} code={country.code} />
+                ))}
+              </CardContent>
+            </Card>
+          )}
+        </div>
+      </ScrollArea>
+    </div>
   );
 };
 
