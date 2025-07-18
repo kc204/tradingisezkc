@@ -225,7 +225,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                             <div className="w-11 h-11 relative flex-shrink-0">
                                 <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
                             </div>
-                            <div className={`flex flex-col justify-center flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
+                            <div className={`flex flex-col justify-center flex-shrink-0 transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'opacity-100'}`}>
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">
                                     <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
