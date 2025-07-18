@@ -90,8 +90,8 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
         <div className="relative h-full flex flex-col">
             <StickyCta firm={firm} isVisible={isOfferBoxVisible} />
             <ScrollArea className="flex-1">
-                <div className="relative space-y-6 text-foreground p-4 sm:p-6">
-                    <OfferBox ref={offerBoxRef} firm={firm} />
+                <div className="relative space-y-6 text-foreground p-4 sm:p-6 pt-0">
+                    <OfferBox ref={offerBoxRef} firm={firm} hideCta={true} />
                     <Card>
                         <CardHeader>
                             <CardTitle className="text-xl flex items-center">Firm Overview</CardTitle>
