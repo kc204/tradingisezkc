@@ -65,7 +65,7 @@ const OfferBox = React.forwardRef<HTMLDivElement, OfferBoxProps>(
               </div>
             )}
         </CardContent>
-        <CardFooter className={cn('flex-col items-stretch pt-4 transition-opacity duration-300', { 'opacity-0': hideCta })}>
+        <CardFooter className={cn('flex-col items-stretch pt-4 transition-opacity duration-300', { 'opacity-0': hideCta, 'pointer-events-none': hideCta })}>
            <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
             <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
               Claim Offer &amp; Visit {firm.name}

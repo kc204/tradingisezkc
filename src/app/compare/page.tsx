@@ -5,15 +5,17 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
 import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
-import type { PropFirm, AccountTier } from '@/lib/types';
+import type { PropFirm } from '@/lib/types';
 import { mockPropFirms } from '@/lib/mockData';
+import Image from 'next/image';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import FirmMiniDetail from '@/components/propfirms/FirmMiniDetail';
 
-// --- TRANSFORMED MOCK DATA ---
+
 const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
     const challengeType = firm.instrumentTypes?.includes('Futures') ? 'futures' : 'cfd';
     
     if (!firm.accountTiers || firm.accountTiers.length === 0) {
-        // Return a single placeholder if no tiers are defined to ensure the firm can still be listed
         return [{
             id: `${firm.id}-default`,
             firmId: firm.slug,
@@ -29,9 +31,9 @@ const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
             paymentType: 'One Time',
             promoDiscountPercent: parseFloat(firm.offerBadgeLabel?.match(/(\d+)%?/)?.[1] || '0'),
             activationFee: firm.activationFee === 'None' ? 0 : (parseInt(firm.activationFee?.replace('$', '') || '0', 10) || null),
-            profitTarget: null, // Cannot be easily determined without tier data
-            dailyLoss: null, // Cannot be easily determined without tier data
-            maxLoss: null, // Cannot be easily determined without tier data
+            profitTarget: null, 
+            dailyLoss: null,
+            maxLoss: null,
             profitSplit: parseInt(firm.profitSplit?.split('%')[0] || '80', 10),
             payoutFrequency: 'Varies',
             affiliateLink: firm.affiliateLink,
@@ -45,13 +47,13 @@ const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
         firmName: firm.name,
         logoUrl: firm.logoUrl,
         trustpilotRating: firm.rating || 0,
-        trustpilotReviewCount: Math.floor((firm.rating || 3.5) * 150), // Approximate review count
+        trustpilotReviewCount: Math.floor((firm.rating || 3.5) * 150), 
         accountSize: tier.size,
         maxAllocation: firm.maxAccountSize || tier.size,
         steps: tier.challengeType?.includes('2-Step') ? 2 : (tier.challengeType?.includes('3-Step') ? 3 : 1),
         isInstant: tier.challengeType === 'Instant Funding',
         price: tier.evaluationFee,
-        paymentType: 'One Time', // Defaulting, can be customized if data is available
+        paymentType: 'One Time', 
         promoDiscountPercent: parseFloat(firm.offerBadgeLabel?.match(/(\d+)%?/)?.[1] || '0'),
         activationFee: tier.activationFee,
         profitTarget: tier.profitTargetPercentage ? tier.size * (tier.profitTargetPercentage / 100) : null,
@@ -65,7 +67,6 @@ const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
 });
 
 
-// --- Firebase Configuration ---
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -88,11 +89,9 @@ try {
     db = null;
 }
 
-// --- Helper Functions ---
 const formatCurrency = (value: any) => value == null ? 'N/A' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
 const formatShortCurrency = (value: any) => value == null ? 'N/A' : `$${value/1000}K`;
 
-// --- Child Components ---
 const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCount, totalCount }: any) => {
     const handleFilterChange = (key: string, value: any) => {
         setFilters((prev: any) => ({ ...prev, [key]: value }));
@@ -126,7 +125,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                 accountSize: [100000],
                 steps: [1],
             }));
-        } else { // cfd
+        } else {
             setFilters((prev: any) => ({
                 ...prev,
                 challengeType: 'cfd',
@@ -237,7 +236,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                     <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-transparent' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
                                         {col.label}
                                         <span>{getSortIndicator(col.key)}</span>
@@ -257,54 +256,64 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
 
 const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
-
+    const firm = mockPropFirms.find(f => f.slug === challenge.firmId) || null;
+    
     return (
-        <tr className="group hover:bg-white/5 transition-colors duration-200">
-            <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover:bg-gray-800/80 backdrop-blur-sm">
-                <div className="flex items-center">
-                    <img data-ai-hint="logo" className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
-                    <div className={`ml-3 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'}`}>
-                        <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
-                        <div className="flex items-center text-xs text-gray-400 mt-1">
-                            <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
-                            {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
+        <Dialog>
+            <tr className="group hover:bg-white/5 transition-colors duration-200">
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky left-0 z-0 bg-transparent">
+                  <DialogTrigger asChild>
+                    <div className="flex items-center cursor-pointer group-hover:bg-gray-800/80 bg-black/20 backdrop-blur-sm p-2 rounded-lg">
+                      <Image data-ai-hint="logo" className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} width={44} height={44}/>
+                      <div className={`ml-3 flex-shrink-0 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-0 opacity-0 ml-0' : 'w-40 opacity-100'}`}>
+                          <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
+                          <div className="flex items-center text-xs text-gray-400 mt-1">
+                              <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
+                              {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
+                          </div>
+                      </div>
+                    </div>
+                  </DialogTrigger>
+                </td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap">
+                    <div className="flex items-center gap-2">
+                        <span className="text-sm text-white">{challenge.profitSplit}%</span>
+                        <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
+                    </div>
+                </td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.profitTarget)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.dailyLoss)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxLoss)}</td>
+                <td className="px-2 py-3 sm:px-4 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
+                    <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+                        <div className="text-right">
+                             {applyDiscount && challenge.promoDiscountPercent > 0 ? (
+                                <>
+                                    <p className="font-semibold text-green-400 text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
+                                    <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
+                                </>
+                            ) : (
+                                <p className="font-semibold text-white text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
+                            )}
+                            <p className="text-xs text-gray-500">{challenge.paymentType}</p>
                         </div>
+                        <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 border border-transparent text-xs sm:text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
+                            Buy
+                        </a>
                     </div>
-                </div>
-            </td>
-            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
-            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
-            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
-            <td className="px-2 py-3 sm:px-4 whitespace-nowrap">
-                <div className="flex items-center gap-2">
-                    <span className="text-sm text-white">{challenge.profitSplit}%</span>
-                    <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
-                </div>
-            </td>
-            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
-            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.profitTarget)}</td>
-            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.dailyLoss)}</td>
-            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxLoss)}</td>
-            <td className="px-2 py-3 sm:px-4 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-            <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
-                <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
-                    <div className="text-right">
-                         {applyDiscount && challenge.promoDiscountPercent > 0 ? (
-                            <>
-                                <p className="font-semibold text-green-400 text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
-                                <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
-                            </>
-                        ) : (
-                            <p className="font-semibold text-white text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
-                        )}
-                        <p className="text-xs text-gray-500">{challenge.paymentType}</p>
-                    </div>
-                    <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 border border-transparent text-xs sm:text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
-                        Buy
-                    </a>
-                </div>
-            </td>
-        </tr>
+                </td>
+            </tr>
+            {firm && (
+                <DialogContent className="max-w-4xl p-0 border-0">
+                    <FirmMiniDetail firm={firm} />
+                </DialogContent>
+            )}
+        </Dialog>
     );
 };
 
@@ -339,7 +348,6 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: any) => {
     )
 }
 
-// --- Main App Component ---
 export default function ComparePage() {
   const [challenges, setChallenges] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -490,7 +498,3 @@ export default function ComparePage() {
     </div>
   );
 }
-
-    
-
-    

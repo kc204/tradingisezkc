@@ -1,5 +1,4 @@
 
-// src/components/propfirms/FirmMiniDetail.tsx
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import type { PropFirm } from '@/lib/types';
@@ -53,7 +52,6 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
         const offerBoxRect = offerBoxRef.current.getBoundingClientRect();
         const scrollContainerRect = scrollContainer.getBoundingClientRect();
         
-        // When the bottom of the offer box is scrolled above the top of the container, make CTA sticky
         if (offerBoxRect.bottom < scrollContainerRect.top) {
           setIsSticky(true);
         } else {
@@ -76,7 +74,6 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
   return (
     <ScrollArea className="h-[75vh]" ref={scrollAreaRef}>
       <div className="relative space-y-6 text-foreground p-4">
-        {/* Sticky Header for CTA - Conditionally rendered to prevent layout shift */}
         {isSticky && (
             <div
             className="sticky top-0 z-20 bg-background/95 backdrop-blur-sm py-3 border-b"
@@ -114,17 +111,6 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
               {firm.assets && firm.assets.length > 0 && <DetailItem label="Assets">{firm.assets.map(a => <DetailBadge key={a}>{a}</DetailBadge>)}</DetailItem>}
           </CardContent>
         </Card>
-
-        {firm.fullReview && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl flex items-center"><FileText className="mr-2 h-5 w-5 text-primary" /> Full Review</CardTitle>
-            </CardHeader>
-            <CardContent className="prose prose-sm max-w-none break-words dark:prose-invert">
-              <p>{firm.fullReview}</p>
-            </CardContent>
-          </Card>
-        )}
 
         {firm.tradingRules && (
           <Card>
