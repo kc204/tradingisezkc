@@ -10,8 +10,7 @@ import { cn } from "@/lib/utils";
 import { StarBorder } from "@/components/ui/star-border";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from 'react';
-import TradingViewWidget from '@/components/shared/TradingViewWidget';
-import ComparisonTable from '@/components/compare/ComparisonTable';
+import EzCompareTable from '@/components/propfirms/EzCompareTable';
 
 
 export default function Home() {
@@ -63,18 +62,17 @@ export default function Home() {
 
       {/* Comparison Table Section */}
       <section className="py-12">
-          <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold text-center text-foreground mb-10">Compare All Firms</h2>
-              <ComparisonTable firms={mockPropFirms} />
-              <div className="text-center mt-10">
-                <StarBorder<typeof Link>
-                    as={Link}
-                    href="/compare"
-                >
-                    Go to Full Comparison Page
-                </StarBorder>
-            </div>
+        <div className="container mx-auto px-4">
+            <EzCompareTable />
+            <div className="text-center mt-10">
+              <StarBorder<typeof Link>
+                  as={Link}
+                  href="/compare"
+              >
+                  Go to Full Comparison Page
+              </StarBorder>
           </div>
+        </div>
       </section>
 
       {/* Featured Free Resources Section START */}
