@@ -41,53 +41,40 @@ const CountryBadge = ({ name, code }: { name: string, code: string }) => (
 
 const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
   const [isSticky, setIsSticky] = useState(false);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const offerBoxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const scrollContainer = scrollAreaRef.current?.querySelector('div[data-radix-scroll-area-viewport]');
-    
+    const scrollContainer = scrollContainerRef.current?.querySelector('div[data-radix-scroll-area-viewport]');
+    if (!scrollContainer) return;
+
     const handleScroll = () => {
-      if (offerBoxRef.current && scrollContainer) {
-        const offerBoxRect = offerBoxRef.current.getBoundingClientRect();
-        const scrollContainerRect = scrollContainer.getBoundingClientRect();
-        
-        // When the top of the offer box goes above the top of the scroll container, make CTA sticky
-        if (offerBoxRect.top < scrollContainerRect.top) {
-          setIsSticky(true);
-        } else {
-          setIsSticky(false);
-        }
+      const offerBox = offerBoxRef.current;
+      if (offerBox) {
+        const { top } = offerBox.getBoundingClientRect();
+        const containerTop = scrollContainer.getBoundingClientRect().top;
+        setIsSticky(top < containerTop);
       }
     };
 
-    if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      if (scrollContainer) {
-        scrollContainer.removeEventListener('scroll', handleScroll);
-      }
-    };
+    scrollContainer.addEventListener('scroll', handleScroll);
+    return () => scrollContainer.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <>
       {isSticky && (
-          <div
-          className="sticky top-0 z-20 bg-background/95 backdrop-blur-sm py-3 px-4 border-b shrink-0"
-          >
-          <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
+          <div className="sticky top-0 z-20 bg-background/95 backdrop-blur-sm py-3 px-4 border-b shrink-0">
+            <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent-hover text-base">
               <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
-              Claim Offer &amp; Visit {firm.name}
-              <ExternalLink className="ml-2 h-4 w-4" />
+                Claim Offer &amp; Visit {firm.name}
+                <ExternalLink className="ml-2 h-4 w-4" />
               </Link>
-          </Button>
-          <p className="text-xs text-muted-foreground mt-2 text-center">(Affiliate Link)</p>
+            </Button>
+            <p className="text-xs text-muted-foreground mt-2 text-center">(Affiliate Link)</p>
           </div>
       )}
-      <ScrollArea className="flex-1" ref={scrollAreaRef}>
+      <ScrollArea className="flex-1" ref={scrollContainerRef}>
         <div className="relative space-y-6 text-foreground p-4 sm:p-6">
           <div ref={offerBoxRef}>
             <OfferBox firm={firm} hideCta={isSticky} />
