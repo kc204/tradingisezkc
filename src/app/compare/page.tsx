@@ -214,7 +214,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount, ta
     };
 
     return (
-        <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
+        <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative -mx-4 sm:mx-0">
             <div ref={tableContainerRef} className="overflow-x-auto">
                 <table className="min-w-full text-sm">
                     <thead className="border-b border-white/10">
@@ -249,8 +249,8 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                         <div className="flex items-center">
                             <img className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
                             <div className={cn(
-                                'ml-3 flex-shrink-0 overflow-hidden transition-all duration-300',
-                                isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'
+                                'flex-shrink-0 overflow-hidden transition-all duration-300',
+                                isScrolled ? 'w-0 opacity-0 ml-0' : 'w-40 opacity-100 ml-3'
                             )}>
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">

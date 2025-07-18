@@ -220,7 +220,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount, ta
     };
 
     return (
-        <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
+        <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative -mx-4 sm:mx-0">
             <div ref={tableContainerRef} className="overflow-x-auto">
                 <table className="min-w-full text-sm">
                     <thead className="border-b border-white/10">
@@ -255,8 +255,8 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                         <div className="flex items-center">
                             <img className="h-11 w-11 rounded-lg object-contain border-2 border-white/10 flex-shrink-0" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} />
                             <div className={cn(
-                                'ml-3 flex-shrink-0 overflow-hidden transition-all duration-300',
-                                isScrolled ? 'w-0 opacity-0' : 'w-40 opacity-100'
+                                'flex-shrink-0 overflow-hidden transition-all duration-300',
+                                isScrolled ? 'w-0 opacity-0 ml-0' : 'w-40 opacity-100 ml-3'
                             )}>
                                 <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                                 <div className="flex items-center text-xs text-gray-400 mt-1">
@@ -565,7 +565,7 @@ export default function Home() {
       {/* Featured Prop Firms Section END */}
 
       {/* Comparison Table Section */}
-      <section className="py-12 -mx-4 sm:mx-0">
+      <section className="py-12">
         <div className="container mx-auto px-1 md:px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-2">Compare Prop Firms</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">The EZ-iest Way to Compare Prop Firm Challenges.</p>
@@ -613,3 +613,4 @@ export default function Home() {
     
 
     
+
