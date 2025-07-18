@@ -364,7 +364,7 @@ const FullCompareSection = () => {
     const container = tableContainerRef.current;
     if (!container) return;
 
-    const table = container.querySelector('div'); // The scrollable div
+    const table = container.querySelector('.overflow-x-auto');
     if (!table) return;
 
     const handleScroll = () => {
