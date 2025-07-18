@@ -202,17 +202,17 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
 
 const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: any) => {
     const columns = [
-        { key: 'firm', label: 'Firm / Rank', sticky: 'left' },
-        { key: 'accountsize', label: 'Account Size' },
-        { key: 'steps', label: 'Steps' },
-        { key: 'activationfee', label: 'Activation Fee' },
-        { key: 'profitsplit', label: 'Profit Split' },
-        { key: 'maxallocation', label: 'Max Allocation' },
-        { key: 'profittarget', label: 'Profit Target' },
-        { key: 'dailyloss', label: 'Daily Loss' },
-        { key: 'maxloss', label: 'Max Loss' },
-        { key: 'payoutfrequency', label: 'Payout Freq.' },
-        { key: 'price', label: 'Prices', sticky: 'right' },
+        { key: 'firm', label: 'Firm / Rank', sticky: 'left', className: '' },
+        { key: 'accountsize', label: 'Account Size', sticky: '', className: '' },
+        { key: 'steps', label: 'Steps', sticky: '', className: '' },
+        { key: 'activationfee', label: 'Activation Fee', sticky: '', className: 'hidden sm:table-cell' },
+        { key: 'profitsplit', label: 'Profit Split', sticky: '', className: '' },
+        { key: 'maxallocation', label: 'Max Allocation', sticky: '', className: 'hidden md:table-cell' },
+        { key: 'profittarget', label: 'Profit Target', sticky: '', className: 'hidden sm:table-cell' },
+        { key: 'dailyloss', label: 'Daily Loss', sticky: '', className: 'hidden sm:table-cell' },
+        { key: 'maxloss', label: 'Max Loss', sticky: '', className: '' },
+        { key: 'payoutfrequency', label: 'Payout Freq.', sticky: '', className: 'hidden md:table-cell' },
+        { key: 'price', label: 'Prices', sticky: 'right', className: '' },
     ];
 
     const getSortIndicator = (key: string) => {
@@ -227,7 +227,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                     <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 md:px-4 py-3 text-left text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                <th key={col.key} scope="col" className={`px-2 md:px-4 py-3 text-left text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'} ${col.className}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
                                         {col.label}
                                         <span>{getSortIndicator(col.key)}</span>
@@ -267,18 +267,18 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                     </td>
                     <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
                     <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
+                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden sm:table-cell">{formatCurrency(challenge.activationFee)}</td>
                     <td className="px-2 md:px-4 py-3 whitespace-nowrap">
                         <div className="flex items-center gap-2">
                             <span className="text-sm text-white">{challenge.profitSplit}%</span>
                             <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
                         </div>
                     </td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white">{challenge.profitTarget?.join('% / ')}%</td>
-                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.dailyLoss)}</td>
+                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden md:table-cell">{formatCurrency(challenge.maxAllocation)}</td>
+                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden sm:table-cell">{challenge.profitTarget?.join('% / ')}%</td>
+                    <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white hidden sm:table-cell">{formatPercentage(challenge.dailyLoss)}</td>
                     <td className="px-2 md:px-4 py-3 whitespace-nowrap text-white">{formatPercentage(challenge.maxLoss)}</td>
-                    <td className="px-2 md:px-4 py-3 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
+                    <td className="px-2 md:px-4 py-3 text-xs text-gray-300 max-w-[200px] truncate hidden md:table-cell" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
                     <td className="px-2 md:px-4 py-3 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover:bg-gray-800">
                         <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
                             <div className="text-right">
