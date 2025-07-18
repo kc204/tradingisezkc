@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
@@ -515,3 +516,5 @@ export default function ComparePage() {
     </div>
   );
 }
+
+    
