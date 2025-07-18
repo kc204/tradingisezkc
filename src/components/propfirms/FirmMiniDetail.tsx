@@ -75,7 +75,7 @@ const FirmMiniDetail = ({ firm }: { firm: PropFirm }) => {
 
   return (
     <ScrollArea className="h-[75vh]" ref={scrollAreaRef}>
-      <div className="relative space-y-6 text-foreground p-4">
+      <div className="relative space-y-6 text-foreground p-4 pt-0">
         {/* Sticky Header for CTA */}
         <div
           className={`sticky top-0 z-20 bg-background/95 backdrop-blur-sm py-3 border-b transition-all duration-300 ${
