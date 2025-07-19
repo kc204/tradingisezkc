@@ -10,7 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import OfferBox from '@/components/propfirms/OfferBox';
-import { ExternalLink, Info, ShieldCheck, Briefcase, CreditCard, Banknote, CandlestickChart, Ban } from 'lucide-react';
+import { ExternalLink, Info, ShieldCheck, Briefcase, CreditCard, Banknote, CandlestickChart, Ban, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface FirmMiniDetailProps {
@@ -113,7 +113,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
     }, []);
 
     return (
-        <div className="relative h-full w-full">
+        <div className="relative h-full w-full flex flex-col">
             <div className={cn(
                 "absolute top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300",
                 isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
@@ -135,7 +135,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                     </Button>
                 </div>
             </div>
-            <ScrollArea className="h-full w-full">
+            <ScrollArea className="flex-1 w-full">
                 <div className="p-4 md:p-6 space-y-6">
                     <div ref={offerBoxRef}>
                         <OfferBox firm={firm} />
