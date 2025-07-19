@@ -46,6 +46,41 @@ const CountryBadge = ({ name, code }: { name: string, code: string }) => (
   </div>
 );
 
+const TradingRulesContent = ({ rules }: { rules?: string }) => {
+    if (!rules) return null;
+    const lines = rules.split('\n').filter(line => line.trim() !== '');
+
+    const elements = [];
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (line.startsWith('<h3>')) {
+            elements.push(<h3 key={i} dangerouslySetInnerHTML={{ __html: line.replace(/<\/?h3>/g, '') }} />);
+        } else if (line.startsWith('- **')) {
+            const match = line.match(/- \*\*(.*?):\*\* (.*)/);
+            if (match) {
+                elements.push(<p key={i}><strong>{match[1]}:</strong> {match[2]}</p>);
+            }
+        } else if (line.startsWith('- ')) {
+            const listItems = [];
+            while (i < lines.length && lines[i].startsWith('- ')) {
+                listItems.push(<li key={i}>{lines[i].substring(2)}</li>);
+                i++;
+            }
+            i--; // Decrement to account for the loop's increment
+            elements.push(<ul key={`ul-${i}`}>{listItems}</ul>);
+        } else {
+            elements.push(<p key={i}>{line}</p>);
+        }
+    }
+
+    return (
+        <div className="prose max-w-none break-words dark:prose-invert">
+            {elements}
+        </div>
+    );
+};
+
+
 const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
     const offerBoxRef = useRef<HTMLDivElement>(null);
     const [isOfferBoxVisible, setIsOfferBoxVisible] = useState(true);
@@ -126,7 +161,9 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                           <CardHeader>
                             <CardTitle className="text-xl flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
                           </CardHeader>
-                           <CardContent className="prose max-w-none break-words dark:prose-invert" dangerouslySetInnerHTML={{ __html: firm.tradingRules.replace(/<h3> (.*?)\n/g, '<h3>$1</h3>').replace(/- \*\*(.*?):\*\* (.*?)\n/g, '<p><strong>$1:</strong> $2</p>').replace(/- (.*?)\n/g, '<ul><li>$1</li></ul>').replace(/<\/ul>\s*<ul>/g, '') }} />
+                           <CardContent>
+                                <TradingRulesContent rules={firm.tradingRules} />
+                            </CardContent>
                         </Card>
                       )}
 

@@ -3,6 +3,7 @@
 
 
 
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -158,7 +159,7 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
               </CardHeader>
               <CardContent className="prose max-w-none break-words dark:prose-invert">
                 {/* Using dangerouslySetInnerHTML assuming the content is trusted markdown-like text */}
-                <div dangerouslySetInnerHTML={{ __html: firm.tradingRules.replace(/### (.*?)\n/g, '<h3>$1</h3>').replace(/- \*\*(.*?):\*\* (.*?)\n/g, '<p><strong>$1:</strong> $2</p>').replace(/- (.*?)\n/g, '<ul><li>$1</li></ul>').replace(/<\/ul>\s*<ul>/g, '') }} />
+                <div dangerouslySetInnerHTML={{ __html: firm.tradingRules.replace(/<h3> (.*?)\n/g, '<h3>$1</h3>').replace(/- \*\*(.*?):\*\* (.*?)\n/g, '<p><strong>$1:</strong> $2</p>').replace(/- (.*?)\n/g, '<ul><li>$1</li></ul>').replace(/<\/ul>\s*<ul>/g, '') }} />
               </CardContent>
             </Card>
           )}
