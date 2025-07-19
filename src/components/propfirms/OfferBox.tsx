@@ -42,12 +42,14 @@ const OfferBox = React.forwardRef<HTMLDivElement, OfferBoxProps>(
             {firm.keyInfoSnippets && firm.keyInfoSnippets.length > 0 && (
               <div className="mb-4 space-y-2">
                 <h4 className="font-semibold text-md text-foreground">Key Information:</h4>
-                <ul className="list-none space-y-1 text-sm">
+                <ul className="list-none space-y-2 text-sm">
                   {firm.keyInfoSnippets.map((snippet, index) => (
-                    <li key={index} className="flex items-center">
-                      <CheckCircle className="w-4 h-4 text-success mr-2 flex-shrink-0" />
-                      <span className="font-medium text-muted-foreground">{snippet.label}:</span>
-                      <span className="ml-1 text-foreground">{snippet.value}</span>
+                    <li key={index} className="grid grid-cols-[auto_1fr] items-start gap-x-2">
+                      <div className="flex items-center col-start-1">
+                        <CheckCircle className="w-4 h-4 text-success mr-2 flex-shrink-0" />
+                        <span className="font-medium text-muted-foreground w-[90px]">{snippet.label}:</span>
+                      </div>
+                      <span className="col-start-2 text-foreground">{snippet.value}</span>
                     </li>
                   ))}
                 </ul>
