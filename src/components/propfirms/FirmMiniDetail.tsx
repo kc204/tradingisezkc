@@ -4,26 +4,42 @@
 import React from 'react';
 import type { PropFirm } from '@/lib/types';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import FirmMiniDetailDesktop from './FirmMiniDetailDesktop';
 import FirmMiniDetailMobile from './FirmMiniDetailMobile';
 
 interface FirmMiniDetailProps {
     firm: PropFirm;
+    children: React.ReactNode;
 }
 
-const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
+const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm, children }) => {
     const isMobile = useIsMobile();
 
-    // Render a loading skeleton or null until the hook determines the device type
     if (isMobile === undefined) {
-        return null; // Or a loading spinner
+        return <>{children}</>; // Render trigger while determining device type
     }
 
     if (isMobile) {
-        return <FirmMiniDetailMobile firm={firm} />;
+        return (
+            <Sheet>
+                <SheetTrigger asChild>{children}</SheetTrigger>
+                <SheetContent side="right" className="w-[85vw] p-0 border-none">
+                    <FirmMiniDetailMobile firm={firm} />
+                </SheetContent>
+            </Sheet>
+        );
     }
 
-    return <FirmMiniDetailDesktop firm={firm} />;
+    return (
+        <Dialog>
+            <DialogTrigger asChild>{children}</DialogTrigger>
+            <DialogContent className="w-[95vw] md:max-w-4xl h-[90vh] p-0 flex flex-col">
+                <FirmMiniDetailDesktop firm={firm} />
+            </DialogContent>
+        </Dialog>
+    );
 };
 
 export default FirmMiniDetail;
