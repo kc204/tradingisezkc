@@ -83,30 +83,29 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
 
     return (
         <div className="relative h-full w-full flex flex-col">
-            <ScrollArea className="flex-grow w-full">
-                 <div className={cn(
-                    "sticky top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300",
-                    isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
-                 )}>
-                    <div className="container mx-auto flex items-center justify-between gap-3 w-full px-0 sm:px-4">
-                        <div className="flex items-center gap-3 overflow-hidden">
-                             <div className="w-12 h-12 relative flex-shrink-0">
-                                <Image src={firm.logoUrl} alt={`${firm.name} logo`} fill={true} style={{objectFit: 'contain'}} data-ai-hint="company logo" />
-                            </div>
-                            <div className="overflow-hidden">
-                                <h3 className="text-lg font-bold text-foreground truncate">{firm.name}</h3>
-                                {firm.offerBadgeLabel && <Badge variant="secondary" className="whitespace-nowrap">{firm.offerBadgeLabel}</Badge>}
-                            </div>
+            <div className={cn(
+                "absolute top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300",
+                isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            )}>
+                <div className="container mx-auto flex items-center justify-between gap-3 w-full px-0 sm:px-4">
+                    <div className="flex items-center gap-3 overflow-hidden">
+                         <div className="w-12 h-12 relative flex-shrink-0">
+                            <Image src={firm.logoUrl} alt={`${firm.name} logo`} fill={true} style={{objectFit: 'contain'}} data-ai-hint="company logo" />
                         </div>
-                        <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent-hover flex-shrink-0">
-                            <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
-                                Claim Offer <ExternalLink className="ml-2 h-4 w-4" />
-                            </Link>
-                        </Button>
+                        <div className="overflow-hidden">
+                            <h3 className="text-lg font-bold text-foreground truncate">{firm.name}</h3>
+                            {firm.offerBadgeLabel && <Badge variant="secondary" className="whitespace-nowrap">{firm.offerBadgeLabel}</Badge>}
+                        </div>
                     </div>
+                    <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent-hover flex-shrink-0">
+                        <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
+                            Claim Offer <ExternalLink className="ml-2 h-4 w-4" />
+                        </Link>
+                    </Button>
                 </div>
-
-                <div className="p-4 md:p-6 space-y-6 w-full">
+            </div>
+            <ScrollArea className="flex-1 w-full">
+                <div className="p-4 md:p-6 space-y-6">
                     <div ref={offerBoxRef}>
                         <OfferBox firm={firm} />
                     </div>
