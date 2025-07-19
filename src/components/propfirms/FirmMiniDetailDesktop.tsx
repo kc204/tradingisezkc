@@ -34,7 +34,7 @@ const DetailBadge = ({ children, icon }: { children: React.ReactNode, icon?: Rea
 );
 
 const CountryBadge = ({ name, code }: { name: string, code: string }) => (
-  <div className="inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium bg-muted text-muted-foreground">
+  <div className="inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium bg-muted text-muted-foreground whitespace-nowrap">
     <Image 
       src={`https://flagsapi.com/${code.toUpperCase()}/flat/64.png`}
       alt={`${name} flag`}

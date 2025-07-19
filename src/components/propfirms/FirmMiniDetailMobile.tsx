@@ -6,7 +6,6 @@ import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import OfferBox from '@/components/propfirms/OfferBox';
@@ -31,7 +30,7 @@ const DetailBadge = ({ children, icon }: { children: React.ReactNode, icon?: Rea
 );
 
 const CountryBadge = ({ name, code }: { name: string, code: string }) => (
-  <div className="inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium bg-muted text-muted-foreground">
+  <div className="inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium bg-muted text-muted-foreground whitespace-nowrap">
     <Image 
       src={`https://flagsapi.com/${code.toUpperCase()}/flat/64.png`}
       alt={`${name} flag`}
