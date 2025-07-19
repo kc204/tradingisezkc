@@ -83,11 +83,15 @@ export default function TermsAndPrivacyPage() {
 
           <h3 className="text-xl font-semibold mt-6 mb-2">3. Cookies and Tracking Technologies</h3>
           <p>A cookie is a small file of information that a website stores on a visitor’s computer, and that the visitor’s browser provides to the website each time the visitor returns. We use cookies and similar tracking technologies (like web beacons) to help us identify and track visitors, their usage of the Website, and their website access preferences. Our affiliate partners also use cookies to track referrals from our Website. Visitors who do not wish to have cookies placed on their computers should set their browsers to refuse cookies before using our Website, with the drawback that certain features may not function properly without the aid of cookies.</p>
+
+          <h3 className="text-xl font-semibold mt-6 mb-2">4. Third-Party Links, Content, and Services</h3>
+          <p>Our Website may contain links to third-party websites or services, such as the proprietary trading firms we review. This Privacy Policy does not apply to these third-party platforms, and we are not responsible for their privacy practices. If you click on links (including affiliate links) or interact with third-party services, their privacy policies will govern the collection and use of your data. We encourage you to review their policies before sharing any information.</p>
+          <p>Some pages on our Website may also include embedded content from third parties (e.g., YouTube videos). Interacting with such content may result in data being shared directly with the respective third party according to their privacy policy.</p>
         
-          <h3 className="text-xl font-semibold mt-6 mb-2">4. Data Security</h3>
+          <h3 className="text-xl font-semibold mt-6 mb-2">5. Data Security</h3>
           <p>The security of your information is important to us, but remember that no method of transmission over the Internet, or method of electronic storage, is 100% secure. While we strive to use commercially acceptable means to protect your information, we cannot guarantee its absolute security.</p>
 
-          <h3 className="text-xl font-semibold mt-6 mb-2">5. Children's Privacy</h3>
+          <h3 className="text-xl font-semibold mt-6 mb-2">6. Children's Privacy</h3>
           <p>Our Service is not intended for use by children under the age of 18 ("Children"). We do not knowingly collect personally identifiable information from children. If you are a parent or guardian and you are aware that your Child has provided us with Personal Information, please contact us. If we become aware that we have collected Personal Information from children without verification of parental consent, we take steps to remove that information from our servers.</p>
         </CardContent>
       </Card>
