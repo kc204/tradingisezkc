@@ -48,42 +48,23 @@ const CountryBadge = ({ name, code }: { name: string, code: string }) => (
 
 const TradingRulesContent = ({ rules }: { rules?: string }) => {
     if (!rules) return null;
-    const lines = rules.split('\n').filter(line => line.trim() !== '');
 
-    const elements: React.ReactNode[] = [];
-    let currentList: React.ReactNode[] = [];
+    const createMarkup = () => {
+        let processedHtml = rules
+            .replace(/<h3>(.*?)<\/h3>/g, '<h3 class="text-lg font-semibold mt-4 mb-2 text-foreground">$1</h3>')
+            .replace(/- \*\*(.*?):\*\* (.*?)(?=\n- \*\*|\n<h3>|$)/g, '<p><strong>$1:</strong> $2</p>')
+            .replace(/<ul>\s*<li>/g, '<li>') 
+            .replace(/<\/li>\s*<\/ul>/g, '</li>')
+            .replace(/(\n- (.*?))+/g, (match) => {
+                const items = match.trim().split('\n- ').map(item => `<li>${item.replace(/^- /, '')}</li>`).join('');
+                return `<ul class="list-disc pl-5 space-y-1">${items}</ul>`;
+            });
 
-    const flushList = () => {
-        if (currentList.length > 0) {
-            elements.push(<ul key={`ul-${elements.length}`} className="list-disc pl-5 space-y-1">{currentList}</ul>);
-            currentList = [];
-        }
+        return { __html: processedHtml };
     };
 
-    lines.forEach((line, index) => {
-        if (line.startsWith('<h3>')) {
-            flushList();
-            elements.push(<h3 key={index} className="text-lg font-semibold mt-4 mb-2 text-foreground" dangerouslySetInnerHTML={{ __html: line.replace(/<\/?h3>/g, '') }} />);
-        } else if (line.startsWith('- **')) {
-            flushList();
-            const match = line.match(/- \*\*(.*?):\*\* (.*)/);
-            if (match) {
-                elements.push(<p key={index}><strong className="text-foreground">{match[1]}:</strong> {match[2]}</p>);
-            }
-        } else if (line.startsWith('- ')) {
-            currentList.push(<li key={index}>{line.substring(2)}</li>);
-        } else {
-            flushList();
-            elements.push(<p key={index}>{line}</p>);
-        }
-    });
-
-    flushList();
-
     return (
-        <div className="prose prose-sm max-w-none break-words dark:prose-invert">
-            {elements}
-        </div>
+        <div className="prose prose-sm max-w-none break-words dark:prose-invert" dangerouslySetInnerHTML={createMarkup()} />
     );
 };
 
@@ -113,7 +94,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
     }, []);
 
     return (
-        <div className="absolute inset-0 flex flex-col">
+        <div className="relative h-full w-full flex flex-col">
             <div className={cn(
                 "absolute top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300",
                 isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
@@ -135,7 +116,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                     </Button>
                 </div>
             </div>
-            <ScrollArea className="flex-1">
+            <ScrollArea className="flex-1 w-full">
                 <div className="p-4 md:p-6 space-y-6">
                     <div ref={offerBoxRef}>
                         <OfferBox firm={firm} />
