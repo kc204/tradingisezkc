@@ -45,53 +45,11 @@ const CountryBadge = ({ name, code }: { name: string, code: string }) => (
 
 const TradingRulesContent = ({ rules }: { rules: string | undefined }) => {
     if (!rules) return null;
-    const lines = rules.split('\n').filter(line => line.trim() !== '');
-
-    const createList = (items: string[]) => {
-        return (
-            <ul className="list-disc pl-5 space-y-1">
-                {items.map((item, index) => {
-                    const sublistMatch = item.match(/-\s(.*?):/);
-                    if (sublistMatch) {
-                        const parts = item.split(':');
-                        const strongPart = parts[0].replace(/- \*\*/, '').replace(/\*\*/, '');
-                        return <li key={index}><strong>{strongPart}:</strong>{parts.slice(1).join(':')}</li>
-                    }
-                    return <li key={index}>{item.substring(2)}</li>
-                })}
-            </ul>
-        );
-    }
-
-    const elements: React.ReactNode[] = [];
-    let currentListItems: string[] = [];
-
-    lines.forEach((line, index) => {
-        if (line.startsWith('<h3>')) {
-            if (currentListItems.length > 0) {
-                elements.push(createList(currentListItems));
-                currentListItems = [];
-            }
-            elements.push(<h3 key={index} className="text-md font-semibold mt-4 mb-2" dangerouslySetInnerHTML={{ __html: line.replace(/<\/?h3>/g, '') }} />);
-        } else if (line.startsWith('- ')) {
-            currentListItems.push(line);
-        } else {
-            if (currentListItems.length > 0) {
-                elements.push(createList(currentListItems));
-                currentListItems = [];
-            }
-            elements.push(<p key={index}>{line}</p>);
-        }
-    });
-
-    if (currentListItems.length > 0) {
-        elements.push(createList(currentListItems));
-    }
-
     return (
-        <div className="prose prose-sm max-w-none dark:prose-invert">
-            {elements}
-        </div>
+        <div 
+            className="prose prose-sm max-w-none dark:prose-invert break-words"
+            dangerouslySetInnerHTML={{ __html: rules }}
+        />
     );
 };
 
@@ -99,8 +57,8 @@ const TradingRulesContent = ({ rules }: { rules: string | undefined }) => {
 const FirmMiniDetailMobile: React.FC<{ firm: PropFirm }> = ({ firm }) => {
     return (
         <div className="relative h-full w-full flex flex-col">
-            <ScrollArea className="flex-1">
-                <div className="p-4 space-y-4 pb-24 w-full">
+            <div className="flex-1 overflow-y-auto pb-24">
+                <div className="p-4 space-y-4 w-full">
                     <OfferBox firm={firm} />
 
                     <Card className="w-full">
@@ -149,7 +107,7 @@ const FirmMiniDetailMobile: React.FC<{ firm: PropFirm }> = ({ firm }) => {
                         </Card>
                     )}
                 </div>
-            </ScrollArea>
+            </div>
 
             {/* Sticky Footer CTA */}
             <div className="absolute bottom-0 left-0 right-0 z-10 bg-background/80 backdrop-blur-sm p-3 border-t">
