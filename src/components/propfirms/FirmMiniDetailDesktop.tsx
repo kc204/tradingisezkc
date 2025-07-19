@@ -50,31 +50,38 @@ const TradingRulesContent = ({ rules }: { rules?: string }) => {
     if (!rules) return null;
     const lines = rules.split('\n').filter(line => line.trim() !== '');
 
-    const elements = [];
-    for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
+    const elements: React.ReactNode[] = [];
+    let currentList: React.ReactNode[] = [];
+
+    const flushList = () => {
+        if (currentList.length > 0) {
+            elements.push(<ul key={`ul-${elements.length}`}>{currentList}</ul>);
+            currentList = [];
+        }
+    };
+
+    lines.forEach((line, index) => {
         if (line.startsWith('<h3>')) {
-            elements.push(<h3 key={i} dangerouslySetInnerHTML={{ __html: line.replace(/<\/?h3>/g, '') }} />);
+            flushList();
+            elements.push(<h3 key={index} className="text-lg font-semibold mt-4 mb-2" dangerouslySetInnerHTML={{ __html: line.replace(/<\/?h3>/g, '') }} />);
         } else if (line.startsWith('- **')) {
+            flushList();
             const match = line.match(/- \*\*(.*?):\*\* (.*)/);
             if (match) {
-                elements.push(<p key={i}><strong>{match[1]}:</strong> {match[2]}</p>);
+                elements.push(<p key={index}><strong className="text-foreground">{match[1]}:</strong> {match[2]}</p>);
             }
         } else if (line.startsWith('- ')) {
-            const listItems = [];
-            while (i < lines.length && lines[i].startsWith('- ')) {
-                listItems.push(<li key={i}>{lines[i].substring(2)}</li>);
-                i++;
-            }
-            i--; // Decrement to account for the loop's increment
-            elements.push(<ul key={`ul-${i}`}>{listItems}</ul>);
+            currentList.push(<li key={index}>{line.substring(2)}</li>);
         } else {
-            elements.push(<p key={i}>{line}</p>);
+            flushList();
+            elements.push(<p key={index}>{line}</p>);
         }
-    }
+    });
+
+    flushList(); // Add any remaining list items
 
     return (
-        <div className="prose max-w-none break-words dark:prose-invert">
+        <div className="prose prose-sm max-w-none break-words dark:prose-invert">
             {elements}
         </div>
     );
@@ -106,7 +113,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
     }, []);
 
     return (
-        <div className="relative h-full w-full flex flex-col">
+        <div className="relative h-full w-full">
             <div className={cn(
                 "absolute top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300",
                 isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
@@ -128,7 +135,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                     </Button>
                 </div>
             </div>
-            <ScrollArea className="flex-1 w-full">
+            <ScrollArea className="h-full w-full">
                 <div className="p-4 md:p-6 space-y-6">
                     <div ref={offerBoxRef}>
                         <OfferBox firm={firm} />
