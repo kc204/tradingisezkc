@@ -43,7 +43,7 @@ const CountryBadge = ({ name, code }: { name: string, code: string }) => (
   </div>
 );
 
-const TradingRulesContent = ({ rules }: { rules: string }) => {
+const TradingRulesContent = ({ rules }: { rules: string | undefined }) => {
     if (!rules) return null;
     const lines = rules.split('\n').filter(line => line.trim() !== '');
     let listItems: React.ReactNode[] = [];
