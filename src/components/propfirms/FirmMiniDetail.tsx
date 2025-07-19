@@ -27,7 +27,7 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm, children }) => {
                 <SheetTrigger asChild>{children}</SheetTrigger>
                 <SheetContent 
                     side="bottom" 
-                    className="h-[90vh] w-[95vw] max-w-xl mx-auto rounded-t-lg p-0 border-none"
+                    className="h-[95vh] w-full rounded-t-lg p-4 border-none"
                 >
                     <FirmMiniDetailMobile firm={firm} />
                 </SheetContent>
