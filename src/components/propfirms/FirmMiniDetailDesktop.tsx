@@ -55,7 +55,7 @@ const TradingRulesContent = ({ rules }: { rules?: string }) => {
 
     const flushList = () => {
         if (currentList.length > 0) {
-            elements.push(<ul key={`ul-${elements.length}`}>{currentList}</ul>);
+            elements.push(<ul key={`ul-${elements.length}`} className="list-disc pl-5 space-y-1">{currentList}</ul>);
             currentList = [];
         }
     };
@@ -63,7 +63,7 @@ const TradingRulesContent = ({ rules }: { rules?: string }) => {
     lines.forEach((line, index) => {
         if (line.startsWith('<h3>')) {
             flushList();
-            elements.push(<h3 key={index} className="text-lg font-semibold mt-4 mb-2" dangerouslySetInnerHTML={{ __html: line.replace(/<\/?h3>/g, '') }} />);
+            elements.push(<h3 key={index} className="text-lg font-semibold mt-4 mb-2 text-foreground" dangerouslySetInnerHTML={{ __html: line.replace(/<\/?h3>/g, '') }} />);
         } else if (line.startsWith('- **')) {
             flushList();
             const match = line.match(/- \*\*(.*?):\*\* (.*)/);
@@ -118,7 +118,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                 "absolute top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300",
                 isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
             )}>
-                <div className="container mx-auto flex items-center justify-between gap-3 w-full px-0">
+                <div className="flex items-center justify-between gap-3 w-full px-0">
                     <div className="flex items-center gap-3 overflow-hidden">
                          <div className="w-12 h-12 relative flex-shrink-0">
                             <Image src={firm.logoUrl} alt={`${firm.name} logo`} fill style={{objectFit: 'contain'}} data-ai-hint="company logo" />
