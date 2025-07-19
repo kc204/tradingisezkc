@@ -72,8 +72,9 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
     }, []);
 
     return (
-        <div className="relative flex flex-col h-full">
-            <div className={`sticky top-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-all duration-300 ${isOfferBoxVisible ? 'opacity-0 -translate-y-full pointer-events-none' : 'opacity-100 translate-y-0'}`}>
+        <div className="relative h-full flex flex-col">
+            {/* The sticky header is now absolutely positioned inside the ScrollArea wrapper, so it does not affect layout flow. */}
+            <div className={`absolute top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300 ${isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
                 <div className="container mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                          <div className="w-12 h-12 relative flex-shrink-0">
@@ -94,6 +95,7 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
 
             <ScrollArea className="flex-grow">
                 <div className="p-4 md:p-6 space-y-6">
+                    {/* This ref is observed to toggle the sticky header */}
                     <div ref={offerBoxRef}>
                         <OfferBox firm={firm} />
                     </div>
@@ -125,9 +127,7 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                           <CardHeader>
                             <CardTitle className="text-2xl flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
                           </CardHeader>
-                          <CardContent className="prose max-w-none break-words dark:prose-invert">
-                            <div dangerouslySetInnerHTML={{ __html: firm.tradingRules.replace(/<h3> (.*?)\n/g, '<h3>$1</h3>').replace(/- \*\*(.*?):\*\* (.*?)\n/g, '<p><strong>$1:</strong> $2</p>').replace(/<ul>\s*<li>(.*?)<\/li>\s*<\/ul>/g, '<ul><li>$1</li></ul>').replace(/<\/ul>\s*<ul>/g, '') }} />
-                          </CardContent>
+                           <CardContent className="prose max-w-none break-words dark:prose-invert" dangerouslySetInnerHTML={{ __html: firm.tradingRules.replace(/<h3> (.*?)\n/g, '<h3>$1</h3>').replace(/- \*\*(.*?):\*\* (.*?)\n/g, '<p><strong>$1:</strong> $2</p>').replace(/<ul>\s*<li>(.*?)<\/li>\s*<\/ul>/g, '<ul><li>$1</li></ul>').replace(/<\/ul>\s*<ul>/g, '') }} />
                         </Card>
                       )}
 
