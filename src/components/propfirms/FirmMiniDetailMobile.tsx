@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import OfferBox from '@/components/propfirms/OfferBox';
 import { ExternalLink, Info, ShieldCheck, Briefcase, CreditCard, Banknote, CandlestickChart, Ban } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 // --- Helper Components ---
 
@@ -46,42 +47,51 @@ const CountryBadge = ({ name, code }: { name: string, code: string }) => (
 const TradingRulesContent = ({ rules }: { rules: string | undefined }) => {
     if (!rules) return null;
     const lines = rules.split('\n').filter(line => line.trim() !== '');
-    let listItems: React.ReactNode[] = [];
 
-    const flushList = () => {
-        if (listItems.length > 0) {
-            const list = <ul key={`ul-${Math.random()}`}>{listItems}</ul>;
-            listItems = [];
-            return list;
-        }
-        return null;
-    };
+    const createList = (items: string[]) => {
+        return (
+            <ul className="list-disc pl-5 space-y-1">
+                {items.map((item, index) => {
+                    const sublistMatch = item.match(/-\s(.*?):/);
+                    if (sublistMatch) {
+                        const parts = item.split(':');
+                        const strongPart = parts[0].replace(/- \*\*/, '').replace(/\*\*/, '');
+                        return <li key={index}><strong>{strongPart}:</strong>{parts.slice(1).join(':')}</li>
+                    }
+                    return <li key={index}>{item.substring(2)}</li>
+                })}
+            </ul>
+        );
+    }
 
-    const elements = lines.reduce<React.ReactNode[]>((acc, line, index) => {
+    const elements: React.ReactNode[] = [];
+    let currentListItems: string[] = [];
+
+    lines.forEach((line, index) => {
         if (line.startsWith('<h3>')) {
-            acc.push(flushList());
-            acc.push(<h3 key={index} dangerouslySetInnerHTML={{ __html: line.replace(/<\/?h3>/g, '') }} />);
-        } else if (line.startsWith('- **')) {
-            acc.push(flushList());
-            const match = line.match(/- \*\*(.*?):\*\* (.*)/);
-            if (match) {
-                acc.push(<p key={index}><strong>{match[1]}:</strong> {match[2]}</p>);
+            if (currentListItems.length > 0) {
+                elements.push(createList(currentListItems));
+                currentListItems = [];
             }
+            elements.push(<h3 key={index} className="text-md font-semibold mt-4 mb-2" dangerouslySetInnerHTML={{ __html: line.replace(/<\/?h3>/g, '') }} />);
         } else if (line.startsWith('- ')) {
-            listItems.push(<li key={index}>{line.substring(2)}</li>);
+            currentListItems.push(line);
         } else {
-            acc.push(flushList());
-            acc.push(<p key={index}>{line}</p>);
+            if (currentListItems.length > 0) {
+                elements.push(createList(currentListItems));
+                currentListItems = [];
+            }
+            elements.push(<p key={index}>{line}</p>);
         }
-        if (index === lines.length - 1) {
-            acc.push(flushList());
-        }
-        return acc;
-    }, []);
+    });
+
+    if (currentListItems.length > 0) {
+        elements.push(createList(currentListItems));
+    }
 
     return (
-        <div className="prose max-w-none break-words dark:prose-invert">
-            {elements.filter(Boolean)}
+        <div className="prose prose-sm max-w-none dark:prose-invert">
+            {elements}
         </div>
     );
 };
@@ -121,7 +131,7 @@ const FirmMiniDetailMobile: React.FC<{ firm: PropFirm }> = ({ firm }) => {
                             <CardHeader>
                                 <CardTitle className="text-lg flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="break-words">
                                 <TradingRulesContent rules={firm.tradingRules} />
                             </CardContent>
                         </Card>
