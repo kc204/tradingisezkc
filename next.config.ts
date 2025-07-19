@@ -70,6 +70,12 @@ const nextConfig: NextConfig = {
         hostname: 'flagsapi.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets-global.website-files.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
