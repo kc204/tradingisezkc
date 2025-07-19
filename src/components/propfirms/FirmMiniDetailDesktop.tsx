@@ -93,7 +93,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                     </Button>
                 </div>
             </div>
-            <ScrollArea className="flex-grow w-full">
+            <ScrollArea className="flex-1 w-full">
                 <div className="p-4 md:p-6 space-y-6">
                     <div ref={offerBoxRef}>
                         <OfferBox firm={firm} />
