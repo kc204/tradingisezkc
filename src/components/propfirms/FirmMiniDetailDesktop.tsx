@@ -78,7 +78,7 @@ const TradingRulesContent = ({ rules }: { rules?: string }) => {
         }
     });
 
-    flushList(); // Add any remaining list items
+    flushList();
 
     return (
         <div className="prose prose-sm max-w-none break-words dark:prose-invert">
@@ -113,7 +113,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
     }, []);
 
     return (
-        <div className="relative h-full w-full">
+        <div className="relative h-full w-full flex flex-col">
             <div className={cn(
                 "absolute top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300",
                 isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
@@ -121,7 +121,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                 <div className="container mx-auto flex items-center justify-between gap-3 w-full px-0">
                     <div className="flex items-center gap-3 overflow-hidden">
                          <div className="w-12 h-12 relative flex-shrink-0">
-                            <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo" />
+                            <Image src={firm.logoUrl} alt={`${firm.name} logo`} fill style={{objectFit: 'contain'}} data-ai-hint="company logo" />
                         </div>
                         <div className="overflow-hidden">
                             <h3 className="text-lg font-bold text-foreground truncate">{firm.name}</h3>
@@ -135,7 +135,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                     </Button>
                 </div>
             </div>
-            <ScrollArea className="h-full w-full">
+            <ScrollArea className="flex-1 w-full">
                 <div className="p-4 md:p-6 space-y-6">
                     <div ref={offerBoxRef}>
                         <OfferBox firm={firm} />
