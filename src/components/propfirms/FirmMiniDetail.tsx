@@ -13,6 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator';
 import OfferBox from '@/components/propfirms/OfferBox';
 import { ExternalLink, Info, ShieldCheck, FileText, Briefcase, CreditCard, Banknote, CandlestickChart, TowerControl, Ban } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface FirmMiniDetailProps {
     firm: PropFirm;
@@ -72,20 +73,23 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
     }, []);
 
     return (
-        <div className="relative h-full flex flex-col">
-            <ScrollArea className="flex-grow">
-                 <div className={`absolute top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300 ${isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                    <div className="container mx-auto flex items-center justify-between">
-                        <div className="flex items-center gap-3">
+        <div className="relative h-full w-full flex flex-col">
+            <ScrollArea className="flex-grow w-full">
+                 <div className={cn(
+                    "sticky top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300",
+                    isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                 )}>
+                    <div className="container mx-auto flex items-center justify-between gap-3 w-full">
+                        <div className="flex items-center gap-3 overflow-hidden">
                              <div className="w-12 h-12 relative flex-shrink-0">
                                 <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo" />
                             </div>
-                            <div>
-                                <h3 className="text-lg font-bold text-foreground">{firm.name}</h3>
-                                {firm.offerBadgeLabel && <Badge variant="secondary">{firm.offerBadgeLabel}</Badge>}
+                            <div className="overflow-hidden">
+                                <h3 className="text-lg font-bold text-foreground truncate">{firm.name}</h3>
+                                {firm.offerBadgeLabel && <Badge variant="secondary" className="whitespace-nowrap">{firm.offerBadgeLabel}</Badge>}
                             </div>
                         </div>
-                        <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent-hover">
+                        <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent-hover flex-shrink-0">
                             <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
                                 Claim Offer <ExternalLink className="ml-2 h-4 w-4" />
                             </Link>
@@ -93,12 +97,12 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                     </div>
                 </div>
 
-                <div className="p-4 md:p-6 space-y-6">
+                <div className="p-4 md:p-6 space-y-6 w-full">
                     <div ref={offerBoxRef}>
                         <OfferBox firm={firm} />
                     </div>
 
-                    <Card>
+                    <Card className="w-full">
                         <CardHeader>
                             <CardTitle className="text-xl flex items-center"><Info className="mr-2 h-5 w-5 text-primary" /> Firm Overview</CardTitle>
                         </CardHeader>
@@ -110,7 +114,7 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                         </CardContent>
                     </Card>
                     
-                    <Card>
+                    <Card className="w-full">
                         <CardHeader>
                         <CardTitle className="text-xl flex items-center"><CandlestickChart className="mr-2 h-5 w-5 text-primary" /> Instruments and Assets</CardTitle>
                         </CardHeader>
@@ -121,7 +125,7 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                     </Card>
 
                     {firm.tradingRules && (
-                        <Card>
+                        <Card className="w-full">
                           <CardHeader>
                             <CardTitle className="text-2xl flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
                           </CardHeader>
@@ -130,7 +134,7 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                       )}
 
                     {firm.restrictedCountries && firm.restrictedCountries.length > 0 && (
-                        <Card>
+                        <Card className="w-full">
                         <CardHeader>
                             <CardTitle className="text-xl flex items-center"><Ban className="mr-2 h-5 w-5 text-primary" /> Restricted Countries</CardTitle>
                         </CardHeader>
