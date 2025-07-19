@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -46,7 +45,7 @@ const CountryBadge = ({ name, code }: { name: string, code: string }) => (
   </div>
 );
 
-const TradingRulesContent = ({ rules }: { rules: string }) => {
+const TradingRulesContent = ({ rules }: { rules?: string }) => {
     if (!rules) return null;
     const lines = rules.split('\n').filter(line => line.trim() !== '');
 
@@ -167,7 +166,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                     {firm.tradingRules && (
                         <Card className="w-full">
                           <CardHeader>
-                            <CardTitle className="text-xl flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
+                            <CardTitle className="text-2xl flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
                           </CardHeader>
                            <CardContent>
                                 <TradingRulesContent rules={firm.tradingRules} />
