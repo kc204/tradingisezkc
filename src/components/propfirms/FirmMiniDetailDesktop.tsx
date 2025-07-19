@@ -119,10 +119,10 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                     "sticky top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300",
                     isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
                  )}>
-                    <div className="flex items-center justify-between gap-3 w-full">
+                    <div className="container mx-auto flex items-center justify-between gap-3 w-full">
                         <div className="flex items-center gap-3 overflow-hidden">
                              <div className="w-12 h-12 relative flex-shrink-0">
-                                <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo" />
+                                <Image src={firm.logoUrl} alt={`${firm.name} logo`} fill={true} style={{objectFit: 'contain'}} data-ai-hint="company logo" />
                             </div>
                             <div className="overflow-hidden">
                                 <h3 className="text-lg font-bold text-foreground truncate">{firm.name}</h3>
