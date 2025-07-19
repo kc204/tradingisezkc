@@ -101,7 +101,7 @@ const FirmMiniDetailMobile: React.FC<{ firm: PropFirm }> = ({ firm }) => {
     return (
         <div className="relative h-full w-full flex flex-col">
             <ScrollArea className="flex-1">
-                <div className="p-4 space-y-4 pb-24">
+                <div className="p-4 space-y-4 pb-24 w-full">
                     <OfferBox firm={firm} />
 
                     <Card className="w-full">
