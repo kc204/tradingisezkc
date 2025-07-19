@@ -47,6 +47,7 @@ const CountryBadge = ({ name, code }: { name: string, code: string }) => (
 );
 
 const TradingRulesContent = ({ rules }: { rules: string }) => {
+    if (!rules) return null;
     const lines = rules.split('\n').filter(line => line.trim() !== '');
 
     const content: React.ReactNode[] = [];
@@ -86,6 +87,7 @@ const TradingRulesContent = ({ rules }: { rules: string }) => {
     );
 };
 
+
 const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
     const offerBoxRef = useRef<HTMLDivElement>(null);
     const [isOfferBoxVisible, setIsOfferBoxVisible] = useState(true);
@@ -112,30 +114,30 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
 
     return (
         <div className="relative h-full w-full flex flex-col">
-            <div className={cn(
-                "absolute top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300",
-                isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
-            )}>
-                <div className="flex items-center justify-between gap-3 w-full">
-                    <div className="flex items-center gap-3 overflow-hidden">
-                         <div className="w-12 h-12 relative flex-shrink-0">
-                            <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo" />
+            <ScrollArea className="flex-grow w-full">
+                 <div className={cn(
+                    "sticky top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur-sm p-3 border-b transition-opacity duration-300",
+                    isOfferBoxVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                 )}>
+                    <div className="flex items-center justify-between gap-3 w-full">
+                        <div className="flex items-center gap-3 overflow-hidden">
+                             <div className="w-12 h-12 relative flex-shrink-0">
+                                <Image src={firm.logoUrl} alt={`${firm.name} logo`} layout="fill" objectFit="contain" data-ai-hint="company logo" />
+                            </div>
+                            <div className="overflow-hidden">
+                                <h3 className="text-lg font-bold text-foreground truncate">{firm.name}</h3>
+                                {firm.offerBadgeLabel && <Badge variant="secondary" className="whitespace-nowrap">{firm.offerBadgeLabel}</Badge>}
+                            </div>
                         </div>
-                        <div className="overflow-hidden">
-                            <h3 className="text-lg font-bold text-foreground truncate">{firm.name}</h3>
-                            {firm.offerBadgeLabel && <Badge variant="secondary" className="whitespace-nowrap">{firm.offerBadgeLabel}</Badge>}
-                        </div>
+                        <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent-hover flex-shrink-0">
+                            <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
+                                Claim Offer <ExternalLink className="ml-2 h-4 w-4" />
+                            </Link>
+                        </Button>
                     </div>
-                    <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent-hover flex-shrink-0">
-                        <Link href={firm.affiliateLink} target="_blank" rel="noopener noreferrer">
-                            Claim Offer <ExternalLink className="ml-2 h-4 w-4" />
-                        </Link>
-                    </Button>
                 </div>
-            </div>
-            
-            <ScrollArea className="flex-1 w-full">
-                <div className="p-4 md:p-6 space-y-6">
+
+                <div className="p-4 md:p-6 space-y-6 w-full">
                     <div ref={offerBoxRef}>
                         <OfferBox firm={firm} />
                     </div>
@@ -167,7 +169,7 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
                           <CardHeader>
                             <CardTitle className="text-xl flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
                           </CardHeader>
-                            <CardContent>
+                           <CardContent>
                                 <TradingRulesContent rules={firm.tradingRules} />
                             </CardContent>
                         </Card>
