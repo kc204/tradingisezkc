@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -122,14 +123,14 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm }) => {
 
                     {firm.tradingRules && (
                         <Card>
-                        <CardHeader>
-                            <CardTitle className="text-xl flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
-                        </CardHeader>
-                        <CardContent className="prose prose-sm max-w-none break-words dark:prose-invert">
-                            <div dangerouslySetInnerHTML={{ __html: firm.tradingRules.replace(/<h3>(.*?)<\/h3>/g, '<h4>$1</h4>').replace(/<h4>/g, '<h4 class="text-foreground font-semibold">').replace(/<ul>/g, '<ul class="text-muted-foreground space-y-1">').replace(/<p>/g, '<p class="text-muted-foreground">') }} />
-                        </CardContent>
+                          <CardHeader>
+                            <CardTitle className="text-2xl flex items-center"><ShieldCheck className="mr-2 h-5 w-5 text-primary" /> Trading Rules</CardTitle>
+                          </CardHeader>
+                          <CardContent className="prose max-w-none break-words dark:prose-invert">
+                            <div dangerouslySetInnerHTML={{ __html: firm.tradingRules.replace(/<h3> (.*?)\n/g, '<h3>$1</h3>').replace(/- \*\*(.*?):\*\* (.*?)\n/g, '<p><strong>$1:</strong> $2</p>').replace(/<\/ul>\s*<ul>/g, '') }} />
+                          </CardContent>
                         </Card>
-                    )}
+                      )}
 
                     {firm.restrictedCountries && firm.restrictedCountries.length > 0 && (
                         <Card>
