@@ -25,7 +25,10 @@ const FirmMiniDetail: React.FC<FirmMiniDetailProps> = ({ firm, children }) => {
         return (
             <Sheet>
                 <SheetTrigger asChild>{children}</SheetTrigger>
-                <SheetContent side="right" className="w-[85vw] p-0 border-none">
+                <SheetContent 
+                    side="bottom" 
+                    className="h-[90vh] w-[95vw] max-w-xl mx-auto rounded-t-lg p-0 border-none"
+                >
                     <FirmMiniDetailMobile firm={firm} />
                 </SheetContent>
             </Sheet>
