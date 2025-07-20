@@ -120,67 +120,75 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
     return (
         <div className="space-y-4 mb-6">
             <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
-                <div className="flex items-center gap-4 flex-wrap">
-                    <div className="flex items-center p-1 bg-white/5 rounded-full">
-                        <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
-                            Futures
-                        </button>
-                        <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
-                            CFD
-                        </button>
-                    </div>
-                     <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-gray-400 mr-2">Sizes:</span>
-                        {sizes.map(size => (
-                            <button
-                                key={size}
-                                onClick={() => toggleSizeFilter(size)}
-                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
-                            >
-                                {formatShortCurrency(size)}
+                 <div className="w-full space-y-4">
+                    <div className="flex items-center gap-4 flex-wrap">
+                        <div className="flex items-center p-1 bg-white/5 rounded-full">
+                            <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+                                Futures
                             </button>
-                        ))}
-                         <button onClick={handleCustomSizeToggle} className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${isCustomSizeActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
-                            Custom
-                        </button>
-                    </div>
-                     <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-gray-400 mr-2">Steps:</span>
-                        {stepsOptions.map(step => (
-                            <button
-                                key={step}
-                                onClick={() => toggleStepFilter(step)}
-                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${filters.steps.includes(step) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
-                            >
-                                {typeof step === 'number' ? `${step} Step${step > 1 ? 's' : ''}` : step}
+                            <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+                                CFD
                             </button>
-                        ))}
+                        </div>
                     </div>
-                    <div className="flex items-center space-x-2">
-                        <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${filters.applyDiscount ? 'bg-orange-500' : 'bg-gray-600'}`}>
-                            <span className={`pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform h-5 w-5 ${filters.applyDiscount ? 'translate-x-5' : 'translate-x-0'}`}></span>
-                        </button>
-                        <label className="text-sm font-semibold text-gray-300">Apply Discount</label>
+                     <div className="flex flex-col items-start gap-4">
+                        <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-semibold text-gray-400 mr-2">Sizes:</span>
+                            {sizes.map(size => (
+                                <button
+                                    key={size}
+                                    onClick={() => toggleSizeFilter(size)}
+                                    className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                                >
+                                    {formatShortCurrency(size)}
+                                </button>
+                            ))}
+                            <button onClick={handleCustomSizeToggle} className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${isCustomSizeActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
+                                Custom
+                            </button>
+                        </div>
+                        {isCustomSizeActive && (
+                            <div className="flex items-center gap-4 pt-2">
+                                <span className="font-semibold text-gray-400">Size Range:</span>
+                                <Slider
+                                    value={customSize}
+                                    onValueChange={handleSliderChange}
+                                    max={1000000}
+                                    step={1000}
+                                    className="w-[250px]"
+                                />
+                                <span className="font-semibold text-white w-[200px] text-center">{formatCurrency(customSize[0])} - {formatCurrency(customSize[1])}</span>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="flex items-center gap-4 flex-wrap">
+                         <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-semibold text-gray-400 mr-2">Steps:</span>
+                            {stepsOptions.map(step => (
+                                <button
+                                    key={step}
+                                    onClick={() => toggleStepFilter(step)}
+                                    className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${filters.steps.includes(step) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                                >
+                                    {typeof step === 'number' ? `${step} Step${step > 1 ? 's' : ''}` : step}
+                                </button>
+                            ))}
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${filters.applyDiscount ? 'bg-orange-500' : 'bg-gray-600'}`}>
+                                <span className={`pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform h-5 w-5 ${filters.applyDiscount ? 'translate-x-5' : 'translate-x-0'}`}></span>
+                            </button>
+                            <label className="text-sm font-semibold text-gray-300">Apply Discount</label>
+                        </div>
                     </div>
                 </div>
+
                 <div className="relative flex-grow w-full md:flex-grow-0 md:w-auto">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
                     <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
             </div>
-            {isCustomSizeActive && (
-                <div className="flex items-center gap-4 pt-2">
-                    <span className="font-semibold text-gray-400">Size Range:</span>
-                    <Slider
-                        value={customSize}
-                        onValueChange={handleSliderChange}
-                        max={1000000}
-                        step={1000}
-                        className="w-[250px]"
-                    />
-                    <span className="font-semibold text-white w-[200px] text-center">{formatCurrency(customSize[0])} - {formatCurrency(customSize[1])}</span>
-                </div>
-            )}
             <h2 className="text-xl font-bold tracking-tight text-white/90">
                 {filters.challengeType === 'futures' ? 'Futures' : 'CFD'} Prop Firm Challenges <span className="ml-2 text-blue-400 font-medium bg-blue-500/10 px-2 py-1 rounded-md text-base">Showing {filteredCount} of {totalCount}</span>
             </h2>
