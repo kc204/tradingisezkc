@@ -115,7 +115,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
     };
 
     const sizes = [25000, 50000, 100000, 150000, 200000];
-    const stepsOptions: (number | string)[] = [1, 2, 3, 'Instant'];
+    const stepsOptions: (number | string)[] = [1, 2, 3, 4, 'Instant'];
 
     return (
         <div className="space-y-4 mb-6">
