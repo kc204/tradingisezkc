@@ -7,7 +7,7 @@ import { mockPropFirms, mockFreeResources, ALL_CHALLENGES_DATA } from '@/lib/moc
 import Link from 'next/link';
 import { cn } from "@/lib/utils";
 import { StarBorder } from "@/components/ui/star-border";
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, from 'react';
 import type { PropFirm } from '@/lib/types';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
@@ -21,6 +21,7 @@ import FirmMiniDetail from '@/components/propfirms/FirmMiniDetail';
 import { Slider } from '@/components/ui/slider';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 
 const firebaseConfig = {
@@ -51,10 +52,10 @@ const formatShortCurrency = (value: any) => value == null ? 'N/A' : `$${value/10
 const Separator = () => <div className="hidden md:block h-6 w-px bg-white/10 mx-2"></div>;
 
 const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCount, totalCount }: any) => {
-    const [isCustomSizeActive, setIsCustomSizeActive] = useState(false);
-    const [customSize, setCustomSize] = useState([50000, 500000]);
-    const [tempCustomSize, setTempCustomSize] = useState(customSize);
-    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+    const [isCustomSizeActive, setIsCustomSizeActive] = React.useState(false);
+    const [customSize, setCustomSize] = React.useState([50000, 500000]);
+    const [tempCustomSize, setTempCustomSize] = React.useState(customSize);
+    const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
 
     const handleFilterChange = (key: string, value: any) => {
         setFilters((prev: any) => ({ ...prev, [key]: value }));
@@ -219,7 +220,20 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
 };
 
 const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: any) => {
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+    const [isScrolled, setIsScrolled] = React.useState(false);
+    
+    React.useEffect(() => {
+        const container = scrollContainerRef.current;
+        if (!container) return;
+
+        const handleScroll = () => {
+            setIsScrolled(container.scrollLeft > 10);
+        };
+
+        container.addEventListener('scroll', handleScroll, { passive: true });
+        return () => container.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const getSortIndicator = (key: string) => {
         if (!sortConfig || sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
@@ -243,21 +257,13 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
-                <table className="min-w-full text-sm group/table" style={{ transform: 'translate3d(0,0,0)' }}>
+                <table className="min-w-full text-sm">
                     <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900 group-hover/row:bg-gray-800'}` : 'bg-gray-800/95'}`}>
+                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
-                                        {col.key === 'firm' ? (
-                                             <div className="flex items-center gap-1 group-hover/table:flex-col group-hover/table:items-start group-hover/table:md:flex-row group-hover/table:md:items-center group-hover/table:md:gap-1">
-                                                <span>Firm</span>
-                                                <span className="group-hover/table:leading-3 group-hover/table:md:leading-normal group-hover/table:text-[10px] group-hover/table:md:text-xs">/</span>
-                                                <span className="group-hover/table:leading-3 group-hover/table:md:leading-normal">Rating</span>
-                                            </div>
-                                        ) : (
-                                            col.label
-                                        )}
+                                        {col.label}
                                         <span>{getSortIndicator(col.key)}</span>
                                     </button>
                                 </th>
@@ -265,7 +271,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
-                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} />)}
+                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} />)}
                     </tbody>
                 </table>
             </div>
@@ -273,7 +279,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     );
 };
 
-const ChallengeRow = ({ challenge, applyDiscount }: any) => {
+const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
     const firm = mockPropFirms.find(f => f.slug === challenge.firmId) || null;
     
@@ -293,7 +299,14 @@ const ChallengeRow = ({ challenge, applyDiscount }: any) => {
                         <div className="w-11 h-11 relative flex-shrink-0">
                             <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
                         </div>
-                        <div className="flex flex-col justify-center flex-shrink-0 group-hover/table:opacity-0 group-hover/table:w-0 w-auto transition-all duration-300">
+                        <div 
+                            className="flex flex-col justify-center flex-shrink-0"
+                            style={{
+                                transition: 'opacity 0.3s ease, width 0.3s ease',
+                                opacity: isScrolled ? 0 : 1,
+                                width: isScrolled ? '0px' : 'auto',
+                            }}
+                        >
                             <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                             <div className="flex items-center text-xs text-gray-400 mt-1">
                                 <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
@@ -371,15 +384,15 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: any) => {
 }
 
 const FullCompareSection = () => {
-  const [challenges, setChallenges] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures', customSizeRange: null });
-  const [sortConfig, setSortConfig] = useState<{key: string, direction: string}>({ key: 'price', direction: 'ascending' });
-  const [currentPage, setCurrentPage] = useState(1);
+  const [challenges, setChallenges] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const [filters, setFilters] = React.useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures', customSizeRange: null });
+  const [sortConfig, setSortConfig] = React.useState<{key: string, direction: string}>({ key: 'price', direction: 'ascending' });
+  const [currentPage, setCurrentPage] = React.useState(1);
   const ROWS_PER_PAGE = 8;
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!db) {
         setChallenges(ALL_CHALLENGES_DATA);
         setLoading(false);
@@ -416,7 +429,7 @@ const FullCompareSection = () => {
     return () => unsubscribe();
   }, []);
 
-  const filteredAndSortedChallenges = useMemo(() => {
+  const filteredAndSortedChallenges = React.useMemo(() => {
     let filtered = challenges.filter(c => c.challengeType === filters.challengeType);
 
     if (searchTerm) {
@@ -455,11 +468,11 @@ const FullCompareSection = () => {
     return filtered;
   }, [challenges, searchTerm, filters, sortConfig]);
 
-  useEffect(() => {
+  React.useEffect(() => {
       setCurrentPage(1);
   }, [filters, searchTerm]);
 
-  const paginatedChallenges = useMemo(() => {
+  const paginatedChallenges = React.useMemo(() => {
       const startIndex = (currentPage - 1) * ROWS_PER_PAGE;
       return filteredAndSortedChallenges.slice(startIndex, startIndex + ROWS_PER_PAGE);
   }, [currentPage, filteredAndSortedChallenges]);
@@ -524,8 +537,8 @@ export default function Home() {
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured);
   const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3);
   
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
+  const [isClient, setIsClient] = React.useState(false);
+  React.useEffect(() => {
     setIsClient(true);
   }, []);
 
