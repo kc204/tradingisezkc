@@ -117,21 +117,23 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
 
     return (
         <div className="space-y-4 mb-6">
+             <div className="flex justify-between items-center">
+                 <div className="flex items-center p-1 bg-white/5 rounded-full">
+                    <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+                        Futures
+                    </button>
+                    <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+                        CFD
+                    </button>
+                </div>
+                 <div className="relative flex-grow-0 w-full md:w-auto hidden md:block">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+                    <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+            </div>
+
             <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
                 <div className="flex items-center gap-4 flex-wrap flex-1">
-                    {/* Challenge Type */}
-                    <div className="flex items-center p-1 bg-white/5 rounded-full">
-                        <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
-                            Futures
-                        </button>
-                        <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
-                            CFD
-                        </button>
-                    </div>
-                    
-                    <Separator />
-
-                    {/* Sizes */}
                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-semibold text-gray-400 mr-2">Sizes:</span>
                         {sizes.map(size => (
@@ -169,8 +171,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                     </div>
 
                     <Separator />
-                    
-                    {/* Steps */}
+
                     <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-semibold text-gray-400 mr-2">Steps:</span>
                         {stepsOptions.map(step => (
@@ -185,8 +186,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                     </div>
 
                     <Separator />
-
-                    {/* Discount Toggle */}
+                    
                     <div className="flex items-center space-x-2">
                         <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${filters.applyDiscount ? 'bg-orange-500' : 'bg-gray-600'}`}>
                             <span className={`pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform h-5 w-5 ${filters.applyDiscount ? 'translate-x-5' : 'translate-x-0'}`}></span>
@@ -194,12 +194,12 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                         <label className="text-sm font-semibold text-gray-300">Apply Discount</label>
                     </div>
                 </div>
-
-                <div className="relative flex-grow w-full md:flex-grow-0 md:w-auto">
+                 <div className="relative flex-grow w-full md:flex-grow-0 md:w-auto md:hidden">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
                     <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
             </div>
+
             <h2 className="text-xl font-bold tracking-tight text-white/90">
                 {filters.challengeType === 'futures' ? 'Futures' : 'CFD'} Prop Firm Challenges <span className="ml-2 text-blue-400 font-medium bg-blue-500/10 px-2 py-1 rounded-md text-base">Showing {filteredCount} of {totalCount}</span>
             </h2>
@@ -258,7 +258,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                                 <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
                                         {col.key === 'firm' ? (
-                                            <div className="flex items-center gap-1 group-[.scrolled]:md:flex-row group-[.scrolled]:items-start group-[.scrolled]:md:items-center group-[.scrolled]:gap-0 group-[.scrolled]:md:gap-1 group-[.scrolled]:flex-col">
+                                            <div className="flex items-center gap-1 group-[.scrolled]:flex-col group-[.scrolled]:items-start group-[.scrolled]:md:flex-row group-[.scrolled]:md:items-center group-[.scrolled]:md:gap-1">
                                                 <span>Firm</span>
                                                 <span className="group-[.scrolled]:leading-3 group-[.scrolled]:md:leading-normal group-[.scrolled]:text-[10px] group-[.scrolled]:md:text-xs">/</span>
                                                 <span className="group-[.scrolled]:leading-3 group-[.scrolled]:md:leading-normal">Rating</span>
