@@ -495,7 +495,14 @@ export default function Home() {
                 <FirmCard key={firm.id} firm={firm} />
               ))}
             </div>
-            
+             <div className="text-center mt-10">
+              <StarBorder<typeof Link>
+                  as={Link}
+                  href="/firms"
+              >
+                  View All Prop Firms
+              </StarBorder>
+            </div>
           </div>
         </section>
       )}
