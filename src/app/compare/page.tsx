@@ -169,7 +169,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     }, [challenges]); // Rerun if challenges data changes
 
     const columns = [
-        { key: 'firm', label: 'Firm / Rank', sticky: 'left' },
+        { key: 'firm', label: 'Firm / Rating', sticky: 'left' },
         { key: 'accountsize', label: 'Account Size' },
         { key: 'steps', label: 'Steps' },
         { key: 'activationfee', label: 'Activation Fee' },
@@ -454,3 +454,5 @@ export default function ComparePage() {
     </div>
   );
 }
+
+    
