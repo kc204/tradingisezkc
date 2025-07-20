@@ -192,12 +192,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                             {columns.map(col => (
                                 <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
-                                        {col.key === 'firm' ? (
-                                            <div className="flex flex-col items-start group-[.scrolled]:-space-y-1">
-                                                <span>Firm</span>
-                                                <span className="text-gray-500 group-[.scrolled]:text-xs">Rating</span>
-                                            </div>
-                                        ) : col.label}
+                                        {col.label}
                                         <span>{getSortIndicator(col.key)}</span>
                                     </button>
                                 </th>
