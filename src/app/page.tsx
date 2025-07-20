@@ -1,4 +1,5 @@
 
+
 'use client'; 
 
 import FirmCard from '@/components/propfirms/FirmCard';
@@ -18,6 +19,7 @@ import OfferBox from '@/components/propfirms/OfferBox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import FirmMiniDetail from '@/components/propfirms/FirmMiniDetail';
+import { Slider } from '@/components/ui/slider';
 
 
 const firebaseConfig = {
@@ -46,6 +48,9 @@ const formatCurrency = (value: any) => value == null ? 'N/A' : new Intl.NumberFo
 const formatShortCurrency = (value: any) => value == null ? 'N/A' : `$${value/1000}K`;
 
 const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCount, totalCount }: any) => {
+    const [isCustomSizeActive, setIsCustomSizeActive] = useState(false);
+    const [customSize, setCustomSize] = useState([500000]);
+
     const handleFilterChange = (key: string, value: any) => {
         setFilters((prev: any) => ({ ...prev, [key]: value }));
     };
@@ -55,12 +60,32 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
     };
 
     const toggleSizeFilter = (size: number) => {
+        setIsCustomSizeActive(false);
         const currentSizes = filters.accountSize;
         const newSizes = currentSizes.includes(size)
             ? currentSizes.filter((s: number) => s !== size)
             : [...currentSizes, size];
         handleFilterChange('accountSize', newSizes);
     };
+    
+    const handleCustomSizeToggle = () => {
+        const newActiveState = !isCustomSizeActive;
+        setIsCustomSizeActive(newActiveState);
+        if(newActiveState) {
+            handleFilterChange('accountSize', []); // Clear standard sizes when custom is active
+            handleFilterChange('customSize', customSize[0]);
+        } else {
+            handleFilterChange('customSize', null); // Clear custom size when deactivated
+        }
+    };
+    
+    const handleSliderChange = (value: number[]) => {
+        setCustomSize(value);
+        if(isCustomSizeActive) {
+            handleFilterChange('customSize', value[0]);
+        }
+    };
+
 
     const toggleStepFilter = (step: number | string) => {
         const currentSteps = filters.steps;
@@ -86,6 +111,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                 steps: [2],
             }));
         }
+         setIsCustomSizeActive(false);
     };
 
     const sizes = [25000, 50000, 100000, 150000, 200000];
@@ -109,11 +135,14 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                             <button
                                 key={size}
                                 onClick={() => toggleSizeFilter(size)}
-                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
                             >
                                 {formatShortCurrency(size)}
                             </button>
                         ))}
+                         <button onClick={handleCustomSizeToggle} className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${isCustomSizeActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
+                            Custom
+                        </button>
                     </div>
                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-semibold text-gray-400 mr-2">Steps:</span>
@@ -139,6 +168,19 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                     <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
             </div>
+            {isCustomSizeActive && (
+                <div className="flex items-center gap-4 pt-2">
+                    <span className="font-semibold text-gray-400">Max Size:</span>
+                    <Slider
+                        value={customSize}
+                        onValueChange={handleSliderChange}
+                        max={1000000}
+                        step={25000}
+                        className="w-[250px]"
+                    />
+                    <span className="font-semibold text-white w-[100px] text-center">{formatCurrency(customSize[0])}</span>
+                </div>
+            )}
             <h2 className="text-xl font-bold tracking-tight text-white/90">
                 {filters.challengeType === 'futures' ? 'Futures' : 'CFD'} Prop Firm Challenges <span className="ml-2 text-blue-400 font-medium bg-blue-500/10 px-2 py-1 rounded-md text-base">Showing {filteredCount} of {totalCount}</span>
             </h2>
@@ -321,7 +363,7 @@ const FullCompareSection = () => {
   const [challenges, setChallenges] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures' });
+  const [filters, setFilters] = useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures', customSize: null });
   const [sortConfig, setSortConfig] = useState<{key: string, direction: string}>({ key: 'price', direction: 'ascending' });
   const [currentPage, setCurrentPage] = useState(1);
   const ROWS_PER_PAGE = 8;
@@ -370,7 +412,9 @@ const FullCompareSection = () => {
       filtered = filtered.filter(c => c.firmName.toLowerCase().includes(searchTerm.toLowerCase()));
     }
     
-    if (filters.accountSize.length > 0) {
+    if (filters.customSize != null) {
+      filtered = filtered.filter(c => c.accountSize <= filters.customSize);
+    } else if (filters.accountSize.length > 0) {
         filtered = filtered.filter(c => filters.accountSize.includes(c.accountSize));
     }
 
