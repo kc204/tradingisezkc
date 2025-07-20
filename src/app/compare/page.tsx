@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import FirmMiniDetail from '@/components/propfirms/FirmMiniDetail';
 import { Slider } from '@/components/ui/slider';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 
 const firebaseConfig = {
@@ -61,6 +62,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
             ? currentSizes.filter((s: number) => s !== size)
             : [...currentSizes, size];
         handleFilterChange('accountSize', newSizes);
+        handleFilterChange('customSizeRange', null); 
     };
     
     const handleCustomSizeToggle = () => {
@@ -125,35 +127,40 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                             </button>
                         </div>
                     </div>
-                     <div className="flex flex-col items-start gap-4">
-                        <div className="flex items-center gap-2 flex-wrap">
-                            <span className="font-semibold text-gray-400 mr-2">Sizes:</span>
-                            {sizes.map(size => (
-                                <button
-                                    key={size}
-                                    onClick={() => toggleSizeFilter(size)}
-                                    className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
-                                >
-                                    {formatShortCurrency(size)}
-                                </button>
-                            ))}
-                            <button onClick={handleCustomSizeToggle} className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${isCustomSizeActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
-                                Custom
+                     <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-semibold text-gray-400 mr-2">Sizes:</span>
+                        {sizes.map(size => (
+                            <button
+                                key={size}
+                                onClick={() => toggleSizeFilter(size)}
+                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                            >
+                                {formatShortCurrency(size)}
                             </button>
-                        </div>
-                        {isCustomSizeActive && (
-                            <div className="flex items-center gap-4 pt-2">
-                                <span className="font-semibold text-gray-400">Size Range:</span>
-                                <Slider
-                                    value={customSize}
-                                    onValueChange={handleSliderChange}
-                                    max={1000000}
-                                    step={1000}
-                                    className="w-[250px]"
-                                />
-                                <span className="font-semibold text-white w-[200px] text-center">{formatCurrency(customSize[0])} - {formatCurrency(customSize[1])}</span>
-                            </div>
-                        )}
+                        ))}
+                        <Popover onOpenChange={(open) => setIsCustomSizeActive(open)}>
+                            <PopoverTrigger asChild>
+                                <button className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${isCustomSizeActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
+                                    Custom
+                                </button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-80">
+                                <div className="space-y-4">
+                                     <div className="space-y-2">
+                                        <p className="text-sm font-medium">Custom Size Range</p>
+                                        <p className="text-sm text-muted-foreground">
+                                            {formatCurrency(customSize[0])} - {formatCurrency(customSize[1])}
+                                        </p>
+                                    </div>
+                                    <Slider
+                                        value={customSize}
+                                        onValueChange={handleSliderChange}
+                                        max={1000000}
+                                        step={1000}
+                                    />
+                                </div>
+                            </PopoverContent>
+                        </Popover>
                     </div>
 
                     <div className="flex items-center gap-4 flex-wrap">
