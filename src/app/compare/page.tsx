@@ -44,7 +44,7 @@ const formatShortCurrency = (value: any) => value == null ? 'N/A' : `$${value/10
 
 const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCount, totalCount }: any) => {
     const [isCustomSizeActive, setIsCustomSizeActive] = useState(false);
-    const [customSize, setCustomSize] = useState([500000]);
+    const [customSize, setCustomSize] = useState([50000, 500000]);
 
     const handleFilterChange = (key: string, value: any) => {
         setFilters((prev: any) => ({ ...prev, [key]: value }));
@@ -68,16 +68,16 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
         setIsCustomSizeActive(newActiveState);
         if(newActiveState) {
             handleFilterChange('accountSize', []); // Clear standard sizes when custom is active
-            handleFilterChange('customSize', customSize[0]);
+            handleFilterChange('customSizeRange', customSize);
         } else {
-            handleFilterChange('customSize', null); // Clear custom size when deactivated
+            handleFilterChange('customSizeRange', null); // Clear custom size when deactivated
         }
     };
     
     const handleSliderChange = (value: number[]) => {
         setCustomSize(value);
         if(isCustomSizeActive) {
-            handleFilterChange('customSize', value[0]);
+            handleFilterChange('customSizeRange', value);
         }
     };
 
@@ -109,7 +109,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
     };
 
     const sizes = [25000, 50000, 100000, 150000, 200000];
-    const stepsOptions: (number | string)[] = [1, 2, 3, 4, 'Instant'];
+    const stepsOptions: (number | string)[] = [1, 2, 3, 'Instant'];
 
     return (
         <div className="space-y-4 mb-6">
@@ -164,15 +164,15 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
             </div>
              {isCustomSizeActive && (
                 <div className="flex items-center gap-4 pt-2">
-                    <span className="font-semibold text-gray-400">Max Size:</span>
+                    <span className="font-semibold text-gray-400">Size Range:</span>
                     <Slider
                         value={customSize}
                         onValueChange={handleSliderChange}
                         max={1000000}
-                        step={25000}
+                        step={1000}
                         className="w-[250px]"
                     />
-                    <span className="font-semibold text-white w-[100px] text-center">{formatCurrency(customSize[0])}</span>
+                    <span className="font-semibold text-white w-[200px] text-center">{formatCurrency(customSize[0])} - {formatCurrency(customSize[1])}</span>
                 </div>
             )}
             <h2 className="text-xl font-bold tracking-tight text-white/90">
@@ -356,7 +356,7 @@ export default function ComparePage() {
   const [challenges, setChallenges] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures', customSize: null });
+  const [filters, setFilters] = useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures', customSizeRange: null });
   const [sortConfig, setSortConfig] = useState<{key: string, direction: string}>({ key: 'price', direction: 'ascending' });
   const [currentPage, setCurrentPage] = useState(1);
   const ROWS_PER_PAGE = 8;
@@ -409,8 +409,9 @@ export default function ComparePage() {
       filtered = filtered.filter(c => c.firmName.toLowerCase().includes(searchTerm.toLowerCase()));
     }
     
-    if (filters.customSize != null) {
-      filtered = filtered.filter(c => c.accountSize <= filters.customSize);
+    if (filters.customSizeRange) {
+      const [min, max] = filters.customSizeRange;
+      filtered = filtered.filter(c => c.accountSize >= min && c.accountSize <= max);
     } else if (filters.accountSize.length > 0) {
         filtered = filtered.filter(c => filters.accountSize.includes(c.accountSize));
     }
