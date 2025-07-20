@@ -121,8 +121,9 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
     return (
         <div className="space-y-4 mb-6">
             <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
-                 <div className="w-full space-y-4">
+                <div className="w-full space-y-4">
                     <div className="flex items-center gap-4 flex-wrap">
+                        {/* Challenge Type */}
                         <div className="flex items-center p-1 bg-white/5 rounded-full">
                             <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
                                 Futures
@@ -131,45 +132,44 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                                 CFD
                             </button>
                         </div>
-                    </div>
-                     <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-gray-400 mr-2">Sizes:</span>
-                        {sizes.map(size => (
-                            <button
-                                key={size}
-                                onClick={() => toggleSizeFilter(size)}
-                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
-                            >
-                                {formatShortCurrency(size)}
-                            </button>
-                        ))}
-                        <Popover onOpenChange={(open) => setIsCustomSizeActive(open)}>
-                            <PopoverTrigger asChild>
-                                <button className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${isCustomSizeActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
-                                    Custom
-                                </button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-80">
-                                <div className="space-y-4">
-                                     <div className="space-y-2">
-                                        <p className="text-sm font-medium">Custom Size Range</p>
-                                        <p className="text-sm text-muted-foreground">
-                                            {formatCurrency(customSize[0])} - {formatCurrency(customSize[1])}
-                                        </p>
-                                    </div>
-                                    <Slider
-                                        value={customSize}
-                                        onValueChange={handleSliderChange}
-                                        max={1000000}
-                                        step={1000}
-                                    />
-                                </div>
-                            </PopoverContent>
-                        </Popover>
-                    </div>
-
-                    <div className="flex items-center gap-4 flex-wrap">
+                        {/* Sizes */}
                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-semibold text-gray-400 mr-2">Sizes:</span>
+                            {sizes.map(size => (
+                                <button
+                                    key={size}
+                                    onClick={() => toggleSizeFilter(size)}
+                                    className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                                >
+                                    {formatShortCurrency(size)}
+                                </button>
+                            ))}
+                            <Popover onOpenChange={(open) => setIsCustomSizeActive(open)}>
+                                <PopoverTrigger asChild>
+                                    <button className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${isCustomSizeActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
+                                        Custom
+                                    </button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-80">
+                                    <div className="space-y-4">
+                                         <div className="space-y-2">
+                                            <p className="text-sm font-medium">Custom Size Range</p>
+                                            <p className="text-sm text-muted-foreground">
+                                                {formatCurrency(customSize[0])} - {formatCurrency(customSize[1])}
+                                            </p>
+                                        </div>
+                                        <Slider
+                                            value={customSize}
+                                            onValueChange={handleSliderChange}
+                                            max={1000000}
+                                            step={1000}
+                                        />
+                                    </div>
+                                </PopoverContent>
+                            </Popover>
+                        </div>
+                        {/* Steps */}
+                        <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-semibold text-gray-400 mr-2">Steps:</span>
                             {stepsOptions.map(step => (
                                 <button
@@ -181,6 +181,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                                 </button>
                             ))}
                         </div>
+                        {/* Discount Toggle */}
                         <div className="flex items-center space-x-2">
                             <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${filters.applyDiscount ? 'bg-orange-500' : 'bg-gray-600'}`}>
                                 <span className={`pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform h-5 w-5 ${filters.applyDiscount ? 'translate-x-5' : 'translate-x-0'}`}></span>
