@@ -17,6 +17,7 @@ import FirmMiniDetail from '@/components/propfirms/FirmMiniDetail';
 import { Slider } from '@/components/ui/slider';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 
 const firebaseConfig = {
