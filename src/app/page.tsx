@@ -7,7 +7,7 @@ import { mockPropFirms, mockFreeResources, ALL_CHALLENGES_DATA } from '@/lib/moc
 import Link from 'next/link';
 import { cn } from "@/lib/utils";
 import { StarBorder } from "@/components/ui/star-border";
-import React, from 'react';
+import React, { useRef, useEffect } from 'react';
 import type { PropFirm } from '@/lib/types';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
@@ -221,6 +221,8 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
 
 const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: any) => {
     const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+    const textRef = React.useRef<HTMLSpanElement>(null); // Ref for the header text
+    const isMobile = useIsMobile();
     const [isScrolled, setIsScrolled] = React.useState(false);
     
     React.useEffect(() => {
@@ -228,13 +230,20 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
         if (!container) return;
 
         const handleScroll = () => {
-            setIsScrolled(container.scrollLeft > 10);
+             setIsScrolled(container.scrollLeft > 10);
+             if (isMobile && textRef.current) {
+                if (container.scrollLeft > 10) {
+                    textRef.current.classList.add('scrolled-mobile-header');
+                } else {
+                    textRef.current.classList.remove('scrolled-mobile-header');
+                }
+            }
         };
 
         container.addEventListener('scroll', handleScroll, { passive: true });
         return () => container.removeEventListener('scroll', handleScroll);
-    }, []);
-
+    }, [isMobile]);
+    
     const getSortIndicator = (key: string) => {
         if (!sortConfig || sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
         return sortConfig.direction === 'ascending' ? '▲' : '▼';
@@ -261,9 +270,16 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                     <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
-                                        {col.label}
+                                        {col.key === 'firm' ? (
+                                            <span ref={textRef} className="flex flex-row md:whitespace-nowrap items-center">
+                                                <span>Firm&nbsp;/&nbsp;</span>
+                                                <span>Rating</span>
+                                            </span>
+                                        ) : (
+                                            col.label
+                                        )}
                                         <span>{getSortIndicator(col.key)}</span>
                                     </button>
                                 </th>
