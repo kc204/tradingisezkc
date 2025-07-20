@@ -138,3 +138,9 @@
     --tw-prose-td-borders: hsl(var(--border));
   }
 }
+
+@layer utilities {
+    .scrolled-mobile-header {
+        flex-direction: column !important;
+    }
+}

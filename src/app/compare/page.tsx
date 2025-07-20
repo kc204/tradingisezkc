@@ -216,19 +216,26 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
 
 const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: any) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
-    const [isScrolled, setIsScrolled] = useState(false);
-
+    const textRef = useRef<HTMLSpanElement>(null); // Ref for the header text
+    const isMobile = useIsMobile();
+    
     useEffect(() => {
         const container = scrollContainerRef.current;
         if (!container) return;
 
         const handleScroll = () => {
-            setIsScrolled(container.scrollLeft > 10);
+             if (isMobile && textRef.current) {
+                if (container.scrollLeft > 10) {
+                    textRef.current.classList.add('scrolled-mobile-header');
+                } else {
+                    textRef.current.classList.remove('scrolled-mobile-header');
+                }
+            }
         };
 
         container.addEventListener('scroll', handleScroll, { passive: true });
         return () => container.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [isMobile]);
 
     const getSortIndicator = (key: string) => {
         if (!sortConfig || sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
@@ -256,14 +263,13 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                     <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
                                         {col.key === 'firm' ? (
-                                            <div className="flex flex-col md:flex-row md:items-center md:gap-1">
-                                                <span>Firm</span>
-                                                <span className="leading-3 text-xs md:leading-normal">/</span>
-                                                <span className="leading-3 md:leading-normal">Rating</span>
-                                            </div>
+                                            <span ref={textRef} className="flex flex-row md:whitespace-nowrap items-center">
+                                                <span>Firm&nbsp;/&nbsp;</span>
+                                                <span>Rating</span>
+                                            </span>
                                         ) : (
                                             col.label
                                         )}
@@ -274,7 +280,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
-                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} />)}
+                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} />)}
                     </tbody>
                 </table>
             </div>
@@ -282,17 +288,9 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     );
 };
 
-const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
+const ChallengeRow = ({ challenge, applyDiscount }: any) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
     const firm = mockPropFirms.find(f => f.slug === challenge.firmId) || null;
-    const textRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (textRef.current) {
-            textRef.current.style.opacity = isScrolled ? '0' : '1';
-            textRef.current.style.width = isScrolled ? '0px' : 'auto';
-        }
-    }, [isScrolled]);
     
     if (!firm) {
         return (
@@ -310,9 +308,9 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                         <div className="w-11 h-11 relative flex-shrink-0">
                             <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
                         </div>
-                        <div ref={textRef} className="flex flex-col justify-center flex-shrink-0 transition-all duration-300" style={{ opacity: 1, width: 'auto' }}>
+                        <div className="flex flex-col md:flex-row md:items-center md:gap-3 justify-center flex-shrink-0 transition-all duration-300">
                             <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
-                            <div className="flex items-center text-xs text-gray-400 mt-1">
+                            <div className="flex items-center text-xs text-gray-400">
                                 <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
                                 {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
                             </div>
