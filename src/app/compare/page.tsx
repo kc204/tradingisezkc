@@ -171,7 +171,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                                         max={1000000}
                                         step={1000}
                                     />
-                                    <Button onClick={handleSetCustomSize} className="w-full">Set</Button>
+                                    <Button onClick={handleSetCustomSize} className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full h-9 text-sm">Set</Button>
                                 </div>
                             </PopoverContent>
                         </Popover>
