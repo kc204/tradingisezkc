@@ -16,6 +16,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import FirmMiniDetail from '@/components/propfirms/FirmMiniDetail';
 import { Slider } from '@/components/ui/slider';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Button } from '@/components/ui/button';
 
 
 const firebaseConfig = {
@@ -48,6 +49,8 @@ const Separator = () => <div className="hidden md:block h-6 w-px bg-white/10 mx-
 const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCount, totalCount }: any) => {
     const [isCustomSizeActive, setIsCustomSizeActive] = useState(false);
     const [customSize, setCustomSize] = useState([50000, 500000]);
+    const [tempCustomSize, setTempCustomSize] = useState(customSize);
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
     const handleFilterChange = (key: string, value: any) => {
         setFilters((prev: any) => ({ ...prev, [key]: value }));
@@ -67,23 +70,26 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
         handleFilterChange('customSizeRange', null); 
     };
     
-    const handleCustomSizeToggle = () => {
-        const newActiveState = !isCustomSizeActive;
-        setIsCustomSizeActive(newActiveState);
-        if(newActiveState) {
-            handleFilterChange('accountSize', []); // Clear standard sizes when custom is active
-            handleFilterChange('customSizeRange', customSize);
-        } else {
-            handleFilterChange('customSizeRange', null); // Clear custom size when deactivated
-        }
+    const handleSetCustomSize = () => {
+        setCustomSize(tempCustomSize);
+        setIsCustomSizeActive(true);
+        handleFilterChange('accountSize', []); // Clear standard sizes when custom is active
+        handleFilterChange('customSizeRange', tempCustomSize);
+        setIsPopoverOpen(false); // Close popover on set
     };
     
-    const handleSliderChange = (value: number[]) => {
-        setCustomSize(value);
-        if(isCustomSizeActive) {
-            handleFilterChange('customSizeRange', value);
+    const handlePopoverOpenChange = (open: boolean) => {
+        setIsPopoverOpen(open);
+        if (open) {
+            // When opening, sync temp slider with the active filter value
+            setTempCustomSize(customSize);
+        } else {
+             // If closing without setting, decide if custom range should remain active
+            if (!filters.customSizeRange) {
+                setIsCustomSizeActive(false);
+            }
         }
-    };
+    }
 
     const toggleStepFilter = (step: number | string) => {
         const currentSteps = filters.steps;
@@ -145,7 +151,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                                 {formatShortCurrency(size)}
                             </button>
                         ))}
-                        <Popover onOpenChange={(open) => setIsCustomSizeActive(open)}>
+                        <Popover open={isPopoverOpen} onOpenChange={handlePopoverOpenChange}>
                             <PopoverTrigger asChild>
                                 <button className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${isCustomSizeActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
                                     Custom
@@ -156,15 +162,16 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                                      <div className="space-y-2">
                                         <p className="text-sm font-medium">Custom Size Range</p>
                                         <p className="text-sm text-muted-foreground">
-                                            {formatCurrency(customSize[0])} - {formatCurrency(customSize[1])}
+                                            {formatCurrency(tempCustomSize[0])} - {formatCurrency(tempCustomSize[1])}
                                         </p>
                                     </div>
                                     <Slider
-                                        value={customSize}
-                                        onValueChange={handleSliderChange}
+                                        value={tempCustomSize}
+                                        onValueChange={setTempCustomSize}
                                         max={1000000}
                                         step={1000}
                                     />
+                                    <Button onClick={handleSetCustomSize} className="w-full">Set</Button>
                                 </div>
                             </PopoverContent>
                         </Popover>
