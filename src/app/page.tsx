@@ -270,7 +270,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                     <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
                                         {col.key === 'firm' ? (
                                             <span ref={textRef} className="flex flex-row md:whitespace-nowrap items-center">
