@@ -1,5 +1,4 @@
 
-
 'use client'; 
 
 import FirmCard from '@/components/propfirms/FirmCard';
@@ -198,7 +197,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                                 <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
                                         {col.key === 'firm' ? (
-                                             <div className="flex items-center gap-1 group-[.scrolled]:flex-col group-[.scrolled]:md:flex-row group-[.scrolled]:items-start group-[.scrolled]:md:items-center group-[.scrolled]:gap-0 group-[.scrolled]:md:gap-1">
+                                             <div className="flex items-center gap-1 group-[.scrolled]:md:flex-row group-[.scrolled]:items-start group-[.scrolled]:md:items-center group-[.scrolled]:gap-0 group-[.scrolled]:md:gap-1 group-[.scrolled]:flex-col">
                                                 <span>Firm</span>
                                                 <span className="group-[.scrolled]:leading-3 group-[.scrolled]:md:leading-normal group-[.scrolled]:text-[10px] group-[.scrolled]:md:text-xs">/</span>
                                                 <span className="group-[.scrolled]:leading-3 group-[.scrolled]:md:leading-normal">Rating</span>
@@ -267,9 +266,10 @@ const ChallengeRow = ({ challenge, applyDiscount }: any) => {
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover/row:bg-gray-800">
                     <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
                         <div className="text-right">
-                            {applyDiscount && challenge.promoDiscountPercent > 0 ? (
+                           {applyDiscount && challenge.promoDiscountPercent > 0 ? (
                                 <>
                                     <p className="font-semibold text-green-400 text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
+                                    <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
                                 </>
                             ) : (
                                 <p className="font-semibold text-white text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
@@ -556,5 +556,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
