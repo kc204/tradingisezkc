@@ -1,5 +1,4 @@
 
-
 'use client'; 
 
 import FirmCard from '@/components/propfirms/FirmCard';
@@ -244,11 +243,11 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
-                <table className="min-w-full text-sm group/table">
+                <table className="min-w-full text-sm group/table" style={{ transform: 'translate3d(0,0,0)' }}>
                     <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900 group-hover/row:bg-gray-800/80'}` : 'bg-gray-800/95'}`}>
+                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900 group-hover/row:bg-gray-800'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
                                         {col.key === 'firm' ? (
                                              <div className="flex items-center gap-1 group-hover/table:flex-col group-hover/table:items-start group-hover/table:md:flex-row group-hover/table:md:items-center group-hover/table:md:gap-1">
@@ -294,7 +293,7 @@ const ChallengeRow = ({ challenge, applyDiscount }: any) => {
                         <div className="w-11 h-11 relative flex-shrink-0">
                             <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
                         </div>
-                        <div className="flex flex-col justify-center flex-shrink-0 opacity-100 group-hover/table:opacity-0 group-hover/table:w-0 w-auto transition-all duration-300">
+                        <div className="flex flex-col justify-center flex-shrink-0 group-hover/table:opacity-0 group-hover/table:w-0 w-auto transition-all duration-300">
                             <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                             <div className="flex items-center text-xs text-gray-400 mt-1">
                                 <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
@@ -317,7 +316,7 @@ const ChallengeRow = ({ challenge, applyDiscount }: any) => {
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.dailyLoss)}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxLoss)}</td>
                 <td className="px-2 py-3 sm:px-4 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover/row:bg-gray-800/80">
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover/row:bg-gray-800">
                     <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
                         <div className="text-right">
                            {applyDiscount && challenge.promoDiscountPercent > 0 ? (
