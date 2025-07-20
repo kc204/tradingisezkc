@@ -221,30 +221,11 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
 
 const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: any) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
-    const tableRef = useRef<HTMLTableElement>(null);
 
     const getSortIndicator = (key: string) => {
         if (!sortConfig || sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
         return sortConfig.direction === 'ascending' ? '▲' : '▼';
     };
-
-    useEffect(() => {
-        const container = scrollContainerRef.current;
-        const table = tableRef.current;
-        if (!container || !table) return;
-
-        const handleScroll = () => {
-            if (container.scrollLeft > 10) {
-                table.classList.add('scrolled');
-            } else {
-                table.classList.remove('scrolled');
-            }
-        };
-
-        container.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll(); // Check on initial render
-        return () => container.removeEventListener('scroll', handleScroll);
-    }, [challenges]); // Rerun if challenges data changes
     
     const columns = [
         { key: 'firm', label: 'Firm / Rating', sticky: 'left' },
@@ -263,17 +244,17 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
-                <table ref={tableRef} className="min-w-full text-sm group">
+                <table className="min-w-full text-sm group/table">
                     <thead className="border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900 group-hover/row:bg-gray-800/80'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
                                         {col.key === 'firm' ? (
-                                             <div className="flex items-center gap-1 group-[.scrolled]:flex-col group-[.scrolled]:items-start group-[.scrolled]:md:flex-row group-[.scrolled]:md:items-center group-[.scrolled]:md:gap-1">
+                                             <div className="flex items-center gap-1 group-hover/table:flex-col group-hover/table:items-start group-hover/table:md:flex-row group-hover/table:md:items-center group-hover/table:md:gap-1">
                                                 <span>Firm</span>
-                                                <span className="group-[.scrolled]:leading-3 group-[.scrolled]:md:leading-normal group-[.scrolled]:text-[10px] group-[.scrolled]:md:text-xs">/</span>
-                                                <span className="group-[.scrolled]:leading-3 group-[.scrolled]:md:leading-normal">Rating</span>
+                                                <span className="group-hover/table:leading-3 group-hover/table:md:leading-normal group-hover/table:text-[10px] group-hover/table:md:text-xs">/</span>
+                                                <span className="group-hover/table:leading-3 group-hover/table:md:leading-normal">Rating</span>
                                             </div>
                                         ) : (
                                             col.label
@@ -313,7 +294,7 @@ const ChallengeRow = ({ challenge, applyDiscount }: any) => {
                         <div className="w-11 h-11 relative flex-shrink-0">
                             <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
                         </div>
-                        <div className="flex flex-col justify-center flex-shrink-0 group-[.scrolled]:opacity-0 group-[.scrolled]:w-0 transition-all duration-300">
+                        <div className="flex flex-col justify-center flex-shrink-0 opacity-100 group-hover/table:opacity-0 group-hover/table:w-0 w-auto transition-all duration-300">
                             <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
                             <div className="flex items-center text-xs text-gray-400 mt-1">
                                 <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
@@ -336,7 +317,7 @@ const ChallengeRow = ({ challenge, applyDiscount }: any) => {
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.dailyLoss)}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxLoss)}</td>
                 <td className="px-2 py-3 sm:px-4 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover/row:bg-gray-800">
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover/row:bg-gray-800/80">
                     <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
                         <div className="text-right">
                            {applyDiscount && challenge.promoDiscountPercent > 0 ? (
