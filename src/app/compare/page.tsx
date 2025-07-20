@@ -261,7 +261,6 @@ const ChallengeRow = ({ challenge, applyDiscount }: any) => {
                             ) : (
                                 <p className="font-semibold text-white text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
                             )}
-                            <p className="text-xs text-gray-500">{challenge.paymentType}</p>
                         </div>
                         <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 border border-transparent text-xs sm:text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600">
                             Buy
