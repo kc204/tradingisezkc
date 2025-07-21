@@ -9,6 +9,7 @@
 
 
 
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -193,42 +194,6 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
             </Card>
           )}
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {firm.pros && firm.pros.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-xl flex items-center"><ThumbsUp className="mr-2 h-5 w-5 text-primary" /> Highlights</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="list-none space-y-2">
-                    {firm.pros.map((pro, index) => (
-                      <li key={index} className="flex items-start">
-                        <ThumbsUp className="w-4 h-4 text-primary mr-2 mt-1 flex-shrink-0" />
-                        <span>{pro}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            )}
-            {firm.cons && firm.cons.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-xl flex items-center"><Lightbulb className="mr-2 h-5 w-5 text-secondary" /> Things to consider</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="list-none space-y-2">
-                    {firm.cons.map((con, index) => (
-                      <li key={index} className="flex items-start">
-                        <Lightbulb className="w-4 h-4 text-secondary mr-2 mt-1 flex-shrink-0" />
-                        <span>{con}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            )}
-          </div>
         </div>
 
         <aside className="lg:col-span-1 space-y-8 lg:sticky lg:top-24">
