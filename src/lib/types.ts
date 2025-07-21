@@ -32,6 +32,7 @@ export interface PropFirm {
   briefDescription: string;
   fullReview?: string; // Block content typically, simplified to string
   tradingRules?: string; // New field for detailed rules
+  payoutRules?: string; // New field for detailed payout rules
   pros?: string[]; // Simplified
   cons?: string[]; // Simplified
   keyFeatures?: string[];

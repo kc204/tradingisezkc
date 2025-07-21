@@ -258,8 +258,8 @@ export const mockPropFirms: PropFirm[] = [
   <li>Temporary cap on contract usage (e.g., 50%).</li>
   <li>Payouts may be restricted to only the profit earned since the last payout request.</li>
   <li>Disqualification of "windfall" profits for withdrawal over the next two payout cycles.</li>
-</ul>
-<h3>Payout Policy</h3>
+</ul>`,
+    payoutRules: `<h3>Payout Policy</h3>
 <ul>
   <li><strong>Safety Net:</strong> For the first three payouts, the account balance must be equal to the account's drawdown amount plus an extra $100. This rule is removed after the third successful payout.</li>
   <li><strong>Minimum Payout:</strong> If the safety net is met, the minimum payout request is $500.</li>
@@ -361,8 +361,6 @@ export const mockPropFirms: PropFirm[] = [
 </ul>
 <h4>News Trading</h4>
 <p>Trades cannot be opened or closed within 2 minutes before or after a red folder news event. Violations will disqualify an account.</p>
-<h4>Withdrawal Cap</h4>
-<p>A maximum of $10,000 can be withdrawn per two withdrawal cycles. Account balances are reset after two cycles.</p>
 <h4>Funded Stage Profit Consistency (over $5,000)</h4>
 <p>If total profits exceed $5,000, no single trading day or single trade can account for more than 50% of the total profit.</p>
 <h4>Account Restoration</h4>
@@ -380,11 +378,12 @@ export const mockPropFirms: PropFirm[] = [
   <li><strong>Trade Limit:</strong> Only 1 trade can be open at a time.</li>
   <li><strong>Floating PnL:</strong> 1% maximum loss in floating PnL.</li>
   <li><strong>Withdrawal:</strong> Requires 3% profit target and a consistency score of 20% or lower.</li>
-</ul>
-<h3>Payout Policy</h3>
+</ul>`,
+    payoutRules: `<h3>Payout Policy</h3>
 <ul>
   <li><strong>Profit Split:</strong> 80%</li>
   <li><strong>Withdrawal Frequency:</strong> Every 10 business days.</li>
+  <li><strong>Withdrawal Cap:</strong> A maximum of $10,000 can be withdrawn per two withdrawal cycles. Account balances are reset after two cycles.</li>
 </ul>`,
     pros: [
       'Extremely wide variety of funding programs (Instant, 1, 2, and 3-Step)',
@@ -484,8 +483,8 @@ export const mockPropFirms: PropFirm[] = [
   <li><strong>Inactivity Rule:</strong> At least one trade must be placed every 30 days.</li>
   <li><strong>Forbidden Practices:</strong> Prohibits inconsistent position sizing and third-party account management. Copy trading from your own external accounts is permitted.</li>
   <li><strong>Multiple Profiles:</strong> Not allowed.</li>
-</ul>
-<h3>Payout Policy & Scaling Plan</h3>
+</ul>`,
+    payoutRules: `<h3>Payout Policy & Scaling Plan</h3>
 <p>The default profit split is 80% for the trader. A scaling plan is available to increase the profit split to 90% and grow the account balance.</p>
 <h4>Scaling Plan Requirements:</h4>
 <ul>
@@ -621,8 +620,8 @@ export const mockPropFirms: PropFirm[] = [
 <h4>Prohibited Practices</h4>
 <p>Taking consistent one-sided bets, exploiting price discrepancies (arbitrage), using bracket strategies around news, and exploiting system errors are all prohibited.</p>
 <h4>Inactivity Rule</h4>
-<p>Accounts with no new orders for over 30 consecutive calendar days will expire.</p>
-<h3>Payout Policy</h3>
+<p>Accounts with no new orders for over 30 consecutive calendar days will expire.</p>`,
+    payoutRules: `<h3>Payout Policy</h3>
 <ul>
   <li><strong>Payout Frequency:</strong> Bi-weekly.</li>
   <li><strong>Profit Split:</strong> Starts at 50% for Bootcamp/Hyper-Growth and 80% for High Stakes, with scaling plans to reach 100%.</li>
@@ -732,8 +731,8 @@ export const mockPropFirms: PropFirm[] = [
 <ul>
     <li><strong>Alpha Swing:</strong> $5k: 1.25 lots; $10k: 2.5; $25k: 5; $50k: 10; $100k: 20; $200k: 40; $300k: 60.</li>
     <li><strong>Alpha One, Pro, Pro 6%, Three:</strong> $5k: 2.5 lots; $10k: 5; $25k: 10; $50k: 20; $100k: 40; $200k: 80; $300k: 120.</li>
-</ul>
-<h3>Payout Policy</h3>
+</ul>`,
+    payoutRules: `<h3>Payout Policy</h3>
 <p>You can choose between Biweekly Payouts or 2% On-Demand Payouts for the Alpha Pro, Alpha Pro 6%, and Alpha Three plans. The Alpha Swing and Alpha One plans only offer the 2% On-Demand option.</p>
 <ul>
     <li><strong>Biweekly Payouts:</strong> Processed every 14 days with a minimum withdrawal of $100 in gross profits.</li>
@@ -828,8 +827,8 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>Inactivity Rule:</strong> Express Funded Accounts must execute at least one trade every 30 days to remain open.</li>
     <li><strong>Post-Payout Rule:</strong> After a payout is processed, the maximum loss limit on the account is set to $0. The remaining capital in the account becomes the new maximum allowable loss.</li>
     <li><strong>Prohibited Conduct:</strong> For more details, refer to the <a href="https://www.topstep.com/prohibited-conduct/" target="_blank" rel="noopener noreferrer">Prohibited Conduct page</a>.</li>
-</ul>
-<h3>Payout Policy</h3>
+</ul>`,
+    payoutRules: `<h3>Payout Policy</h3>
 <h4>Profit Split</h4>
 <ul>
     <li>Traders receive 100% of their first $10,000 in profits.</li>
@@ -967,8 +966,8 @@ export const mockPropFirms: PropFirm[] = [
     </li>
     <li><strong>Expert Advisors (EAs):</strong> Not allowed.</li>
     <li><strong>Copy Trading:</strong> Allowed. Can be used for up to 5 accounts on a PRO+ account.</li>
-</ul>
-<h3>Account Types & Payout Policy</h3>
+</ul>`,
+    payoutRules: `<h3>Account Types & Payout Policy</h3>
 <h4>PRO Account</h4>
 <ul>
     <li><strong>Profit Split:</strong> 80%</li>
@@ -1112,8 +1111,8 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>Copy Trading:</strong> Allowed across all My Funded Futures accounts.</li>
     <li><strong>Inactivity:</strong> At least one trade must be placed every 7 days to keep a Sim-Funded account active. Traders must notify support if they plan to be inactive for a longer period.</li>
     <li><strong>Extension Fee:</strong> A fee of $99/month applies to extend an active Eval to Live Phase 1 account.</li>
-</ul>
-<h3>Payout Policy</h3>
+</ul>`,
+    payoutRules: `<h3>Payout Policy</h3>
 <ul>
     <li><strong>Profit Split:</strong> Traders keep 100% of the first $10,000 in profits. After that, the split is 90/10 (90% to the trader).</li>
     <li><strong>Payout Eligibility:</strong>
@@ -1249,8 +1248,8 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>Inactivity Rule:</strong> You must place at least one trade per week (Monday-Friday) to keep an account active.</li>
     <li><strong>Copy Trading:</strong> Allowed for up to 5 accounts that you own and manage.</li>
     <li><strong>News Trading/DCA/Flipping/Scaling:</strong> There are no rules against these strategies. However, "averaging into oblivion" (continuously adding to a losing position without a clear strategy) is discouraged.</li>
-</ul>
-<h3>Payout Policy</h3>
+</ul>`,
+    payoutRules: `<h3>Payout Policy</h3>
 <h4>Advanced and Growth Payouts</h4>
 <ul>
     <li><strong>Payout Conditions:</strong>
@@ -1409,14 +1408,6 @@ export const mockPropFirms: PropFirm[] = [
   <li><strong>Drawdown:</strong> The drawdown rule (Trailing or EOD) continues from your qualification, but it stops moving up once your account balance is $100 above the starting balance.</li>
   <li><strong>Multiple Accounts:</strong> You can have up to 11 active Master Accounts, but you may need to meet certain performance milestones to activate more than three.</li>
 </ul>
-<h4>Payouts & Withdrawals</h4>
-<ul>
-  <li><strong>Profit Split:</strong> You keep 100% of the first $10,000 you make. After that, the profit split is 90% for you and 10% for Bulenox.</li>
-  <li><strong>First Withdrawal:</strong> You need at least 10 active trading days before your first payout request.</li>
-  <li><strong>Consistency Rule:</strong> No single trading day can represent more than 40% of your total profit.</li>
-  <li><strong>Withdrawal Limits:</strong> For your first three payouts, there are maximum withdrawal amounts to encourage account stability. These limits are removed after the third payout.</li>
-  <li><strong>Safety Reserve:</strong> A minimum account balance (safety reserve) must be maintained to make a withdrawal.</li>
-</ul>
 
 <h3>Step 3: The Funded Account (Real Capital)</h3>
 <p>This is the final stage, where consistent traders may be invited to trade real capital.</p>
@@ -1431,6 +1422,14 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>Market Halts:</strong> Trading during market halts is high-risk. Bulenox is not responsible for software interruptions, delays, or data feed errors that may occur during these periods.</li>
     <li><strong>Holding Positions:</strong> You are generally required to close all positions before 3:59 PM CST. Holding positions overnight is not permitted, except on the specific $10,000 account.</li>
     <li><strong>Technical Issues:</strong> If you experience technical problems, you must contact the support team immediately with a detailed description of the issue.</li>
+</ul>`,
+    payoutRules: `<h4>Payouts & Withdrawals</h4>
+<ul>
+  <li><strong>Profit Split:</strong> You keep 100% of the first $10,000 you make. After that, the profit split is 90% for you and 10% for Bulenox.</li>
+  <li><strong>First Withdrawal:</strong> You need at least 10 active trading days before your first payout request.</li>
+  <li><strong>Consistency Rule:</strong> No single trading day can represent more than 40% of your total profit.</li>
+  <li><strong>Withdrawal Limits:</strong> For your first three payouts, there are maximum withdrawal amounts to encourage account stability. These limits are removed after the third payout.</li>
+  <li><strong>Safety Reserve:</strong> A minimum account balance (safety reserve) must be maintained to make a withdrawal.</li>
 </ul>`,
     pros: [
       "Keep 100% of the first $10,000 in profits",
@@ -1551,9 +1550,8 @@ export const mockPropFirms: PropFirm[] = [
       <td>Requires a re-purchase of the account.</td>
     </tr>
   </tbody>
-</table>
-
-<h4>Payout Rules & Requirements</h4>
+</table>`,
+    payoutRules: `<h4>Payout Rules & Requirements</h4>
 <h5>Minimum Daily Profit</h5>
 <p>For a trading day to qualify for payouts, it must meet the following minimum profit:</p>
 <table style="width:100%; border-collapse: collapse;">
@@ -1788,8 +1786,8 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>Copy Trading:</strong> Allowed without restrictions.</li>
     <li><strong>Expert Advisors (EAs):</strong> Only EAs that function as risk managers are permitted. The use of any other type of third-party EA is strictly prohibited.</li>
     <li><strong>Inactivity Rule:</strong> Any trading account that is inactive for 7 consecutive days will be automatically suspended.</li>
-</ul>
-<h3>Payout Policy</h3>
+</ul>`,
+    payoutRules: `<h3>Payout Policy</h3>
 <h4>FundingTicks Pro+</h4>
 <ul>
     <li><strong>Profit Split:</strong> 90/10 (90% to the trader).</li>

@@ -7,6 +7,7 @@
 
 
 
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -14,7 +15,7 @@ import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import OfferBox from '@/components/propfirms/OfferBox';
-import { ExternalLink, Info, Star, ThumbsUp, Lightbulb, ShieldCheck, FileText, Briefcase, CreditCard, Banknote, CandlestickChart, TowerControl, Ban } from 'lucide-react';
+import { ExternalLink, Info, Star, ThumbsUp, Lightbulb, ShieldCheck, FileText, Briefcase, CreditCard, Banknote, CandlestickChart, TowerControl, Ban, CircleDollarSign } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import TrueCostCalculator from '@/components/compare/TrueCostCalculator'; // Import the calculator
@@ -163,6 +164,18 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
                 {firm.assets && firm.assets.length > 0 && <DetailItem label="Assets">{firm.assets.map(a => <DetailBadge key={a}>{a}</DetailBadge>)}</DetailItem>}
             </CardContent>
           </Card>
+
+          {firm.payoutRules && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center"><CircleDollarSign className="mr-2 h-5 w-5 text-primary" /> Payouts & Profit Splits</CardTitle>
+                <CardDescription>Key details about how you get paid with {firm.name}.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                 <TradingRulesContent rules={firm.payoutRules} />
+              </CardContent>
+            </Card>
+          )}
 
           {firm.tradingRules && (
             <Card>
