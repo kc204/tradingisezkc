@@ -1,21 +1,19 @@
 
+'use client';
+
+import { useState } from 'react';
 import FirmCard from '@/components/propfirms/FirmCard';
 import { mockPropFirms } from '@/lib/mockData';
-// import { Input } from '@/components/ui/input'; // No longer needed
-// import { Button } from '@/components/ui/button'; // No longer needed
-// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'; // No longer needed
-// import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'; // No longer needed
-// import { Filter, Search } from 'lucide-react'; // No longer needed
-
-export const metadata = {
-  title: 'All Prop Firms | TradingisEZ',
-  description: 'Browse and compare all listed proprietary trading firms on TradingisEZ.',
-};
-
-// FirmSearchFilter component is removed as it's no longer used.
+import { Input } from '@/components/ui/input';
+import { Search } from 'lucide-react';
+import type { PropFirm } from '@/lib/types';
 
 export default function FirmsPage() {
-  const firms = mockPropFirms; // In a real app, fetch this data
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredFirms = mockPropFirms.filter((firm: PropFirm) =>
+    firm.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="space-y-10">
@@ -24,15 +22,26 @@ export default function FirmsPage() {
         <p className="text-md md:text-lg text-muted-foreground">Find the funding opportunity that matches your trading style.</p>
       </section>
       
-      {/* FirmSearchFilter component removed from here */}
+      <div className="max-w-md mx-auto">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Search by firm name..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10 h-11 rounded-full"
+          />
+        </div>
+      </div>
 
       <section>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {firms.map(firm => (
+          {filteredFirms.map(firm => (
             <FirmCard key={firm.id} firm={firm} />
           ))}
         </div>
-        {firms.length === 0 && (
+        {filteredFirms.length === 0 && (
           <p className="text-center text-muted-foreground text-lg py-10">No prop firms found matching your criteria.</p>
         )}
       </section>
