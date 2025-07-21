@@ -6,6 +6,7 @@
 
 
 
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -71,42 +72,13 @@ const CountryBadge = ({ name, code }: { name: string, code: string }) => (
   </div>
 );
 
-const TradingRulesContent = ({ rules }: { rules: string }) => {
-    const lines = rules.split('\n').filter(line => line.trim() !== '');
-    const content = [];
-    let currentList: React.ReactNode[] = [];
-
-    const flushList = () => {
-        if (currentList.length > 0) {
-            content.push(<ul key={`ul-${content.length}`}>{currentList}</ul>);
-            currentList = [];
-        }
-    };
-
-    lines.forEach((line, index) => {
-        if (line.startsWith('<h3>')) {
-            flushList();
-            content.push(<h3 key={index} dangerouslySetInnerHTML={{ __html: line.replace(/<\/?h3>/g, '') }} />);
-        } else if (line.startsWith('- **')) {
-            flushList();
-            const match = line.match(/- \*\*(.*?):\*\* (.*)/);
-            if (match) {
-                content.push(<p key={index}><strong>{match[1]}:</strong> {match[2]}</p>);
-            }
-        } else if (line.startsWith('- ')) {
-            currentList.push(<li key={index}>{line.substring(2)}</li>);
-        } else {
-            flushList();
-            content.push(<p key={index}>{line}</p>);
-        }
-    });
-
-    flushList(); 
-
+const TradingRulesContent = ({ rules }: { rules: string | undefined }) => {
+    if (!rules) return null;
     return (
-        <div className="prose max-w-none break-words dark:prose-invert">
-            {content}
-        </div>
+        <div 
+            className="prose max-w-none break-words dark:prose-invert"
+            dangerouslySetInnerHTML={{ __html: rules }}
+        />
     );
 };
 
