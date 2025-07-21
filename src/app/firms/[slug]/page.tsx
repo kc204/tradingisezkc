@@ -8,6 +8,7 @@
 
 
 
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -132,17 +133,6 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
 
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-          {firm.fullReview && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl flex items-center"><FileText className="mr-2 h-5 w-5 text-primary" /> Full Review</CardTitle>
-              </CardHeader>
-              <CardContent className="prose max-w-none break-words dark:prose-invert">
-                <p>{firm.fullReview}</p>
-              </CardContent>
-            </Card>
-          )}
-
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl flex items-center"><Info className="mr-2 h-5 w-5 text-primary" /> Firm Overview</CardTitle>
