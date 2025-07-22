@@ -309,7 +309,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
     
     return (
         <FirmMiniDetail firm={firm}>
-            <tr className="group/row hover:bg-white/5 transition-colors duration-200 cursor-pointer">
+            <tr className="group/row hover:bg-white/5 transition-colors duration-200 cursor-pointer transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/50 transition-transform">
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover/row:bg-gray-800/80 backdrop-blur-sm">
                     <div className="flex items-center gap-3">
                         <div className="w-11 h-11 relative flex-shrink-0">
