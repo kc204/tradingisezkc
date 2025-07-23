@@ -62,7 +62,7 @@ const FirmMiniDetailMobile: React.FC<{ firm: PropFirm }> = ({ firm }) => {
 
                     <Card className="w-full">
                         <CardHeader>
-                            <CardTitle className="text-lg flex items-center"><Info className="mr-2 h-5 w-5 text-primary" /> Firm Overview</CardTitle>
+                            <CardTitle className="text-lg flex items-center"><Info className="mr-2 h-5 w-5 text-primary" /> Overview</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4 text-sm">
                             {firm.broker && <DetailItem label="Broker"><DetailBadge icon={<Briefcase className="w-4 h-4" />}>{firm.broker}</DetailBadge></DetailItem>}
@@ -96,7 +96,7 @@ const FirmMiniDetailMobile: React.FC<{ firm: PropFirm }> = ({ firm }) => {
                     {firm.restrictedCountries && firm.restrictedCountries.length > 0 && (
                         <Card className="w-full">
                             <CardHeader>
-                                <CardTitle className="text-lg flex items-center"><Ban className="mr-2 h-5 w-5 text-primary" /> Restricted Countries</CardTitle>
+                                <CardTitle className="text-lg flex items-center"><Ban className="mr-2 h-5 w-5 text-primary" /> Restricted Countries (A-Z)</CardTitle>
                             </CardHeader>
                             <CardContent className="flex flex-wrap gap-2">
                                 {firm.restrictedCountries.map(country => (
