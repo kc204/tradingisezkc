@@ -259,7 +259,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
         { key: 'profittarget', label: 'Profit Target' },
         { key: 'dailyloss', label: 'Daily Loss' },
         { key: 'maxloss', label: 'Max Loss' },
-        { key: 'payoutfrequency', label: 'Payout Freq.' },
+        { key: 'payoutfrequency', label: 'Payout' },
         { key: 'price', label: 'Prices', sticky: 'right' },
     ];
 
