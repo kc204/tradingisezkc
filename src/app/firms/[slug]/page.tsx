@@ -11,6 +11,7 @@
 
 
 
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -184,7 +185,7 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
           {firm.restrictedCountries && firm.restrictedCountries.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl flex items-center"><Ban className="mr-2 h-5 w-5 text-primary" /> Restricted Countries</CardTitle>
+                <CardTitle className="text-2xl flex items-center"><Ban className="mr-2 h-5 w-5 text-primary" /> Restricted Countries (A-Z)</CardTitle>
                 <CardDescription>Services are not available to residents of the following locations.</CardDescription>
               </CardHeader>
               <CardContent className="flex flex-wrap gap-2">
