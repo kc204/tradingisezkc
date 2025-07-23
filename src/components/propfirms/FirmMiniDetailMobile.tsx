@@ -7,9 +7,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import OfferBox from '@/components/propfirms/OfferBox';
-import { ExternalLink, Info, ShieldCheck, Briefcase, CreditCard, Banknote, CandlestickChart, Ban } from 'lucide-react';
+import { ExternalLink, Info, ShieldCheck, Briefcase, CreditCard, Banknote, CandlestickChart, Ban, CircleDollarSign } from 'lucide-react';
 
 // --- Helper Components ---
 
@@ -81,6 +81,18 @@ const FirmMiniDetailMobile: React.FC<{ firm: PropFirm }> = ({ firm }) => {
                             {firm.assets && firm.assets.length > 0 && <DetailItem label="Assets">{firm.assets.map(a => <DetailBadge key={a}>{a}</DetailBadge>)}</DetailItem>}
                         </CardContent>
                     </Card>
+
+                    {firm.payoutRules && (
+                        <Card className="w-full">
+                            <CardHeader>
+                                <CardTitle className="text-lg flex items-center"><CircleDollarSign className="mr-2 h-5 w-5 text-primary" /> Payouts & Profit Splits</CardTitle>
+                                <CardDescription>Key details about how you get paid with {firm.name}.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <TradingRulesContent rules={firm.payoutRules} />
+                            </CardContent>
+                        </Card>
+                    )}
 
                     {firm.tradingRules && (
                         <Card className="w-full">
