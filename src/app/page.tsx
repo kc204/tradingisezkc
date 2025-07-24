@@ -1,4 +1,5 @@
 
+
 'use client'; 
 
 import FirmCard from '@/components/propfirms/FirmCard';
@@ -250,28 +251,28 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     };
     
     const columns = [
-        { key: 'firm', label: 'Firm / Rating', sticky: 'left' },
-        { key: 'accountsize', label: 'Account Size' },
-        { key: 'steps', label: 'Steps' },
-        { key: 'activationfee', label: 'Activation Fee' },
-        { key: 'profitsplit', label: 'Profit Split' },
-        { key: 'maxallocation', label: 'Max Allocation' },
-        { key: 'profittarget', label: 'Profit Target' },
-        { key: 'dailyloss', label: 'Daily Loss' },
-        { key: 'maxloss', label: 'Max Loss' },
-        { key: 'payoutfrequency', label: 'Payout' },
-        { key: 'price', label: 'Prices', sticky: 'right' },
+        { key: 'firm', label: 'Firm / Rating', sticky: 'left', align: 'left' },
+        { key: 'accountsize', label: 'Account Size', align: 'center' },
+        { key: 'steps', label: 'Steps', align: 'center' },
+        { key: 'activationfee', label: 'Activation Fee', align: 'center' },
+        { key: 'profitsplit', label: 'Profit Split', align: 'center' },
+        { key: 'maxallocation', label: 'Max Allocation', align: 'center' },
+        { key: 'profittarget', label: 'Profit Target', align: 'center' },
+        { key: 'dailyloss', label: 'Daily Loss', align: 'center' },
+        { key: 'maxloss', label: 'Max Loss', align: 'center' },
+        { key: 'payoutfrequency', label: 'Payout', align: 'center' },
+        { key: 'price', label: 'Prices', sticky: 'right', align: 'right' },
     ];
 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
                 <table className="min-w-full text-sm">
-                    <thead className="border-b border-white/10">
+                    <thead className="sticky top-0 z-20 bg-black/50 backdrop-blur-lg border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/20 backdrop-blur-sm' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
-                                    <button onClick={() => requestSort(col.key)} className="flex items-center gap-2 hover:text-white transition-colors">
+                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-${col.align} text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/50 backdrop-blur-lg' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                    <button onClick={() => requestSort(col.key)} className={`flex items-center gap-2 hover:text-white transition-colors ${col.align === 'center' ? 'justify-center w-full' : ''}`}>
                                         {col.key === 'firm' ? (
                                             <span ref={textRef} className="flex flex-row md:whitespace-nowrap items-center">
                                                 <span>Firm&nbsp;/&nbsp;</span>
@@ -331,20 +332,20 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                         </div>
                     </div>
                 </td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white font-medium">{formatCurrency(challenge.accountSize)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.activationFee)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap">
-                    <div className="flex items-center gap-2">
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white font-medium text-center">{formatCurrency(challenge.accountSize)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.activationFee)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-center">
+                    <div className="flex items-center justify-center gap-2">
                         <span className="text-sm text-white">{challenge.profitSplit}%</span>
                         <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
                     </div>
                 </td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxAllocation)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.profitTarget)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.dailyLoss)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white">{formatCurrency(challenge.maxLoss)}</td>
-                <td className="px-2 py-3 sm:px-4 text-xs text-gray-300 max-w-[200px] truncate" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.maxAllocation)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.profitTarget)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.dailyLoss)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.maxLoss)}</td>
+                <td className="px-2 py-3 sm:px-4 text-xs text-gray-300 max-w-[200px] truncate text-center" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover/row:bg-gray-800">
                     <div className="flex flex-col items-end sm:flex-row sm:items-center sm:justify-end gap-2">
                          <div className="text-right">
