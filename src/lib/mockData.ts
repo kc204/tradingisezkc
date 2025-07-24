@@ -1,3 +1,4 @@
+
 import type { GlobalOffer, PropFirm, Article, TradingResource, FreeResourceItem, VideoLesson, BookListing, AccountTier } from './types';
 
 export const mockGlobalOffers: GlobalOffer[] = [
@@ -285,6 +286,7 @@ export const mockPropFirms: PropFirm[] = [
   <li><strong>Classic Accounts:</strong> $200</li>
   <li><strong>Boost Accounts:</strong> 2% of the initial balance.</li>
 </ul>`,
+    payoutFrequency: "Every 14 days",
     pros: [
       'Boost program offers up to 90% profit split',
       'Static drawdown on Boost program accounts',
@@ -338,8 +340,9 @@ export const mockPropFirms: PropFirm[] = [
         { name: "Occupied Palestinian Territory", code: "PS" }, { name: "Pakistan", code: "PK" }, { name: "Poland", code: "PL" }, { name: "Portugal", code: "PT" }, { name: "Romania", code: "RO" },
         { name: "Russia", code: "RU" }, { name: "San Marino", code: "SM" }, { name: "Slovakia", code: "SK" }, { name: "Slovenia", code: "SI" }, { name: "South Korea", code: "KR" },
         { name: "South Sudan", code: "SS" }, { name: "Spain", code: "ES" }, { name: "Sudan", code: "SD" }, { name: "Sweden", code: "SE" }, { name: "Switzerland", code: "CH" },
-        { name: "Syria", code: "SY" }, { name: "Trinidad and Tobago", code: "TT" }, { name: "Turkey", code: "TR" }, { name: "Uganda", code: "UG" }, { name: "United Kingdom", code: "GB" },
-        { name: "United States of America", code: "US" }, { name: "Vatican City", code: "VA" }, { name: "Venezuela", code: "VE" }, { name: "Yemen", code: "YE" }, { name: "Zimbabwe", code: "ZW" }
+        { name: "Syria", code: "SY" }, { name: "Trinidad and Tobago", code: "TT" }, { name: "Turkey", code: "TR" }, { name: "Uganda", code: "UG" },
+        { name: "United Kingdom", code: "GB" }, { name: "United States of America", code: "US" }, { name: "Vatican City", code: "VA" }, { name: "Venezuela", code: "VE" },
+        { name: "Yemen", code: "YE" }, { name: "Zimbabwe", code: "ZW" }
     ],
   },
   {
@@ -390,6 +393,7 @@ export const mockPropFirms: PropFirm[] = [
   <li><strong>Minimum Payout:</strong> If the safety net is met, the minimum payout request is $500.</li>
   <li><strong>Payout Requirements:</strong> To be eligible for a payout, a trader must have at least 8 active trading days, and at least 5 of those days must have a profit of $50 or more.</li>
 </ul>`,
+    payoutFrequency: "Bi-weekly after 8 trading days",
     pros: [
       'Simple 1-Step Evaluation',
       '100% Profit Split',
@@ -510,6 +514,7 @@ export const mockPropFirms: PropFirm[] = [
   <li><strong>Withdrawal Frequency:</strong> Every 10 business days.</li>
   <li><strong>Withdrawal Cap:</strong> A maximum of $10,000 can be withdrawn per two withdrawal cycles. Account balances are reset after two cycles.</li>
 </ul>`,
+    payoutFrequency: "Every 10 business days",
     pros: [
       'Extremely wide variety of funding programs (Instant, 1, 2, and 3-Step)',
       'Offers "Mini" instant accounts with immediate payout options',
@@ -624,6 +629,7 @@ export const mockPropFirms: PropFirm[] = [
     <li>Account balance increases by 25% every 4 months if criteria are met.</li>
     <li>The scaling cap is $2,000,000.</li>
 </ul>`,
+    payoutFrequency: "Every 14 days",
     pros: [
       'No consistency rules',
       'Clear and generous scaling plan up to $2M and 90% split',
@@ -751,6 +757,7 @@ export const mockPropFirms: PropFirm[] = [
   <li><strong>Payout Frequency:</strong> Bi-weekly.</li>
   <li><strong>Profit Split:</strong> Starts at 50% for Bootcamp/Hyper-Growth and 80% for High Stakes, with scaling plans to reach 100%.</li>
 </ul>`,
+    payoutFrequency: "Bi-weekly",
     pros: [
       'Multiple diverse funding programs (Instant, 2-Step, 3-Step)',
       'Long-standing firm with a solid reputation (since 2016)',
@@ -863,6 +870,7 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>Biweekly Payouts:</strong> Processed every 14 days with a minimum withdrawal of $100 in gross profits.</li>
     <li><strong>2% On-Demand Payouts:</strong> Request a payout anytime if you have met the 40% Best Day Rule and have at least 2% gross profits in your account.</li>
 </ul>`,
+    payoutFrequency: "Bi-weekly or On-Demand",
     pros: [
       'Multiple evaluation programs (2-step, 3-step, etc.)',
       'Flexible payout options (Biweekly or On-Demand)',
@@ -971,6 +979,7 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>Live Funded Account:</strong> Can request a payout of up to 50% of the account balance.</li>
     <li>For complete details, please review the official <a href="https://support.topstep.com/hc/en-us/articles/360054593853-Payout-Policy" target="_blank" rel="noopener noreferrer">Topstep Payout Policy</a>.</li>
 </ul>`,
+    payoutFrequency: "On-Demand after 5 winning days",
     pros: [
       'Keep 100% of the first $10,000 in profits',
       'Simple 1-step evaluation process (Trading Combine)',
@@ -1114,6 +1123,7 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>LLC Payouts:</strong> Payouts to an LLC bank account must now be processed through Wise or PayPal.</li>
     <li><strong>Plaid Reconnection:</strong> Existing Plaid connections were disconnected during a tech update. Users must reconnect their personal banking information via Plaid before their next payout request.</li>
 </ul>`,
+    payoutFrequency: "Daily from Day 1",
     pros: [
         'Daily Payouts available from day one on PRO accounts',
         'Simple 1-Step Evaluation process',
@@ -1249,6 +1259,7 @@ export const mockPropFirms: PropFirm[] = [
         </ul>
     </li>
 </ul>`,
+    payoutFrequency: "Varies by plan (Daily to Bi-weekly)",
     pros: [
         'Multiple account plans to suit different trading styles (Starter, Expert, Eval-to-Live)',
         '100% profit split on first $10,000, then 90/10 on most plans',
@@ -1425,6 +1436,7 @@ export const mockPropFirms: PropFirm[] = [
 </ul>
 <h4>Max SimFunded Profit Rule</h4>
 <p>The maximum amount a trader can earn from a SimFunded account is $80,000. After reaching this amount, you are moved to a live account with a maximum starting balance of $20,000. The total combined amount a trader can generate from Simulated Funded Payouts and the Live Transition is $100,000.</p>`,
+    payoutFrequency: "On-Demand after 10 trading days",
     pros: [
       "Multiple plans: Intraday, EOD, and Instant Funding",
       "100% profit split on first $15,000, then 90/10", 
@@ -1556,6 +1568,7 @@ export const mockPropFirms: PropFirm[] = [
   <li><strong>Withdrawal Limits:</strong> For your first three payouts, there are maximum withdrawal amounts to encourage account stability. These limits are removed after the third payout.</li>
   <li><strong>Safety Reserve:</strong> A minimum account balance (safety reserve) must be maintained to make a withdrawal.</li>
 </ul>`,
+    payoutFrequency: "On-Demand after 10 trading days",
     pros: [
       "Keep 100% of the first $10,000 in profits",
       "Choice between Trailing or EOD drawdown models",
@@ -1804,6 +1817,7 @@ export const mockPropFirms: PropFirm[] = [
     <li><strong>Overall Limit:</strong> The total withdrawal cap per trader is $150,000 across all their accounts.</li>
     <li><strong>Transition to Live:</strong> After reaching the payout max or completing 6 payout milestones, your performance will be evaluated for a transition to a live funded account.</li>
 </ul>`,
+    payoutFrequency: "On-Demand after 8-10 trading days",
     pros: [
         '100% profit split on all funded accounts.',
         '"Straight to Funded" option for immediate trading.',
@@ -1957,6 +1971,7 @@ export const mockPropFirms: PropFirm[] = [
         </ul>
     </li>
 </ul>`,
+    payoutFrequency: "Every 5-7 days",
     pros: [
       "90% profit split",
       "Offers both 1-step evaluation and direct funding",
@@ -2244,7 +2259,7 @@ export const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
     dailyLoss: tier.dailyLossLimitPercentage ? tier.size * (tier.dailyLossLimitPercentage / 100) : null,
     maxLoss: tier.drawdownPercentage ? tier.size * (tier.drawdownPercentage / 100) : null,
     profitSplit: firm.profitSplit ? parseInt(firm.profitSplit.split('%')[0], 10) : 80,
-    payoutFrequency: 'Varies', // This would need more detailed mapping
+    payoutFrequency: firm.payoutFrequency || 'Varies',
     affiliateLink: firm.affiliateLink,
     challengeType: firm.instrumentTypes?.includes('Futures') ? 'futures' : 'cfd',
   }));
