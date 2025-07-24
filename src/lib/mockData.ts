@@ -688,7 +688,7 @@ export const mockPropFirms: PropFirm[] = [
       { name: "Saint Barthélemy", code: "BL" }, { name: "Saint Kitts and Nevis", code: "KN" }, { name: "Saint Lucia", code: "LC" }, { name: "Saint Vincent and the Grenadines", code: "VC" },
       { name: "Samoa", code: "WS" }, { name: "San Marino", code: "SM" }, { name: "Sao Tome and Principe", code: "ST" }, { name: "Seychelles", code: "SC" },
       { name: "Sierra Leone", code: "SL" }, { name: "Solomon Islands", code: "SB" }, { name: "Somalia", code: "SO" }, { name: "South Sudan", code: "SS" },
-      { name: "Sudan", code: "SD" }, { name: "Suriname", code: "SR" }, { name: "Syria", code: "SY" }, { name: "Tajikistan", code: "TJ" },
+      { name: "Sudan", code: "SD" }, { name: "Syria", code: "SY" }, { name: "Tajikistan", code: "TJ" },
       { name: "Timor-Leste", code: "TL" }, { name: "Tokelau", code: "TK" }, { name: "Tonga", code: "TO" }, { name: "Turkmenistan", code: "TM" },
       { name: "Tuvalu", code: "TV" }, { name: "United States of America", code: "US" }, { name: "Uzbekistan", code: "UZ" }, { name: "Vanuatu", code: "VU" },
       { name: "Vatican City", code: "VA" }, { name: "Venezuela", code: "VE" }, { name: "Western Sahara", code: "EH" }
@@ -2254,11 +2254,11 @@ export const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
     price: tier.evaluationFee,
     paymentType: firm.fundingModels?.includes('1-Step') ? 'Monthly' : 'One Time', // Simplified logic
     promoDiscountPercent: firm.offerBadgeLabel ? parseInt(firm.offerBadgeLabel.match(/(\d+)%?/)?.[1] || '0', 10) : 0,
-    activationFee: tier.activationFee || null,
+    activationFee: tier.activationFee,
     profitTarget: tier.profitTargetPercentage ? tier.size * (tier.profitTargetPercentage / 100) : null,
     dailyLoss: tier.dailyLossLimitPercentage ? tier.size * (tier.dailyLossLimitPercentage / 100) : null,
     maxLoss: tier.drawdownPercentage ? tier.size * (tier.drawdownPercentage / 100) : null,
-    profitSplit: firm.profitSplit ? parseInt(firm.profitSplit.split('%')[0], 10) : 80,
+    profitSplit: firm.profitSplit ? parseInt(firm.profitSplit.match(/\d+/)?.[0] || '80', 10) : 80,
     payoutFrequency: firm.payoutFrequency || 'Varies',
     affiliateLink: firm.affiliateLink,
     challengeType: firm.instrumentTypes?.includes('Futures') ? 'futures' : 'cfd',
