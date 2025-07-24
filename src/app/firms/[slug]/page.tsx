@@ -12,6 +12,7 @@
 
 
 
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -100,12 +101,13 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
       <section className="relative py-8 md:py-12 bg-card rounded-xl shadow-xl overflow-hidden">
         <div className="container mx-auto px-4 text-center">
             <div className="flex justify-center mb-4">
-              <div className="w-24 h-16 md:w-40 md:h-20 relative">
+               <div className="w-24 h-24 relative flex-shrink-0 flex items-center justify-center rounded-lg bg-background/50 border-2 border-white/10 p-2">
                 <Image 
                   src={firm.logoUrl} 
                   alt={`${firm.name} logo`} 
                   layout="fill" 
                   objectFit="contain"
+                  className="p-1"
                   data-ai-hint="company logo" 
                 />
               </div>
