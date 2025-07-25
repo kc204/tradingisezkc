@@ -16,20 +16,24 @@ const tptAccountTiers: AccountTier[] = [
 ];
 
 const myFundedFuturesAccountTiers: AccountTier[] = [
-    // Starter Plus Plan
-    { id: 'mff-starter-plus-50k', name: '$50K Starter Plus Plan', size: 50000, evaluationFee: 127, profitTargetPercentage: 6, drawdownPercentage: 4, dailyLossLimitPercentage: null, challengeType: '1-Step' },
-    { id: 'mff-starter-plus-100k', name: '$100K Starter Plus Plan', size: 100000, evaluationFee: 267, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, challengeType: '1-Step' },
-    { id: 'mff-starter-plus-150k', name: '$150K Starter Plus Plan', size: 150000, evaluationFee: 377, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: null, challengeType: '1-Step' },
-    // Expert Plan
-    { id: 'mff-expert-50k', name: '$50K Expert Plan', size: 50000, evaluationFee: 165, drawdownRules: 'Trailing Drawdown with Buffer Zone', profitTargetPercentage: null, dailyLossLimitPercentage: null, challengeType: '1-Step' },
-    { id: 'mff-expert-100k', name: '$100K Expert Plan', size: 100000, evaluationFee: 265, drawdownRules: 'Trailing Drawdown with Buffer Zone', profitTargetPercentage: null, dailyLossLimitPercentage: null, challengeType: '1-Step' },
-    { id: 'mff-expert-150k', name: '$150K Expert Plan', size: 150000, evaluationFee: 375, drawdownRules: 'Trailing Drawdown with Buffer Zone', profitTargetPercentage: null, dailyLossLimitPercentage: null, challengeType: '1-Step' },
-    // Starter Plan
-    { id: 'mff-starter-50k-single', name: '$50K Starter Plan', size: 50000, evaluationFee: 97, profitTargetPercentage: 6, drawdownPercentage: 5, drawdownRules: '$2,500 Trailing Drawdown', dailyLossLimitPercentage: null, challengeType: '1-Step' },
-    // Eval to Live Plan
-    { id: 'mff-1step-eval-live-50k', name: '$50K 1-Step Eval to Live', size: 50000, evaluationFee: 444, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1, challengeType: '1-Step' },
-    { id: 'mff-2step-eval-live-50k', name: '$50K 2-Step Eval to Live', size: 50000, evaluationFee: 197, profitTargetPercentage: 6, drawdownPercentage: 3, dailyLossLimitPercentage: 1, challengeType: '2-Step' },
+  { id: 'mff-expert-100k', name: 'Expert 100K', size: 100000, evaluationFee: 344, activationFee: 0, profitTargetPercentage: 8, dailyLossLimitPercentage: null, drawdownPercentage: 3, challengeType: '1-Step' },
+  { id: 'mff-expert-50k', name: 'Expert 50K', size: 50000, evaluationFee: 227, activationFee: 0, profitTargetPercentage: 8, dailyLossLimitPercentage: null, drawdownPercentage: 4, challengeType: '1-Step' },
+  { id: 'mff-starter-50k', name: 'Starter 50K', size: 50000, evaluationFee: 97, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: 2.4, drawdownPercentage: 5, challengeType: '1-Step' },
+  { id: 'mff-expert-150k', name: 'Expert 150K', size: 150000, evaluationFee: 477, activationFee: 0, profitTargetPercentage: 8, dailyLossLimitPercentage: null, drawdownPercentage: 3, challengeType: '1-Step' },
+  { id: 'mff-starter-plus-150k', name: 'Starter Plus 150K', size: 150000, evaluationFee: 377, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: null, drawdownPercentage: 3, challengeType: '1-Step' },
+  { id: 'mff-starter-plus-50k', name: 'Starter Plus 50K', size: 50000, evaluationFee: 127, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: null, drawdownPercentage: 4, challengeType: '1-Step' },
+  { id: 'mff-starter-plus-100k', name: 'Starter Plus 100K', size: 100000, evaluationFee: 267, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: null, drawdownPercentage: 3, challengeType: '1-Step' },
+  { id: 'mff-eval-to-live-50k', name: 'Eval to Live 50K', size: 50000, evaluationFee: 444, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: null, drawdownPercentage: 3, challengeType: '1-Step' },
+  { id: 'mff-scale-150k', name: 'Scale 150K', size: 150000, evaluationFee: 377, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: null, drawdownPercentage: 3, challengeType: '1-Step' },
+  { id: 'mff-pro-150k', name: 'Pro 150K', size: 150000, evaluationFee: 477, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: null, drawdownPercentage: 3, challengeType: '1-Step' },
+  { id: 'mff-pro-1-step-100k', name: 'Pro 1 Step 100K', size: 100000, evaluationFee: 344, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: null, drawdownPercentage: 3, challengeType: '1-Step' },
+  { id: 'mff-scale-1-step-100k', name: 'Scale 1 Step 100K', size: 100000, evaluationFee: 267, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: null, drawdownPercentage: 3, challengeType: '1-Step' },
+  { id: 'mff-core-1-step-50k', name: 'Core 1 Step 50K', size: 50000, evaluationFee: 77, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: null, drawdownPercentage: 4, challengeType: '1-Step' },
+  { id: 'mff-eval-to-live-2-step-50k', name: 'Eval to Live 2 Step 50K', size: 50000, evaluationFee: 197, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: null, drawdownPercentage: 3, challengeType: '2-Step' },
+  { id: 'mff-pro-1-step-50k', name: 'Pro 1 Step 50K', size: 50000, evaluationFee: 227, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: null, drawdownPercentage: 4, challengeType: '1-Step' },
+  { id: 'mff-scale-1-step-50k', name: 'Scale 1 Step 50K', size: 50000, evaluationFee: 127, activationFee: 0, profitTargetPercentage: 6, dailyLossLimitPercentage: null, drawdownPercentage: 4, challengeType: '1-Step' },
 ];
+
 
 const tradeifyAccountTiers: AccountTier[] = [
   // Advanced Plan (Evaluation)
@@ -238,7 +242,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '15',
     slug: 'oanda-prop-trader',
     name: 'OANDA Prop Trader',
-    logoUrl: '/images/oanda_logo.png',
+    logoUrl: '/images/oanda-logo.svg',
     websiteUrl: '#',
     affiliateLink: '#',
     isFeatured: false,
@@ -349,7 +353,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '14',
     slug: 'apex-trader-funding',
     name: 'Apex Trader Funding',
-    logoUrl: '/images/apex_logo.jfif',
+    logoUrl: '/images/apex-logo.svg',
     websiteUrl: '#',
     affiliateLink: '#',
     isFeatured: false,
@@ -458,7 +462,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '13',
     slug: 'maven',
     name: 'Maven',
-    logoUrl: '/images/maven_logo.png',
+    logoUrl: '/images/maven-logo.svg',
     websiteUrl: '#',
     affiliateLink: '#',
     isFeatured: false,
@@ -576,7 +580,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '12',
     slug: 'ftmo',
     name: 'FTMO',
-    logoUrl: '/images/ftmo_logo.png',
+    logoUrl: '/images/ftmo-logo.svg',
     websiteUrl: '#',
     affiliateLink: '#',
     isFeatured: false,
@@ -698,7 +702,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '11',
     slug: 'the5ers',
     name: 'The5ers',
-    logoUrl: '/images/the5ers_logo.png',
+    logoUrl: '/images/the5ers-logo.svg',
     websiteUrl: '#',
     affiliateLink: '#',
     isFeatured: false,
@@ -818,7 +822,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '10',
     slug: 'alpha-capital',
     name: 'Alpha Capital',
-    logoUrl: '/images/alphacapital_logo.jpg',
+    logoUrl: '/images/alphacapital-logo.svg',
     websiteUrl: '#',
     affiliateLink: '#',
     isFeatured: false,
@@ -929,7 +933,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '8',
     slug: 'topstep',
     name: 'Topstep',
-    logoUrl: '/images/topstep_logo.png',
+    logoUrl: '/images/topstep-logo.svg',
     websiteUrl: 'https://www.topstep.com/',
     affiliateLink: 'https://www.topstep.com/&affiliate_id=YOUR-AFFILIATE-ID', // REPLACE
     isFeatured: true,
@@ -1045,7 +1049,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '2',
     slug: 'take-profit-trader',
     name: 'Take Profit Trader',
-    logoUrl: '/images/takeprofittrader_logo.png',
+    logoUrl: '/images/takeprofittrader-logo.svg',
     websiteUrl: 'https://www.takeprofittrader.com/',
     affiliateLink: 'https://takeprofittrader.com/if/tradingisez',
     ceo: 'James Sixsmith',
@@ -1259,7 +1263,7 @@ export const mockPropFirms: PropFirm[] = [
         </ul>
     </li>
 </ul>`,
-    payoutFrequency: "Varies by plan (Daily to Bi-weekly)",
+    payoutFrequency: "Varies (Daily, 5 winning days, 14 days)",
     pros: [
         'Multiple account plans to suit different trading styles (Starter, Expert, Eval-to-Live)',
         '100% profit split on first $10,000, then 90/10 on most plans',
@@ -1289,7 +1293,7 @@ export const mockPropFirms: PropFirm[] = [
     ],
     offerBadgeLabel: '100% up to $10K Profit',
     fundingModels: ['1-Step', '2-Step'],
-    profitSplit: '100% on first $10,000, then 90% (80% on Eval-to-Live)',
+    profitSplit: '80% - 90%',
     drawdownRules: 'End-of-Day Trailing or Trailing Drawdown (varies by plan)',
     profitTarget: 'Varies by plan',
     assets: ['Futures'],
@@ -1302,8 +1306,8 @@ export const mockPropFirms: PropFirm[] = [
     isFeatured: false,
     minAccountSize: 50000, 
     maxAccountSize: 150000,
-    minChallengeCost: 97, 
-    maxChallengeCost: 444, 
+    minChallengeCost: 77, 
+    maxChallengeCost: 477, 
     activationFee: 'None', 
     challengeType: '1-Step or 2-Step',
     accountTiers: myFundedFuturesAccountTiers,
@@ -1334,7 +1338,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '4',
     name: 'Tradeify',
     slug: 'tradeify', 
-    logoUrl: '/images/tradeify_logo.png', 
+    logoUrl: '/images/tradeify-logo.svg',
     websiteUrl: 'https://tradeify.co/', 
     affiliateLink: 'https://tradeify.co/YOUR-AFFILIATE-ID',
     isFeatured: true, 
@@ -1503,7 +1507,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '5',
     slug: 'bulenox',
     name: 'Bulenox',
-    logoUrl: '/images/bulenox_logo.png',
+    logoUrl: '/images/bulenox-logo.svg',
     websiteUrl: 'https://bulenox.com/',
     affiliateLink: 'https://bulenox.com/?ref=YOUR-AFFILIATE-ID', // REPLACE WITH YOUR ACTUAL BULENOX AFFILIATE LINK
     isFeatured: false,
@@ -1618,7 +1622,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '6',
     slug: 'daytraders',
     name: 'Daytraders',
-    logoUrl: '/images/daytraders_logo.png', 
+    logoUrl: '/images/daytraders-logo.svg',
     websiteUrl: 'https://daytraders.com/',
     affiliateLink: 'https://daytraders.com/?aff_id=YOUR-AFFILIATE-ID', // Replace with your actual Daytraders affiliate link
     briefDescription: 'Offers "Straight to Funded" (S2F) accounts with a 100% profit split, alongside Trail and Static evaluations, on their proprietary platform.',
@@ -1882,7 +1886,7 @@ export const mockPropFirms: PropFirm[] = [
     id: '7',
     slug: 'fundingticks',
     name: 'FundingTicks',
-    logoUrl: '/images/fundingticks_logo.png', // Placeholder logo
+    logoUrl: '/images/fundingticks-logo.svg',
     websiteUrl: '#', // Placeholder
     affiliateLink: '#', // Placeholder
     isFeatured: false,
