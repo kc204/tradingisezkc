@@ -147,7 +147,12 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, selectedFi
                             <SelectContent>
                                 <SelectItem value="all">All Firms</SelectItem>
                                 {mockPropFirms.map((firm) => (
-                                    <SelectItem key={firm.id} value={firm.slug}>{firm.name}</SelectItem>
+                                    <SelectItem key={firm.id} value={firm.slug}>
+                                        <div className="flex items-center gap-2">
+                                            <Image src={firm.logoUrl} alt={firm.name} width={24} height={24} className="rounded-sm" />
+                                            <span>{firm.name}</span>
+                                        </div>
+                                    </SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
@@ -229,7 +234,12 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, selectedFi
                             <SelectContent>
                                 <SelectItem value="all">All Firms</SelectItem>
                                 {mockPropFirms.map((firm) => (
-                                    <SelectItem key={firm.id} value={firm.slug}>{firm.name}</SelectItem>
+                                     <SelectItem key={firm.id} value={firm.slug}>
+                                        <div className="flex items-center gap-2">
+                                            <Image src={firm.logoUrl} alt={firm.name} width={24} height={24} className="rounded-sm" />
+                                            <span>{firm.name}</span>
+                                        </div>
+                                    </SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
