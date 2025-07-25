@@ -135,11 +135,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, selectedFi
                     </button>
                 </div>
                  <div className="flex-col items-end gap-2 hidden md:flex">
-                    <div className="relative flex-grow-0 w-full md:w-auto">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
-                        <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </div>
-                    <div className="w-full md:w-64">
+                     <div className="w-full md:w-64">
                          <Select onValueChange={(value) => setSelectedFirm(value === 'all' ? '' : value)} value={selectedFirm || 'all'}>
                             <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <SelectValue placeholder="Select a firm..." />
@@ -224,8 +220,6 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, selectedFi
                     </div>
                 </div>
                  <div className="relative flex-grow w-full md:flex-grow-0 md:w-auto md:hidden">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
-                    <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                      <div className="mt-2">
                         <Select onValueChange={(value) => setSelectedFirm(value === 'all' ? '' : value)} value={selectedFirm || 'all'}>
                             <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -348,7 +342,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover/row:bg-gray-800/80 backdrop-blur-sm">
                     <div className="flex items-center gap-3">
                         <div className="w-11 h-11 relative flex-shrink-0">
-                            <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
+                            <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10 p-1" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
                         </div>
                         <div 
                             className="flex flex-col justify-center flex-shrink-0"
@@ -489,10 +483,6 @@ export default function ComparePage() {
   const filteredAndSortedChallenges = React.useMemo(() => {
     let filtered = challenges.filter(c => c.challengeType === filters.challengeType);
 
-    if (searchTerm) {
-      filtered = filtered.filter(c => c.firmName.toLowerCase().includes(searchTerm.toLowerCase()));
-    }
-
     if (selectedFirm) {
         filtered = filtered.filter(c => c.firmId === selectedFirm);
     }
@@ -527,7 +517,7 @@ export default function ComparePage() {
         return 0;
     });
     return filtered;
-  }, [challenges, searchTerm, selectedFirm, filters, sortConfig]);
+  }, [challenges, selectedFirm, filters, sortConfig]);
 
   const totalPages = Math.ceil(filteredAndSortedChallenges.length / ROWS_PER_PAGE);
   const paginatedChallenges = filteredAndSortedChallenges.slice((currentPage - 1) * ROWS_PER_PAGE, currentPage * ROWS_PER_PAGE);
@@ -570,8 +560,6 @@ export default function ComparePage() {
           <ControlBar 
             filters={filters}
             setFilters={setFilters}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
             selectedFirm={selectedFirm}
             setSelectedFirm={setSelectedFirm}
             filteredCount={filteredAndSortedChallenges.length}

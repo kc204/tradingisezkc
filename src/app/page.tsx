@@ -140,10 +140,6 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, selectedFi
                     </button>
                 </div>
                  <div className="flex-col items-end gap-2 hidden md:flex">
-                    <div className="relative flex-grow-0 w-full md:w-auto">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
-                        <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </div>
                      <div className="w-full md:w-64">
                         <Select onValueChange={(value) => setSelectedFirm(value === 'all' ? '' : value)} value={selectedFirm || 'all'}>
                             <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -230,8 +226,6 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, selectedFi
                 </div>
 
                 <div className="relative flex-grow w-full md:flex-grow-0 md:w-auto md:hidden">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
-                    <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     <div className="mt-2">
                         <Select onValueChange={(value) => setSelectedFirm(value === 'all' ? '' : value)} value={selectedFirm || 'all'}>
                             <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -491,10 +485,6 @@ const FullCompareSection = () => {
   const filteredAndSortedChallenges = React.useMemo(() => {
     let filtered = challenges.filter(c => c.challengeType === filters.challengeType);
 
-    if (searchTerm) {
-      filtered = filtered.filter(c => c.firmName.toLowerCase().includes(searchTerm.toLowerCase()));
-    }
-
     if (selectedFirm) {
         filtered = filtered.filter(c => c.firmId === selectedFirm);
     }
@@ -529,7 +519,7 @@ const FullCompareSection = () => {
         return 0;
     });
     return filtered;
-  }, [challenges, searchTerm, selectedFirm, filters, sortConfig]);
+  }, [challenges, selectedFirm, filters, sortConfig]);
 
   React.useEffect(() => {
       setCurrentPage(1);
@@ -571,8 +561,6 @@ const FullCompareSection = () => {
           <ControlBar 
             filters={filters}
             setFilters={setFilters}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
             selectedFirm={selectedFirm}
             setSelectedFirm={setSelectedFirm}
             filteredCount={filteredAndSortedChallenges.length}
