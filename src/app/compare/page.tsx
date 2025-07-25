@@ -18,6 +18,7 @@ import { Slider } from '@/components/ui/slider';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 
 const firebaseConfig = {
@@ -47,7 +48,7 @@ const formatShortCurrency = (value: any) => value == null ? 'N/A' : `$${value/10
 
 const Separator = () => <div className="hidden md:block h-6 w-px bg-white/10 mx-2"></div>;
 
-const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCount, totalCount }: any) => {
+const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, selectedFirm, setSelectedFirm, filteredCount, totalCount }: any) => {
     const [isCustomSizeActive, setIsCustomSizeActive] = React.useState(false);
     const [customSize, setCustomSize] = React.useState([50000, 500000]);
     const [tempCustomSize, setTempCustomSize] = React.useState(customSize);
@@ -205,6 +206,19 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, filteredCo
                  <div className="relative flex-grow w-full md:flex-grow-0 md:w-auto md:hidden">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
                     <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                     <div className="mt-2">
+                        <Select onValueChange={(value) => setSelectedFirm(value === 'all' ? '' : value)} value={selectedFirm || 'all'}>
+                            <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <SelectValue placeholder="Select a firm..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All Firms</SelectItem>
+                                {mockPropFirms.map((firm) => (
+                                    <SelectItem key={firm.id} value={firm.slug}>{firm.name}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
                 </div>
             </div>
 
@@ -400,6 +414,7 @@ export default function ComparePage() {
   const [challenges, setChallenges] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [searchTerm, setSearchTerm] = React.useState('');
+  const [selectedFirm, setSelectedFirm] = React.useState('');
   const [filters, setFilters] = React.useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures', customSizeRange: null });
   const [sortConfig, setSortConfig] = React.useState<{key: string, direction: string}>({ key: 'price', direction: 'ascending' });
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -452,6 +467,10 @@ export default function ComparePage() {
     if (searchTerm) {
       filtered = filtered.filter(c => c.firmName.toLowerCase().includes(searchTerm.toLowerCase()));
     }
+
+    if (selectedFirm) {
+        filtered = filtered.filter(c => c.firmId === selectedFirm);
+    }
     
     if (filters.customSizeRange) {
       const [min, max] = filters.customSizeRange;
@@ -483,14 +502,14 @@ export default function ComparePage() {
         return 0;
     });
     return filtered;
-  }, [challenges, searchTerm, filters, sortConfig]);
+  }, [challenges, searchTerm, selectedFirm, filters, sortConfig]);
 
   const totalPages = Math.ceil(filteredAndSortedChallenges.length / ROWS_PER_PAGE);
   const paginatedChallenges = filteredAndSortedChallenges.slice((currentPage - 1) * ROWS_PER_PAGE, currentPage * ROWS_PER_PAGE);
 
   React.useEffect(() => {
     setCurrentPage(1);
-  }, [filters, searchTerm]);
+  }, [filters, searchTerm, selectedFirm]);
 
 
   const requestSort = (key: string) => {
@@ -528,6 +547,8 @@ export default function ComparePage() {
             setFilters={setFilters}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
+            selectedFirm={selectedFirm}
+            setSelectedFirm={setSelectedFirm}
             filteredCount={filteredAndSortedChallenges.length}
             totalCount={challenges.filter(c => c.challengeType === filters.challengeType).length}
           />
