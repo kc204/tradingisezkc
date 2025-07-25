@@ -53,7 +53,7 @@ const formatShortCurrency = (value: any) => value == null ? 'N/A' : `$${value/10
 
 const Separator = () => <div className="hidden md:block h-6 w-px bg-white/10 mx-2"></div>;
 
-const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, selectedFirm, setSelectedFirm, filteredCount, totalCount }: any) => {
+const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filteredCount, totalCount }: any) => {
     const [isCustomSizeActive, setIsCustomSizeActive] = React.useState(false);
     const [customSize, setCustomSize] = React.useState([50000, 500000]);
     const [tempCustomSize, setTempCustomSize] = React.useState(customSize);
@@ -125,6 +125,19 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, selectedFi
          setIsCustomSizeActive(false);
     };
 
+    const handleFirmChange = (value: string) => {
+        const firmSlug = value === 'all' ? '' : value;
+        setSelectedFirm(firmSlug);
+        
+        if (firmSlug) {
+            const firmData = ALL_CHALLENGES_DATA.find(c => c.firmId === firmSlug);
+            if (firmData) {
+                handleFilterChange('challengeType', firmData.challengeType);
+            }
+        }
+    };
+
+
     const sizes = [25000, 50000, 100000, 150000, 200000];
     const stepsOptions: (number | string)[] = [1, 2, 3, 4, 'Instant'];
 
@@ -141,7 +154,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, selectedFi
                 </div>
                  <div className="flex-col items-end gap-2 hidden md:flex">
                      <div className="w-full md:w-64">
-                        <Select onValueChange={(value) => setSelectedFirm(value === 'all' ? '' : value)} value={selectedFirm || 'all'}>
+                        <Select onValueChange={handleFirmChange} value={selectedFirm || 'all'}>
                             <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <SelectValue placeholder="Select a firm..." />
                             </SelectTrigger>
@@ -227,7 +240,7 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, selectedFi
 
                 <div className="relative flex-grow w-full md:flex-grow-0 md:w-auto md:hidden">
                     <div className="mt-2">
-                        <Select onValueChange={(value) => setSelectedFirm(value === 'all' ? '' : value)} value={selectedFirm || 'all'}>
+                        <Select onValueChange={handleFirmChange} value={selectedFirm || 'all'}>
                             <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <SelectValue placeholder="Select a firm..." />
                             </SelectTrigger>
@@ -438,7 +451,6 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: any) => {
 const FullCompareSection = () => {
   const [challenges, setChallenges] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
-  const [searchTerm, setSearchTerm] = React.useState('');
   const [selectedFirm, setSelectedFirm] = React.useState('');
   const [filters, setFilters] = React.useState({ accountSize: [100000], steps: [1], applyDiscount: true, challengeType: 'futures', customSizeRange: null });
   const [sortConfig, setSortConfig] = React.useState<{key: string, direction: string}>({ key: 'price', direction: 'ascending' });
@@ -523,7 +535,7 @@ const FullCompareSection = () => {
 
   React.useEffect(() => {
       setCurrentPage(1);
-  }, [filters, searchTerm, selectedFirm]);
+  }, [filters, selectedFirm]);
 
   const paginatedChallenges = React.useMemo(() => {
       const startIndex = (currentPage - 1) * ROWS_PER_PAGE;
