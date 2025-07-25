@@ -139,9 +139,24 @@ const ControlBar = ({ filters, setFilters, searchTerm, setSearchTerm, selectedFi
                         CFD
                     </button>
                 </div>
-                 <div className="relative flex-grow-0 w-full md:w-auto hidden md:block">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
-                    <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                 <div className="flex-col items-end gap-2 hidden md:flex">
+                    <div className="relative flex-grow-0 w-full md:w-auto">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+                        <input type="text" placeholder="Search firms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full md:w-64 bg-black/20 border border-white/10 rounded-full h-11 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    </div>
+                     <div className="w-full md:w-64">
+                        <Select onValueChange={(value) => setSelectedFirm(value === 'all' ? '' : value)} value={selectedFirm || 'all'}>
+                            <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <SelectValue placeholder="Select a firm..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All Firms</SelectItem>
+                                {mockPropFirms.map((firm) => (
+                                    <SelectItem key={firm.id} value={firm.slug}>{firm.name}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
                 </div>
             </div>
             
