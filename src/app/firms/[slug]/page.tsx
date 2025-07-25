@@ -14,6 +14,7 @@
 
 
 
+
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -108,7 +109,7 @@ const FirmDetailPage = ({ params }: FirmDetailPageProps) => {
                   alt={`${firm.name} logo`} 
                   layout="fill" 
                   objectFit="contain"
-                  className="rounded-lg object-contain border-2 border-white/10 p-2"
+                  className="rounded-lg object-contain border-2 border-white/10"
                   data-ai-hint="company logo" 
                 />
               </div>

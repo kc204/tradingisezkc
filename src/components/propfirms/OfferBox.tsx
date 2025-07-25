@@ -25,7 +25,7 @@ const OfferBox = React.forwardRef<HTMLDivElement, OfferBoxProps>(
                       alt={`${firm.name} logo`} 
                       layout="fill" 
                       objectFit="contain" 
-                      className="rounded-lg object-contain border-2 border-white/10 p-2"
+                      className="rounded-lg object-contain border-2 border-white/10"
                       data-ai-hint="company logo"
                   />
               </div>
