@@ -89,8 +89,8 @@ const FirmMiniDetailDesktop: React.FC<FirmMiniDetailProps> = ({ firm }) => {
             )}>
                 <div className="container mx-auto flex items-center justify-between gap-3 w-full px-0 sm:px-4">
                     <div className="flex items-center gap-3 overflow-hidden">
-                         <div className="w-12 h-12 relative flex-shrink-0">
-                            <Image src={firm.logoUrl} alt={`${firm.name} logo`} fill={true} style={{objectFit: 'contain'}} data-ai-hint="company logo" />
+                         <div className="w-16 h-16 relative flex-shrink-0">
+                            <Image src={firm.logoUrl} alt={`${firm.name} logo`} fill={true} className="rounded-lg object-contain border-2 border-white/10" data-ai-hint="company logo" />
                         </div>
                         <div className="overflow-hidden">
                             <h3 className="text-lg font-bold text-foreground truncate">{firm.name}</h3>

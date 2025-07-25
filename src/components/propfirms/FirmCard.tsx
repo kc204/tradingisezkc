@@ -15,12 +15,13 @@ const FirmCard = ({ firm }: FirmCardProps) => {
     <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader className="relative">
         <div className="flex items-start justify-between">
-          <div className="w-24 h-12 relative mb-2 mr-4 flex-shrink-0">
+            <div className="w-20 h-20 relative flex-shrink-0 mb-2 mr-4">
              <Image 
                 src={firm.logoUrl} 
                 alt={`${firm.name} logo`} 
                 layout="fill" 
                 objectFit="contain" 
+                className="rounded-lg object-contain border-2 border-white/10 p-2"
                 data-ai-hint="company logo"
               />
           </div>

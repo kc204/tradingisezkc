@@ -19,12 +19,13 @@ const OfferBox = React.forwardRef<HTMLDivElement, OfferBoxProps>(
         <CardHeader className="pb-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3">
             <div className='flex items-center mb-2 sm:mb-0'>
-              <div className="w-24 h-12 relative mr-4 flex-shrink-0">
+              <div className="w-20 h-20 relative mr-4 flex-shrink-0">
                   <Image 
                       src={firm.logoUrl} 
                       alt={`${firm.name} logo`} 
                       layout="fill" 
                       objectFit="contain" 
+                      className="rounded-lg object-contain border-2 border-white/10 p-2"
                       data-ai-hint="company logo"
                   />
               </div>
