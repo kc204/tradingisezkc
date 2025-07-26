@@ -1,3 +1,6 @@
+
+'use client';
+
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -5,18 +8,27 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Star, TrendingUp } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 interface FirmCardProps {
   firm: PropFirm;
 }
 
 const FirmCard = ({ firm }: FirmCardProps) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+
   return (
     <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader className="relative">
         <div className="flex items-start justify-between">
             <div className="w-20 h-20 relative flex-shrink-0 mb-2 mr-4">
-             <Image 
+            {isMounted ? (
+              <Image 
                 src={firm.logoUrl} 
                 alt={`${firm.name} logo`} 
                 layout="fill" 
@@ -24,6 +36,9 @@ const FirmCard = ({ firm }: FirmCardProps) => {
                 className="rounded-lg object-contain border-2 border-white/10"
                 data-ai-hint="company logo"
               />
+              ) : (
+                <div className="w-full h-full bg-muted rounded-lg animate-pulse" />
+              )}
           </div>
           {firm.isFeatured && (
             <Badge variant="default" className="absolute top-4 right-4 bg-accent text-accent-foreground"> {/* Use accent for featured badge */}
