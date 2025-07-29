@@ -22,6 +22,7 @@ const mainSiteNavLinks = [
     dropdown: [
       { href: '/firms', label: 'All Firms' },
       { href: '/compare', label: 'Compare Firms' },
+      { href: '/sentiment-analyzer', label: 'Sentiment Analyzer' },
     ],
   },
   { href: '/free-resources', label: 'Free Resources',
