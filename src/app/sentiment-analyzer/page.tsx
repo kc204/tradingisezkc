@@ -6,11 +6,6 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/
 import { Badge } from '@/components/ui/badge';
 import { TrendingDown, TrendingUp, Minus } from 'lucide-react';
 
-export const metadata = {
-  title: 'Firm Sentiment Analyzer | TradingisEZ',
-  description: 'Compare prop firm sentiment based on real-time data from Reddit, Trustpilot, and more.',
-};
-
 // Mock data based on the proposed methodology
 const mockSentimentData = [
   { firm: 'Topstep', score: 85, positiveMentions: 120, negativeMentions: 15 },
