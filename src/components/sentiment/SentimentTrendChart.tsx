@@ -3,7 +3,6 @@
 
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Card, CardContent } from '@/components/ui/card';
 import type { FirmData, TrendData } from '@/lib/types';
 import Image from 'next/image';
 
@@ -43,14 +42,12 @@ const ConditionalActiveDot = (props: any) => {
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <Card className="bg-background/80 backdrop-blur-sm border-border/50 shadow-lg">
-        <CardContent className="p-3">
-            <p className="font-bold text-foreground mb-2">{label}</p>
-            {payload.map((p: any) => (
-            <p key={p.dataKey} style={{ color: p.color }} className="text-sm font-semibold">{`${p.dataKey}: ${p.value}`}</p>
-            ))}
-        </CardContent>
-      </Card>
+      <div className="bg-black/50 backdrop-blur-sm border border-white/10 rounded-lg p-3 shadow-lg">
+        <p className="font-bold text-white mb-2">{label}</p>
+        {payload.map((p: any) => (
+        <p key={p.dataKey} style={{ color: p.color }} className="text-sm font-semibold">{`${p.dataKey}: ${p.value}`}</p>
+        ))}
+      </div>
     );
   }
   return null;
@@ -65,7 +62,7 @@ interface SentimentTrendChartProps {
 
 const SentimentTrendChart: React.FC<SentimentTrendChartProps> = ({ data, firms, selectedFirms, firmColors }) => {
   return (
-    <div className="h-96 w-full">
+    <div className="h-96 w-full bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 p-4 sm:p-6">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart 
           data={data} 

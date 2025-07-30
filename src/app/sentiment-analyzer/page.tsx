@@ -4,7 +4,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Edit } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { AdminPanel } from '@/components/sentiment/AdminPanel';
 import SentimentTrendChart from '@/components/sentiment/SentimentTrendChart';
 import FirmSentimentCard from '@/components/sentiment/FirmSentimentCard';
@@ -74,7 +73,7 @@ const generateInitialData = () => {
   Object.keys(weeklyData).forEach(firmName => {
       const score = calculateWeightedScore(weeklyData[firmName]);
       weeklyData[firmName].score = score;
-      if(lastWeekIndex >= 0) {
+      if(lastWeekIndex >= 0 && trendData[lastWeekIndex]) {
           trendData[lastWeekIndex][firmName] = score;
       }
   });
@@ -128,12 +127,12 @@ export default function SentimentAnalyzerPage() {
 
 
   return (
-    <div className="space-y-12">
-      <header className="text-center relative">
-        <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 pb-2">
+    <div className="space-y-12 font-sans text-white">
+      <header className="text-center relative mb-10">
+        <h1 className="text-5xl font-extrabold text-white tracking-tight">
             Prop Firm Sentiment Trends
         </h1>
-        <p className="text-muted-foreground mt-2 text-lg max-w-2xl mx-auto">
+        <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">
             Tracking community sentiment for top prop firms over the last 4 weeks.
         </p>
         <AdminPanel 
@@ -142,49 +141,38 @@ export default function SentimentAnalyzerPage() {
             allFirms={allFirms}
             calculateWeightedScore={calculateWeightedScore}
         >
-            <Button variant="ghost" size="icon" className="absolute top-0 right-0 mt-2 mr-2">
+            <Button variant="ghost" size="icon" className="absolute top-0 right-0 mt-2 mr-2 text-gray-400 hover:text-white">
                 <Edit className="w-4 h-4" />
             </Button>
         </AdminPanel>
       </header>
 
-      <section>
-        <Card>
-          <CardHeader>
-            <CardTitle>Sentiment Trend Comparison</CardTitle>
-            <CardDescription>Select up to 4 firms to compare their sentiment scores over the past month.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-             <FirmSelectionDropdown 
-                allFirms={allFirms}
-                selectedFirms={selectedFirms}
-                onFirmSelect={handleFirmSelection}
-             />
+      <main>
+        <section className="mb-10">
+            <div className="flex justify-start mb-6">
+                <FirmSelectionDropdown 
+                    allFirms={allFirms}
+                    selectedFirms={selectedFirms}
+                    onFirmSelect={handleFirmSelection}
+                />
+            </div>
             <SentimentTrendChart 
                 data={trendData} 
                 firms={allFirms} 
                 selectedFirms={selectedFirms} 
                 firmColors={firmColors}
             />
-          </CardContent>
-        </Card>
-      </section>
+        </section>
 
-      <section>
-          <h2 className="text-2xl font-bold text-center mb-6">Detailed Weekly Breakdown</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {allFirms.filter(firm => selectedFirms.includes(firm.name)).slice(0, 2).map(firm => (
-                <FirmSentimentCard key={firm.name} firm={firm} data={weeklyData[firm.name]} />
-            ))}
-        </div>
-        {selectedFirms.length > 2 && (
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                {allFirms.filter(firm => selectedFirms.includes(firm.name)).slice(2, 4).map(firm => (
-                    <FirmSentimentCard key={firm.name} firm={firm} data={weeklyData[firm.name]} />
-                ))}
-            </div>
-        )}
-      </section>
+        <section>
+            <h2 className="text-2xl font-bold text-center mb-8 text-white/90">Detailed Weekly Breakdown</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {allFirms.filter(firm => selectedFirms.includes(firm.name)).map(firm => (
+                  <FirmSentimentCard key={firm.name} firm={firm} data={weeklyData[firm.name]} />
+              ))}
+          </div>
+        </section>
+      </main>
     </div>
   );
 }

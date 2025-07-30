@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -26,7 +26,7 @@ const FirmSelectionDropdown: React.FC<FirmSelectionDropdownProps> = ({ allFirms,
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between md:w-[300px]"
+          className="w-full justify-between md:w-[300px] bg-black/20 border-white/10 rounded-full h-11 text-white hover:text-white hover:bg-black/30 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <span className="truncate">
             {selectedFirms.length > 0 ? `${selectedFirms.length} of 4 firms selected` : "Select firms to compare..."}
@@ -44,7 +44,7 @@ const FirmSelectionDropdown: React.FC<FirmSelectionDropdownProps> = ({ allFirms,
                 <CommandItem
                   key={firm.name}
                   value={firm.name}
-                  onSelect={(currentValue) => {
+                  onSelect={() => {
                     onFirmSelect(firm.name);
                   }}
                 >
