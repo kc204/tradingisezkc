@@ -61,32 +61,39 @@ interface SentimentTrendChartProps {
   firms: FirmData[];
   selectedFirms: string[];
   firmColors: Record<string, string>;
+  onLineHover: (firmName: string | null) => void;
 }
 
-const SentimentTrendChart: React.FC<SentimentTrendChartProps> = ({ data, firms, selectedFirms, firmColors }) => {
+const SentimentTrendChart: React.FC<SentimentTrendChartProps> = ({ data, firms, selectedFirms, firmColors, onLineHover }) => {
   return (
     <div className="h-96 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart 
           data={data} 
           margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+          onMouseLeave={() => onLineHover(null)}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
           <XAxis dataKey="week" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
           <YAxis domain={[0, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
           <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1, strokeDasharray: '3 3' }} />
           <Legend wrapperStyle={{ fontSize: '14px', paddingTop: '20px' }} />
-          {firms.filter(firm => selectedFirms.includes(firm.name)).map(firm => (
-            <Line 
-              key={firm.name}
-              type="monotone" 
-              dataKey={firm.name} 
-              stroke={firmColors[firm.name]} 
-              strokeWidth={3}
-              dot={<FirmLogoDot firms={firms} dataKey={firm.name} stroke={firmColors[firm.name]} trendData={data} />} 
-              activeDot={(props) => <ConditionalActiveDot {...props} dataLength={data.length} />}
-            />
-          ))}
+          {selectedFirms.map(firmName => {
+            const firm = firms.find(f => f.name === firmName);
+            if (!firm) return null;
+            return (
+                <Line 
+                    key={firm.name}
+                    type="monotone" 
+                    dataKey={firm.name} 
+                    stroke={firmColors[firm.name]} 
+                    strokeWidth={3}
+                    dot={<FirmLogoDot firms={firms} dataKey={firm.name} stroke={firmColors[firm.name]} trendData={data} />} 
+                    activeDot={(props) => <ConditionalActiveDot {...props} dataLength={data.length} />}
+                    onMouseEnter={() => onLineHover(firm.name)}
+                />
+            );
+          })}
         </LineChart>
       </ResponsiveContainer>
     </div>

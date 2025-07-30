@@ -92,6 +92,7 @@ export default function SentimentAnalyzerPage() {
   
   const [trendData, setTrendData] = useState<TrendData[]>(INITIAL_TREND_DATA);
   const [weeklyData, setWeeklyData] = useState<WeeklyData>(INITIAL_WEEKLY_DATA);
+  const [hoveredFirm, setHoveredFirm] = useState<string | null>(null);
 
   const handleFirmSelection = (firmName: string) => {
     setSelectedFirms(prev => {
@@ -127,6 +128,17 @@ export default function SentimentAnalyzerPage() {
       setIsAdminOpen(false);
   };
 
+  const orderedSelectedFirms = useMemo(() => {
+    if (!hoveredFirm) return selectedFirms;
+    const reordered = [...selectedFirms];
+    const index = reordered.indexOf(hoveredFirm);
+    if (index > -1) {
+      const [item] = reordered.splice(index, 1);
+      reordered.push(item);
+    }
+    return reordered;
+  }, [selectedFirms, hoveredFirm]);
+
   return (
     <div className="space-y-12">
       <header className="text-center relative">
@@ -160,7 +172,13 @@ export default function SentimentAnalyzerPage() {
                 selectedFirms={selectedFirms}
                 onFirmSelect={handleFirmSelection}
              />
-            <SentimentTrendChart data={trendData} firms={allFirms} selectedFirms={selectedFirms} firmColors={firmColors} />
+            <SentimentTrendChart 
+                data={trendData} 
+                firms={allFirms} 
+                selectedFirms={orderedSelectedFirms} 
+                firmColors={firmColors}
+                onLineHover={setHoveredFirm}
+            />
           </CardContent>
         </Card>
       </section>
