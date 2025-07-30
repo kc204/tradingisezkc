@@ -11,17 +11,10 @@ import SentimentTrendChart from '@/components/sentiment/SentimentTrendChart';
 import FirmSentimentCard from '@/components/sentiment/FirmSentimentCard';
 import FirmSelectionDropdown from '@/components/sentiment/FirmSelectionDropdown';
 import type { FirmData, TrendData, WeeklyData } from '@/lib/types';
+import { mockPropFirms } from '@/lib/mockData';
 
 
 // --- MOCK DATA GENERATION ---
-const firmNames = [
-  'FTMO', 'Topstep', 'Alpha Capital', 'The 5%ers', 'True Forex Funds',
-  'E8 Markets', 'Funding Pips', 'My Funded Futures', 'SurgeTrader', 'City Traders Imperium',
-  'Fidelcrest', 'Lux Trading Firm', 'Audacity Capital', 'OneUp Trader',
-  'Leeloo Trading', 'Earn2Trade', 'Apex Trader Funding', 'Bulenox', 'TickTick Trader',
-  'FundedNext', 'MyFundedFX', 'Bespoke Funding', 'The Trading Pit', 'Goat Funded Trader',
-  'TopTier Trader', 'FundYourFX', 'Forex Prop Firm', 'FTUK', 'Ment Funding', 'Tradeify'
-];
 
 const generateColor = (str: string) => {
   let hash = 0;
@@ -36,9 +29,9 @@ const generateColor = (str: string) => {
   return color;
 };
 
-const allFirms: FirmData[] = firmNames.map(name => ({
-  name,
-  logoUrl: `https://placehold.co/64x64/1a1a1a/FFFFFF?text=${name.charAt(0)}`
+const allFirms: FirmData[] = mockPropFirms.map(firm => ({
+  name: firm.name,
+  logoUrl: firm.logoUrl,
 }));
 
 const firmColors = allFirms.reduce((acc, firm) => {
@@ -55,6 +48,7 @@ const calculateWeightedScore = (data: { trustpilotRating: number; redditSentimen
 const generateInitialData = () => {
   const trendData: TrendData[] = [];
   const weeklyData: WeeklyData = {};
+  const firmNames = allFirms.map(f => f.name);
 
   for (let i = 4; i > 0; i--) {
     const weekEntry: TrendData = { week: i === 1 ? 'Last Week' : `${i} Weeks Ago` };
@@ -65,11 +59,12 @@ const generateInitialData = () => {
   }
 
   firmNames.forEach(name => {
+    const firm = mockPropFirms.find(f => f.name === name);
     weeklyData[name] = {
       summary: `This is a sample summary for ${name} for the last week, highlighting recent community feedback and platform performance discussions.`,
       positivePoints: ["Good community feedback noted on social channels.", "Platform reported as stable with minimal downtime.", "Fast response times from customer support."],
       negativePoints: ["Some users reported concerns about payout processing times.", "Minor slippage reported during high-volatility news events."],
-      trustpilotRating: parseFloat((Math.random() * (5 - 3.5) + 3.5).toFixed(1)),
+      trustpilotRating: firm?.rating || parseFloat((Math.random() * (5 - 3.5) + 3.5).toFixed(1)),
       redditSentiment: Math.floor(Math.random() * 70) + 20,
       youtubeSentiment: Math.floor(Math.random() * 70) + 20,
       score: 0, // Initial score
@@ -92,7 +87,7 @@ const { trendData: INITIAL_TREND_DATA, weeklyData: INITIAL_WEEKLY_DATA } = gener
 
 
 export default function SentimentAnalyzerPage() {
-  const [selectedFirms, setSelectedFirms] = useState(['FTMO', 'Topstep']);
+  const [selectedFirms, setSelectedFirms] = useState([mockPropFirms[0]?.name || 'FTMO', mockPropFirms[1]?.name || 'Topstep']);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   
   const [trendData, setTrendData] = useState<TrendData[]>(INITIAL_TREND_DATA);
