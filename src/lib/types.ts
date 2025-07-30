@@ -1,4 +1,5 @@
 
+
 export interface GlobalOffer {
   id: string;
   text: string;
@@ -127,4 +128,29 @@ export interface FreeResourceItem {
   concludingCTASection?: string; // Simplified from Block Content
   videoLessons?: VideoLesson[];
   bookListings?: BookListing[];
+}
+
+// Types for Sentiment Analyzer
+export interface FirmData {
+    name: string;
+    logoUrl: string;
+}
+
+export interface TrendData {
+    week: string;
+    [firmName: string]: number | string;
+}
+
+export interface WeeklyFirmData {
+    summary: string;
+    positivePoints: string[];
+    negativePoints: string[];
+    trustpilotRating: number;
+    redditSentiment: number;
+    youtubeSentiment: number;
+    score: number;
+}
+
+export interface WeeklyData {
+    [firmName: string]: WeeklyFirmData;
 }

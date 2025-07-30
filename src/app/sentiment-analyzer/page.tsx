@@ -1,147 +1,190 @@
+
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, LabelList } from 'recharts';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Badge } from '@/components/ui/badge';
-import { TrendingDown, TrendingUp, Minus } from 'lucide-react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { Edit } from 'lucide-react';
 
-// Mock data based on the proposed methodology
-const mockSentimentData = [
-  { firm: 'Topstep', score: 85, positiveMentions: 120, negativeMentions: 15 },
-  { firm: 'Take Profit Trader', score: 92, positiveMentions: 150, negativeMentions: 10 },
-  { firm: 'Tradeify', score: 75, positiveMentions: 100, negativeMentions: 20 },
-  { firm: 'Bulenox', score: 68, positiveMentions: 90, negativeMentions: 25 },
-  { firm: 'My Funded Futures', score: 88, positiveMentions: 135, negativeMentions: 12 },
-  { firm: 'Apex Trader Funding', score: 70, positiveMentions: 110, negativeMentions: 30 },
-  { firm: 'FTMO', score: 82, positiveMentions: 115, negativeMentions: 18 },
-].sort((a, b) => b.score - a.score);
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { AdminPanel } from '@/components/sentiment/AdminPanel';
+import SentimentTrendChart from '@/components/sentiment/SentimentTrendChart';
+import FirmSentimentCard from '@/components/sentiment/FirmSentimentCard';
+import FirmSelectionDropdown from '@/components/sentiment/FirmSelectionDropdown';
+import type { FirmData, TrendData, WeeklyData } from '@/lib/types';
 
 
-const CustomTooltip = ({ active, payload, label }: any) => {
-  if (active && payload && payload.length) {
-    const data = payload[0].payload;
-    return (
-      <div className="p-2 bg-background border rounded-lg shadow-lg">
-        <p className="font-bold text-foreground">{`${label}`}</p>
-        <p className="text-sm text-green-500">{`Positive Mentions: ${data.positiveMentions}`}</p>
-        <p className="text-sm text-red-500">{`Negative Mentions: ${data.negativeMentions}`}</p>
-      </div>
-    );
+// --- MOCK DATA GENERATION ---
+const firmNames = [
+  'FTMO', 'Topstep', 'Alpha Capital', 'The 5%ers', 'True Forex Funds',
+  'E8 Markets', 'Funding Pips', 'My Funded Futures', 'SurgeTrader', 'City Traders Imperium',
+  'Fidelcrest', 'Lux Trading Firm', 'Audacity Capital', 'OneUp Trader',
+  'Leeloo Trading', 'Earn2Trade', 'Apex Trader Funding', 'Bulenox', 'TickTick Trader',
+  'FundedNext', 'MyFundedFX', 'Bespoke Funding', 'The Trading Pit', 'Goat Funded Trader',
+  'TopTier Trader', 'FundYourFX', 'Forex Prop Firm', 'FTUK', 'Ment Funding', 'Tradeify'
+];
+
+const generateColor = (str: string) => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
-  return null;
+  let color = '#';
+  for (let i = 0; i < 3; i++) {
+    const value = (hash >> (i * 8)) & 0xFF;
+    color += ('00' + value.toString(16)).substr(-2);
+  }
+  return color;
 };
 
-const SentimentScoreCard = ({ score }: { score: number }) => {
-    let colorClass = 'text-gray-500';
-    let Icon = Minus;
+const allFirms: FirmData[] = firmNames.map(name => ({
+  name,
+  logoUrl: `https://placehold.co/64x64/1a1a1a/FFFFFF?text=${name.charAt(0)}`
+}));
 
-    if (score > 60) {
-        colorClass = 'text-green-500';
-        Icon = TrendingUp;
-    } else if (score < 40) {
-        colorClass = 'text-red-500';
-        Icon = TrendingDown;
-    }
+const firmColors = allFirms.reduce((acc, firm) => {
+  acc[firm.name] = generateColor(firm.name);
+  return acc;
+}, {} as Record<string, string>);
 
-    return (
-        <div className={`flex items-center font-bold text-lg ${colorClass}`}>
-            <Icon className="w-5 h-5 mr-1" />
-            {score}
-        </div>
-    );
+const calculateWeightedScore = (data: { trustpilotRating: number; redditSentiment: number; youtubeSentiment: number; }) => {
+    const trustpilotScore = (data.trustpilotRating - 1) * 25; // Scale 1-5 to 0-100
+    const weightedScore = (trustpilotScore * 0.45) + (data.redditSentiment * 0.35) + (data.youtubeSentiment * 0.20);
+    return Math.round(Math.max(0, weightedScore));
 };
+
+const generateInitialData = () => {
+  const trendData: TrendData[] = [];
+  const weeklyData: WeeklyData = {};
+
+  for (let i = 4; i > 0; i--) {
+    const weekEntry: TrendData = { week: i === 1 ? 'Last Week' : `${i} Weeks Ago` };
+    firmNames.forEach(name => {
+      weekEntry[name] = Math.floor(Math.random() * 80) + 10;
+    });
+    trendData.unshift(weekEntry);
+  }
+
+  firmNames.forEach(name => {
+    weeklyData[name] = {
+      summary: `This is a sample summary for ${name} for the last week, highlighting recent community feedback and platform performance discussions.`,
+      positivePoints: ["Good community feedback noted on social channels.", "Platform reported as stable with minimal downtime.", "Fast response times from customer support."],
+      negativePoints: ["Some users reported concerns about payout processing times.", "Minor slippage reported during high-volatility news events."],
+      trustpilotRating: parseFloat((Math.random() * (5 - 3.5) + 3.5).toFixed(1)),
+      redditSentiment: Math.floor(Math.random() * 70) + 20,
+      youtubeSentiment: Math.floor(Math.random() * 70) + 20,
+      score: 0, // Initial score
+    };
+  });
+  
+  const lastWeekIndex = trendData.length - 1;
+  Object.keys(weeklyData).forEach(firmName => {
+      const score = calculateWeightedScore(weeklyData[firmName]);
+      weeklyData[firmName].score = score;
+      if(lastWeekIndex >= 0) {
+          trendData[lastWeekIndex][firmName] = score;
+      }
+  });
+
+  return { trendData, weeklyData };
+};
+
+const { trendData: INITIAL_TREND_DATA, weeklyData: INITIAL_WEEKLY_DATA } = generateInitialData();
 
 
 export default function SentimentAnalyzerPage() {
-  const chartConfig = {
-    score: {
-      label: 'Sentiment Score',
-      color: 'hsl(var(--chart-1))',
-    },
+  const [selectedFirms, setSelectedFirms] = useState(['FTMO', 'Topstep']);
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
+  
+  const [trendData, setTrendData] = useState<TrendData[]>(INITIAL_TREND_DATA);
+  const [weeklyData, setWeeklyData] = useState<WeeklyData>(INITIAL_WEEKLY_DATA);
+
+  const handleFirmSelection = (firmName: string) => {
+    setSelectedFirms(prev => {
+      const isSelected = prev.includes(firmName);
+      if (isSelected) {
+        if (prev.length === 1) return prev; // Must keep at least one selected
+        return prev.filter(name => name !== firmName);
+      } else {
+        if (prev.length >= 4) { // Max 4 firms
+            const newSelection = prev.slice(1);
+            return [...newSelection, firmName];
+        }
+        return [...prev, firmName];
+      }
+    });
+  };
+
+  const handleSaveData = (newWeeklyDataFromAdmin: WeeklyData) => {
+      const updatedWeeklyData = { ...newWeeklyDataFromAdmin };
+      const updatedTrendData = [...trendData];
+      const lastWeekIndex = updatedTrendData.length - 1;
+      
+      Object.keys(updatedWeeklyData).forEach(firmName => {
+          const score = calculateWeightedScore(updatedWeeklyData[firmName]);
+          updatedWeeklyData[firmName].score = score;
+          if(lastWeekIndex >= 0 && updatedTrendData[lastWeekIndex]) {
+              updatedTrendData[lastWeekIndex][firmName] = score;
+          }
+      });
+
+      setWeeklyData(updatedWeeklyData);
+      setTrendData(updatedTrendData);
+      setIsAdminOpen(false);
   };
 
   return (
     <div className="space-y-12">
-      <section className="text-center py-8 md:py-16 bg-background rounded-xl shadow-xl">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Firm Sentiment Analyzer</h1>
-          <p className="text-md md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Quantifying community buzz. We analyze mentions from Trustpilot, Reddit, and more to generate a real-time sentiment score.
-          </p>
-        </div>
+      <header className="text-center relative">
+        <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 pb-2">
+            Prop Firm Sentiment Trends
+        </h1>
+        <p className="text-muted-foreground mt-2 text-lg max-w-2xl mx-auto">
+            Tracking community sentiment for top prop firms over the last 4 weeks.
+        </p>
+        <AdminPanel 
+            weeklyData={weeklyData} 
+            onSave={handleSaveData}
+            allFirms={allFirms}
+            calculateWeightedScore={calculateWeightedScore}
+        >
+            <Button variant="ghost" size="icon" className="absolute top-0 right-0 mt-2 mr-2">
+                <Edit className="w-4 h-4" />
+            </Button>
+        </AdminPanel>
+      </header>
+
+      <section>
+        <Card>
+          <CardHeader>
+            <CardTitle>Sentiment Trend Comparison</CardTitle>
+            <CardDescription>Select up to 4 firms to compare their sentiment scores over the past month.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+             <FirmSelectionDropdown 
+                allFirms={allFirms}
+                selectedFirms={selectedFirms}
+                onFirmSelect={handleFirmSelection}
+             />
+            <SentimentTrendChart data={trendData} firms={allFirms} selectedFirms={selectedFirms} firmColors={firmColors} />
+          </CardContent>
+        </Card>
       </section>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Community Sentiment Score (Last 7 Days)</CardTitle>
-          <CardDescription>
-            This chart represents the overall positive or negative sentiment for each firm based on online mentions. Scores range from -100 (overwhelmingly negative) to +100 (overwhelmingly positive).
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ChartContainer config={chartConfig} className="w-full h-[500px]">
-            <ResponsiveContainer>
-              <BarChart data={mockSentimentData} layout="vertical" margin={{ left: 20 }}>
-                <CartesianGrid horizontal={false} strokeDasharray="3 3" />
-                <YAxis
-                  dataKey="firm"
-                  type="category"
-                  tickLine={false}
-                  axisLine={false}
-                  tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
-                  width={120}
-                />
-                <XAxis type="number" domain={[-100, 100]} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} />
-                <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--card))' }} />
-                <Bar dataKey="score" layout="vertical" radius={5}>
-                    {mockSentimentData.map((entry, index) => (
-                        <LabelList 
-                            key={`label-${index}`}
-                            dataKey="score" 
-                            position="right" 
-                            offset={10}
-                            className="font-bold"
-                            formatter={(score: number) => {
-                                let color = 'grey';
-                                if (score > 60) color = '#22c55e'; // green-500
-                                if (score < 40) color = '#ef4444'; // red-500
-                                return <tspan fill={color}>{score}</tspan>
-                            }}
-                        />
-                    ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-        </CardContent>
-      </Card>
-      
-      <Card>
-          <CardHeader>
-              <CardTitle>Sentiment Scoring Methodology</CardTitle>
-              <CardDescription>Our sentiment meter isn't arbitrary. It's a system based on quantifiable data from the community, making it a powerful and defensible tool for your users.</CardDescription>
-          </CardHeader>
-          <CardContent className="prose dark:prose-invert max-w-none">
-              <h4>1. Keyword Lexicon</h4>
-              <p>We created a dictionary of keywords and assign them a sentiment value.</p>
-              <ul>
-                  <li><strong>Positive Keywords:</strong> <Badge variant="secondary">payout</Badge>, <Badge variant="secondary">fast</Badge>, <Badge variant="secondary">legit</Badge>, <Badge variant="secondary">great support</Badge>, <Badge variant="secondary">passed</Badge>, <Badge variant="secondary">received</Badge> (+5 points each)</li>
-                  <li><strong>Negative Keywords:</strong> <Badge variant="destructive">scam</Badge>, <Badge variant="destructive">denied</Badge>, <Badge variant="destructive">lag</Badge>, <Badge variant="destructive">slippage</Badge>, <Badge variant="destructive">bad support</Badge>, <Badge variant="destructive">stuck</Badge>, <Badge variant="destructive">flagged</Badge> (-5 points each)</li>
-                  <li><strong>Neutral Keywords:</strong> challenge, rules, MT5, platform (0 points)</li>
-              </ul>
-              <h4>2. Mention-Based Scoring System</h4>
-              <p>Our backend scanner analyzes each post/review from the last 7 days. For each mention, we start with a base score and apply multipliers.</p>
-              <ul>
-                  <li><strong>Base Score:</strong> A simple positive keyword mention is +5. A negative is -5.</li>
-                  <li><strong>Interaction Multiplier:</strong> Reddit Upvote/Trustpilot "Helpful" Vote (x1.1), Comment/Reply (x1.2).</li>
-                  <li><strong>Source Weighting Multiplier:</strong> Trustpilot/Forex Peace Army Review (x1.5), Reddit Post Title (x1.2), Reddit Comment (x1.0).</li>
-              </ul>
-              <h4>3. Final Score Calculation</h4>
-              <p>For each firm, we sum up the scores of all positive and negative mentions over the week. The final sentiment score (from -100 to +100) is calculated with the formula:</p>
-              <pre><code>Final Score = ((Total Positive - Total Negative) / (Total Positive + Total Negative)) * 100</code></pre>
-          </CardContent>
-      </Card>
+      <section>
+          <h2 className="text-2xl font-bold text-center mb-6">Detailed Weekly Breakdown</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {allFirms.filter(firm => selectedFirms.includes(firm.name)).slice(0, 2).map(firm => (
+                <FirmSentimentCard key={firm.name} firm={firm} data={weeklyData[firm.name]} />
+            ))}
+        </div>
+        {selectedFirms.length > 2 && (
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                {allFirms.filter(firm => selectedFirms.includes(firm.name)).slice(2, 4).map(firm => (
+                    <FirmSentimentCard key={firm.name} firm={firm} data={weeklyData[firm.name]} />
+                ))}
+            </div>
+        )}
+      </section>
     </div>
   );
 }
