@@ -3,7 +3,6 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Edit } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { AdminPanel } from '@/components/sentiment/AdminPanel';
@@ -92,7 +91,6 @@ export default function SentimentAnalyzerPage() {
   
   const [trendData, setTrendData] = useState<TrendData[]>(INITIAL_TREND_DATA);
   const [weeklyData, setWeeklyData] = useState<WeeklyData>(INITIAL_WEEKLY_DATA);
-  const [hoveredFirm, setHoveredFirm] = useState<string | null>(null);
 
   const handleFirmSelection = (firmName: string) => {
     setSelectedFirms(prev => {
@@ -102,8 +100,8 @@ export default function SentimentAnalyzerPage() {
         return prev.filter(name => name !== firmName);
       } else {
         if (prev.length >= 4) { // Max 4 firms
-            const newSelection = prev.slice(1);
-            return [...newSelection, firmName];
+            const newSelection = [...prev.slice(1), firmName];
+            return newSelection;
         }
         return [...prev, firmName];
       }
@@ -128,16 +126,6 @@ export default function SentimentAnalyzerPage() {
       setIsAdminOpen(false);
   };
 
-  const orderedSelectedFirms = useMemo(() => {
-    if (!hoveredFirm) return selectedFirms;
-    const reordered = [...selectedFirms];
-    const index = reordered.indexOf(hoveredFirm);
-    if (index > -1) {
-      const [item] = reordered.splice(index, 1);
-      reordered.push(item);
-    }
-    return reordered;
-  }, [selectedFirms, hoveredFirm]);
 
   return (
     <div className="space-y-12">
@@ -175,9 +163,8 @@ export default function SentimentAnalyzerPage() {
             <SentimentTrendChart 
                 data={trendData} 
                 firms={allFirms} 
-                selectedFirms={orderedSelectedFirms} 
+                selectedFirms={selectedFirms} 
                 firmColors={firmColors}
-                onLineHover={setHoveredFirm}
             />
           </CardContent>
         </Card>

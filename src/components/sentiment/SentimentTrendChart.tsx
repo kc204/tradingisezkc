@@ -61,17 +61,15 @@ interface SentimentTrendChartProps {
   firms: FirmData[];
   selectedFirms: string[];
   firmColors: Record<string, string>;
-  onLineHover: (firmName: string | null) => void;
 }
 
-const SentimentTrendChart: React.FC<SentimentTrendChartProps> = ({ data, firms, selectedFirms, firmColors, onLineHover }) => {
+const SentimentTrendChart: React.FC<SentimentTrendChartProps> = ({ data, firms, selectedFirms, firmColors }) => {
   return (
     <div className="h-96 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart 
           data={data} 
           margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
-          onMouseLeave={() => onLineHover(null)}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
           <XAxis dataKey="week" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
@@ -90,7 +88,6 @@ const SentimentTrendChart: React.FC<SentimentTrendChartProps> = ({ data, firms, 
                     strokeWidth={3}
                     dot={<FirmLogoDot firms={firms} dataKey={firm.name} stroke={firmColors[firm.name]} trendData={data} />} 
                     activeDot={(props) => <ConditionalActiveDot {...props} dataLength={data.length} />}
-                    onMouseEnter={() => onLineHover(firm.name)}
                 />
             );
           })}
