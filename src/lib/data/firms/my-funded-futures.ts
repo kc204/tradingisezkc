@@ -1,3 +1,4 @@
+
 import type { PropFirm, AccountTier } from '../../types';
 
 export const myFundedFuturesAccountTiers: AccountTier[] = [
@@ -105,7 +106,7 @@ export const myFundedFutures: PropFirm = {
       { label: 'Platforms', value: 'TradingView, NinjaTrader, Tradovate & more' },
       { label: 'Account Types', value: 'Starter, Expert, Eval-to-Live'},
     ],
-    offerBadgeLabel: '100% up to $10K Profit',
+    offerBadgeLabel: '50% off all accounts',
     fundingModels: ['1-Step', '2-Step'],
     profitSplit: '80% - 90%',
     drawdownRules: 'End-of-Day Trailing or Trailing Drawdown (varies by plan)',
