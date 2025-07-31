@@ -12,28 +12,28 @@ export const e8MarketsAccountTiers: AccountTier[] = [
     { id: 'e8-one-500k', name: '$500,000 E8 One', size: 500000, evaluationFee: 1998.00, profitTargetPercentage: 9, dailyLossLimitPercentage: 4, drawdownPercentage: 6, challengeType: '1-Step' },
     
     // Program 2: E8 Classic / E8 Account (2-Step Evaluation)
-    { id: 'e8-classic-5k', name: '$5,000 E8 Classic', size: 5000, evaluationFee: 59.00, profitTargetPercentage: 8, dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '2-Step' },
-    { id: 'e8-classic-10k', name: '$10,000 E8 Classic', size: 10000, evaluationFee: 110.00, profitTargetPercentage: 8, dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '2-Step' },
-    { id: 'e8-classic-25k', name: '$25,000 E8 Classic', size: 25000, evaluationFee: 228.00, profitTargetPercentage: 8, dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '2-Step' },
-    { id: 'e8-classic-50k', name: '$50,000 E8 Classic', size: 50000, evaluationFee: 338.00, profitTargetPercentage: 8, dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '2-Step' },
-    { id: 'e8-classic-100k', name: '$100,000 E8 Classic', size: 100000, evaluationFee: 588.00, profitTargetPercentage: 8, dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '2-Step' },
-    { id: 'e8-classic-200k', name: '$200,000 E8 Classic', size: 200000, evaluationFee: 1228.00, profitTargetPercentage: 8, dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '2-Step' },
+    { id: 'e8-classic-5k', name: '$5,000 E8 Classic', size: 5000, evaluationFee: 59.00, profitTargetPercentage: [8, 4], dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '2-Step' },
+    { id: 'e8-classic-10k', name: '$10,000 E8 Classic', size: 10000, evaluationFee: 110.00, profitTargetPercentage: [8, 4], dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '2-Step' },
+    { id: 'e8-classic-25k', name: '$25,000 E8 Classic', size: 25000, evaluationFee: 228.00, profitTargetPercentage: [8, 4], dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '2-Step' },
+    { id: 'e8-classic-50k', name: '$50,000 E8 Classic', size: 50000, evaluationFee: 338.00, profitTargetPercentage: [8, 4], dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '2-Step' },
+    { id: 'e8-classic-100k', name: '$100,000 E8 Classic', size: 100000, evaluationFee: 588.00, profitTargetPercentage: [8, 4], dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '2-Step' },
+    { id: 'e8-classic-200k', name: '$200,000 E8 Classic', size: 200000, evaluationFee: 1228.00, profitTargetPercentage: [8, 4], dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '2-Step' },
 
     // Program 3: E8 Track (3-Step Evaluation) - Variation A
-    { id: 'e8-track-a-10k', name: '$10,000 E8 Track (A)', size: 10000, evaluationFee: 59.00, profitTargetPercentage: 8, dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '3-Step' },
-    { id: 'e8-track-a-25k', name: '$25,000 E8 Track (A)', size: 25000, evaluationFee: 138.00, profitTargetPercentage: 8, dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '3-Step' },
-    { id: 'e8-track-a-50k', name: '$50,000 E8 Track (A)', size: 50000, evaluationFee: 208.00, profitTargetPercentage: 8, dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '3-Step' },
-    { id: 'e8-track-a-100k', name: '$100,000 E8 Track (A)', size: 100000, evaluationFee: 358.00, profitTargetPercentage: 8, dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '3-Step' },
-    { id: 'e8-track-a-200k', name: '$200,000 E8 Track (A)', size: 200000, evaluationFee: 598.00, profitTargetPercentage: 8, dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '3-Step' },
-    { id: 'e8-track-a-400k', name: '$400,000 E8 Track (A)', size: 400000, evaluationFee: 1188.00, profitTargetPercentage: 8, dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '3-Step' },
+    { id: 'e8-track-a-10k', name: '$10,000 E8 Track (A)', size: 10000, evaluationFee: 59.00, profitTargetPercentage: [8, 4, 4], dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '3-Step' },
+    { id: 'e8-track-a-25k', name: '$25,000 E8 Track (A)', size: 25000, evaluationFee: 138.00, profitTargetPercentage: [8, 4, 4], dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '3-Step' },
+    { id: 'e8-track-a-50k', name: '$50,000 E8 Track (A)', size: 50000, evaluationFee: 208.00, profitTargetPercentage: [8, 4, 4], dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '3-Step' },
+    { id: 'e8-track-a-100k', name: '$100,000 E8 Track (A)', size: 100000, evaluationFee: 358.00, profitTargetPercentage: [8, 4, 4], dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '3-Step' },
+    { id: 'e8-track-a-200k', name: '$200,000 E8 Track (A)', size: 200000, evaluationFee: 598.00, profitTargetPercentage: [8, 4, 4], dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '3-Step' },
+    { id: 'e8-track-a-400k', name: '$400,000 E8 Track (A)', size: 400000, evaluationFee: 1188.00, profitTargetPercentage: [8, 4, 4], dailyLossLimitPercentage: 4, drawdownPercentage: 8, challengeType: '3-Step' },
     
     // Program 3: E8 Track (3-Step Evaluation) - Variation B
-    { id: 'e8-track-b-10k', name: '$10,000 E8 Track (B)', size: 10000, evaluationFee: 59.00, profitTargetPercentage: 5, dailyLossLimitPercentage: 5, drawdownPercentage: 5, challengeType: '3-Step' },
-    { id: 'e8-track-b-25k', name: '$25,000 E8 Track (B)', size: 25000, evaluationFee: 138.00, profitTargetPercentage: 5, dailyLossLimitPercentage: 5, drawdownPercentage: 5, challengeType: '3-Step' },
-    { id: 'e8-track-b-50k', name: '$50,000 E8 Track (B)', size: 50000, evaluationFee: 208.00, profitTargetPercentage: 5, dailyLossLimitPercentage: 5, drawdownPercentage: 5, challengeType: '3-Step' },
-    { id: 'e8-track-b-100k', name: '$100,000 E8 Track (B)', size: 100000, evaluationFee: 358.00, profitTargetPercentage: 5, dailyLossLimitPercentage: 5, drawdownPercentage: 5, challengeType: '3-Step' },
-    { id: 'e8-track-b-200k', name: '$200,000 E8 Track (B)', size: 200000, evaluationFee: 598.00, profitTargetPercentage: 5, dailyLossLimitPercentage: 5, drawdownPercentage: 5, challengeType: '3-Step' },
-    { id: 'e8-track-b-400k', name: '$400,000 E8 Track (B)', size: 400000, evaluationFee: 1188.00, profitTargetPercentage: 5, dailyLossLimitPercentage: 5, drawdownPercentage: 5, challengeType: '3-Step' },
+    { id: 'e8-track-b-10k', name: '$10,000 E8 Track (B)', size: 10000, evaluationFee: 59.00, profitTargetPercentage: [5, 5, 5], dailyLossLimitPercentage: 5, drawdownPercentage: 5, challengeType: '3-Step' },
+    { id: 'e8-track-b-25k', name: '$25,000 E8 Track (B)', size: 25000, evaluationFee: 138.00, profitTargetPercentage: [5, 5, 5], dailyLossLimitPercentage: 5, drawdownPercentage: 5, challengeType: '3-Step' },
+    { id: 'e8-track-b-50k', name: '$50,000 E8 Track (B)', size: 50000, evaluationFee: 208.00, profitTargetPercentage: [5, 5, 5], dailyLossLimitPercentage: 5, drawdownPercentage: 5, challengeType: '3-Step' },
+    { id: 'e8-track-b-100k', name: '$100,000 E8 Track (B)', size: 100000, evaluationFee: 358.00, profitTargetPercentage: [5, 5, 5], dailyLossLimitPercentage: 5, drawdownPercentage: 5, challengeType: '3-Step' },
+    { id: 'e8-track-b-200k', name: '$200,000 E8 Track (B)', size: 200000, evaluationFee: 598.00, profitTargetPercentage: [5, 5, 5], dailyLossLimitPercentage: 5, drawdownPercentage: 5, challengeType: '3-Step' },
+    { id: 'e8-track-b-400k', name: '$400,000 E8 Track (B)', size: 400000, evaluationFee: 1188.00, profitTargetPercentage: [5, 5, 5], dailyLossLimitPercentage: 5, drawdownPercentage: 5, challengeType: '3-Step' },
 ];
 
 export const e8Markets: PropFirm = {
@@ -61,7 +61,7 @@ export const e8Markets: PropFirm = {
         <ul>
             <li><strong>FX:</strong> $5 per lot.</li>
             <li><strong>Metals & Energy:</strong> $6 per lot.</li>
-            <li><strong>Indices:</strong> $6 per lot (major indices), $12 per lot (DOW Jones, Australia 200).</li>
+            <li><strong>Indices:</strong> $6 per lot (major indices), $12 per lot (for DOW Jones, Australia 200).</li>
             <li><strong>Crypto:</strong> $30 per lot.</li>
         </ul>
     </li>
@@ -78,9 +78,9 @@ export const e8Markets: PropFirm = {
         <ul>
             <li><strong>Max Position Size:</strong> 50 lots (FX/commodities), 100 lots (indices).</li>
             <li><strong>Server Requests:</strong> Limited to 2000 modifications and 2000 positions per day.</li>
-            <li><strong>Risk Management:</strong> Risking the entire account on one trade is forbidden.</li>
+            <li><strong>Risk Management:</strong> Risking the entire account balance on one trade is forbidden.</li>
             <li><strong>Hedging:</strong> Prohibited across different accounts.</li>
-            <li><strong>Trade Duration:</strong> No more than 50% of trades can last under one minute.</li>
+            <li><strong>Trade Duration:</strong> No more than 50% of your trades can last for under one minute.</li>
         </ul>
     </li>
     <li><strong>Strategy Rules:</strong>

@@ -15,9 +15,9 @@ export interface AccountTier {
   activationFee?: number; // Optional, as not all tiers/firms have it
   resetFee?: number; // Optional, typical cost for one reset
   discountPercentage?: number; // Optional field for discounts
-  profitTargetPercentage?: number | null;
-  drawdownPercentage?: number | null;
-  dailyLossLimitPercentage?: number | null;
+  profitTargetPercentage?: number | (number | null)[] | null;
+  drawdownPercentage?: number | (number | null)[] | null;
+  dailyLossLimitPercentage?: number | (number | null)[] | null;
   drawdownRules?: string; // For text-based rules like "Trailing Threshold"
   platform?: string; // For platform-specific pricing, e.g., Maven
   challengeType?: string; // e.g., '1-Step', 'Instant Funding'

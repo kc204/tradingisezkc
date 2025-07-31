@@ -86,17 +86,10 @@ export const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
     let dailyLoss: number | (number | null)[] | null = tier.dailyLossLimitPercentage || null;
     let maxLoss: number | (number | null)[] | null = tier.drawdownPercentage || null;
 
-    // Handle multi-step challenges for specific firms
-    if (firm.slug === 'ftmo' && tier.challengeType === '2-Step') {
+    if (Array.isArray(tier.profitTargetPercentage)) {
+        profitTarget = tier.profitTargetPercentage;
+    } else if (firm.slug === 'ftmo' && tier.challengeType === '2-Step') {
       profitTarget = [10, 5];
-    } else if (firm.slug === 'e8-markets') {
-        if (tier.challengeType === '2-Step') {
-            profitTarget = [8, 4];
-        } else if (tier.challengeType === '3-Step' && tier.name?.includes('(A)')) {
-            profitTarget = [8, 4, 4];
-        } else if (tier.challengeType === '3-Step' && tier.name?.includes('(B)')) {
-            profitTarget = [5, 5, 5];
-        }
     }
 
 
