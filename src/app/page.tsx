@@ -303,9 +303,9 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
         { key: 'activationfee', label: 'Activation Fee', align: 'center' },
         { key: 'profitsplit', label: 'Profit Split', align: 'center' },
         { key: 'maxallocation', label: 'Max Allocation', align: 'center' },
-        { key: 'profittarget', label: 'Profit Target', align: 'center' },
-        { key: 'dailyloss', label: 'Daily Loss', align: 'center' },
-        { key: 'maxloss', label: 'Max Loss', align: 'center' },
+        { key: 'profitTarget', label: 'Profit Target', align: 'center' },
+        { key: 'dailyLoss', label: 'Daily Loss', align: 'center' },
+        { key: 'maxLoss', label: 'Max Loss', align: 'center' },
         { key: 'payoutfrequency', label: 'Payout', align: 'center' },
         { key: 'price', label: 'Prices', sticky: 'right', align: 'right' },
     ];
@@ -345,6 +345,14 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
 const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
     const firm = mockPropFirms.find(f => f.slug === challenge.firmId) || null;
+    
+    const formatPercent = (value: number | (number | null)[] | null | undefined) => {
+        if (value === null || value === undefined) return 'N/A';
+        if (Array.isArray(value)) {
+            return value.map(v => v === null ? 'N/A' : `${v}%`).join(' / ');
+        }
+        return `${value}%`;
+    }
     
     if (!firm) {
         return (
@@ -388,9 +396,9 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                     </div>
                 </td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.maxAllocation)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.profitTarget)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.dailyLoss)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.maxLoss)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.profitTarget)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.dailyLoss)}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.maxLoss)}</td>
                 <td className="px-2 py-3 sm:px-4 text-xs text-gray-300 max-w-[200px] truncate text-center" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover/row:bg-gray-800">
                     <div className="flex flex-col items-end sm:flex-row sm:items-center sm:justify-end gap-2">
@@ -448,7 +456,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: any) => {
     )
 }
 
-const FullCompareSection = () => {
+function FullCompareSection() {
   const [challenges, setChallenges] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [selectedFirm, setSelectedFirm] = React.useState('');

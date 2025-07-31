@@ -79,27 +79,49 @@ export const ALL_CHALLENGES_DATA = mockPropFirms.flatMap(firm => {
   if (!firm.accountTiers || firm.accountTiers.length === 0) {
     return [];
   }
-  return firm.accountTiers.map(tier => ({
-    id: `${firm.slug}-${tier.id}`,
-    firmId: firm.slug,
-    firmName: firm.name,
-    logoUrl: firm.logoUrl,
-    trustpilotRating: firm.rating || 0,
-    trustpilotReviewCount: firm.rating ? Math.floor(firm.rating * (250 + (parseInt(firm.id, 10) % 10) * 10)) : 50,
-    accountSize: tier.size,
-    maxAllocation: firm.maxAccountSize || 0,
-    steps: tier.challengeType?.includes('Step') ? parseInt(tier.challengeType.split('-')[0], 10) : 0,
-    isInstant: tier.challengeType?.toLowerCase().includes('instant') || false,
-    price: tier.evaluationFee,
-    paymentType: firm.fundingModels?.includes('1-Step') ? 'Monthly' : 'One Time', // Simplified logic
-    promoDiscountPercent: firm.offerBadgeLabel ? parseInt(firm.offerBadgeLabel.match(/(\d+)%?/)?.[1] || '0', 10) : 0,
-    activationFee: tier.activationFee,
-    profitTarget: tier.profitTargetPercentage ? tier.size * (tier.profitTargetPercentage / 100) : null,
-    dailyLoss: tier.dailyLossLimitPercentage ? tier.size * (tier.dailyLossLimitPercentage / 100) : null,
-    maxLoss: tier.drawdownPercentage ? tier.size * (tier.drawdownPercentage / 100) : null,
-    profitSplit: firm.profitSplit ? parseInt(firm.profitSplit.match(/\d+/)?.[0] || '80', 10) : 80,
-    payoutFrequency: firm.payoutFrequency || 'Varies',
-    affiliateLink: firm.affiliateLink,
-    challengeType: firm.instrumentTypes?.includes('Futures') ? 'futures' : 'cfd',
-  }));
+  return firm.accountTiers.map(tier => {
+    
+    // Default profit target
+    let profitTarget: number | (number | null)[] | null = tier.profitTargetPercentage || null;
+    let dailyLoss: number | (number | null)[] | null = tier.dailyLossLimitPercentage || null;
+    let maxLoss: number | (number | null)[] | null = tier.drawdownPercentage || null;
+
+    // Handle multi-step challenges for specific firms
+    if (firm.slug === 'ftmo' && tier.challengeType === '2-Step') {
+      profitTarget = [10, 5];
+    } else if (firm.slug === 'e8-markets') {
+        if (tier.challengeType === '2-Step') {
+            profitTarget = [8, 4];
+        } else if (tier.challengeType === '3-Step' && tier.name?.includes('(A)')) {
+            profitTarget = [8, 4, 4];
+        } else if (tier.challengeType === '3-Step' && tier.name?.includes('(B)')) {
+            profitTarget = [5, 5, 5];
+        }
+    }
+
+
+    return {
+        id: `${firm.slug}-${tier.id}`,
+        firmId: firm.slug,
+        firmName: firm.name,
+        logoUrl: firm.logoUrl,
+        trustpilotRating: firm.rating || 0,
+        trustpilotReviewCount: firm.rating ? Math.floor(firm.rating * (250 + (parseInt(firm.id, 10) % 10) * 10)) : 50,
+        accountSize: tier.size,
+        maxAllocation: firm.maxAccountSize || 0,
+        steps: tier.challengeType?.includes('Step') ? parseInt(tier.challengeType.split('-')[0], 10) : 0,
+        isInstant: tier.challengeType?.toLowerCase().includes('instant') || false,
+        price: tier.evaluationFee,
+        paymentType: firm.fundingModels?.includes('1-Step') ? 'Monthly' : 'One Time', // Simplified logic
+        promoDiscountPercent: firm.offerBadgeLabel ? parseInt(firm.offerBadgeLabel.match(/(\d+)%?/)?.[1] || '0', 10) : 0,
+        activationFee: tier.activationFee,
+        profitTarget: profitTarget,
+        dailyLoss: dailyLoss,
+        maxLoss: maxLoss,
+        profitSplit: firm.profitSplit ? parseInt(firm.profitSplit.match(/\d+/)?.[0] || '80', 10) : 80,
+        payoutFrequency: firm.payoutFrequency || 'Varies',
+        affiliateLink: firm.affiliateLink,
+        challengeType: firm.instrumentTypes?.includes('Futures') ? 'futures' : 'cfd',
+    };
+  });
 });
