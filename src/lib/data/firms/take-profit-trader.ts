@@ -1,3 +1,4 @@
+
 import type { PropFirm, AccountTier } from '../../types';
 
 export const tptAccountTiers: AccountTier[] = [
