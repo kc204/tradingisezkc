@@ -1,3 +1,4 @@
+
 import type { PropFirm, AccountTier } from '../../types';
 
 export const apexTraderFundingAccountTiers: AccountTier[] = [
@@ -35,6 +36,7 @@ export const apexTraderFunding: PropFirm = {
     websiteUrl: '#',
     affiliateLink: '#',
     isFeatured: false,
+    offerBadgeLabel: '80% off all accounts',
     ceo: 'Darrel Martin',
     dateCreated: 'January 2021',
     briefDescription: 'A popular futures prop firm offering a 1-Step Evaluation with no daily loss limit and a 100% profit split.',
@@ -136,3 +138,5 @@ export const apexTraderFunding: PropFirm = {
       { name: "Western Sahara", code: "EH" }, { name: "Yemen", code: "YE" }, { name: "Zambia", code: "ZM" }, { name: "Zimbabwe", code: "ZW" }
     ],
   };
+
+    
