@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Edit } from 'lucide-react';
+import { Edit, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AdminPanel } from '@/components/sentiment/AdminPanel';
 import SentimentTrendChart from '@/components/sentiment/SentimentTrendChart';
@@ -38,6 +38,8 @@ const firmColors = allFirms.reduce((acc, firm) => {
 }, {} as Record<string, string>);
 
 const calculateWeightedScore = (data: { trustpilotRating: number; redditSentiment: number; youtubeSentiment: number; }) => {
+    // Reddit and Youtube sentiment are now derived from the summary, so we can simplify this.
+    // For now, we keep the calculation, but the inputs for reddit/youtube sentiment will be static.
     const trustpilotScore = (data.trustpilotRating - 1) * 25; // Scale 1-5 to 0-100
     const weightedScore = (trustpilotScore * 0.45) + (data.redditSentiment * 0.35) + (data.youtubeSentiment * 0.20);
     return Math.round(Math.max(0, weightedScore));
@@ -63,9 +65,12 @@ const generateInitialData = () => {
       positivePoints: ["Good community feedback noted on social channels.", "Platform reported as stable with minimal downtime.", "Fast response times from customer support."],
       negativePoints: ["Some users reported concerns about payout processing times.", "Minor slippage reported during high-volatility news events."],
       trustpilotRating: firm?.rating || parseFloat((Math.random() * (5 - 3.5) + 3.5).toFixed(1)),
-      redditSentiment: Math.floor(Math.random() * 70) + 20,
+      // We'll keep these for the weighting but they are no longer manually set.
+      redditSentiment: Math.floor(Math.random() * 70) + 20, 
       youtubeSentiment: Math.floor(Math.random() * 70) + 20,
-      score: 0, // Initial score
+      score: 0,
+      rawRedditContent: '',
+      rawYoutubeContent: '',
     };
   });
   
@@ -81,24 +86,28 @@ const generateInitialData = () => {
   return { trendData, weeklyData };
 };
 
-const { trendData: INITIAL_TREND_DATA, weeklyData: INITIAL_WEEKLY_DATA } = generateInitialData();
-
 
 export default function SentimentAnalyzerPage() {
+  const [initialData] = useState(generateInitialData());
   const [selectedFirms, setSelectedFirms] = useState([mockPropFirms[0]?.name || 'FTMO', mockPropFirms[1]?.name || 'Topstep']);
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
   
-  const [trendData, setTrendData] = useState<TrendData[]>(INITIAL_TREND_DATA);
-  const [weeklyData, setWeeklyData] = useState<WeeklyData>(INITIAL_WEEKLY_DATA);
+  const [trendData, setTrendData] = useState<TrendData[]>(initialData.trendData);
+  const [weeklyData, setWeeklyData] = useState<WeeklyData>(initialData.weeklyData);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   const handleFirmSelection = (firmName: string) => {
     setSelectedFirms(prev => {
       const isSelected = prev.includes(firmName);
       if (isSelected) {
-        if (prev.length === 1) return prev; // Must keep at least one selected
+        if (prev.length === 1) return prev; 
         return prev.filter(name => name !== firmName);
       } else {
-        if (prev.length >= 4) { // Max 4 firms
+        if (prev.length >= 4) { 
             const newSelection = [...prev.slice(1), firmName];
             return newSelection;
         }
@@ -122,29 +131,36 @@ export default function SentimentAnalyzerPage() {
 
       setWeeklyData(updatedWeeklyData);
       setTrendData(updatedTrendData);
-      setIsAdminOpen(false);
   };
+  
+  if (loading) {
+      return (
+        <div className="flex h-screen w-full items-center justify-center">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      );
+  }
 
 
   return (
     <div className="space-y-12 font-sans text-white">
-      <header className="text-center relative mb-10">
-        <h1 className="text-5xl font-extrabold text-white tracking-tight">
-            Prop Firm Sentiment Trends
-        </h1>
-        <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">
-            Tracking community sentiment for top prop firms over the last 4 weeks.
-        </p>
-        <AdminPanel 
-            weeklyData={weeklyData} 
-            onSave={handleSaveData}
-            allFirms={allFirms}
-            calculateWeightedScore={calculateWeightedScore}
-        >
-            <Button variant="ghost" size="icon" className="absolute top-0 right-0 mt-2 mr-2 text-gray-400 hover:text-white">
-                <Edit className="w-4 h-4" />
-            </Button>
-        </AdminPanel>
+      <header className="mb-10 text-center">
+          <h1 className="text-5xl font-extrabold text-white tracking-tight">
+              Prop Firm Sentiment Trends
+          </h1>
+          <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">
+              Tracking community sentiment for top prop firms over the last 4 weeks.
+          </p>
+          <AdminPanel 
+              weeklyData={weeklyData} 
+              onSave={handleSaveData}
+              allFirms={allFirms}
+              calculateWeightedScore={calculateWeightedScore}
+          >
+              <Button variant="ghost" size="icon" className="absolute top-0 right-0 mt-2 mr-2 text-gray-400 hover:text-white">
+                  <Edit className="w-4 h-4" />
+              </Button>
+          </AdminPanel>
       </header>
 
       <main>
@@ -166,7 +182,7 @@ export default function SentimentAnalyzerPage() {
 
         <section>
             <h2 className="text-2xl font-bold text-center mb-8 text-white/90">Detailed Weekly Breakdown</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {allFirms.filter(firm => selectedFirms.includes(firm.name)).map(firm => (
                   <FirmSentimentCard key={firm.name} firm={firm} data={weeklyData[firm.name]} />
               ))}

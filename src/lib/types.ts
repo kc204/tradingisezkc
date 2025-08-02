@@ -149,6 +149,8 @@ export interface WeeklyFirmData {
     redditSentiment: number;
     youtubeSentiment: number;
     score: number;
+    rawRedditContent?: string;
+    rawYoutubeContent?: string;
 }
 
 export interface WeeklyData {

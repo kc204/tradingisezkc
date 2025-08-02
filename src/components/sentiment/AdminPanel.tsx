@@ -9,8 +9,10 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
-import { Star, MessageSquare, Youtube, X } from 'lucide-react';
+import { Star, MessageSquare, Youtube, X, Loader2, Wand2 } from 'lucide-react';
 import type { WeeklyData, FirmData } from '@/lib/types';
+import { generateSentimentSummaryAction } from '@/app/actions';
+import { useToast } from '@/hooks/use-toast';
 
 interface AdminPanelProps {
   weeklyData: WeeklyData;
@@ -25,19 +27,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { toast } = useToast();
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const [localWeeklyData, setLocalWeeklyData] = useState<WeeklyData | null>(null);
   const [editingFirm, setEditingFirm] = useState<string | null>(null);
   
   useEffect(() => {
-    // Sync local state when the panel opens
     if (isPanelOpen) {
       setLocalWeeklyData(JSON.parse(JSON.stringify(weeklyData)));
-      if (allFirms.length > 0) {
+      if (allFirms.length > 0 && !editingFirm) {
         setEditingFirm(allFirms[0].name);
       }
     }
-  }, [isPanelOpen, weeklyData, allFirms]);
+  }, [isPanelOpen, weeklyData, allFirms, editingFirm]);
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,6 +72,41 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
         const updatedFirmData = { ...prev[editingFirm], [field]: value };
         return { ...prev, [editingFirm]: updatedFirmData };
     });
+  };
+
+  const handleGenerateSummary = async () => {
+      if (!editingFirm || !localWeeklyData) return;
+
+      const currentFirm = localWeeklyData[editingFirm];
+      const redditContent = currentFirm.rawRedditContent || '';
+      const youtubeContent = currentFirm.rawYoutubeContent || '';
+
+      if (!redditContent && !youtubeContent) {
+          toast({ variant: 'destructive', title: 'Error', description: 'Please provide Reddit or YouTube content to generate a summary.' });
+          return;
+      }
+
+      setIsGenerating(true);
+      const result = await generateSentimentSummaryAction({ redditContent, youtubeContent });
+      setIsGenerating(false);
+
+      if (result.error) {
+          toast({ variant: 'destructive', title: 'Generation Failed', description: result.error });
+      } else if (result.data) {
+          setLocalWeeklyData(prev => {
+              if (!prev || !editingFirm) return prev;
+              return {
+                  ...prev,
+                  [editingFirm]: {
+                      ...prev[editingFirm],
+                      summary: result.data.summary,
+                      positivePoints: result.data.positivePoints,
+                      negativePoints: result.data.negativePoints,
+                  }
+              }
+          });
+          toast({ title: 'Summary Generated!', description: 'The summary and points have been populated.' });
+      }
   };
 
   const currentFirmData = editingFirm && localWeeklyData ? localWeeklyData[editingFirm] : null;
@@ -107,7 +145,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
       )}
 
       {isPanelOpen && localWeeklyData && currentFirmData && (
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-4xl h-[90vh]">
           <DialogHeader>
             <DialogTitle>Update Weekly Sentiment</DialogTitle>
             <DialogDescription>
@@ -125,7 +163,21 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
                     </SelectContent>
                 </Select>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4 flex-1 overflow-y-auto pr-4">
+                <div className="space-y-4">
+                     <div className="space-y-2">
+                        <Label className="flex items-center gap-2"><MessageSquare className="w-5 h-5 text-orange-400" /> Raw Reddit Posts & Comments</Label>
+                        <Textarea value={currentFirmData.rawRedditContent || ''} onChange={e => handleWeeklyChange('rawRedditContent', e.target.value)} rows={10} placeholder="Paste Reddit content here..."/>
+                    </div>
+                     <div className="space-y-2">
+                         <Label className="flex items-center gap-2"><Youtube className="w-5 h-5 text-red-500" /> Raw YouTube Transcripts & Comments</Label>
+                        <Textarea value={currentFirmData.rawYoutubeContent || ''} onChange={e => handleWeeklyChange('rawYoutubeContent', e.target.value)} rows={10} placeholder="Paste YouTube content here..."/>
+                    </div>
+                    <Button onClick={handleGenerateSummary} disabled={isGenerating} className="w-full">
+                        {isGenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Wand2 className="mr-2 h-4 w-4" />}
+                        Generate Summary & Points
+                    </Button>
+                </div>
                 <div className="space-y-4">
                     <div className="flex items-center gap-3">
                         <Star className="w-5 h-5 text-yellow-400 flex-shrink-0" />
@@ -134,28 +186,18 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
                             <Input type="number" step="0.1" min="1" max="5" value={currentFirmData.trustpilotRating} onChange={(e) => handleWeeklyChange('trustpilotRating', parseFloat(e.target.value))} />
                         </div>
                     </div>
-                     <div className="space-y-2">
-                        <Label className="flex items-center gap-2"><MessageSquare className="w-5 h-5 text-orange-400" /> Reddit Sentiment: {currentFirmData.redditSentiment}</Label>
-                        <Slider value={[currentFirmData.redditSentiment]} onValueChange={(val) => handleWeeklyChange('redditSentiment', val[0])} max={100} step={1} />
-                    </div>
                     <div className="space-y-2">
-                         <Label className="flex items-center gap-2"><Youtube className="w-5 h-5 text-red-500" /> YouTube Sentiment: {currentFirmData.youtubeSentiment}</Label>
-                        <Slider value={[currentFirmData.youtubeSentiment]} onValueChange={(val) => handleWeeklyChange('youtubeSentiment', val[0])} max={100} step={1} />
-                    </div>
-                </div>
-                <div className="space-y-4">
-                    <div className="space-y-2">
-                        <Label>Summary</Label>
+                        <Label>Generated Summary</Label>
                         <Textarea value={currentFirmData.summary} onChange={e => handleWeeklyChange('summary', e.target.value)} rows={5}/>
                     </div>
-                </div>
-                <div className="space-y-2">
-                    <Label>Positive Points (one per line)</Label>
-                    <Textarea value={currentFirmData.positivePoints.join('\n')} onChange={e => handleWeeklyChange('positivePoints', e.target.value.split('\n'))} rows={4} />
-                </div>
-                <div className="space-y-2">
-                    <Label>Negative Points (one per line)</Label>
-                    <Textarea value={currentFirmData.negativePoints.join('\n')} onChange={e => handleWeeklyChange('negativePoints', e.target.value.split('\n'))} rows={4} />
+                     <div className="space-y-2">
+                        <Label>Generated Positive Points (one per line)</Label>
+                        <Textarea value={currentFirmData.positivePoints.join('\n')} onChange={e => handleWeeklyChange('positivePoints', e.target.value.split('\n'))} rows={4} />
+                    </div>
+                    <div className="space-y-2">
+                        <Label>Generated Negative Points (one per line)</Label>
+                        <Textarea value={currentFirmData.negativePoints.join('\n')} onChange={e => handleWeeklyChange('negativePoints', e.target.value.split('\n'))} rows={4} />
+                    </div>
                 </div>
             </div>
           <DialogFooter>
