@@ -55,7 +55,7 @@ const generateInitialData = () => {
     firmNames.forEach(name => {
       weekEntry[name] = Math.floor(Math.random() * 80) + 10;
     });
-    trendData.unshift(weekEntry);
+    trendData.push(weekEntry); // Use push to maintain chronological order
   }
 
   firmNames.forEach(name => {
@@ -161,16 +161,18 @@ export default function SentimentAnalyzerPage() {
                   selectedFirms={selectedFirms}
                   onFirmSelect={handleFirmSelection}
               />
-              <AdminPanel 
-                  weeklyData={weeklyData} 
-                  onSave={handleSaveData}
-                  allFirms={allFirms}
-                  calculateWeightedScore={calculateWeightedScore}
-              >
-                  <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
-                      <Edit className="w-4 h-4" />
-                  </Button>
-              </AdminPanel>
+              <div className="relative">
+                <AdminPanel 
+                    weeklyData={weeklyData} 
+                    onSave={handleSaveData}
+                    allFirms={allFirms}
+                    calculateWeightedScore={calculateWeightedScore}
+                >
+                    <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+                        <Edit className="w-4 h-4" />
+                    </Button>
+                </AdminPanel>
+              </div>
           </div>
             <SentimentTrendChart 
                 data={trendData} 
