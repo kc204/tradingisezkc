@@ -167,16 +167,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
                 <div className="space-y-4">
                      <div className="space-y-2">
                         <Label className="flex items-center gap-2"><MessageSquare className="w-5 h-5 text-orange-400" /> Raw Reddit Posts & Comments</Label>
-                        <Textarea value={currentFirmData.rawRedditContent || ''} onChange={e => handleWeeklyChange('rawRedditContent', e.target.value)} rows={10} placeholder="Paste Reddit content here..."/>
+                        <Textarea value={currentFirmData.rawRedditContent || ''} onChange={e => handleWeeklyChange('rawRedditContent', e.target.value)} rows={6} placeholder="Paste Reddit content here..."/>
                     </div>
                      <div className="space-y-2">
                          <Label className="flex items-center gap-2"><Youtube className="w-5 h-5 text-red-500" /> Raw YouTube Transcripts & Comments</Label>
-                        <Textarea value={currentFirmData.rawYoutubeContent || ''} onChange={e => handleWeeklyChange('rawYoutubeContent', e.target.value)} rows={10} placeholder="Paste YouTube content here..."/>
+                        <Textarea value={currentFirmData.rawYoutubeContent || ''} onChange={e => handleWeeklyChange('rawYoutubeContent', e.target.value)} rows={6} placeholder="Paste YouTube content here..."/>
                     </div>
                     <Button onClick={handleGenerateSummary} disabled={isGenerating} className="w-full">
                         {isGenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Wand2 className="mr-2 h-4 w-4" />}
                         Generate Summary & Points
                     </Button>
+                     <div className="space-y-2">
+                        <Label>Generated Summary</Label>
+                        <Textarea value={currentFirmData.summary} onChange={e => handleWeeklyChange('summary', e.target.value)} rows={4}/>
+                    </div>
                 </div>
                 <div className="space-y-4">
                     <div className="flex items-center gap-3">
@@ -186,9 +190,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
                             <Input type="number" step="0.1" min="1" max="5" value={currentFirmData.trustpilotRating} onChange={(e) => handleWeeklyChange('trustpilotRating', parseFloat(e.target.value))} />
                         </div>
                     </div>
-                    <div className="space-y-2">
-                        <Label>Generated Summary</Label>
-                        <Textarea value={currentFirmData.summary} onChange={e => handleWeeklyChange('summary', e.target.value)} rows={5}/>
+                    <div className="space-y-3">
+                        <Label className="flex items-center gap-2"><MessageSquare className="w-5 h-5 text-orange-400" /> Reddit Sentiment ({currentFirmData.redditSentiment})</Label>
+                        <Slider value={[currentFirmData.redditSentiment]} onValueChange={(value) => handleWeeklyChange('redditSentiment', value[0])} max={100} step={1} />
+                    </div>
+                    <div className="space-y-3">
+                        <Label className="flex items-center gap-2"><Youtube className="w-5 h-5 text-red-500" /> YouTube Sentiment ({currentFirmData.youtubeSentiment})</Label>
+                        <Slider value={[currentFirmData.youtubeSentiment]} onValueChange={(value) => handleWeeklyChange('youtubeSentiment', value[0])} max={100} step={1} />
                     </div>
                      <div className="space-y-2">
                         <Label>Generated Positive Points (one per line)</Label>
