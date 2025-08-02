@@ -9,10 +9,11 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
-import { Star, MessageSquare, Youtube, X, Loader2, Wand2 } from 'lucide-react';
-import type { WeeklyData, FirmData } from '@/lib/types';
+import { Star, MessageSquare, Youtube, X, Loader2, Wand2, PlusCircle, Trash2 } from 'lucide-react';
+import type { WeeklyData, FirmData, ContentSource } from '@/lib/types';
 import { generateSentimentSummaryAction } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface AdminPanelProps {
   weeklyData: WeeklyData;
@@ -21,6 +22,68 @@ interface AdminPanelProps {
   calculateWeightedScore: (data: { trustpilotRating: number; redditSentiment: number; youtubeSentiment: number; }) => number;
   children: React.ReactNode;
 }
+
+const SourceInputList: React.FC<{
+  sources: ContentSource[];
+  onSourcesChange: (sources: ContentSource[]) => void;
+  platformName: 'Reddit' | 'YouTube';
+}> = ({ sources, onSourcesChange, platformName }) => {
+  
+  const addSource = () => {
+    onSourcesChange([...sources, { post: '', comments: '' }]);
+  };
+
+  const removeSource = (index: number) => {
+    onSourcesChange(sources.filter((_, i) => i !== index));
+  };
+
+  const handleSourceChange = (index: number, field: keyof ContentSource, value: string) => {
+    const newSources = [...sources];
+    newSources[index][field] = value;
+    onSourcesChange(newSources);
+  };
+  
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <Label className="flex items-center gap-2">
+          {platformName === 'Reddit' ? <MessageSquare className="w-5 h-5 text-orange-400" /> : <Youtube className="w-5 h-5 text-red-500" />}
+          Raw {platformName} Sources
+        </Label>
+        <Button size="sm" variant="ghost" type="button" onClick={addSource}>
+          <PlusCircle className="w-4 h-4 mr-2" />
+          Add {platformName === 'Reddit' ? 'Post' : 'Video'}
+        </Button>
+      </div>
+      <div className="space-y-3 rounded-md border p-3 max-h-64 overflow-y-auto">
+        {sources.length === 0 && <p className="text-sm text-muted-foreground text-center py-4">No {platformName} sources added.</p>}
+        {sources.map((source, index) => (
+          <div key={index} className="space-y-2 border-b pb-3 last:border-b-0">
+            <div className="flex justify-between items-center">
+              <Label className="text-xs font-semibold">Source #{index + 1}</Label>
+              <Button size="icon" variant="ghost" type="button" onClick={() => removeSource(index)} className="h-6 w-6">
+                <Trash2 className="w-4 h-4 text-destructive" />
+              </Button>
+            </div>
+            <Textarea
+              value={source.post}
+              onChange={e => handleSourceChange(index, 'post', e.target.value)}
+              rows={3}
+              placeholder={`${platformName === 'Reddit' ? 'Post content' : 'Video transcript'}...`}
+            />
+            <Textarea
+              value={source.comments}
+              onChange={e => handleSourceChange(index, 'comments', e.target.value)}
+              rows={3}
+              placeholder="Comments..."
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 
 export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, children, allFirms, calculateWeightedScore }) => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
@@ -65,7 +128,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
     setIsPanelOpen(false);
   };
 
-  const handleWeeklyChange = (field: string, value: any) => {
+  const handleFieldChange = (field: string, value: any) => {
     if (!editingFirm || !localWeeklyData) return;
     setLocalWeeklyData(prev => {
         if (!prev) return null;
@@ -74,12 +137,17 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
     });
   };
 
+  const handleSourcesChange = (platform: 'reddit' | 'youtube', sources: ContentSource[]) => {
+      const field = platform === 'reddit' ? 'redditSources' : 'youtubeSources';
+      handleFieldChange(field, sources);
+  }
+
   const handleGenerateSummary = async () => {
       if (!editingFirm || !localWeeklyData) return;
 
       const currentFirm = localWeeklyData[editingFirm];
-      const redditContent = currentFirm.rawRedditContent || '';
-      const youtubeContent = currentFirm.rawYoutubeContent || '';
+      const redditContent = currentFirm.redditSources.map(s => `${s.post}\n${s.comments}`).join('\n\n---\n\n');
+      const youtubeContent = currentFirm.youtubeSources.map(s => `${s.post}\n${s.comments}`).join('\n\n---\n\n');
 
       if (!redditContent && !youtubeContent) {
           toast({ variant: 'destructive', title: 'Error', description: 'Please provide Reddit or YouTube content to generate a summary.' });
@@ -93,18 +161,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
       if (result.error) {
           toast({ variant: 'destructive', title: 'Generation Failed', description: result.error });
       } else if (result.data) {
-          setLocalWeeklyData(prev => {
-              if (!prev || !editingFirm) return prev;
-              return {
-                  ...prev,
-                  [editingFirm]: {
-                      ...prev[editingFirm],
-                      summary: result.data.summary,
-                      positivePoints: result.data.positivePoints,
-                      negativePoints: result.data.negativePoints,
-                  }
-              }
-          });
+          handleFieldChange('summary', result.data.summary);
+          handleFieldChange('positivePoints', result.data.positivePoints);
+          handleFieldChange('negativePoints', result.data.negativePoints);
           toast({ title: 'Summary Generated!', description: 'The summary and points have been populated.' });
       }
   };
@@ -163,23 +222,26 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
                     </SelectContent>
                 </Select>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4 flex-1 overflow-y-auto pr-4">
+          <ScrollArea className="flex-1 -mr-6 pr-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
                 <div className="space-y-4">
-                     <div className="space-y-2">
-                        <Label className="flex items-center gap-2"><MessageSquare className="w-5 h-5 text-orange-400" /> Raw Reddit Posts & Comments</Label>
-                        <Textarea value={currentFirmData.rawRedditContent || ''} onChange={e => handleWeeklyChange('rawRedditContent', e.target.value)} rows={6} placeholder="Paste Reddit content here..."/>
-                    </div>
-                     <div className="space-y-2">
-                         <Label className="flex items-center gap-2"><Youtube className="w-5 h-5 text-red-500" /> Raw YouTube Transcripts & Comments</Label>
-                        <Textarea value={currentFirmData.rawYoutubeContent || ''} onChange={e => handleWeeklyChange('rawYoutubeContent', e.target.value)} rows={6} placeholder="Paste YouTube content here..."/>
-                    </div>
+                    <SourceInputList 
+                      sources={currentFirmData.redditSources || []}
+                      onSourcesChange={(sources) => handleSourcesChange('reddit', sources)}
+                      platformName="Reddit"
+                    />
+                     <SourceInputList 
+                      sources={currentFirmData.youtubeSources || []}
+                      onSourcesChange={(sources) => handleSourcesChange('youtube', sources)}
+                      platformName="YouTube"
+                    />
                     <Button onClick={handleGenerateSummary} disabled={isGenerating} className="w-full">
                         {isGenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Wand2 className="mr-2 h-4 w-4" />}
                         Generate Summary & Points
                     </Button>
                      <div className="space-y-2">
                         <Label>Generated Summary</Label>
-                        <Textarea value={currentFirmData.summary} onChange={e => handleWeeklyChange('summary', e.target.value)} rows={4}/>
+                        <Textarea value={currentFirmData.summary} onChange={e => handleFieldChange('summary', e.target.value)} rows={4}/>
                     </div>
                 </div>
                 <div className="space-y-4">
@@ -187,28 +249,29 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
                         <Star className="w-5 h-5 text-yellow-400 flex-shrink-0" />
                         <div className="flex-grow">
                             <Label>Trustpilot (1-5)</Label>
-                            <Input type="number" step="0.1" min="1" max="5" value={currentFirmData.trustpilotRating} onChange={(e) => handleWeeklyChange('trustpilotRating', parseFloat(e.target.value))} />
+                            <Input type="number" step="0.1" min="1" max="5" value={currentFirmData.trustpilotRating} onChange={(e) => handleFieldChange('trustpilotRating', parseFloat(e.target.value))} />
                         </div>
                     </div>
                     <div className="space-y-3">
                         <Label className="flex items-center gap-2"><MessageSquare className="w-5 h-5 text-orange-400" /> Reddit Sentiment ({currentFirmData.redditSentiment})</Label>
-                        <Slider value={[currentFirmData.redditSentiment]} onValueChange={(value) => handleWeeklyChange('redditSentiment', value[0])} max={100} step={1} />
+                        <Slider value={[currentFirmData.redditSentiment]} onValueChange={(value) => handleFieldChange('redditSentiment', value[0])} max={100} step={1} />
                     </div>
                     <div className="space-y-3">
                         <Label className="flex items-center gap-2"><Youtube className="w-5 h-5 text-red-500" /> YouTube Sentiment ({currentFirmData.youtubeSentiment})</Label>
-                        <Slider value={[currentFirmData.youtubeSentiment]} onValueChange={(value) => handleWeeklyChange('youtubeSentiment', value[0])} max={100} step={1} />
+                        <Slider value={[currentFirmData.youtubeSentiment]} onValueChange={(value) => handleFieldChange('youtubeSentiment', value[0])} max={100} step={1} />
                     </div>
                      <div className="space-y-2">
                         <Label>Generated Positive Points (one per line)</Label>
-                        <Textarea value={currentFirmData.positivePoints.join('\n')} onChange={e => handleWeeklyChange('positivePoints', e.target.value.split('\n'))} rows={4} />
+                        <Textarea value={currentFirmData.positivePoints.join('\n')} onChange={e => handleFieldChange('positivePoints', e.target.value.split('\n'))} rows={4} />
                     </div>
                     <div className="space-y-2">
                         <Label>Generated Negative Points (one per line)</Label>
-                        <Textarea value={currentFirmData.negativePoints.join('\n')} onChange={e => handleWeeklyChange('negativePoints', e.target.value.split('\n'))} rows={4} />
+                        <Textarea value={currentFirmData.negativePoints.join('\n')} onChange={e => handleFieldChange('negativePoints', e.target.value.split('\n'))} rows={4} />
                     </div>
                 </div>
             </div>
-          <DialogFooter>
+          </ScrollArea>
+          <DialogFooter className="mt-4">
              <DialogClose asChild><Button type="button" variant="secondary">Cancel</Button></DialogClose>
             <Button type="button" onClick={handleSaveChanges}>Save Changes</Button>
           </DialogFooter>

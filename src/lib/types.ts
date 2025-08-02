@@ -78,7 +78,7 @@ export interface Article {
 }
 
 export type TradingResource = {
-  id: string;
+  id:string;
   name: string;
   slug: string;
   logoUrl?: string;
@@ -141,6 +141,11 @@ export interface TrendData {
     [firmName: string]: number | string;
 }
 
+export interface ContentSource {
+  post: string;
+  comments: string;
+}
+
 export interface WeeklyFirmData {
     summary: string;
     positivePoints: string[];
@@ -149,8 +154,8 @@ export interface WeeklyFirmData {
     redditSentiment: number;
     youtubeSentiment: number;
     score: number;
-    rawRedditContent?: string;
-    rawYoutubeContent?: string;
+    redditSources: ContentSource[];
+    youtubeSources: ContentSource[];
 }
 
 export interface WeeklyData {

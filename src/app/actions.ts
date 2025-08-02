@@ -26,13 +26,13 @@ export async function getAiPropFirmRecommendationAction(input: PropFirmRecommend
 }
 
 // Action for Sentiment Summary Generation
-const SentimentSummaryInputSchema = z.object({
+const SentimentSummaryActionSchema = z.object({
   redditContent: z.string(),
   youtubeContent: z.string(),
 });
 
 export async function generateSentimentSummaryAction(input: SentimentSummaryInput): Promise<{ data?: SentimentSummaryOutput; error?: string }> {
-  const validationResult = SentimentSummaryInputSchema.safeParse(input);
+  const validationResult = SentimentSummaryActionSchema.safeParse(input);
   if (!validationResult.success) {
     return { error: validationResult.error.errors.map(e => e.message).join(', ') };
   }

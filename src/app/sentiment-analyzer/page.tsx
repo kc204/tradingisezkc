@@ -69,8 +69,8 @@ const generateInitialData = () => {
       redditSentiment: Math.floor(Math.random() * 70) + 20, 
       youtubeSentiment: Math.floor(Math.random() * 70) + 20,
       score: 0,
-      rawRedditContent: '',
-      rawYoutubeContent: '',
+      redditSources: [],
+      youtubeSources: [],
     };
   });
   
@@ -144,39 +144,34 @@ export default function SentimentAnalyzerPage() {
 
   return (
     <div className="space-y-12 font-sans text-white">
-      <div className="relative">
-        <header className="mb-10 text-center">
-            <h1 className="text-5xl font-extrabold text-white tracking-tight">
-                Prop Firm Sentiment Trends
-            </h1>
-            <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">
-                Tracking community sentiment for top prop firms over the last 4 weeks.
-            </p>
-        </header>
-
-        <div className="absolute top-0 right-0">
-          <AdminPanel 
-              weeklyData={weeklyData} 
-              onSave={handleSaveData}
-              allFirms={allFirms}
-              calculateWeightedScore={calculateWeightedScore}
-          >
-              <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
-                  <Edit className="w-4 h-4" />
-              </Button>
-          </AdminPanel>
-        </div>
-      </div>
+      <header className="mb-10 text-center">
+          <h1 className="text-5xl font-extrabold text-white tracking-tight">
+              Prop Firm Sentiment Trends
+          </h1>
+          <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">
+              Tracking community sentiment for top prop firms over the last 4 weeks.
+          </p>
+      </header>
 
       <main>
         <section className="mb-10">
-            <div className="flex justify-start mb-6">
-                <FirmSelectionDropdown 
-                    allFirms={allFirms}
-                    selectedFirms={selectedFirms}
-                    onFirmSelect={handleFirmSelection}
-                />
-            </div>
+          <div className="flex justify-between items-center mb-6">
+              <FirmSelectionDropdown 
+                  allFirms={allFirms}
+                  selectedFirms={selectedFirms}
+                  onFirmSelect={handleFirmSelection}
+              />
+              <AdminPanel 
+                  weeklyData={weeklyData} 
+                  onSave={handleSaveData}
+                  allFirms={allFirms}
+                  calculateWeightedScore={calculateWeightedScore}
+              >
+                  <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+                      <Edit className="w-4 h-4" />
+                  </Button>
+              </AdminPanel>
+          </div>
             <SentimentTrendChart 
                 data={trendData} 
                 firms={allFirms} 
