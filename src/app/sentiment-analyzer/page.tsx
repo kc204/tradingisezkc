@@ -144,24 +144,29 @@ export default function SentimentAnalyzerPage() {
 
   return (
     <div className="space-y-12 font-sans text-white">
-      <header className="mb-10 text-center">
-          <h1 className="text-5xl font-extrabold text-white tracking-tight">
-              Prop Firm Sentiment Trends
-          </h1>
-          <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">
-              Tracking community sentiment for top prop firms over the last 4 weeks.
-          </p>
+      <div className="relative">
+        <header className="mb-10 text-center">
+            <h1 className="text-5xl font-extrabold text-white tracking-tight">
+                Prop Firm Sentiment Trends
+            </h1>
+            <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">
+                Tracking community sentiment for top prop firms over the last 4 weeks.
+            </p>
+        </header>
+
+        <div className="absolute top-0 right-0">
           <AdminPanel 
               weeklyData={weeklyData} 
               onSave={handleSaveData}
               allFirms={allFirms}
               calculateWeightedScore={calculateWeightedScore}
           >
-              <Button variant="ghost" size="icon" className="absolute top-0 right-0 mt-2 mr-2 text-gray-400 hover:text-white">
+              <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
                   <Edit className="w-4 h-4" />
               </Button>
           </AdminPanel>
-      </header>
+        </div>
+      </div>
 
       <main>
         <section className="mb-10">
