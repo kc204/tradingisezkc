@@ -12,13 +12,13 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
-export const SentimentSummaryInputSchema = z.object({
+const SentimentSummaryInputSchema = z.object({
   redditContent: z.string().describe('Raw text content from Reddit posts and comments.'),
   youtubeContent: z.string().describe('Raw text content from YouTube video transcripts and comments.'),
 });
 export type SentimentSummaryInput = z.infer<typeof SentimentSummaryInputSchema>;
 
-export const SentimentSummaryOutputSchema = z.object({
+const SentimentSummaryOutputSchema = z.object({
   summary: z.string().describe('A concise, neutral summary of the overall sentiment from the provided content.'),
   positivePoints: z.array(z.string()).describe('A list of key positive points or recurring positive feedback.'),
   negativePoints: z.array(z.string()).describe('A list of key negative points or recurring negative feedback.'),
