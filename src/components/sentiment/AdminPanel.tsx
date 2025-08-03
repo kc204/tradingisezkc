@@ -19,14 +19,25 @@ interface AdminPanelProps {
   weeklyData: WeeklyData;
   allFirms: FirmData[];
   onSave: (data: WeeklyData) => void;
-  calculateWeightedScore: (data: { trustpilotRating: number; redditSentiment: number; youtubeSentiment: number; }) => number;
+  calculateWeightedScore: (data: { trustpilotRating: number; redditSentiment: number; youtubeSentiment: number; xSentiment: number; }) => number;
   children: React.ReactNode;
 }
+
+const XIcon = () => (
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-300">
+        <title>X</title>
+        <path
+            d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
+            fill="currentColor"
+        />
+    </svg>
+);
+
 
 const SourceInputList: React.FC<{
   sources: ContentSource[];
   onSourcesChange: (sources: ContentSource[]) => void;
-  platformName: 'Reddit' | 'YouTube';
+  platformName: 'Reddit' | 'YouTube' | 'X';
 }> = ({ sources, onSourcesChange, platformName }) => {
   
   const addSource = () => {
@@ -43,16 +54,25 @@ const SourceInputList: React.FC<{
     onSourcesChange(newSources);
   };
   
+  const getPlatformIcon = () => {
+      switch(platformName) {
+          case 'Reddit': return <MessageSquare className="w-5 h-5 text-orange-400" />;
+          case 'YouTube': return <Youtube className="w-5 h-5 text-red-500" />;
+          case 'X': return <XIcon />;
+          default: return null;
+      }
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <Label className="flex items-center gap-2">
-          {platformName === 'Reddit' ? <MessageSquare className="w-5 h-5 text-orange-400" /> : <Youtube className="w-5 h-5 text-red-500" />}
+          {getPlatformIcon()}
           Raw {platformName} Sources
         </Label>
         <Button size="sm" variant="ghost" type="button" onClick={addSource}>
           <PlusCircle className="w-4 h-4 mr-2" />
-          Add {platformName === 'Reddit' ? 'Post' : 'Video'}
+          Add {platformName === 'YouTube' ? 'Video' : 'Post'}
         </Button>
       </div>
       <div className="space-y-3 rounded-md border p-3 max-h-64 overflow-y-auto">
@@ -69,7 +89,7 @@ const SourceInputList: React.FC<{
               value={source.post}
               onChange={e => handleSourceChange(index, 'post', e.target.value)}
               rows={3}
-              placeholder={`${platformName === 'Reddit' ? 'Post content' : 'Video transcript'}...`}
+              placeholder={`${platformName === 'YouTube' ? 'Video transcript' : 'Post content'}...`}
             />
             <Textarea
               value={source.comments}
@@ -137,8 +157,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
     });
   };
 
-  const handleSourcesChange = (platform: 'reddit' | 'youtube', sources: ContentSource[]) => {
-      const field = platform === 'reddit' ? 'redditSources' : 'youtubeSources';
+  const handleSourcesChange = (platform: 'reddit' | 'youtube' | 'x', sources: ContentSource[]) => {
+      let field: 'redditSources' | 'youtubeSources' | 'xSources';
+      switch(platform) {
+          case 'reddit': field = 'redditSources'; break;
+          case 'youtube': field = 'youtubeSources'; break;
+          case 'x': field = 'xSources'; break;
+      }
       handleFieldChange(field, sources);
   }
 
@@ -148,14 +173,15 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
       const currentFirm = localWeeklyData[editingFirm];
       const redditContent = currentFirm.redditSources.map(s => `${s.post}\n${s.comments}`).join('\n\n---\n\n');
       const youtubeContent = currentFirm.youtubeSources.map(s => `${s.post}\n${s.comments}`).join('\n\n---\n\n');
+      const xContent = currentFirm.xSources.map(s => `${s.post}\n${s.comments}`).join('\n\n---\n\n');
 
-      if (!redditContent && !youtubeContent) {
-          toast({ variant: 'destructive', title: 'Error', description: 'Please provide Reddit or YouTube content to generate a summary.' });
+      if (!redditContent && !youtubeContent && !xContent) {
+          toast({ variant: 'destructive', title: 'Error', description: 'Please provide content from at least one platform to generate a summary.' });
           return;
       }
 
       setIsGenerating(true);
-      const result = await generateSentimentSummaryAction({ redditContent, youtubeContent });
+      const result = await generateSentimentSummaryAction({ redditContent, youtubeContent, xContent });
       setIsGenerating(false);
 
       if (result.error) {
@@ -235,6 +261,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
                       onSourcesChange={(sources) => handleSourcesChange('youtube', sources)}
                       platformName="YouTube"
                     />
+                     <SourceInputList 
+                      sources={currentFirmData.xSources || []}
+                      onSourcesChange={(sources) => handleSourcesChange('x', sources)}
+                      platformName="X"
+                    />
                     <Button onClick={handleGenerateSummary} disabled={isGenerating} className="w-full">
                         {isGenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Wand2 className="mr-2 h-4 w-4" />}
                         Generate Summary & Points
@@ -259,6 +290,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
                     <div className="space-y-3">
                         <Label className="flex items-center gap-2"><Youtube className="w-5 h-5 text-red-500" /> YouTube Sentiment ({currentFirmData.youtubeSentiment})</Label>
                         <Slider value={[currentFirmData.youtubeSentiment]} onValueChange={(value) => handleFieldChange('youtubeSentiment', value[0])} max={100} step={1} />
+                    </div>
+                    <div className="space-y-3">
+                        <Label className="flex items-center gap-2"><XIcon /> X Sentiment ({currentFirmData.xSentiment})</Label>
+                        <Slider value={[currentFirmData.xSentiment]} onValueChange={(value) => handleFieldChange('xSentiment', value[0])} max={100} step={1} />
                     </div>
                      <div className="space-y-2">
                         <Label>Generated Positive Points (one per line)</Label>

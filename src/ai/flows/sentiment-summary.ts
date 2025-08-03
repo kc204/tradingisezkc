@@ -15,6 +15,7 @@ import { z } from 'genkit';
 const SentimentSummaryInputSchema = z.object({
   redditContent: z.string().describe('Raw text content from Reddit posts and comments.'),
   youtubeContent: z.string().describe('Raw text content from YouTube video transcripts and comments.'),
+  xContent: z.string().describe('Raw text content from X (formerly Twitter) posts and comments.'),
 });
 export type SentimentSummaryInput = z.infer<typeof SentimentSummaryInputSchema>;
 
@@ -37,7 +38,7 @@ const prompt = ai.definePrompt({
   output: { schema: SentimentSummaryOutputSchema },
   prompt: `You are a sentiment analysis expert for financial trading firms. Your task is to analyze raw text from social media and generate a neutral, factual summary.
 
-Analyze the following content. Based on the text from Reddit and YouTube, provide:
+Analyze the following content. Based on the text from Reddit, YouTube, and X, provide:
 1.  A concise summary of the overall community sentiment.
 2.  A list of the most common positive points.
 3.  A list of the most common negative points.
@@ -52,6 +53,11 @@ Reddit Content:
 YouTube Content:
 ---
 {{{youtubeContent}}}
+---
+
+X Content:
+---
+{{{xContent}}}
 ---
 `,
 });

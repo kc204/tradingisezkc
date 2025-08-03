@@ -29,6 +29,7 @@ export async function getAiPropFirmRecommendationAction(input: PropFirmRecommend
 const SentimentSummaryActionSchema = z.object({
   redditContent: z.string(),
   youtubeContent: z.string(),
+  xContent: z.string(),
 });
 
 export async function generateSentimentSummaryAction(input: SentimentSummaryInput): Promise<{ data?: SentimentSummaryOutput; error?: string }> {

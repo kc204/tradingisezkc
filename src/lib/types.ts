@@ -153,9 +153,11 @@ export interface WeeklyFirmData {
     trustpilotRating: number;
     redditSentiment: number;
     youtubeSentiment: number;
+    xSentiment: number;
     score: number;
     redditSources: ContentSource[];
     youtubeSources: ContentSource[];
+    xSources: ContentSource[];
 }
 
 export interface WeeklyData {

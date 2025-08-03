@@ -37,11 +37,9 @@ const firmColors = allFirms.reduce((acc, firm) => {
   return acc;
 }, {} as Record<string, string>);
 
-const calculateWeightedScore = (data: { trustpilotRating: number; redditSentiment: number; youtubeSentiment: number; }) => {
-    // Reddit and Youtube sentiment are now derived from the summary, so we can simplify this.
-    // For now, we keep the calculation, but the inputs for reddit/youtube sentiment will be static.
+const calculateWeightedScore = (data: { trustpilotRating: number; redditSentiment: number; youtubeSentiment: number; xSentiment: number; }) => {
     const trustpilotScore = (data.trustpilotRating - 1) * 25; // Scale 1-5 to 0-100
-    const weightedScore = (trustpilotScore * 0.45) + (data.redditSentiment * 0.35) + (data.youtubeSentiment * 0.20);
+    const weightedScore = (trustpilotScore * 0.45) + (data.redditSentiment * 0.30) + (data.youtubeSentiment * 0.15) + (data.xSentiment * 0.10);
     return Math.round(Math.max(0, weightedScore));
 };
 
@@ -55,8 +53,10 @@ const generateInitialData = () => {
     firmNames.forEach(name => {
       weekEntry[name] = Math.floor(Math.random() * 80) + 10;
     });
-    trendData.push(weekEntry); // Use push to maintain chronological order
+    trendData.push(weekEntry);
   }
+  
+  trendData.sort((a,b) => a.week.localeCompare(b.week));
 
   firmNames.forEach(name => {
     const firm = mockPropFirms.find(f => f.name === name);
@@ -65,12 +65,13 @@ const generateInitialData = () => {
       positivePoints: ["Good community feedback noted on social channels.", "Platform reported as stable with minimal downtime.", "Fast response times from customer support."],
       negativePoints: ["Some users reported concerns about payout processing times.", "Minor slippage reported during high-volatility news events."],
       trustpilotRating: firm?.rating || parseFloat((Math.random() * (5 - 3.5) + 3.5).toFixed(1)),
-      // We'll keep these for the weighting but they are no longer manually set.
       redditSentiment: Math.floor(Math.random() * 70) + 20, 
       youtubeSentiment: Math.floor(Math.random() * 70) + 20,
+      xSentiment: Math.floor(Math.random() * 70) + 20,
       score: 0,
       redditSources: [],
       youtubeSources: [],
+      xSources: [],
     };
   });
   
