@@ -2,6 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Edit, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AdminPanel } from '@/components/sentiment/AdminPanel';
@@ -39,7 +40,7 @@ const firmColors = allFirms.reduce((acc, firm) => {
 
 const calculateWeightedScore = (data: { trustpilotRating: number; redditSentiment: number; youtubeSentiment: number; xSentiment: number; }) => {
     const trustpilotScore = (data.trustpilotRating - 1) * 25; // Scale 1-5 to 0-100
-    const weightedScore = (trustpilotScore * 0.45) + (data.redditSentiment * 0.30) + (data.youtubeSentiment * 0.15) + (data.xSentiment * 0.10);
+    const weightedScore = (trustpilotScore * 0.45) + (data.redditSentiment * 0.35) + (data.youtubeSentiment * 0.20) + (data.xSentiment * 0.10);
     return Math.round(Math.max(0, weightedScore));
 };
 
@@ -48,45 +49,74 @@ const generateInitialData = () => {
   const weeklyData: WeeklyData = {};
   const firmNames = allFirms.map(f => f.name);
 
-  for (let i = 4; i > 0; i--) {
-    const weekEntry: TrendData = { week: i === 1 ? 'Last Week' : `${i} Weeks Ago` };
-    firmNames.forEach(name => {
-      weekEntry[name] = Math.floor(Math.random() * 80) + 10;
-    });
-    trendData.push(weekEntry);
-  }
-  
-  trendData.sort((a,b) => a.week.localeCompare(b.week));
+  // Generate for previous weeks first
+    for (let i = 4; i > 0; i--) {
+        const weekEntry: TrendData = { week: `${i} Weeks Ago` };
+        firmNames.forEach(name => {
+            weekEntry[name] = Math.floor(Math.random() * 80) + 10;
+        });
+        trendData.push(weekEntry);
+    }
 
-  firmNames.forEach(name => {
-    const firm = mockPropFirms.find(f => f.name === name);
-    weeklyData[name] = {
-      summary: `This is a sample summary for ${name} for the last week, highlighting recent community feedback and platform performance discussions.`,
-      positivePoints: ["Good community feedback noted on social channels.", "Platform reported as stable with minimal downtime.", "Fast response times from customer support."],
-      negativePoints: ["Some users reported concerns about payout processing times.", "Minor slippage reported during high-volatility news events."],
-      trustpilotRating: firm?.rating || parseFloat((Math.random() * (5 - 3.5) + 3.5).toFixed(1)),
-      redditSentiment: Math.floor(Math.random() * 70) + 20, 
-      youtubeSentiment: Math.floor(Math.random() * 70) + 20,
-      xSentiment: Math.floor(Math.random() * 70) + 20,
-      score: 0,
-      redditSources: [],
-      youtubeSources: [],
-      xSources: [],
-    };
+    // Now generate "Last Week"
+    const lastWeekEntry: TrendData = { week: 'Last Week' };
+     firmNames.forEach(name => {
+      const firm = mockPropFirms.find(f => f.name === name);
+      const tempWeeklyData = {
+          trustpilotRating: firm?.rating || parseFloat((Math.random() * (5 - 3.5) + 3.5).toFixed(1)),
+          redditSentiment: Math.floor(Math.random() * 70) + 20, 
+          youtubeSentiment: Math.floor(Math.random() * 70) + 20,
+          xSentiment: Math.floor(Math.random() * 70) + 20,
+      };
+      const score = calculateWeightedScore(tempWeeklyData);
+      lastWeekEntry[name] = score;
+
+      weeklyData[name] = {
+        summary: `This is a sample summary for ${name} for the last week, highlighting recent community feedback and platform performance discussions.`,
+        positivePoints: ["Good community feedback noted on social channels.", "Platform reported as stable with minimal downtime.", "Fast response times from customer support."],
+        negativePoints: ["Some users reported concerns about payout processing times.", "Minor slippage reported during high-volatility news events."],
+        trustpilotRating: tempWeeklyData.trustpilotRating,
+        redditSentiment: tempWeeklyData.redditSentiment,
+        youtubeSentiment: tempWeeklyData.youtubeSentiment,
+        xSentiment: tempWeeklyData.xSentiment,
+        score: score,
+        redditSources: [],
+        youtubeSources: [],
+        xSources: [],
+      };
   });
-  
-  const lastWeekIndex = trendData.length - 1;
-  Object.keys(weeklyData).forEach(firmName => {
-      const score = calculateWeightedScore(weeklyData[firmName]);
-      weeklyData[firmName].score = score;
-      if(lastWeekIndex >= 0 && trendData[lastWeekIndex]) {
-          trendData[lastWeekIndex][firmName] = score;
-      }
+  trendData.push(lastWeekEntry);
+
+
+  trendData.sort((a,b) => {
+    const weekA = a.week.toString();
+    const weekB = b.week.toString();
+
+    if (weekA.includes("Last")) return 1;
+    if (weekB.includes("Last")) return -1;
+    
+    const numA = parseInt(weekA.split(" ")[0]);
+    const numB = parseInt(weekB.split(" ")[0]);
+    
+    return numB - numA;
   });
 
   return { trendData, weeklyData };
 };
 
+const AdminPanelPortal = ({ children }: { children: React.ReactNode }) => {
+    const [mountNode, setMountNode] = useState<HTMLElement | null>(null);
+
+    useEffect(() => {
+        const node = document.getElementById('admin-panel-trigger-root');
+        setMountNode(node);
+    }, []);
+
+    if (mountNode) {
+        return createPortal(children, mountNode);
+    }
+    return null;
+}
 
 export default function SentimentAnalyzerPage() {
   const [initialData] = useState(generateInitialData());
@@ -120,7 +150,7 @@ export default function SentimentAnalyzerPage() {
   const handleSaveData = (newWeeklyDataFromAdmin: WeeklyData) => {
       const updatedWeeklyData = { ...newWeeklyDataFromAdmin };
       const updatedTrendData = [...trendData];
-      const lastWeekIndex = updatedTrendData.length - 1;
+      const lastWeekIndex = updatedTrendData.findIndex(d => d.week === 'Last Week');
       
       Object.keys(updatedWeeklyData).forEach(firmName => {
           const score = calculateWeightedScore(updatedWeeklyData[firmName]);
@@ -162,18 +192,6 @@ export default function SentimentAnalyzerPage() {
                   selectedFirms={selectedFirms}
                   onFirmSelect={handleFirmSelection}
               />
-              <div className="relative">
-                <AdminPanel 
-                    weeklyData={weeklyData} 
-                    onSave={handleSaveData}
-                    allFirms={allFirms}
-                    calculateWeightedScore={calculateWeightedScore}
-                >
-                    <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
-                        <Edit className="w-4 h-4" />
-                    </Button>
-                </AdminPanel>
-              </div>
           </div>
             <SentimentTrendChart 
                 data={trendData} 
@@ -192,6 +210,17 @@ export default function SentimentAnalyzerPage() {
           </div>
         </section>
       </main>
+      
+      <AdminPanelPortal>
+          <AdminPanel
+              weeklyData={weeklyData}
+              onSave={handleSaveData}
+              allFirms={allFirms}
+              calculateWeightedScore={calculateWeightedScore}
+          >
+              <div className="h-4 w-full opacity-0 cursor-pointer" aria-label="Open Admin Panel"></div>
+          </AdminPanel>
+      </AdminPanelPortal>
     </div>
   );
 }
