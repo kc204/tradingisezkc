@@ -5,7 +5,7 @@
 import React from 'react';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
-import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight, Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban, ArrowRight } from 'lucide-react';
+import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight, Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban, ArrowRight, Calendar, TrendingUp, Monitor } from 'lucide-react';
 import type { PropFirm, AccountTier } from '@/lib/types';
 import { ALL_CHALLENGES_DATA, mockPropFirms } from '@/lib/mockData';
 import Image from 'next/image';
@@ -484,55 +484,58 @@ const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm 
     const firm2Years = getYearEstablished(firm2);
 
     return (
-        <div className="max-w-4xl mx-auto space-y-8 my-12 p-4 md:p-6 bg-card rounded-lg shadow-xl">
+        <div className="max-w-6xl mx-auto space-y-8 my-12">
             <FirmComparisonHeader firm1={firm1} firm2={firm2} />
-
-            <section className="space-y-4">
-                <h2 className="text-2xl font-bold text-center text-foreground">High-Level Comparison</h2>
-                <div className="grid grid-cols-2 gap-4">
-                    {/* Column 1 for Firm 1 */}
-                    <div className="space-y-4">
-                        <ComparisonMetricCard 
-                            title="Year Established"
-                            value={firm1Years.year}
-                            subvalue={firm1Years.yearsInOp}
-                        />
-                        <ComparisonMetricCard 
-                            title="Max Allocation"
-                            value={firm1.maxAccountSize ? `$${(firm1.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
-                        />
-                        <ComparisonMetricCard 
-                            title="Platforms"
-                            value={firm1.platforms?.join(', ') || 'N/A'}
-                            subvalue={firm1.platforms && firm1.platforms.length > 1 ? 'Multiple Platforms' : 'Single Platform'}
-                            isPlatformList
-                        />
-                    </div>
-                     {/* Column 2 for Firm 2 */}
-                    <div className="space-y-4">
-                         <ComparisonMetricCard 
-                            title="Year Established"
-                            value={firm2Years.year}
-                            subvalue={firm2Years.yearsInOp}
-                        />
-                        <ComparisonMetricCard 
-                            title="Max Allocation"
-                            value={firm2.maxAccountSize ? `$${(firm2.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
-                        />
-                        <ComparisonMetricCard 
-                            title="Platforms"
-                            value={firm2.platforms?.join(', ') || 'N/A'}
-                            subvalue={firm2.platforms && firm2.platforms.length > 1 ? 'Multiple Platforms' : 'Single Platform'}
-                            isPlatformList
-                        />
-                    </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mt-12">
+                {/* Column for Firm 1 */}
+                <div className="space-y-4">
+                    <ComparisonMetricCard 
+                        title="Year Established"
+                        icon={<Calendar className="w-8 h-8 text-primary" />}
+                        value={firm1Years.year}
+                        subvalue={firm1Years.yearsInOp}
+                    />
+                    <ComparisonMetricCard 
+                        title="Platforms"
+                        icon={<Monitor className="w-8 h-8 text-primary" />}
+                        value={firm1.platforms?.join(', ') || 'N/A'}
+                        isPlatformList
+                    />
+                    <ComparisonMetricCard 
+                        title="Max Allocation"
+                        icon={<TrendingUp className="w-8 h-8 text-primary" />}
+                        value={firm1.maxAccountSize ? `$${(firm1.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                    />
                 </div>
-            </section>
+                {/* Column for Firm 2 */}
+                <div className="space-y-4">
+                    <ComparisonMetricCard 
+                        title="Year Established"
+                        icon={<Calendar className="w-8 h-8 text-secondary" />}
+                        value={firm2Years.year}
+                        subvalue={firm2Years.yearsInOp}
+                    />
+                     <ComparisonMetricCard 
+                        title="Platforms"
+                        icon={<Monitor className="w-8 h-8 text-secondary" />}
+                        value={firm2.platforms?.join(', ') || 'N/A'}
+                        isPlatformList
+                    />
+                    <ComparisonMetricCard 
+                        title="Max Allocation"
+                        icon={<TrendingUp className="w-8 h-8 text-secondary" />}
+                        value={firm2.maxAccountSize ? `$${(firm2.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                    />
+                </div>
+            </div>
 
             {tier1 && tier2 && (
-                <section className="space-y-4">
-                    <h2 className="text-2xl font-bold text-center text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <section className="space-y-4">
+                    <div className="text-center my-12">
+                        <h2 className="text-3xl font-bold tracking-tight text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
                         <TierComparisonCard firm={firm1} tier={tier1} />
                         <TierComparisonCard firm={firm2} tier={tier2} />
                     </div>

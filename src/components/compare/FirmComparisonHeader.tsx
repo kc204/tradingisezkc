@@ -11,23 +11,27 @@ interface FirmComparisonHeaderProps {
 
 const FirmComparisonHeader: React.FC<FirmComparisonHeaderProps> = ({ firm1, firm2 }) => {
   return (
-    <header className="flex justify-around items-center py-6">
-      <Link href={`/firms/${firm1.slug}`} className="flex flex-col items-center gap-3 text-center group">
-        <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-lg border-2 border-border/50 p-2 shadow-lg group-hover:scale-105 transition-transform">
-          <Image src={firm1.logoUrl} alt={`${firm1.name} logo`} layout="fill" objectFit="contain" />
+    <div className="relative flex justify-center items-center mb-12">
+        <div className="flex-1 text-center">
+            <Link href={`/firms/${firm1.slug}`} className="inline-block group">
+                <Image src={firm1.logoUrl} alt={`${firm1.name} logo`} width={120} height={120} className="mx-auto mb-4 rounded-2xl border-4 border-border shadow-lg group-hover:border-primary transition-colors duration-300" />
+                <h2 className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">{firm1.name}</h2>
+            </Link>
         </div>
-        <h1 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">{firm1.name}</h1>
-      </Link>
-      <div className="text-4xl md:text-6xl font-black text-primary/80 transform -rotate-6">
-        VS
-      </div>
-      <Link href={`/firms/${firm2.slug}`} className="flex flex-col items-center gap-3 text-center group">
-        <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-lg border-2 border-border/50 p-2 shadow-lg group-hover:scale-105 transition-transform">
-          <Image src={firm2.logoUrl} alt={`${firm2.name} logo`} layout="fill" objectFit="contain" />
+        
+        <div className="absolute flex items-center justify-center h-24 w-24 rounded-full bg-background border-4 border-card shadow-2xl" style={{left: '50%', transform: 'translateX(-50%)'}}>
+            <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-primary to-accent">
+                VS
+            </span>
         </div>
-        <h1 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">{firm2.name}</h1>
-      </Link>
-    </header>
+
+        <div className="flex-1 text-center">
+             <Link href={`/firms/${firm2.slug}`} className="inline-block group">
+                <Image src={firm2.logoUrl} alt={`${firm2.name} logo`} width={120} height={120} className="mx-auto mb-4 rounded-2xl border-4 border-border shadow-lg group-hover:border-secondary transition-colors duration-300" />
+                <h2 className="text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-300">{firm2.name}</h2>
+            </Link>
+        </div>
+    </div>
   );
 };
 

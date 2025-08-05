@@ -1,18 +1,18 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
 interface ComparisonMetricCardProps {
   title: string;
+  icon: React.ReactNode;
   value: string | React.ReactNode;
   subvalue?: string;
   isPlatformList?: boolean;
 }
 
-const renderPlatformValue = (value: string) => {
-    if (!value) return null;
+const renderPlatformValue = (value: string | React.ReactNode) => {
+    if (typeof value !== 'string') return value;
     const platforms = value.split(', ');
     const platformLogos: {[key: string]: string} = {
         'NinjaTrader': '/images/platform-logos/ninjatrader.png',
@@ -25,29 +25,31 @@ const renderPlatformValue = (value: string) => {
     };
 
     return (
-        <div className="flex items-center flex-wrap gap-2 justify-center">
+        <div className="flex items-center flex-wrap gap-2 mt-1">
             {platforms.map(p => (
                 platformLogos[p] ? 
-                <Image key={p} src={platformLogos[p]} alt={p} width={24} height={24} className="rounded-sm" /> 
-                : <span key={p} className="text-sm font-medium">{p}</span>
+                <Image key={p} src={platformLogos[p]} alt={p} width={24} height={24} className="rounded-sm bg-white p-0.5" /> 
+                : <span key={p} className="bg-gray-700 text-white text-sm font-semibold px-4 py-1.5 rounded-full">{p}</span>
             ))}
         </div>
     );
 };
 
-const ComparisonMetricCard: React.FC<ComparisonMetricCardProps> = ({ title, value, subvalue, isPlatformList }) => {
+const ComparisonMetricCard: React.FC<ComparisonMetricCardProps> = ({ title, icon, value, subvalue, isPlatformList }) => {
   return (
-    <Card className="bg-card/80 border-border/50">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-lg text-center font-semibold text-muted-foreground">{title}</CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-col items-center justify-center text-center p-4 min-h-[100px]">
-        <div className="w-full py-2">
-          {isPlatformList ? renderPlatformValue(value as string) : <div className="text-xl font-bold text-foreground">{value}</div>}
-          {subvalue && <p className="text-xs text-muted-foreground mt-1">{subvalue}</p>}
+    <div className="bg-card/80 border border-border/30 rounded-xl p-5 transition-all duration-300 hover:shadow-2xl hover:border-primary/50 hover:scale-[1.02]">
+        <div className="flex items-center gap-4">
+            {icon}
+            <div>
+                <h3 className="font-semibold text-lg text-muted-foreground">{title}</h3>
+                {isPlatformList ? (
+                     renderPlatformValue(value)
+                ) : (
+                    <p className="text-2xl font-bold text-foreground">{value} {subvalue && <span className="text-sm font-normal text-gray-400">({subvalue})</span>}</p>
+                )}
+            </div>
         </div>
-      </CardContent>
-    </Card>
+    </div>
   );
 };
 
