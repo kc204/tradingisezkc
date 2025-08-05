@@ -486,31 +486,49 @@ const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm 
     return (
         <div className="max-w-4xl mx-auto space-y-8 my-12 p-4 md:p-6 bg-card rounded-lg shadow-xl">
             <FirmComparisonHeader firm1={firm1} firm2={firm2} />
+
             <section className="space-y-4">
                 <h2 className="text-2xl font-bold text-center text-foreground">High-Level Comparison</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <ComparisonMetricCard 
-                        title="Year Established"
-                        value1={firm1Years.year}
-                        subvalue1={firm1Years.yearsInOp}
-                        value2={firm2Years.year}
-                        subvalue2={firm2Years.yearsInOp}
-                    />
-                    <ComparisonMetricCard 
-                        title="Max Allocation"
-                        value1={firm1.maxAccountSize ? `$${(firm1.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
-                        value2={firm2.maxAccountSize ? `$${(firm2.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
-                    />
-                    <ComparisonMetricCard 
-                        title="Platforms"
-                        value1={firm1.platforms?.join(', ') || 'N/A'}
-                        subvalue1={firm1.platforms && firm1.platforms.length > 1 ? 'Multiple Platforms' : 'Single Platform'}
-                        value2={firm2.platforms?.join(', ') || 'N/A'}
-                        subvalue2={firm2.platforms && firm2.platforms.length > 1 ? 'Multiple Platforms' : 'Single Platform'}
-                        isPlatformList
-                    />
+                <div className="grid grid-cols-2 gap-4">
+                    {/* Column 1 for Firm 1 */}
+                    <div className="space-y-4">
+                        <ComparisonMetricCard 
+                            title="Year Established"
+                            value={firm1Years.year}
+                            subvalue={firm1Years.yearsInOp}
+                        />
+                        <ComparisonMetricCard 
+                            title="Max Allocation"
+                            value={firm1.maxAccountSize ? `$${(firm1.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                        />
+                        <ComparisonMetricCard 
+                            title="Platforms"
+                            value={firm1.platforms?.join(', ') || 'N/A'}
+                            subvalue={firm1.platforms && firm1.platforms.length > 1 ? 'Multiple Platforms' : 'Single Platform'}
+                            isPlatformList
+                        />
+                    </div>
+                     {/* Column 2 for Firm 2 */}
+                    <div className="space-y-4">
+                         <ComparisonMetricCard 
+                            title="Year Established"
+                            value={firm2Years.year}
+                            subvalue={firm2Years.yearsInOp}
+                        />
+                        <ComparisonMetricCard 
+                            title="Max Allocation"
+                            value={firm2.maxAccountSize ? `$${(firm2.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                        />
+                        <ComparisonMetricCard 
+                            title="Platforms"
+                            value={firm2.platforms?.join(', ') || 'N/A'}
+                            subvalue={firm2.platforms && firm2.platforms.length > 1 ? 'Multiple Platforms' : 'Single Platform'}
+                            isPlatformList
+                        />
+                    </div>
                 </div>
             </section>
+
             {tier1 && tier2 && (
                 <section className="space-y-4">
                     <h2 className="text-2xl font-bold text-center text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
