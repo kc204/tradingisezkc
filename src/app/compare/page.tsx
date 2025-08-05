@@ -19,6 +19,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import FirmVsFirmSelector from '@/components/compare/FirmVsFirmSelector';
 
 
 const firebaseConfig = {
@@ -576,6 +577,11 @@ export default function ComparePage() {
           <h1 className="text-5xl font-extrabold text-white tracking-tight">Compare Prop Firms</h1>
           <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">The EZ-iest Way to Compare Prop Firm Challenges.</p>
         </header>
+
+        <section className="mb-12">
+            <FirmVsFirmSelector firms={mockPropFirms} />
+        </section>
+
         <main>
           <ControlBar 
             filters={filters}
