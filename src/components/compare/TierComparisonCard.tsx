@@ -82,4 +82,8 @@ const TierComparisonCard: React.FC<TierComparisonCardProps> = ({ firm, tier }) =
             </Link>
         </Button>
       </div>
-    
+    </Card>
+  );
+};
+
+export default TierComparisonCard;

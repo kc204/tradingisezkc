@@ -27,4 +27,8 @@ const FirmComparisonHeader: React.FC<FirmComparisonHeaderProps> = ({ firm1, firm
         </div>
         <h1 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">{firm2.name}</h1>
       </Link>
-    </
+    </header>
+  );
+};
+
+export default FirmComparisonHeader;

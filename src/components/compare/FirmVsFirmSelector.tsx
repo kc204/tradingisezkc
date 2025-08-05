@@ -2,7 +2,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import type { PropFirm } from '@/lib/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
@@ -11,16 +10,16 @@ import Image from 'next/image';
 
 interface FirmVsFirmSelectorProps {
   firms: PropFirm[];
+  onCompare: (firm1Slug: string, firm2Slug: string) => void;
 }
 
-const FirmVsFirmSelector: React.FC<FirmVsFirmSelectorProps> = ({ firms }) => {
+const FirmVsFirmSelector: React.FC<FirmVsFirmSelectorProps> = ({ firms, onCompare }) => {
   const [firm1Slug, setFirm1Slug] = useState<string>('');
   const [firm2Slug, setFirm2Slug] = useState<string>('');
-  const router = useRouter();
 
-  const handleCompare = () => {
+  const handleCompareClick = () => {
     if (firm1Slug && firm2Slug && firm1Slug !== firm2Slug) {
-      router.push(`/compare/${firm1Slug}-vs-${firm2Slug}`);
+      onCompare(firm1Slug, firm2Slug);
     }
   };
 
@@ -67,7 +66,7 @@ const FirmVsFirmSelector: React.FC<FirmVsFirmSelectorProps> = ({ firms }) => {
         </Select>
 
         <Button 
-          onClick={handleCompare} 
+          onClick={handleCompareClick} 
           disabled={!firm1Slug || !firm2Slug || firm1Slug === firm2Slug}
           className="w-full md:w-auto bg-accent text-accent-foreground hover:bg-accent/90"
         >

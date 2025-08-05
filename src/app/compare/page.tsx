@@ -6,7 +6,7 @@ import React from 'react';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
 import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight, Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban, ArrowRight } from 'lucide-react';
-import type { PropFirm } from '@/lib/types';
+import type { PropFirm, AccountTier } from '@/lib/types';
 import { ALL_CHALLENGES_DATA, mockPropFirms } from '@/lib/mockData';
 import Image from 'next/image';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
@@ -20,6 +20,9 @@ import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import FirmVsFirmSelector from '@/components/compare/FirmVsFirmSelector';
+import FirmComparisonHeader from '@/components/compare/FirmComparisonHeader';
+import ComparisonMetricCard from '@/components/compare/ComparisonMetricCard';
+import TierComparisonCard from '@/components/compare/TierComparisonCard';
 
 
 const firebaseConfig = {
@@ -451,6 +454,77 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: any) => {
     )
 }
 
+const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm }) => {
+    
+    const findComparableTiers = (firm1: PropFirm, firm2: PropFirm): [AccountTier | null, AccountTier | null] => {
+        const commonSizes = [100000, 50000, 25000, 150000];
+        for (const size of commonSizes) {
+            const tier1 = firm1.accountTiers.find(t => t.size === size && t.challengeType?.includes('Step'));
+            const tier2 = firm2.accountTiers.find(t => t.size === size && t.challengeType?.includes('Step'));
+            if (tier1 && tier2) {
+                return [tier1, tier2];
+            }
+        }
+        const tier1 = firm1.accountTiers.find(t => t.size >= 50000) || firm1.accountTiers[0] || null;
+        const tier2 = firm2.accountTiers.find(t => t.size >= 50000) || firm2.accountTiers[0] || null;
+        return [tier1, tier2];
+    };
+
+    const [tier1, tier2] = findComparableTiers(firm1, firm2);
+
+    const getYearEstablished = (firm: PropFirm) => {
+        if (!firm.dateCreated) return 'N/A';
+        const year = new Date(firm.dateCreated).getFullYear();
+        const currentYear = new Date().getFullYear();
+        const yearsInOp = currentYear - year;
+        return { year: year.toString(), yearsInOp: `${yearsInOp} Year${yearsInOp !== 1 ? 's' : ''} of Operations` };
+    };
+
+    const firm1Years = getYearEstablished(firm1);
+    const firm2Years = getYearEstablished(firm2);
+
+    return (
+        <div className="max-w-4xl mx-auto space-y-8 my-12 p-4 md:p-6 bg-card rounded-lg shadow-xl">
+            <FirmComparisonHeader firm1={firm1} firm2={firm2} />
+            <section className="space-y-4">
+                <h2 className="text-2xl font-bold text-center text-foreground">High-Level Comparison</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <ComparisonMetricCard 
+                        title="Year Established"
+                        value1={firm1Years.year}
+                        subvalue1={firm1Years.yearsInOp}
+                        value2={firm2Years.year}
+                        subvalue2={firm2Years.yearsInOp}
+                    />
+                    <ComparisonMetricCard 
+                        title="Max Allocation"
+                        value1={firm1.maxAccountSize ? `$${(firm1.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                        value2={firm2.maxAccountSize ? `$${(firm2.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                    />
+                    <ComparisonMetricCard 
+                        title="Platforms"
+                        value1={firm1.platforms?.join(', ') || 'N/A'}
+                        subvalue1={firm1.platforms && firm1.platforms.length > 1 ? 'Multiple Platforms' : 'Single Platform'}
+                        value2={firm2.platforms?.join(', ') || 'N/A'}
+                        subvalue2={firm2.platforms && firm2.platforms.length > 1 ? 'Multiple Platforms' : 'Single Platform'}
+                        isPlatformList
+                    />
+                </div>
+            </section>
+            {tier1 && tier2 && (
+                <section className="space-y-4">
+                    <h2 className="text-2xl font-bold text-center text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <TierComparisonCard firm={firm1} tier={tier1} />
+                        <TierComparisonCard firm={firm2} tier={tier2} />
+                    </div>
+                </section>
+            )}
+        </div>
+    );
+};
+
+
 export default function ComparePage() {
   const [challenges, setChallenges] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
@@ -459,6 +533,15 @@ export default function ComparePage() {
   const [sortConfig, setSortConfig] = React.useState<{key: string, direction: string}>({ key: 'price', direction: 'ascending' });
   const [currentPage, setCurrentPage] = React.useState(1);
   const ROWS_PER_PAGE = 8;
+  const [comparisonFirms, setComparisonFirms] = React.useState<{firm1: PropFirm, firm2: PropFirm} | null>(null);
+
+  const handleSetComparisonFirms = (firm1Slug: string, firm2Slug: string) => {
+    const firm1 = mockPropFirms.find(f => f.slug === firm1Slug);
+    const firm2 = mockPropFirms.find(f => f.slug === firm2Slug);
+    if (firm1 && firm2) {
+      setComparisonFirms({ firm1, firm2 });
+    }
+  };
   
   React.useEffect(() => {
     if (!db) {
@@ -579,8 +662,12 @@ export default function ComparePage() {
         </header>
 
         <section className="mb-12">
-            <FirmVsFirmSelector firms={mockPropFirms} />
+            <FirmVsFirmSelector firms={mockPropFirms} onCompare={handleSetComparisonFirms} />
         </section>
+
+        {comparisonFirms && (
+            <FirmVsFirmSection firm1={comparisonFirms.firm1} firm2={comparisonFirms.firm2} />
+        )}
 
         <main>
           <ControlBar 
