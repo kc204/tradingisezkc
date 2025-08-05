@@ -682,14 +682,6 @@ export default function ComparePage() {
           <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">The EZ-iest Way to Compare Prop Firm Challenges.</p>
         </header>
 
-        <section className="mb-12">
-            <FirmVsFirmSelector firms={mockPropFirms} onCompare={handleSetComparisonFirms} />
-        </section>
-
-        {comparisonFirms && (
-            <FirmVsFirmSection firm1={comparisonFirms.firm1} firm2={comparisonFirms.firm2} />
-        )}
-
         <main>
           <ControlBar 
             filters={filters}
@@ -713,6 +705,14 @@ export default function ComparePage() {
             />
           )}
         </main>
+        
+        <section className="my-12">
+            <FirmVsFirmSelector firms={mockPropFirms} onCompare={handleSetComparisonFirms} />
+        </section>
+
+        {comparisonFirms && (
+            <FirmVsFirmSection firm1={comparisonFirms.firm1} firm2={comparisonFirms.firm2} />
+        )}
       </div>
     </div>
   );
