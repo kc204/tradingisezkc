@@ -14,20 +14,8 @@ interface ComparisonMetricCardProps {
   isPlatformList?: boolean;
 }
 
-const platformLogos: {[key: string]: string} = {
-    'NinjaTrader': '/images/platform-logos/ninjatrader.png',
-    'TradingView': '/images/platform-logos/tradingview.png',
-    'Tradovate': '/images/platform-logos/tradovate.png',
-    'Rithmic': '/images/platform-logos/rithmic.png',
-    'MT5': '/images/platform-logos/mt5.png',
-    'cTrader': '/images/platform-logos/ctrader.png',
-    'TopstepX': '/images/platform-logos/topstep.png'
-};
-
 const PlatformItem = ({ platform }: { platform: string }) => (
-    platformLogos[platform] ? 
-    <Image key={platform} src={platformLogos[platform]} alt={platform} width={24} height={24} className="rounded-sm bg-white p-0.5" /> 
-    : <span key={platform} className="bg-gray-700 text-white text-xs font-semibold px-2 py-1 rounded-full">{platform}</span>
+    <span key={platform} className="bg-gray-700 text-white text-xs font-semibold px-2 py-1 rounded-full">{platform}</span>
 );
 
 const renderPlatformValue = (value: string | React.ReactNode) => {
