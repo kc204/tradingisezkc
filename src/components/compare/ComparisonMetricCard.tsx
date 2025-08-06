@@ -27,7 +27,7 @@ const renderPlatformValue = (value: string | React.ReactNode) => {
 
     return (
         <TooltipProvider>
-            <div className="flex items-center flex-wrap gap-2 mt-1">
+            <div className="flex items-center flex-wrap gap-1.5 mt-1">
                 {visiblePlatforms.map(p => <PlatformItem key={p} platform={p} />)}
                 {hiddenPlatforms.length > 0 && (
                      <Tooltip>
@@ -52,15 +52,15 @@ const renderPlatformValue = (value: string | React.ReactNode) => {
 
 const ComparisonMetricCard: React.FC<ComparisonMetricCardProps> = ({ title, icon, value, subvalue, isPlatformList }) => {
   return (
-    <div className="bg-card/80 border border-border/30 rounded-xl p-5 transition-all duration-300 hover:shadow-2xl hover:border-primary/50 hover:scale-[1.02]">
-        <div className="flex items-center gap-4">
-            {icon}
+    <div className="bg-card/80 border border-border/30 rounded-xl p-3 md:p-5 transition-all duration-300 hover:shadow-2xl hover:border-primary/50 hover:scale-[1.02]">
+        <div className="flex items-center gap-3 md:gap-4">
+            <div className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0">{icon}</div>
             <div>
-                <h3 className="font-semibold text-lg text-muted-foreground">{title}</h3>
+                <h3 className="font-semibold text-base md:text-lg text-muted-foreground">{title}</h3>
                 {isPlatformList ? (
                      renderPlatformValue(value)
                 ) : (
-                    <p className="text-2xl font-bold text-foreground">{value} {subvalue && <span className="text-sm font-normal text-gray-400">({subvalue})</span>}</p>
+                    <p className="text-xl md:text-2xl font-bold text-foreground">{value} {subvalue && <span className="text-xs md:text-sm font-normal text-gray-400">({subvalue})</span>}</p>
                 )}
             </div>
         </div>

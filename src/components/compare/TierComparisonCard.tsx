@@ -16,9 +16,9 @@ const formatCurrency = (value: number | undefined) => {
 }
 
 const MetricRow: React.FC<{ label: string; value: string | React.ReactNode; highlight?: boolean }> = ({ label, value, highlight }) => (
-    <div className={`flex justify-between items-center py-4 border-b border-border/30 last:border-b-0 ${highlight ? 'bg-primary/10 px-4 -mx-4 rounded-lg' : ''}`}>
-        <span className="text-muted-foreground">{label}</span>
-        <span className="text-xl font-bold text-foreground text-right">{value}</span>
+    <div className={`flex justify-between items-center py-2 md:py-4 border-b border-border/30 last:border-b-0 ${highlight ? 'bg-primary/10 px-2 md:px-4 -mx-2 md:-mx-4 rounded-lg' : ''}`}>
+        <span className="text-sm md:text-base text-muted-foreground">{label}</span>
+        <span className="text-base md:text-xl font-bold text-foreground text-right">{value}</span>
     </div>
 );
 
@@ -41,9 +41,9 @@ const TierComparisonCard: React.FC<TierComparisonCardProps> = ({ firm, tier }) =
   const activationFeeValue = tier.activationFee ? formatCurrency(tier.activationFee) : 'None';
 
   return (
-     <div className="bg-card/80 border border-border/30 rounded-2xl p-8 flex flex-col transition-all duration-300 hover:shadow-2xl hover:border-primary/50 hover:scale-[1.02]">
-        <h3 className="text-2xl font-bold text-center mb-8 text-primary">{tier.name || `$${(tier.size / 1000)}K ${tier.challengeType}`}</h3>
-        <div className="space-y-2 flex-grow">
+     <div className="bg-card/80 border border-border/30 rounded-2xl p-4 md:p-8 flex flex-col transition-all duration-300 hover:shadow-2xl hover:border-primary/50 hover:scale-[1.02]">
+        <h3 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-8 text-primary">{tier.name || `$${(tier.size / 1000)}K ${tier.challengeType}`}</h3>
+        <div className="space-y-1 md:space-y-2 flex-grow">
             <MetricRow label="Price" value={formatCurrency(tier.evaluationFee)} />
             <MetricRow label="Activation Fee" value={activationFeeValue} highlight={!tier.activationFee} />
             <MetricRow label="Profit Target" value={profitTargetValue} />
@@ -51,7 +51,7 @@ const TierComparisonCard: React.FC<TierComparisonCardProps> = ({ firm, tier }) =
              <MetricRow label="Daily Loss Limit" value={dailyLossValue} highlight={dailyLossValue === 'None'}/>
             <MetricRow label="Profit Split" value={firm.profitSplit || 'N/A'} />
         </div>
-        <Button asChild className="mt-8 w-full bg-primary text-primary-foreground hover:bg-primary/90 text-lg py-6">
+        <Button asChild className="mt-6 w-full bg-primary text-primary-foreground hover:bg-primary/90 text-base md:text-lg py-4 md:py-6">
             <Link href={`/firms/${firm.slug}`}>
                 View Full Review
             </Link>
