@@ -32,7 +32,7 @@ const PlatformItem = ({ platform }: { platform: string }) => (
 
 const renderPlatformValue = (value: string | React.ReactNode) => {
     if (typeof value !== 'string') return value;
-    const platforms = value.split(', ');
+    const platforms = value.split(', ').filter(p => p.trim() !== ''); // Filter out empty strings
     const MAX_VISIBLE = 3;
     const visiblePlatforms = platforms.slice(0, MAX_VISIBLE);
     const hiddenPlatforms = platforms.slice(MAX_VISIBLE);
