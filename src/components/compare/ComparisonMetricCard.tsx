@@ -44,8 +44,8 @@ const renderPlatformValue = (value: string | React.ReactNode) => {
                 {hiddenPlatforms.length > 0 && (
                      <Tooltip>
                         <TooltipTrigger asChild>
-                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-700 cursor-pointer">
-                               <PlusCircle className="w-4 h-4 text-white" />
+                            <div className="flex items-center justify-center h-6 px-2 rounded-full bg-gray-700 cursor-pointer text-xs font-semibold text-white">
+                               +{hiddenPlatforms.length} more
                             </div>
                         </TooltipTrigger>
                         <TooltipContent>
