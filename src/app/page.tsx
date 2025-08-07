@@ -9,10 +9,10 @@ import Link from 'next/link';
 import { cn } from "@/lib/utils";
 import { StarBorder } from "@/components/ui/star-border";
 import React, { useRef, useEffect } from 'react';
-import type { PropFirm } from '@/lib/types';
+import type { PropFirm, AccountTier } from '@/lib/types';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
-import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight, Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban, ArrowRight } from 'lucide-react';
+import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight, Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban, ArrowRight, Calendar, TrendingUp, Monitor } from 'lucide-react';
 import Image from 'next/image';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
 import OfferBox from '@/components/propfirms/OfferBox';
@@ -24,6 +24,10 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import FirmVsFirmSelector from '@/components/compare/FirmVsFirmSelector';
+import FirmComparisonHeader from '@/components/compare/FirmComparisonHeader';
+import ComparisonMetricCard from '@/components/compare/ComparisonMetricCard';
+import TierComparisonCard from '@/components/compare/TierComparisonCard';
 
 
 const firebaseConfig = {
@@ -605,14 +609,118 @@ function FullCompareSection() {
   );
 }
 
+const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm }) => {
+    
+    const findComparableTiers = (firm1: PropFirm, firm2: PropFirm): [AccountTier | null, AccountTier | null] => {
+        const commonSizes = [100000, 50000, 25000, 150000];
+        for (const size of commonSizes) {
+            const tier1 = firm1.accountTiers.find(t => t.size === size && t.challengeType?.includes('Step'));
+            const tier2 = firm2.accountTiers.find(t => t.size === size && t.challengeType?.includes('Step'));
+            if (tier1 && tier2) {
+                return [tier1, tier2];
+            }
+        }
+        const tier1 = firm1.accountTiers.find(t => t.size >= 50000) || firm1.accountTiers[0] || null;
+        const tier2 = firm2.accountTiers.find(t => t.size >= 50000) || firm2.accountTiers[0] || null;
+        return [tier1, tier2];
+    };
+
+    const [tier1, tier2] = findComparableTiers(firm1, firm2);
+
+    const getYearEstablished = (firm: PropFirm) => {
+        if (!firm.dateCreated) return 'N/A';
+        const year = new Date(firm.dateCreated).getFullYear();
+        const currentYear = new Date().getFullYear();
+        const yearsInOp = currentYear - year;
+        return { year: year.toString(), yearsInOp: `${yearsInOp} Year${yearsInOp !== 1 ? 's' : ''} of Operations` };
+    };
+
+    const firm1Years = getYearEstablished(firm1);
+    const firm2Years = getYearEstablished(firm2);
+
+    return (
+        <div className="max-w-6xl mx-auto space-y-8 my-12">
+            <FirmComparisonHeader firm1={firm1} firm2={firm2} />
+            
+            <div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-12">
+                {/* Column for Firm 1 */}
+                <div className="space-y-4">
+                    <ComparisonMetricCard 
+                        title="Year Established"
+                        icon={<Calendar className="w-6 h-6 md:w-8 md:h-8 text-primary" />}
+                        value={firm1Years.year}
+                        subvalue={firm1Years.yearsInOp}
+                    />
+                    <ComparisonMetricCard 
+                        title="Platforms"
+                        icon={<Monitor className="w-6 h-6 md:w-8 md:h-8 text-primary" />}
+                        value={firm1.platforms?.join(', ') || 'N/A'}
+                        isPlatformList
+                    />
+                    <ComparisonMetricCard 
+                        title="Max Allocation"
+                        icon={<TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-primary" />}
+                        value={firm1.maxAccountSize ? `$${(firm1.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                    />
+                </div>
+                {/* Column for Firm 2 */}
+                <div className="space-y-4">
+                    <ComparisonMetricCard 
+                        title="Year Established"
+                        icon={<Calendar className="w-6 h-6 md:w-8 md:h-8 text-secondary" />}
+                        value={firm2Years.year}
+                        subvalue={firm2Years.yearsInOp}
+                    />
+                     <ComparisonMetricCard 
+                        title="Platforms"
+                        icon={<Monitor className="w-6 h-6 md:w-8 md:h-8 text-secondary" />}
+                        value={firm2.platforms?.join(', ') || 'N/A'}
+                        isPlatformList
+                    />
+                    <ComparisonMetricCard 
+                        title="Max Allocation"
+                        icon={<TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-secondary" />}
+                        value={firm2.maxAccountSize ? `$${(firm2.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                    />
+                </div>
+            </div>
+
+            {tier1 && tier2 && (
+                 <section className="space-y-4">
+                    <div className="text-center my-8 md:my-12">
+                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8">
+                        <TierComparisonCard firm={firm1} tier={tier1} />
+                        <TierComparisonCard firm={firm2} tier={tier2} />
+                    </div>
+                </section>
+            )}
+        </div>
+    );
+};
 
 export default function Home() {
   const featuredFirms = mockPropFirms.filter(f => f.isFeatured);
   const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3);
   
   const [isClient, setIsClient] = React.useState(false);
+  const [comparisonFirms, setComparisonFirms] = React.useState<{firm1: PropFirm, firm2: PropFirm} | null>(null);
+
+  const handleSetComparisonFirms = (firm1Slug: string, firm2Slug: string) => {
+    const firm1 = mockPropFirms.find(f => f.slug === firm1Slug);
+    const firm2 = mockPropFirms.find(f => f.slug === firm2Slug);
+    if (firm1 && firm2) {
+      setComparisonFirms({ firm1, firm2 });
+    } else {
+      setComparisonFirms(null);
+    }
+  };
+
   React.useEffect(() => {
     setIsClient(true);
+    // Set a default comparison on initial load
+    handleSetComparisonFirms('topstep', 'take-profit-trader');
   }, []);
 
   return (
@@ -673,6 +781,14 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <section className="my-12">
+          <FirmVsFirmSelector firms={mockPropFirms} onCompare={handleSetComparisonFirms} />
+      </section>
+
+      {comparisonFirms && (
+          <FirmVsFirmSection firm1={comparisonFirms.firm1} firm2={comparisonFirms.firm2} />
+      )}
 
       {featuredFreeResources.length > 0 && (
         <section className="py-12 bg-card rounded-xl">
