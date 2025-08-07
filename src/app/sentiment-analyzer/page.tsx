@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
@@ -120,7 +121,7 @@ const AdminPanelPortal = ({ children }: { children: React.ReactNode }) => {
 
 export default function SentimentAnalyzerPage() {
   const [initialData] = useState(generateInitialData());
-  const [selectedFirms, setSelectedFirms] = useState([mockPropFirms[0]?.name || 'FTMO', mockPropFirms[1]?.name || 'Topstep']);
+  const [selectedFirms, setSelectedFirms] = useState(allFirms.slice(0,4).map(f => f.name));
   
   const [trendData, setTrendData] = useState<TrendData[]>(initialData.trendData);
   const [weeklyData, setWeeklyData] = useState<WeeklyData>(initialData.weeklyData);
@@ -203,8 +204,8 @@ export default function SentimentAnalyzerPage() {
 
         <section>
             <h2 className="text-2xl font-bold text-center mb-8 text-white/90">Detailed Weekly Breakdown</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {allFirms.filter(firm => selectedFirms.includes(firm.name)).map(firm => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {allFirms.map(firm => (
                   <FirmSentimentCard key={firm.name} firm={firm} data={weeklyData[firm.name]} />
               ))}
           </div>
