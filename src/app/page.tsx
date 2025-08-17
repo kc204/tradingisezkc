@@ -33,6 +33,10 @@ import { AdminPanel } from '@/components/sentiment/AdminPanel';
 import SentimentTrendChart from '@/components/sentiment/SentimentTrendChart';
 import FirmSentimentCard from '@/components/sentiment/FirmSentimentCard';
 import FirmSelectionDropdown from '@/components/sentiment/FirmSelectionDropdown';
+import { addDays, format, getISOWeek, startOfWeek, endOfWeek, eachWeekOfInterval, lastDayOfMonth } from 'date-fns';
+import type { DateRange } from 'react-day-picker';
+import { Calendar as CalendarIcon } from 'lucide-react';
+import { Calendar as CalendarPicker } from '@/components/ui/calendar';
 
 
 const firebaseConfig = {
@@ -737,79 +741,75 @@ const calculateWeightedScore = (data: { trustpilotRating: number; redditSentimen
     return Math.round(Math.max(0, weightedScore));
 };
 
-const generateInitialData = () => {
+const generateInitialData = (dateRange?: DateRange) => {
+  let startDate, endDate;
+
+  if (dateRange?.from && dateRange?.to) {
+      startDate = startOfWeek(dateRange.from, { weekStartsOn: 1 });
+      endDate = endOfWeek(dateRange.to, { weekStartsOn: 1 });
+  } else {
+      endDate = lastDayOfMonth(new Date('2025-07-31T12:00:00Z'));
+      startDate = startOfWeek(addDays(endDate, -27), { weekStartsOn: 1 });
+  }
+
+  const weeks = eachWeekOfInterval({ start: startDate, end: endDate }, { weekStartsOn: 1 });
   const trendData: TrendData[] = [];
   const weeklyData: WeeklyData = {};
   const firmNames = allSentimentFirms.map(f => f.name);
 
-  // Generate for previous weeks first
-    for (let i = 4; i > 0; i--) {
-        const weekEntry: TrendData = { week: `${i} Weeks Ago` };
-        firmNames.forEach(name => {
-            weekEntry[name] = Math.floor(Math.random() * 80) + 10;
-        });
-        trendData.push(weekEntry);
-    }
-
-    // Now generate "Last Week"
-    const lastWeekEntry: TrendData = { week: 'Last Week' };
-     firmNames.forEach(name => {
-      const firm = mockPropFirms.find(f => f.name === name);
-      const tempWeeklyData = {
-          trustpilotRating: firm?.rating || parseFloat((Math.random() * (5 - 3.5) + 3.5).toFixed(1)),
-          redditSentiment: Math.floor(Math.random() * 70) + 20, 
-          youtubeSentiment: Math.floor(Math.random() * 70) + 20,
-          xSentiment: Math.floor(Math.random() * 70) + 20,
-      };
-      const score = calculateWeightedScore(tempWeeklyData);
-      lastWeekEntry[name] = score;
-
-      weeklyData[name] = {
-        summary: `This is a sample summary for ${name} for the last week, highlighting recent community feedback and platform performance discussions.`,
-        positivePoints: ["Good community feedback noted on social channels.", "Platform reported as stable with minimal downtime.", "Fast response times from customer support."],
-        negativePoints: ["Some users reported concerns about payout processing times.", "Minor slippage reported during high-volatility news events."],
-        trustpilotRating: tempWeeklyData.trustpilotRating,
-        redditSentiment: tempWeeklyData.redditSentiment,
-        youtubeSentiment: tempWeeklyData.youtubeSentiment,
-        xSentiment: tempWeeklyData.xSentiment,
-        score: score,
-        redditSources: [],
-        youtubeSources: [],
-        xSources: [],
-      };
-  });
-  trendData.push(lastWeekEntry);
-
-
-  trendData.sort((a,b) => {
-    const weekA = a.week.toString();
-    const weekB = b.week.toString();
-
-    if (weekA.includes("Last")) return 1;
-    if (weekB.includes("Last")) return -1;
+  weeks.forEach((week, index) => {
+    const weekLabel = `Week of ${format(week, 'MMM d')}`;
+    const weekEntry: TrendData = { week: weekLabel };
     
-    const numA = parseInt(weekA.split(" ")[0]);
-    const numB = parseInt(weekB.split(" ")[0]);
-    
-    return numB - numA;
+    firmNames.forEach(name => {
+      const score = Math.floor(Math.random() * 80) + 10;
+      weekEntry[name] = score;
+
+      if (index === weeks.length - 1) { // Only populate weeklyData for the last week in the range
+          const firm = mockPropFirms.find(f => f.name === name);
+          const tempWeeklyData = {
+              trustpilotRating: firm?.rating || parseFloat((Math.random() * (5 - 3.5) + 3.5).toFixed(1)),
+              redditSentiment: Math.floor(Math.random() * 70) + 20, 
+              youtubeSentiment: Math.floor(Math.random() * 70) + 20,
+              xSentiment: Math.floor(Math.random() * 70) + 20,
+          };
+          weeklyData[name] = {
+            summary: `This is a sample summary for ${name} for the week of ${format(week, 'MMM d, yyyy')}.`,
+            positivePoints: ["Good community feedback noted on social channels.", "Platform reported as stable with minimal downtime.", "Fast response times from customer support."],
+            negativePoints: ["Some users reported concerns about payout processing times.", "Minor slippage reported during high-volatility news events."],
+            trustpilotRating: tempWeeklyData.trustpilotRating,
+            redditSentiment: tempWeeklyData.redditSentiment,
+            youtubeSentiment: tempWeeklyData.youtubeSentiment,
+            xSentiment: tempWeeklyData.xSentiment,
+            score: calculateWeightedScore(tempWeeklyData),
+            redditSources: [],
+            youtubeSources: [],
+            xSources: [],
+          };
+      }
+    });
+    trendData.push(weekEntry);
   });
 
-  return { trendData, weeklyData };
+  return { trendData, weeklyData: weeklyData };
 };
 
 
 function SentimentAnalyzerSection() {
-    const [initialData] = useState(generateInitialData());
     const [selectedFirms, setSelectedFirms] = useState([mockPropFirms[0]?.name || 'FTMO', mockPropFirms[1]?.name || 'Topstep']);
+    const [date, setDate] = React.useState<DateRange | undefined>(undefined);
     
-    const [trendData, setTrendData] = useState<TrendData[]>(initialData.trendData);
-    const [weeklyData, setWeeklyData] = useState<WeeklyData>(initialData.weeklyData);
+    const [trendData, setTrendData] = useState<TrendData[]>([]);
+    const [weeklyData, setWeeklyData] = useState<WeeklyData>({});
 
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const { trendData: newTrendData, weeklyData: newWeeklyData } = generateInitialData(date);
+        setTrendData(newTrendData);
+        setWeeklyData(newWeeklyData);
         setLoading(false);
-    }, []);
+    }, [date]);
 
     const handleFirmSelection = (firmName: string) => {
         setSelectedFirms(prev => {
@@ -840,12 +840,48 @@ function SentimentAnalyzerSection() {
         <div className="space-y-12 font-sans text-white">
             <main>
                 <section className="mb-10">
-                    <div className="flex justify-between items-center mb-6">
+                    <div className="flex flex-wrap gap-4 justify-between items-center mb-6">
                         <FirmSelectionDropdown 
                             allFirms={allSentimentFirms}
                             selectedFirms={selectedFirms}
                             onFirmSelect={handleFirmSelection}
                         />
+                        <Popover>
+                          <PopoverTrigger asChild>
+                              <Button
+                                  id="date"
+                                  variant={"outline"}
+                                  className={cn(
+                                      "w-full justify-start text-left font-normal md:w-[300px] bg-black/20 border-white/10 rounded-full h-11 text-white hover:text-white hover:bg-black/30 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500",
+                                      !date && "text-muted-foreground"
+                                  )}
+                              >
+                                  <CalendarIcon className="mr-2 h-4 w-4" />
+                                  {date?.from ? (
+                                      date.to ? (
+                                          <>
+                                              {format(date.from, "LLL dd, y")} - {format(date.to, "LLL dd, y")}
+                                          </>
+                                      ) : (
+                                          format(date.from, "LLL dd, y")
+                                      )
+                                  ) : (
+                                      <span>Select date range</span>
+                                  )}
+                              </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="end">
+                              <CalendarPicker
+                                  initialFocus
+                                  mode="range"
+                                  defaultMonth={date?.from}
+                                  selected={date}
+                                  onSelect={setDate}
+                                  numberOfMonths={2}
+                                  disabled={{ before: new Date("2025-07-01"), after: new Date("2025-08-17") }}
+                              />
+                          </PopoverContent>
+                      </Popover>
                     </div>
                     <SentimentTrendChart 
                         data={trendData} 
