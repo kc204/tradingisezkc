@@ -58,7 +58,7 @@ const generateInitialData = (dateRange?: DateRange) => {
       startDate = startOfWeek(dateRange.from, { weekStartsOn: 1 });
       endDate = endOfWeek(dateRange.to, { weekStartsOn: 1 });
   } else {
-      endDate = lastDayOfMonth(new Date('2025-07-31T12:00:00Z'));
+      endDate = new Date('2025-08-17T12:00:00Z');
       startDate = startOfWeek(addDays(endDate, -27), { weekStartsOn: 1 });
   }
 
