@@ -9,14 +9,15 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
-import { Star, MessageSquare, Youtube, X, Loader2, Wand2, PlusCircle, Trash2 } from 'lucide-react';
-import type { WeeklyData, FirmData, ContentSource } from '@/lib/types';
+import { Star, MessageSquare, Youtube, X, Loader2, Wand2, PlusCircle, Trash2, CalendarIcon } from 'lucide-react';
+import type { WeeklyData, FirmData, ContentSource, TrendData } from '@/lib/types';
 import { generateSentimentSummaryAction } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface AdminPanelProps {
   weeklyData: WeeklyData;
+  trendData: TrendData[];
   allFirms: FirmData[];
   onSave: (data: WeeklyData) => void;
   calculateWeightedScore: (data: { trustpilotRating: number; redditSentiment: number; youtubeSentiment: number; xSentiment: number; }) => number;
@@ -105,7 +106,7 @@ const SourceInputList: React.FC<{
 };
 
 
-export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, children, allFirms, calculateWeightedScore }) => {
+export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, trendData, onSave, children, allFirms, calculateWeightedScore }) => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [password, setPassword] = useState('');
@@ -115,6 +116,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
 
   const [localWeeklyData, setLocalWeeklyData] = useState<WeeklyData | null>(null);
   const [editingFirm, setEditingFirm] = useState<string | null>(null);
+  const [editingWeekLabel, setEditingWeekLabel] = useState<string | null>(null);
   
   useEffect(() => {
     if (isPanelOpen) {
@@ -122,8 +124,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
       if (allFirms.length > 0 && !editingFirm) {
         setEditingFirm(allFirms[0].name);
       }
+      if (trendData.length > 0 && !editingWeekLabel) {
+        setEditingWeekLabel(trendData[trendData.length -1].week);
+      }
     }
-  }, [isPanelOpen, weeklyData, allFirms, editingFirm]);
+  }, [isPanelOpen, weeklyData, allFirms, editingFirm, trendData]);
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -237,16 +242,29 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ weeklyData, onSave, chil
               Adjust the sentiment scores and text for the selected firm. Changes will update the chart in real-time.
             </DialogDescription>
           </DialogHeader>
-            <div className="my-4">
-                <Label htmlFor="firm-select">Select Firm to Edit</Label>
-                <Select value={editingFirm || ''} onValueChange={setEditingFirm}>
-                    <SelectTrigger id="firm-select"><SelectValue placeholder="Select a firm..." /></SelectTrigger>
-                    <SelectContent>
-                        {allFirms.map(firm => (
-                            <SelectItem key={firm.name} value={firm.name}>{firm.name}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
+            <div className="my-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="firm-select">Select Firm to Edit</Label>
+                  <Select value={editingFirm || ''} onValueChange={setEditingFirm}>
+                      <SelectTrigger id="firm-select"><SelectValue placeholder="Select a firm..." /></SelectTrigger>
+                      <SelectContent>
+                          {allFirms.map(firm => (
+                              <SelectItem key={firm.name} value={firm.name}>{firm.name}</SelectItem>
+                          ))}
+                      </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                   <Label htmlFor="week-select">Select Week to Edit</Label>
+                   <Select value={editingWeekLabel || ''} onValueChange={setEditingWeekLabel}>
+                      <SelectTrigger id="week-select"><SelectValue placeholder="Select a week..." /></SelectTrigger>
+                      <SelectContent>
+                          {trendData.map(week => (
+                              <SelectItem key={week.week} value={week.week}>{week.week}</SelectItem>
+                          ))}
+                      </SelectContent>
+                  </Select>
+                </div>
             </div>
           <ScrollArea className="flex-1 -mr-6 pr-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">

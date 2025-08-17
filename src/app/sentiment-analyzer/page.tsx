@@ -152,15 +152,18 @@ export default function SentimentAnalyzerPage() {
   const handleSaveData = (newWeeklyDataFromAdmin: WeeklyData) => {
       const updatedWeeklyData = { ...newWeeklyDataFromAdmin };
       const updatedTrendData = [...trendData];
-      const lastWeekIndex = updatedTrendData.findIndex(d => d.week === 'Last Week');
+      const lastWeekIndex = updatedTrendData.length - 1;
       
-      Object.keys(updatedWeeklyData).forEach(firmName => {
-          const score = calculateWeightedScore(updatedWeeklyData[firmName]);
-          updatedWeeklyData[firmName].score = score;
-          if(lastWeekIndex >= 0 && updatedTrendData[lastWeekIndex]) {
-              updatedTrendData[lastWeekIndex][firmName] = score;
-          }
-      });
+      if(lastWeekIndex >= 0) {
+        Object.keys(updatedWeeklyData).forEach(firmName => {
+            const score = calculateWeightedScore(updatedWeeklyData[firmName]);
+            updatedWeeklyData[firmName].score = score;
+            if(updatedTrendData[lastWeekIndex]) {
+                updatedTrendData[lastWeekIndex][firmName] = score;
+            }
+        });
+      }
+
 
       setWeeklyData(updatedWeeklyData);
       setTrendData(updatedTrendData);
@@ -252,6 +255,7 @@ export default function SentimentAnalyzerPage() {
       <AdminPanelPortal>
           <AdminPanel
               weeklyData={weeklyData}
+              trendData={trendData}
               onSave={handleSaveData}
               allFirms={allFirms}
               calculateWeightedScore={calculateWeightedScore}
