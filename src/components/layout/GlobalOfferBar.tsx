@@ -1,15 +1,12 @@
-
 'use client';
 
 import { mockGlobalOffers, mockPropFirms } from '@/lib/mockData';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
 
 const GlobalOfferBar = () => {
-  const isMobile = useIsMobile();
 
   const activeOffersWithFirms = mockGlobalOffers
     .filter(offer => offer.isActive)
@@ -26,12 +23,11 @@ const GlobalOfferBar = () => {
     return null;
   }
 
-  // Duplicate for marquee effect on desktop, not needed for mobile's scroll
-  const duplicatedOffers = isMobile ? activeOffersWithFirms : [...activeOffersWithFirms, ...activeOffersWithFirms];
+  const duplicatedOffers = [...activeOffersWithFirms, ...activeOffersWithFirms];
 
   return (
     <div className="bg-primary text-primary-foreground py-2 text-sm sticky top-0 z-50 shadow-md w-full overflow-x-hidden">
-        <div className={cn("flex w-max", !isMobile && "animate-marquee")}>
+        <div className={cn("flex w-max animate-marquee")}>
             <div className="flex">
                 {duplicatedOffers.map((offer, index) => (
                     <Link
@@ -55,7 +51,7 @@ const GlobalOfferBar = () => {
                     </Link>
                 ))}
             </div>
-            {!isMobile && <div className="flex">
+             <div className="flex">
                 {duplicatedOffers.map((offer, index) => (
                     <Link
                         key={`duplicate-${offer.id}-${index}`}
@@ -78,7 +74,7 @@ const GlobalOfferBar = () => {
                         <ChevronRight className="ml-1 h-4 w-4 shrink-0" />
                     </Link>
                 ))}
-            </div>}
+            </div>
         </div>
     </div>
   );
