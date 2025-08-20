@@ -5,13 +5,15 @@ import { mockGlobalOffers, mockPropFirms } from '@/lib/mockData';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { cn } from '@/lib/utils';
 
 const GlobalOfferBar = () => {
+  const isMobile = useIsMobile();
+
   const activeOffersWithFirms = mockGlobalOffers
     .filter(offer => offer.isActive)
     .map(offer => {
-      // Find the firm based on a loose match in the offer text.
-      // This is a simple approach; a more robust solution would involve linking offers to firms with an ID.
       const firm = mockPropFirms.find(f => offer.text.toLowerCase().includes(f.name.toLowerCase().split(' ')[0]));
       return {
         ...offer,
@@ -24,12 +26,15 @@ const GlobalOfferBar = () => {
     return null;
   }
 
-  // Duplicate the content to create a seamless loop for the marquee effect
-  const duplicatedOffers = [...activeOffersWithFirms, ...activeOffersWithFirms];
+  // Duplicate for marquee effect on desktop, not needed for mobile's scroll
+  const duplicatedOffers = isMobile ? activeOffersWithFirms : [...activeOffersWithFirms, ...activeOffersWithFirms];
 
   return (
-    <div className="bg-primary text-primary-foreground py-2 text-sm sticky top-0 z-50 shadow-md overflow-hidden">
-      <div className="animate-marquee whitespace-nowrap flex items-center">
+    <div className="bg-primary text-primary-foreground py-2 text-sm sticky top-0 z-50 shadow-md overflow-x-auto md:overflow-x-hidden no-scrollbar">
+      <div className={cn(
+        "flex items-center",
+        !isMobile && "animate-marquee whitespace-nowrap"
+      )}>
         {duplicatedOffers.map((offer, index) => (
           <Link
             key={`${offer.id}-${index}`}
@@ -47,7 +52,7 @@ const GlobalOfferBar = () => {
                 className="w-5 h-5 mr-2 rounded-sm object-contain"
               />
             )}
-            <span className="font-medium">{offer.text}</span>
+            <span className="font-medium whitespace-nowrap">{offer.text}</span>
             <ChevronRight className="ml-1 h-4 w-4 shrink-0" />
           </Link>
         ))}
