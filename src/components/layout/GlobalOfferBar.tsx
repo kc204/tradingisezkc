@@ -51,7 +51,7 @@ const GlobalOfferBar = () => {
                     </Link>
                 ))}
             </div>
-             <div className="flex">
+             <div className="flex" aria-hidden="true">
                 {duplicatedOffers.map((offer, index) => (
                     <Link
                         key={`duplicate-${offer.id}-${index}`}
@@ -59,7 +59,6 @@ const GlobalOfferBar = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:underline hover:text-white inline-flex items-center text-white mx-4 flex-shrink-0"
-                        aria-hidden="true" // Hide duplicates from screen readers
                     >
                         {offer.firmLogo && (
                         <Image 
