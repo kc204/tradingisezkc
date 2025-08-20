@@ -106,8 +106,8 @@ export default {
           '100%': { transform: 'translate(100%, 0%)', opacity: '0' },
         },
         marquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-50%)' },
+            from: { transform: 'translateX(0)' },
+            to: { transform: 'translateX(-50%)' },
         },
   		},
   		animation: {

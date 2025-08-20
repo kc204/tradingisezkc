@@ -30,33 +30,56 @@ const GlobalOfferBar = () => {
   const duplicatedOffers = isMobile ? activeOffersWithFirms : [...activeOffersWithFirms, ...activeOffersWithFirms];
 
   return (
-    <div className="bg-primary text-primary-foreground py-2 text-sm sticky top-0 z-50 shadow-md overflow-x-auto md:overflow-x-hidden no-scrollbar">
-      <div className={cn(
-        "flex items-center",
-        !isMobile && "animate-marquee whitespace-nowrap"
-      )}>
-        {duplicatedOffers.map((offer, index) => (
-          <Link
-            key={`${offer.id}-${index}`}
-            href={offer.affiliateLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:underline hover:text-white inline-flex items-center text-white mx-4 flex-shrink-0"
-          >
-            {offer.firmLogo && (
-              <Image 
-                src={offer.firmLogo} 
-                alt="" 
-                width={20} 
-                height={20} 
-                className="w-5 h-5 mr-2 rounded-sm object-contain"
-              />
-            )}
-            <span className="font-medium whitespace-nowrap">{offer.text}</span>
-            <ChevronRight className="ml-1 h-4 w-4 shrink-0" />
-          </Link>
-        ))}
-      </div>
+    <div className="bg-primary text-primary-foreground py-2 text-sm sticky top-0 z-50 shadow-md w-full overflow-x-hidden">
+        <div className={cn("flex w-max", !isMobile && "animate-marquee")}>
+            <div className="flex">
+                {duplicatedOffers.map((offer, index) => (
+                    <Link
+                        key={`${offer.id}-${index}`}
+                        href={offer.affiliateLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline hover:text-white inline-flex items-center text-white mx-4 flex-shrink-0"
+                    >
+                        {offer.firmLogo && (
+                        <Image 
+                            src={offer.firmLogo} 
+                            alt="" 
+                            width={20} 
+                            height={20} 
+                            className="w-5 h-5 mr-2 rounded-sm object-contain"
+                        />
+                        )}
+                        <span className="font-medium whitespace-nowrap">{offer.text}</span>
+                        <ChevronRight className="ml-1 h-4 w-4 shrink-0" />
+                    </Link>
+                ))}
+            </div>
+            {!isMobile && <div className="flex">
+                {duplicatedOffers.map((offer, index) => (
+                    <Link
+                        key={`duplicate-${offer.id}-${index}`}
+                        href={offer.affiliateLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline hover:text-white inline-flex items-center text-white mx-4 flex-shrink-0"
+                        aria-hidden="true" // Hide duplicates from screen readers
+                    >
+                        {offer.firmLogo && (
+                        <Image 
+                            src={offer.firmLogo} 
+                            alt="" 
+                            width={20} 
+                            height={20} 
+                            className="w-5 h-5 mr-2 rounded-sm object-contain"
+                        />
+                        )}
+                        <span className="font-medium whitespace-nowrap">{offer.text}</span>
+                        <ChevronRight className="ml-1 h-4 w-4 shrink-0" />
+                    </Link>
+                ))}
+            </div>}
+        </div>
     </div>
   );
 };
