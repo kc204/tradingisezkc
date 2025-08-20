@@ -47,7 +47,7 @@ const GlobalOfferBar = () => {
                 className="w-5 h-5 mr-2 rounded-sm object-contain"
               />
             )}
-            <span className="font-semibold">{offer.text}</span>
+            <span className="font-medium">{offer.text}</span>
             <ChevronRight className="ml-1 h-4 w-4 shrink-0" />
           </Link>
         ))}

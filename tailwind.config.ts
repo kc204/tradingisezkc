@@ -115,7 +115,7 @@ export default {
   			'accordion-up': 'accordion-up 0.2s ease-out',
         'star-movement-bottom': 'star-movement-bottom linear infinite alternate',
         'star-movement-top': 'star-movement-top linear infinite alternate',
-        marquee: 'marquee 40s linear infinite',
+        marquee: 'marquee 25s linear infinite',
   		}
   	}
   },
