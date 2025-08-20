@@ -13,7 +13,6 @@ const sitemapLinks = [
     { href: "/", label: "Home" },
     { href: "/firms", label: "All Prop Firms" },
     { href: "/compare", label: "Compare Firms" },
-    { href: "/sentiment-analyzer", label: "Sentiment Analyzer" },
     { href: "/free-resources", label: "Free Resources" }, 
   ]},
   { category: "Prop Firms (Examples - Dynamic in real app)", links: [

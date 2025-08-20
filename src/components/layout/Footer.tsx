@@ -56,8 +56,6 @@ const Footer = () => {
                     </Link>
                   </li>
                 ))}
-                {/* This div serves as a portal root for page-specific triggers */}
-                <li id="admin-panel-trigger-root"></li>
               </ul>
             </div>
             {/* Placeholder for NeonAstronautTrigger if re-added later */}
