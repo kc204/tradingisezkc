@@ -18,7 +18,7 @@ export const fundingticks: PropFirm = {
     logoUrl: '/images/fundingticks_logo.png',
     websiteUrl: '#', // Placeholder
     affiliateLink: '#', // Placeholder
-    isFeatured: false,
+    isFeatured: true,
     ceo: 'Khaled Ayesh',
     dateCreated: 'March 2025',
     briefDescription: 'Futures firm from the UAE offering 1-step evaluations and direct funding with a 90% profit split.',
