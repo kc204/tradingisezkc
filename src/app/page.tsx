@@ -58,7 +58,7 @@ const formatShortCurrency = (value: any) => value == null ? 'N/A' : `$${value/10
 
 const Separator = () => <div className="hidden md:block h-6 w-px bg-white/10 mx-2"></div>;
 
-const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filteredCount, totalCount, hideFirmSelector = false, hideChallengeType = false }: any) => {
+const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filteredCount, totalCount, hideFirmSelector = false, hideChallengeType = false, showFeaturedToggle = false, isFeaturedActive, setIsFeaturedActive }: any) => {
     const [isCustomSizeActive, setIsCustomSizeActive] = React.useState(false);
     const [customSize, setCustomSize] = React.useState([50000, 500000]);
     const [tempCustomSize, setTempCustomSize] = React.useState(customSize);
@@ -245,6 +245,22 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
                         </button>
                         <label className="text-sm font-semibold text-gray-300">Apply Discount</label>
                     </div>
+                    
+                     {showFeaturedToggle && (
+                         <>
+                            <Separator />
+                            <Button 
+                                variant="toggle" 
+                                size="sm" 
+                                onClick={() => setIsFeaturedActive(!isFeaturedActive)}
+                                aria-pressed={isFeaturedActive}
+                                className="rounded-full"
+                            >
+                                <Star className={`mr-2 h-4 w-4 ${isFeaturedActive ? 'text-yellow-400 fill-yellow-400' : 'text-gray-400'}`} />
+                                Featured
+                            </Button>
+                        </>
+                    )}
                 </div>
 
                 {!hideFirmSelector && (
@@ -475,6 +491,7 @@ function FullCompareSection() {
   const [sortConfig, setSortConfig] = React.useState<{key: string, direction: string}>({ key: 'price', direction: 'ascending' });
   const [currentPage, setCurrentPage] = React.useState(1);
   const ROWS_PER_PAGE = 8;
+  const [isFeaturedActive, setIsFeaturedActive] = useState(true);
 
   React.useEffect(() => {
     if (!db) {
@@ -517,26 +534,32 @@ function FullCompareSection() {
     const featuredFirmSlugs = mockPropFirms.filter(f => f.isFeatured).map(f => f.slug);
     let filtered = challenges.filter(c => featuredFirmSlugs.includes(c.firmId));
 
-    filtered = filtered.filter(c => c.challengeType === filters.challengeType);
+    if (isFeaturedActive) {
+      const bestPerFirm = new Map();
+      filtered.forEach(c => {
+        if (c.accountSize === 100000) {
+           if (!bestPerFirm.has(c.firmId) || c.price < bestPerFirm.get(c.firmId).price) {
+             bestPerFirm.set(c.firmId, c);
+           }
+        }
+      });
+      filtered = Array.from(bestPerFirm.values());
+    } else {
+        if (filters.customSizeRange) {
+          const [min, max] = filters.customSizeRange;
+          filtered = filtered.filter(c => c.accountSize >= min && c.accountSize <= max);
+        } else if (filters.accountSize.length > 0) {
+            filtered = filtered.filter(c => filters.accountSize.includes(c.accountSize));
+        }
 
-    if (selectedFirm) {
-        filtered = filtered.filter(c => c.firmId === selectedFirm);
-    }
-    
-    if (filters.customSizeRange) {
-      const [min, max] = filters.customSizeRange;
-      filtered = filtered.filter(c => c.accountSize >= min && c.accountSize <= max);
-    } else if (filters.accountSize.length > 0) {
-        filtered = filtered.filter(c => filters.accountSize.includes(c.accountSize));
-    }
-
-    if (filters.steps.length > 0) {
-        filtered = filtered.filter(c => {
-            if (!c) return false;
-            const stepMatch = filters.steps.includes(c.steps);
-            const instantMatch = filters.steps.includes('Instant') && c.isInstant;
-            return stepMatch || instantMatch;
-        });
+        if (filters.steps.length > 0) {
+            filtered = filtered.filter(c => {
+                if (!c) return false;
+                const stepMatch = filters.steps.includes(c.steps);
+                const instantMatch = filters.steps.includes('Instant') && c.isInstant;
+                return stepMatch || instantMatch;
+            });
+        }
     }
     
     filtered.sort((a, b) => {
@@ -553,11 +576,11 @@ function FullCompareSection() {
         return 0;
     });
     return filtered;
-  }, [challenges, selectedFirm, filters, sortConfig]);
+  }, [challenges, selectedFirm, filters, sortConfig, isFeaturedActive]);
 
   React.useEffect(() => {
       setCurrentPage(1);
-  }, [filters, selectedFirm]);
+  }, [filters, selectedFirm, isFeaturedActive]);
 
   const paginatedChallenges = React.useMemo(() => {
       const startIndex = (currentPage - 1) * ROWS_PER_PAGE;
@@ -601,6 +624,9 @@ function FullCompareSection() {
             totalCount={challenges.filter(c => c.challengeType === filters.challengeType && mockPropFirms.find(f=>f.slug === c.firmId)?.isFeatured).length}
             hideFirmSelector={true}
             hideChallengeType={true}
+            showFeaturedToggle={true}
+            isFeaturedActive={isFeaturedActive}
+            setIsFeaturedActive={setIsFeaturedActive}
           />
           <ChallengeTable 
             challenges={paginatedChallenges} 
@@ -832,5 +858,6 @@ export default function Home() {
     </div>
   );
 }
+
 
 
