@@ -383,7 +383,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                                 width: isScrolled ? '0px' : 'auto',
                             }}
                         >
-                            <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
+                            <div className="text-xs font-medium text-white truncate">{challenge.firmName}</div>
                             <div className="flex items-center text-xs text-gray-400 mt-1">
                                 <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
                                 {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
@@ -410,11 +410,11 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                          <div className="text-right">
                            {applyDiscount && challenge.promoDiscountPercent > 0 ? (
                                 <>
-                                    <p className="font-semibold text-green-400 text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
+                                    <p className="font-semibold text-green-400 text-xs sm:text-sm">{formatCurrency(finalPrice)}</p>
                                     <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
                                 </>
                             ) : (
-                                <p className="font-semibold text-white text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
+                                <p className="font-semibold text-white text-xs sm:text-sm">{formatCurrency(finalPrice)}</p>
                             )}
                              <p className="text-xs text-gray-400">{challenge.paymentType}</p>
                         </div>
@@ -508,7 +508,10 @@ function FullCompareSection() {
   }, []);
 
   const filteredAndSortedChallenges = React.useMemo(() => {
-    let filtered = challenges.filter(c => c.challengeType === filters.challengeType);
+    const featuredFirmSlugs = mockPropFirms.filter(f => f.isFeatured).map(f => f.slug);
+    let filtered = challenges.filter(c => featuredFirmSlugs.includes(c.firmId));
+
+    filtered = filtered.filter(c => c.challengeType === filters.challengeType);
 
     if (selectedFirm) {
         filtered = filtered.filter(c => c.firmId === selectedFirm);
@@ -583,14 +586,6 @@ function FullCompareSection() {
     <div className="font-sans text-white">
       <div className="max-w-full mx-auto">
         <main>
-          <ControlBar 
-            filters={filters}
-            setFilters={setFilters}
-            selectedFirm={selectedFirm}
-            setSelectedFirm={setSelectedFirm}
-            filteredCount={filteredAndSortedChallenges.length}
-            totalCount={challenges.filter(c => c.challengeType === filters.challengeType).length}
-          />
           <ChallengeTable 
             challenges={paginatedChallenges} 
             requestSort={requestSort}
@@ -722,7 +717,12 @@ export default function Home() {
   React.useEffect(() => {
     setIsClient(true);
     // Set a default comparison on initial load
-    handleSetComparisonFirms('topstep', 'take-profit-trader');
+    const featuredSlugs = featuredFirms.map(f => f.slug);
+    if(featuredSlugs.length >= 2){
+      handleSetComparisonFirms(featuredSlugs[0], featuredSlugs[1]);
+    } else {
+      handleSetComparisonFirms('topstep', 'take-profit-trader');
+    }
   }, []);
 
   return (
@@ -785,7 +785,7 @@ export default function Home() {
       </section>
 
       <section className="my-12">
-          <FirmVsFirmSelector firms={mockPropFirms} onCompare={handleSetComparisonFirms} />
+          <FirmVsFirmSelector firms={featuredFirms} onCompare={handleSetComparisonFirms} />
       </section>
 
       {comparisonFirms && (
@@ -816,3 +816,4 @@ export default function Home() {
     </div>
   );
 }
+
