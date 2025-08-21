@@ -318,7 +318,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
-                <table className="min-w-full text-sm">
+                <table className="min-w-full text-xs">
                     <thead className="sticky top-0 z-20 bg-black/50 backdrop-blur-lg border-b border-white/10">
                         <tr>
                             {columns.map(col => (
