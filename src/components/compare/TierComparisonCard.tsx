@@ -17,8 +17,8 @@ const formatCurrency = (value: number | undefined) => {
 
 const MetricRow: React.FC<{ label: string; value: string | React.ReactNode; highlight?: boolean }> = ({ label, value, highlight }) => (
     <div className={`flex justify-between items-center py-2 md:py-4 border-b border-border/30 last:border-b-0 ${highlight ? 'bg-primary/10 px-2 md:px-4 -mx-2 md:-mx-4 rounded-lg' : ''}`}>
-        <span className="text-sm md:text-base text-muted-foreground">{label}</span>
-        <span className="text-base md:text-xl font-bold text-foreground text-right">{value}</span>
+        <span className="text-sm text-muted-foreground">{label}</span>
+        <span className="text-base md:text-lg font-bold text-foreground text-right">{value}</span>
     </div>
 );
 

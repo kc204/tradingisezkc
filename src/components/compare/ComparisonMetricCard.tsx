@@ -56,11 +56,11 @@ const ComparisonMetricCard: React.FC<ComparisonMetricCardProps> = ({ title, icon
         <div className="flex items-center gap-3 md:gap-4">
             <div className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0">{icon}</div>
             <div>
-                <h3 className="font-semibold text-base md:text-lg text-muted-foreground">{title}</h3>
+                <h3 className="font-semibold text-base text-muted-foreground">{title}</h3>
                 {isPlatformList ? (
                      renderPlatformValue(value)
                 ) : (
-                    <p className="text-xl md:text-2xl font-bold text-foreground">{value} {subvalue && <span className="text-xs md:text-sm font-normal text-gray-400">({subvalue})</span>}</p>
+                    <p className="text-xl md:text-2xl font-bold text-foreground">{value} {subvalue && <span className="text-xs font-normal text-gray-400">({subvalue})</span>}</p>
                 )}
             </div>
         </div>
