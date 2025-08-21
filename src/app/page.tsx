@@ -58,7 +58,7 @@ const formatShortCurrency = (value: any) => value == null ? 'N/A' : `$${value/10
 
 const Separator = () => <div className="hidden md:block h-6 w-px bg-white/10 mx-2"></div>;
 
-const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filteredCount, totalCount }: any) => {
+const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filteredCount, totalCount, hideFirmSelector = false, hideChallengeType = false }: any) => {
     const [isCustomSizeActive, setIsCustomSizeActive] = React.useState(false);
     const [customSize, setCustomSize] = React.useState([50000, 500000]);
     const [tempCustomSize, setTempCustomSize] = React.useState(customSize);
@@ -149,34 +149,38 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
     return (
         <div className="space-y-4 mb-6">
             <div className="flex justify-between items-center">
-                 <div className="flex items-center p-1 bg-white/5 rounded-full">
-                    <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
-                        Futures
-                    </button>
-                    <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
-                        CFD
-                    </button>
-                </div>
-                 <div className="flex-col items-end gap-2 hidden md:flex">
-                     <div className="w-full md:w-64">
-                        <Select onValueChange={handleFirmChange} value={selectedFirm || 'all'}>
-                            <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <SelectValue placeholder="Select a firm..." />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">All Firms</SelectItem>
-                                {mockPropFirms.map((firm) => (
-                                    <SelectItem key={firm.id} value={firm.slug}>
-                                        <div className="flex items-center gap-2">
-                                            <Image src={firm.logoUrl} alt={firm.name} width={24} height={24} className="rounded-sm" />
-                                            <span>{firm.name}</span>
-                                        </div>
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                 {!hideChallengeType && (
+                     <div className="flex items-center p-1 bg-white/5 rounded-full">
+                        <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+                            Futures
+                        </button>
+                        <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+                            CFD
+                        </button>
                     </div>
-                </div>
+                 )}
+                 {!hideFirmSelector && (
+                    <div className="flex-col items-end gap-2 hidden md:flex">
+                        <div className="w-full md:w-64">
+                            <Select onValueChange={handleFirmChange} value={selectedFirm || 'all'}>
+                                <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <SelectValue placeholder="Select a firm..." />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="all">All Firms</SelectItem>
+                                    {mockPropFirms.map((firm) => (
+                                        <SelectItem key={firm.id} value={firm.slug}>
+                                            <div className="flex items-center gap-2">
+                                                <Image src={firm.logoUrl} alt={firm.name} width={24} height={24} className="rounded-sm" />
+                                                <span>{firm.name}</span>
+                                            </div>
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </div>
+                 )}
             </div>
             
             <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
@@ -243,26 +247,28 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
                     </div>
                 </div>
 
-                <div className="relative flex-grow w-full md:flex-grow-0 md:w-auto md:hidden">
-                    <div className="mt-2">
-                        <Select onValueChange={handleFirmChange} value={selectedFirm || 'all'}>
-                            <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <SelectValue placeholder="Select a firm..." />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">All Firms</SelectItem>
-                                {mockPropFirms.map((firm) => (
-                                    <SelectItem key={firm.id} value={firm.slug}>
-                                        <div className="flex items-center gap-2">
-                                            <Image src={firm.logoUrl} alt={firm.name} width={24} height={24} className="rounded-sm" />
-                                            <span>{firm.name}</span>
-                                        </div>
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                {!hideFirmSelector && (
+                    <div className="relative flex-grow w-full md:flex-grow-0 md:w-auto md:hidden">
+                        <div className="mt-2">
+                            <Select onValueChange={handleFirmChange} value={selectedFirm || 'all'}>
+                                <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <SelectValue placeholder="Select a firm..." />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="all">All Firms</SelectItem>
+                                    {mockPropFirms.map((firm) => (
+                                        <SelectItem key={firm.id} value={firm.slug}>
+                                            <div className="flex items-center gap-2">
+                                                <Image src={firm.logoUrl} alt={firm.name} width={24} height={24} className="rounded-sm" />
+                                                <span>{firm.name}</span>
+                                            </div>
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
             <h2 className="text-xl font-bold tracking-tight text-white/90">
                 {filters.challengeType === 'futures' ? 'Futures' : 'CFD'} Prop Firm Challenges <span className="ml-2 text-blue-400 font-medium bg-blue-500/10 px-2 py-1 rounded-md text-base">Showing {filteredCount} of {totalCount}</span>
@@ -586,6 +592,16 @@ function FullCompareSection() {
     <div className="font-sans text-white">
       <div className="max-w-full mx-auto">
         <main>
+          <ControlBar
+            filters={filters}
+            setFilters={setFilters}
+            selectedFirm={selectedFirm}
+            setSelectedFirm={setSelectedFirm}
+            filteredCount={filteredAndSortedChallenges.length}
+            totalCount={challenges.filter(c => c.challengeType === filters.challengeType && mockPropFirms.find(f=>f.slug === c.firmId)?.isFeatured).length}
+            hideFirmSelector={true}
+            hideChallengeType={true}
+          />
           <ChallengeTable 
             challenges={paginatedChallenges} 
             requestSort={requestSort}
@@ -816,4 +832,5 @@ export default function Home() {
     </div>
   );
 }
+
 
