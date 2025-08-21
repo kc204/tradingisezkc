@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${jakarta.variable}`}>
-      <body className="font-sans antialiased flex flex-col min-h-screen overflow-x-hidden">
+      <body className="antialiased flex flex-col min-h-screen overflow-x-hidden">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark" // Enforce dark theme for "Dynamic Blue & Action Orange"
