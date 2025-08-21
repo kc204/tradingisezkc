@@ -1,3 +1,4 @@
+
 import type { PropFirm, AccountTier } from '../../types';
 
 export const bulenoxAccountTiers: AccountTier[] = [
@@ -15,7 +16,7 @@ export const bulenox: PropFirm = {
     logoUrl: '/images/bulenox_logo.png',
     websiteUrl: 'https://bulenox.com/',
     affiliateLink: 'https://bulenox.com/?ref=YOUR-AFFILIATE-ID', // REPLACE WITH YOUR ACTUAL BULENOX AFFILIATE LINK
-    isFeatured: false,
+    isFeatured: true,
     briefDescription: 'Futures prop firm with a Qualification to Master account path, choice of drawdown models, and a 100% profit split on the first $10,000.',
     fullReview: `Bulenox provides a structured career path for futures traders, starting with a Qualification Account and progressing to a Master Account. A key differentiator is the choice between two evaluation models: a "No Scaling" account with a trailing drawdown and no daily loss limit, or an "EOD" account with an end-of-day drawdown, a daily loss limit, and a contract scaling plan. After a minimum of 5 trading days, successful traders pay a one-time activation fee to receive a Master Account. This funded account features a 100% profit split on the first $10,000, after which the split becomes 90/10. Traders who demonstrate consistent success on a Master Account may be invited to trade a real capital funded account.`,
     tradingRules: `<h3>Step 1: The Qualification Account</h3>
