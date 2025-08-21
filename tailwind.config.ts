@@ -10,10 +10,10 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      sans: ["var(--font-jakarta)", ...fontFamily.sans],
+    },
   	extend: {
-      fontFamily: {
-        sans: ["var(--font-jakarta)", ...fontFamily.sans],
-      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
