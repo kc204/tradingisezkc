@@ -1,3 +1,4 @@
+
 import type { PropFirm, AccountTier } from '../../types';
 
 export const ftmoAccountTiers: AccountTier[] = [
@@ -22,7 +23,7 @@ export const ftmo: PropFirm = {
     logoUrl: '/images/ftmo_logo.png',
     websiteUrl: '#',
     affiliateLink: '#',
-    isFeatured: false,
+    isFeatured: true,
     ceo: 'Otakar Suffner',
     dateCreated: 'January 2015',
     briefDescription: 'A pioneering CFD prop firm from the Czech Republic offering 2-step evaluations with no consistency rules and a scaling plan up to $2M.',
@@ -137,3 +138,5 @@ export const ftmo: PropFirm = {
       { name: "Vatican City", code: "VA" }, { name: "Venezuela", code: "VE" }, { name: "Western Sahara", code: "EH" }
     ]
   };
+
+    
