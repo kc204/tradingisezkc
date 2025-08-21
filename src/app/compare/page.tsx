@@ -176,19 +176,19 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
             <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
                 <div className="flex items-center gap-4 flex-wrap flex-1">
                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-gray-400 mr-2">Sizes:</span>
+                        <span className="font-semibold text-gray-400 mr-2 text-xs">Sizes:</span>
                         {sizes.map(size => (
                             <button
                                 key={size}
                                 onClick={() => toggleSizeFilter(size)}
-                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                                className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all duration-300 ${!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
                             >
                                 {formatShortCurrency(size)}
                             </button>
                         ))}
                         <Popover open={isPopoverOpen} onOpenChange={handlePopoverOpenChange}>
                             <PopoverTrigger asChild>
-                                <button className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${isCustomSizeActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
+                                <button className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all duration-300 ${isCustomSizeActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
                                     Custom
                                 </button>
                             </PopoverTrigger>
@@ -215,12 +215,12 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
                     <Separator />
 
                     <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-gray-400 mr-2">Steps:</span>
+                        <span className="font-semibold text-gray-400 mr-2 text-xs">Steps:</span>
                         {stepsOptions.map(step => (
                             <button
                                 key={step}
                                 onClick={() => toggleStepFilter(step)}
-                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${filters.steps.includes(step) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                                className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all duration-300 ${filters.steps.includes(step) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
                             >
                                 {typeof step === 'number' ? `${step} Step${step > 1 ? 's' : ''}` : step}
                             </button>
@@ -233,7 +233,7 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
                         <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${filters.applyDiscount ? 'bg-orange-500' : 'bg-gray-600'}`}>
                             <span className={`pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform h-5 w-5 ${filters.applyDiscount ? 'translate-x-5' : 'translate-x-0'}`}></span>
                         </button>
-                        <label className="text-sm font-semibold text-gray-300">Apply Discount</label>
+                        <label className="text-xs font-semibold text-gray-300">Apply Discount</label>
                     </div>
                 </div>
                  <div className="relative flex-grow w-full md:flex-grow-0 md:w-auto md:hidden">
@@ -312,7 +312,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
-                <table className="min-w-full text-sm">
+                <table className="min-w-full text-xs">
                     <thead className="sticky top-0 z-20 bg-black/50 backdrop-blur-lg border-b border-white/10">
                         <tr>
                             {columns.map(col => (
@@ -377,7 +377,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                                 width: isScrolled ? '0px' : 'auto',
                             }}
                         >
-                            <div className="text-sm font-medium text-white truncate">{challenge.firmName}</div>
+                            <div className="text-xs font-medium text-white truncate">{challenge.firmName}</div>
                             <div className="flex items-center text-xs text-gray-400 mt-1">
                                 <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
                                 {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
@@ -390,7 +390,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.activationFee)}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-center">
                     <div className="flex items-center justify-center gap-2">
-                        <span className="text-sm text-white">{challenge.profitSplit}%</span>
+                        <span className="text-xs text-white">{challenge.profitSplit}%</span>
                         <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
                     </div>
                 </td>
@@ -404,11 +404,11 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                          <div className="text-right">
                            {applyDiscount && challenge.promoDiscountPercent > 0 ? (
                                 <>
-                                    <p className="font-semibold text-green-400 text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
+                                    <p className="font-semibold text-green-400 text-xs sm:text-sm">{formatCurrency(finalPrice)}</p>
                                     <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
                                 </>
                             ) : (
-                                <p className="font-semibold text-white text-sm sm:text-base">{formatCurrency(finalPrice)}</p>
+                                <p className="font-semibold text-white text-xs sm:text-sm">{formatCurrency(finalPrice)}</p>
                             )}
                              <p className="text-xs text-gray-400">{challenge.paymentType}</p>
                         </div>
