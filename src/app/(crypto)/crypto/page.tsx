@@ -1,8 +1,8 @@
 
 'use client'; 
 
-import FirmCard from '@/components/propfirms/FirmCard';
-import FreeResourceCard from '@/components/shared/FreeResourceCard';
+import FirmCard from '../components/propfirms/FirmCard';
+import FreeResourceCard from '../components/shared/FreeResourceCard';
 import { mockPropFirms, mockFreeResources, ALL_CHALLENGES_DATA } from '@/lib/mockData';
 import Link from 'next/link';
 import { cn } from "@/lib/utils";
@@ -14,19 +14,19 @@ import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from '
 import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight, Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban, ArrowRight, Calendar, TrendingUp, Monitor, Edit, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
-import OfferBox from '@/components/propfirms/OfferBox';
+import OfferBox from '../components/propfirms/OfferBox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import FirmMiniDetail from '@/components/propfirms/FirmMiniDetail';
+import FirmMiniDetail from '../components/propfirms/FirmMiniDetail';
 import { Slider } from '@/components/ui/slider';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import FirmVsFirmSelector from '@/components/compare/FirmVsFirmSelector';
-import FirmComparisonHeader from '@/components/compare/FirmComparisonHeader';
-import ComparisonMetricCard from '@/components/compare/ComparisonMetricCard';
-import TierComparisonCard from '@/components/compare/TierComparisonCard';
+import FirmVsFirmSelector from '../components/compare/FirmVsFirmSelector';
+import FirmComparisonHeader from '../components/compare/FirmComparisonHeader';
+import ComparisonMetricCard from '../components/compare/ComparisonMetricCard';
+import TierComparisonCard from '../components/compare/TierComparisonCard';
 import { createPortal } from 'react-dom';
 
 
