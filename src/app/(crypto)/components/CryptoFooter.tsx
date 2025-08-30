@@ -14,15 +14,15 @@ const CryptoFooter = () => {
 
 
   const mainSiteFooterLinks = [
-    { href: '/terms-of-service', label: 'Terms & Privacy' },
-    { href: '/sitemap', label: 'Sitemap' },
+    { href: '/crypto/terms-of-service', label: 'Terms & Privacy' },
+    { href: '/crypto/sitemap', label: 'Sitemap' },
   ];
 
   const quickLinks = [
-    { href: '/firms', label: 'All Prop Firms' },
-    { href: '/compare', label: 'Compare Firms' },
-    { href: '/free-resources', label: 'Free Resources' },
-    { href: '/about', label: 'About Us' }, 
+    { href: '/crypto/firms', label: 'All Prop Firms' },
+    { href: '/crypto/compare', label: 'Compare Firms' },
+    { href: '/crypto/free-resources', label: 'Free Resources' },
+    { href: '/crypto/about', label: 'About Us' }, 
   ];
   
   return (

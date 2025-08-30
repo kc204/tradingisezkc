@@ -52,7 +52,7 @@ const TierComparisonCard: React.FC<TierComparisonCardProps> = ({ firm, tier }) =
             <MetricRow label="Profit Split" value={firm.profitSplit || 'N/A'} />
         </div>
         <Button asChild className="mt-6 w-full bg-primary text-primary-foreground hover:bg-primary/90 text-base md:text-lg py-4 md:py-6">
-            <Link href={`/firms/${firm.slug}`}>
+            <Link href={`/crypto/firms/${firm.slug}`}>
                 View Full Review
             </Link>
         </Button>

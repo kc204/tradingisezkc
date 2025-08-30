@@ -15,20 +15,20 @@ import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
 const mainSiteNavLinks = [
-  { href: '/', label: 'Home' },
+  { href: '/crypto', label: 'Home' },
   {
-    href: '/firms',
+    href: '/crypto/firms',
     label: 'Prop Firms',
     dropdown: [
-      { href: '/firms', label: 'All Firms' },
-      { href: '/compare', label: 'Compare Firms' },
+      { href: '/crypto/firms', label: 'All Firms' },
+      { href: '/crypto/compare', label: 'Compare Firms' },
     ],
   },
-  { href: '/free-resources', label: 'Free Resources',
+  { href: '/crypto/free-resources', label: 'Free Resources',
     dropdown: [
-        { href: '/free-resources', label: 'Overview' },
-        { href: '/free-resources/audiobooks', label: 'Audiobooks' },
-        { href: '/free-resources/al-brooks-course', label: 'Al Brooks Free Course' },
+        { href: '/crypto/free-resources', label: 'Overview' },
+        { href: '/crypto/free-resources/audiobooks', label: 'Audiobooks' },
+        { href: '/crypto/free-resources/al-brooks-course', label: 'Al Brooks Free Course' },
       ],
   },
 ];
@@ -227,7 +227,7 @@ const CryptoHeader = () => {
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link
-          href="/"
+          href="/crypto"
           className="text-2xl font-bold text-header-foreground hover:text-header-foreground transition-transform duration-300 ease-in-out hover:scale-105" 
           onClick={() => {
             if (mobileMenuOpen) setMobileMenuOpen(false);
@@ -260,7 +260,7 @@ const CryptoHeader = () => {
               <SheetTitle className="sr-only">Main Menu</SheetTitle> 
               <div className="flex justify-between items-center mb-6">
                   <Link
-                  href="/"
+                  href="/crypto"
                   className="text-2xl font-bold text-foreground"
                   onClick={() => setMobileMenuOpen(false)}
                 >

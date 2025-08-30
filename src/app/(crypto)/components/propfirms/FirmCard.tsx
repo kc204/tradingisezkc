@@ -68,7 +68,7 @@ const FirmCard = ({ firm }: FirmCardProps) => {
       </CardContent>
       <CardFooter className="mt-auto">
         <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent-hover">
-          <Link href={`/firms/${firm.slug}`}>View Details</Link>
+          <Link href={`/crypto/firms/${firm.slug}`}>View Details</Link>
         </Button>
       </CardFooter>
     </Card>
