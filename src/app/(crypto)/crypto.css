@@ -1,0 +1,76 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.crypto-theme {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --success-state-hsl: 145 63% 42%;
+    --success-state-foreground-hsl: 0 0% 96%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 64%;
+    --header-background-hsl: 0 0% 8%;
+    --header-foreground-hsl: 0 0% 98%;
+}
+
+.font-pixel {
+    font-family: 'Press Start 2P', cursive;
+}
+
+.crypto-theme button,
+.crypto-theme input,
+.crypto-theme select,
+.crypto-theme textarea,
+.crypto-theme a,
+.crypto-theme h1,
+.crypto-theme h2,
+.crypto-theme h3,
+.crypto-theme h4,
+.crypto-theme h5,
+.crypto-theme h6,
+.crypto-theme p,
+.crypto-theme div,
+.crypto-theme span,
+.crypto-theme li,
+.crypto-theme td,
+.crypto-theme th {
+    font-family: 'Press Start 2P', cursive !important;
+    text-rendering: geometricPrecision;
+    image-rendering: pixelated;
+}
+
+/* Specific overrides for a more pixelated feel */
+.crypto-theme .rounded-lg,
+.crypto-theme .rounded-md,
+.crypto-theme .rounded-full,
+.crypto-theme .rounded-xl,
+.crypto-theme .rounded-2xl {
+    border-radius: 0 !important;
+}
+
+.crypto-theme .shadow-sm,
+.crypto-theme .shadow-md,
+.crypto-theme .shadow-lg,
+.crypto-theme .shadow-xl,
+.crypto-theme .shadow-2xl {
+    box-shadow: none !important;
+}
+
+.crypto-theme .antialiased {
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: none;
+}
