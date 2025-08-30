@@ -1,3 +1,4 @@
+
 'use client';
 
 import { mockGlobalOffers, mockPropFirms } from '@/lib/mockData';
@@ -5,8 +6,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
 const GlobalOfferBar = () => {
+  const pathname = usePathname();
+  if (pathname.startsWith('/crypto')) {
+    return null;
+  }
 
   const activeOffersWithFirms = mockGlobalOffers
     .filter(offer => offer.isActive)

@@ -3,8 +3,14 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react'; 
+import { usePathname } from 'next/navigation';
 
 const Footer = () => {
+  const pathname = usePathname();
+  if (pathname.startsWith('/crypto')) {
+    return null;
+  }
+
   const currentYear = new Date().getFullYear();
   const [isMounted, setIsMounted] = useState(false);
 

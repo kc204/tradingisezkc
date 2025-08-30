@@ -13,6 +13,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
 const mainSiteNavLinks = [
   { href: '/', label: 'Home' },
@@ -38,6 +39,11 @@ const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64;
 const SCROLL_DELTA_THRESHOLD = 5;
 
 const Header = () => {
+  const pathname = usePathname();
+  if (pathname.startsWith('/crypto')) {
+    return null;
+  }
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
