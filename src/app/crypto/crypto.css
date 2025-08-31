@@ -73,3 +73,13 @@
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: none;
 }
+
+/* Make header/footer full-width by overriding container constraints */
+.crypto-theme > header,
+.crypto-theme > footer,
+.crypto-theme > [data-global-offer-bar="true"] {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
