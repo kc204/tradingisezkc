@@ -1,5 +1,9 @@
-'use client'; 
 
+'use client';
+
+import CryptoGlobalOfferBar from './components/CryptoGlobalOfferBar';
+import CryptoHeader from './components/CryptoHeader';
+import CryptoFooter from './components/CryptoFooter';
 import FirmCard from './components/propfirms/FirmCard';
 import FreeResourceCard from './components/shared/FreeResourceCard';
 import { mockPropFirms, mockFreeResources, ALL_CHALLENGES_DATA } from '@/lib/mockData';
@@ -766,93 +770,99 @@ export default function CryptoPage() {
   }, []);
 
   return (
-    <div className="space-y-16">
-      <div className="h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg">
-        <div className="absolute inset-0 w-full h-full bg-background z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
-        <h1 className={cn("text-2xl md:text-4xl text-foreground relative z-20 text-center px-4")}>
-          Unlock Your Trading Potential: Find the Perfect Prop Firm &amp; Get Funded.
-        </h1>
-        <p className="text-center mt-4 text-muted-foreground relative z-20 max-w-2xl px-4 text-sm md:text-base">
-          Tired of risking your own capital or sifting through confusing prop firm options? Discover top-rated firms, master the rules, access exclusive deals, and secure your funded account with confidence.
-        </p>
-        <div className="mt-8 relative z-20">
-          <StarBorder<typeof Link>
-            as={Link}
-            href="/crypto/compare"
-          >
-            Compare All Prop Firms
-          </StarBorder>
-        </div>
-      </div>
-      
-      {featuredFirms.length > 0 && (
-        <section className="py-12">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-10">Featured Prop Firms</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredFirms.map(firm => (
-                <FirmCard key={firm.id} firm={firm} />
-              ))}
-            </div>
-             <div className="text-center mt-10">
-              <StarBorder<typeof Link>
-                  as={Link}
-                  href="/crypto/firms"
-              >
-                  View All Prop Firms
-              </StarBorder>
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="py-12">
-        <div className="container mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-2">Compare Prop Firms</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">The EZ-iest Way to Compare Prop Firm Challenges.</p>
-            
-            {isClient && <FullCompareSection />}
-            
-            <div className="text-center mt-10">
-              <StarBorder<typeof Link>
-                  as={Link}
-                  href="/crypto/compare"
-              >
-                  Go to Full Comparison Page
-              </StarBorder>
-          </div>
-        </div>
-      </section>
-
-      <section className="my-12">
-          <FirmVsFirmSelector firms={featuredFirms} onCompare={handleSetComparisonFirms} />
-      </section>
-
-      {comparisonFirms && (
-          <FirmVsFirmSection firm1={comparisonFirms.firm1} firm2={comparisonFirms.firm2} />
-      )}
-      
-      {featuredFreeResources.length > 0 && (
-        <section className="py-12 bg-card rounded-xl">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-10">Explore Our Free Resources</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {featuredFreeResources.map(resource => (
-                <FreeResourceCard key={resource.id} resource={resource} />
-              ))}
-            </div>
-            <div className="text-center mt-10">
+    <div className="flex flex-col min-h-screen">
+      <CryptoGlobalOfferBar />
+      <CryptoHeader />
+      <main className='flex-grow container mx-auto px-4 py-8'>
+        <div className="space-y-16">
+          <div className="h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg">
+            <div className="absolute inset-0 w-full h-full bg-background z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
+            <h1 className={cn("text-2xl md:text-4xl text-foreground relative z-20 text-center px-4")}>
+              Unlock Your Trading Potential: Find the Perfect Prop Firm &amp; Get Funded.
+            </h1>
+            <p className="text-center mt-4 text-muted-foreground relative z-20 max-w-2xl px-4 text-sm md:text-base">
+              Tired of risking your own capital or sifting through confusing prop firm options? Discover top-rated firms, master the rules, access exclusive deals, and secure your funded account with confidence.
+            </p>
+            <div className="mt-8 relative z-20">
               <StarBorder<typeof Link>
                 as={Link}
-                href="/crypto/free-resources"
+                href="/crypto/compare"
               >
-                View All Free Resources
+                Compare All Prop Firms
               </StarBorder>
             </div>
           </div>
-        </section>
-      )}
+          
+          {featuredFirms.length > 0 && (
+            <section className="py-12">
+              <div className="container mx-auto px-4">
+                <h2 className="text-3xl font-bold text-center text-foreground mb-10">Featured Prop Firms</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {featuredFirms.map(firm => (
+                    <FirmCard key={firm.id} firm={firm} />
+                  ))}
+                </div>
+                 <div className="text-center mt-10">
+                  <StarBorder<typeof Link>
+                      as={Link}
+                      href="/crypto/firms"
+                  >
+                      View All Prop Firms
+                  </StarBorder>
+                </div>
+              </div>
+            </section>
+          )}
 
+          <section className="py-12">
+            <div className="container mx-auto text-center">
+                <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-2">Compare Prop Firms</h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">The EZ-iest Way to Compare Prop Firm Challenges.</p>
+                
+                {isClient && <FullCompareSection />}
+                
+                <div className="text-center mt-10">
+                  <StarBorder<typeof Link>
+                      as={Link}
+                      href="/crypto/compare"
+                  >
+                      Go to Full Comparison Page
+                  </StarBorder>
+              </div>
+            </div>
+          </section>
+
+          <section className="my-12">
+              <FirmVsFirmSelector firms={featuredFirms} onCompare={handleSetComparisonFirms} />
+          </section>
+
+          {comparisonFirms && (
+              <FirmVsFirmSection firm1={comparisonFirms.firm1} firm2={comparisonFirms.firm2} />
+          )}
+          
+          {featuredFreeResources.length > 0 && (
+            <section className="py-12 bg-card rounded-xl">
+              <div className="container mx-auto px-4">
+                <h2 className="text-3xl font-bold text-center text-foreground mb-10">Explore Our Free Resources</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {featuredFreeResources.map(resource => (
+                    <FreeResourceCard key={resource.id} resource={resource} />
+                  ))}
+                </div>
+                <div className="text-center mt-10">
+                  <StarBorder<typeof Link>
+                    as={Link}
+                    href="/crypto/free-resources"
+                  >
+                    View All Free Resources
+                  </StarBorder>
+                </div>
+              </div>
+            </section>
+          )}
+        </div>
+      </main>
+      <CryptoFooter />
     </div>
   );
 }

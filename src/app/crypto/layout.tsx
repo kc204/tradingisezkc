@@ -1,9 +1,7 @@
+
 'use client';
 
 import { Toaster } from '@/app/crypto/components/ui/toaster';
-import CryptoGlobalOfferBar from './components/CryptoGlobalOfferBar';
-import CryptoHeader from './components/CryptoHeader';
-import CryptoFooter from './components/CryptoFooter';
 import './crypto.css';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
@@ -16,28 +14,23 @@ export default function CryptoLayout({
   const pathname = usePathname();
 
   useEffect(() => {
+    // Apply crypto-theme class to body for this layout
     document.body.classList.add('crypto-theme', 'font-pixel');
+    
     // Cleanup function to remove classes when the component unmounts
     return () => {
       document.body.classList.remove('crypto-theme', 'font-pixel');
     };
-  }, []);
+  }, [pathname]); // Re-run effect if path changes
 
 
-  if (!pathname.startsWith('/crypto')) {
-    // This layout is only for the /crypto path. For other paths, render children directly.
-    return <>{children}</>
-  }
-
+  // This layout now only applies the theme and renders children.
+  // The header, footer, and main content structure are handled by the page itself
+  // to avoid being nested inside the root layout's <main> container.
   return (
-      <div className="flex flex-col min-h-screen">
-        <CryptoGlobalOfferBar />
-        <CryptoHeader />
-        <main className='flex-grow container mx-auto px-4 py-8'>
-            {children}
-        </main>
-        <CryptoFooter />
-        <Toaster />
-      </div>
+    <>
+      {children}
+      <Toaster />
+    </>
   );
 }
