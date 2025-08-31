@@ -22,12 +22,13 @@ export function StarBorder<T extends ElementType = "button">({
   const Component = as || "button"
   // Animated border effect defaults to Bright Blue (primary)
   const effectColor = color || "hsl(var(--primary))"; 
-  const hoverEffectColor = "hsl(var(--primary-hover))"; // Or a specific color if needed for hover border
+  const hoverEffectColor = "hsl(var(--accent-primary-hover-hsl, var(--primary)))"; // Fallback to primary
+
 
   return (
     <Component 
       className={cn(
-        "relative inline-block py-[1px] overflow-hidden group transition-all duration-300 ease-in-out", // Removed rounded corners
+        "relative inline-block py-[1px] overflow-hidden group transition-all duration-300 ease-in-out",
         className
       )} 
       {...props}

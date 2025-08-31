@@ -1,3 +1,4 @@
+
 'use client'; 
 
 import FirmCard from './components/propfirms/FirmCard';
@@ -5,7 +6,7 @@ import FreeResourceCard from './components/shared/FreeResourceCard';
 import { mockPropFirms, mockFreeResources, ALL_CHALLENGES_DATA } from '@/lib/mockData';
 import Link from 'next/link';
 import { cn } from "@/lib/utils";
-import { StarBorder } from "@/components/ui/star-border";
+import { StarBorder } from "@/app/crypto/components/ui/star-border";
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import type { PropFirm, AccountTier, FirmData, TrendData, WeeklyData } from '@/lib/types';
 import { initializeApp } from 'firebase/app';
@@ -856,3 +857,4 @@ export default function CryptoPage() {
     </div>
   );
 }
+
