@@ -66,7 +66,7 @@ export default function FreeAudiobooksPage() {
           This helps support our site. Please review Audible's terms and conditions for trial details.
         </p>
         <p className="text-muted-foreground">
-          <Link href="/terms-of-service" className="text-primary hover:underline">Read our full affiliate disclosure</Link>.
+          <Link href="/crypto/terms-of-service" className="text-primary hover:underline">Read our full affiliate disclosure</Link>.
         </p>
       </section>
     </div>

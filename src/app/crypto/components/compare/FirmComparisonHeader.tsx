@@ -13,7 +13,7 @@ const FirmComparisonHeader: React.FC<FirmComparisonHeaderProps> = ({ firm1, firm
   return (
     <div className="relative flex justify-center items-center mb-8 md:mb-12">
         <div className="flex-1 text-center">
-            <Link href={`/firms/${firm1.slug}`} className="inline-block group">
+            <Link href={`/crypto/firms/${firm1.slug}`} className="inline-block group">
                 <Image src={firm1.logoUrl} alt={`${firm1.name} logo`} width={80} height={80} className="mx-auto mb-2 md:mb-4 rounded-xl md:rounded-2xl border-2 md:border-4 border-border shadow-lg group-hover:border-primary transition-colors duration-300 md:w-[120px] md:h-[120px]" />
                 <h2 className="text-xl md:text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">{firm1.name}</h2>
             </Link>
@@ -26,7 +26,7 @@ const FirmComparisonHeader: React.FC<FirmComparisonHeaderProps> = ({ firm1, firm
         </div>
 
         <div className="flex-1 text-center">
-             <Link href={`/firms/${firm2.slug}`} className="inline-block group">
+             <Link href={`/crypto/firms/${firm2.slug}`} className="inline-block group">
                 <Image src={firm2.logoUrl} alt={`${firm2.name} logo`} width={80} height={80} className="mx-auto mb-2 md:mb-4 rounded-xl md:rounded-2xl border-2 md:border-4 border-border shadow-lg group-hover:border-secondary transition-colors duration-300 md:w-[120px] md:h-[120px]" />
                 <h2 className="text-xl md:text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-300">{firm2.name}</h2>
             </Link>

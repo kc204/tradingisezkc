@@ -14,14 +14,14 @@ const resourceCategories = [
   {
     title: "Free Trading Audiobooks",
     description: "Listen to essential trading books on psychology, strategy, and market history with a free Audible trial.",
-    href: "/free-resources/audiobooks",
+    href: "/crypto/free-resources/audiobooks",
     icon: <Headphones className="w-10 h-10 text-primary mb-3" />,
     ctaText: "Explore Audiobooks"
   },
   {
     title: "Al Brooks Free Video Course Samples",
     description: "Get a glimpse into Al Brooks' renowned price action trading methodology with these free sample video lessons.",
-    href: "/free-resources/al-brooks-course",
+    href: "/crypto/free-resources/al-brooks-course",
     icon: <Video className="w-10 h-10 text-primary mb-3" />,
     ctaText: "View Free Lessons"
   },

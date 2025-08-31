@@ -123,7 +123,7 @@ export default function TrueCostCalculator({ firms = [], singleFirm }: TrueCostC
       ctaTarget = "_blank";
     } else {
       ctaButtonText = "Learn More";
-      ctaHref = `/firms/${activeFirm.slug}`;
+      ctaHref = `/crypto/firms/${activeFirm.slug}`;
     }
   }
 

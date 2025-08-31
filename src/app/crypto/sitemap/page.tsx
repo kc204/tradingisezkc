@@ -12,20 +12,20 @@ export const metadata = {
 const sitemapLinks = [
   { category: "Main Navigation", links: [
     { href: "/crypto", label: "Home" },
-    { href: "/firms", label: "All Prop Firms" },
-    { href: "/compare", label: "Compare Firms" },
-    { href: "/free-resources", label: "Free Resources" }, 
+    { href: "/crypto/firms", label: "All Prop Firms" },
+    { href: "/crypto/compare", label: "Compare Firms" },
+    { href: "/crypto/free-resources", label: "Free Resources" }, 
   ]},
   { category: "Prop Firms (Examples - Dynamic in real app)", links: [
-    { href: "/firms/take-profit-trader", label: "Take Profit Trader Review" },
+    { href: "/crypto/firms/take-profit-trader", label: "Take Profit Trader Review" },
   ]},
   { category: "Free Resources", links: [ 
-    { href: "/free-resources", label: "Overview" },
-    { href: "/free-resources/audiobooks", label: "Free Audiobooks (Audible Trial)" },
-    { href: "/free-resources/al-brooks-course", label: "Al Brooks Free Video Course" },
+    { href: "/crypto/free-resources", label: "Overview" },
+    { href: "/crypto/free-resources/audiobooks", label: "Free Audiobooks (Audible Trial)" },
+    { href: "/crypto/free-resources/al-brooks-course", label: "Al Brooks Free Video Course" },
   ]},
   { category: "Legal & Information", links: [
-    { href: "/terms-of-service", label: "Terms & Privacy Policy" },
+    { href: "/crypto/terms-of-service", label: "Terms & Privacy Policy" },
   ]},
 ];
 

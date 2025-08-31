@@ -17,18 +17,18 @@ import { cn } from '@/lib/utils';
 const mainSiteNavLinks = [
   { href: '/crypto', label: 'Home' },
   {
-    href: '/firms',
+    href: '/crypto/firms',
     label: 'Prop Firms',
     dropdown: [
-      { href: '/firms', label: 'All Firms' },
-      { href: '/compare', label: 'Compare Firms' },
+      { href: '/crypto/firms', label: 'All Firms' },
+      { href: '/crypto/compare', label: 'Compare Firms' },
     ],
   },
-  { href: '/free-resources', label: 'Free Resources',
+  { href: '/crypto/free-resources', label: 'Free Resources',
     dropdown: [
-        { href: '/free-resources', label: 'Overview' },
-        { href: '/free-resources/audiobooks', label: 'Audiobooks' },
-        { href: '/free-resources/al-brooks-course', label: 'Al Brooks Free Course' },
+        { href: '/crypto/free-resources', label: 'Overview' },
+        { href: '/crypto/free-resources/audiobooks', label: 'Audiobooks' },
+        { href: '/crypto/free-resources/al-brooks-course', label: 'Al Brooks Free Course' },
       ],
   },
 ];

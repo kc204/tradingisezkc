@@ -30,7 +30,7 @@ export default function AlBrooksFreeCoursePage() {
   const { title, pageIntroduction, mainAffiliateLink, mainCTAText, videoLessons, concludingCTASection } = courseData;
 
   const getYouTubeVideoId = (url: string): string | null => {
-    const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/ ]{11})/;
+    const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
     const match = url.match(regex);
     return match ? match[1] : null;
   };

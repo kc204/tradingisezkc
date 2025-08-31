@@ -1,7 +1,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, Shield, AlertTriangle } from "lucide-react";
-import Link from 'next/link';
 
 export const metadata = {
   title: 'Terms & Privacy | TradingisEZ',
@@ -110,7 +109,7 @@ export default function TermsAndPrivacyPage() {
           <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. We will note the "Last Updated" date at the top of this page. By continuing to access or use our Website after those revisions become effective, you agree to be bound by the revised terms.</p>
 
           <h3 className="text-xl font-semibold mt-6 mb-2">Contact Us</h3>
-          <p>If you have any questions about these Terms, please <a href="/contact">contact us</a>.</p>
+          <p>If you have any questions about these Terms, please <a href="/crypto/contact">contact us</a>.</p>
         </CardContent>
       </Card>
     </div>

@@ -30,12 +30,12 @@ const ResourceTypeIcon = ({ type }: { type: FreeResourceType }) => {
 
 
 const FreeResourceCard = ({ resource }: FreeResourceCardProps) => {
-  let pageLink = `/free-resources/${resource.slug}`;
+  let pageLink = `/crypto/free-resources/${resource.slug}`;
 
   if (resource.resourceType === "Audiobook Trial Offer" && resource.slug === "audiobooks") {
-    pageLink = "/free-resources/audiobooks";
+    pageLink = "/crypto/free-resources/audiobooks";
   } else if (resource.resourceType === "Free Video Course Series" && resource.slug === "al-brooks-course") {
-    pageLink = "/free-resources/al-brooks-course";
+    pageLink = "/crypto/free-resources/al-brooks-course";
   }
 
   return (

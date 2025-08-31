@@ -3,9 +3,9 @@ import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm, AccountTier } from '@/lib/types';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/app/crypto/components/ui/badge';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/app/crypto/components/ui/button';
 import { ExternalLink, Star } from 'lucide-react';
 import FirmComparisonHeader from '../../components/compare/FirmComparisonHeader';
 import ComparisonMetricCard from '../../components/compare/ComparisonMetricCard';
@@ -122,7 +122,7 @@ const FirmVsFirmPage = ({ params }: FirmVsFirmPageProps) => {
 
       <section className="text-center py-6">
         <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent-hover">
-            <Link href="/compare">
+            <Link href="/crypto/compare">
                 View Full Comparison Table
             </Link>
         </Button>

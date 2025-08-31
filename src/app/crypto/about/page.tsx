@@ -1,5 +1,5 @@
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/app/crypto/components/ui/card";
 import { Users, Target, Zap, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 
@@ -59,8 +59,8 @@ const AboutPage = () => {
             <Image 
               src="https://placehold.co/1200x500.png" 
               alt="Team or abstract trading visual" 
-              layout="fill" 
-              objectFit="cover" 
+              fill={true} 
+              style={{objectFit: 'cover'}}
               data-ai-hint="office team"
             />
             <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
