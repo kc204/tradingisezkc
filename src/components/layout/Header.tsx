@@ -54,12 +54,6 @@ const Header = () => {
     }
   }, [pathname]);
 
-  if (pathname.startsWith('/crypto')) {
-    return null;
-  }
-
-  const currentNavLinks = mainSiteNavLinks;
-
   useEffect(() => {
     setMounted(true); 
     
@@ -109,6 +103,11 @@ const Header = () => {
     };
   }, []);
 
+  if (pathname.startsWith('/crypto')) {
+    return null;
+  }
+
+  const currentNavLinks = mainSiteNavLinks;
 
   const clearHoverTimeout = () => {
     if (hoverTimeoutRef.current) {
