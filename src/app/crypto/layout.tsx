@@ -1,10 +1,10 @@
-
 'use client';
 
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 import CryptoGlobalOfferBar from './components/CryptoGlobalOfferBar';
 import CryptoHeader from './components/CryptoHeader';
+import CryptoFooter from './components/CryptoFooter';
 import './crypto.css';
 import { usePathname } from 'next/navigation';
 
