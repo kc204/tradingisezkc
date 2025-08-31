@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Toaster } from '@/app/crypto/components/ui/toaster';
