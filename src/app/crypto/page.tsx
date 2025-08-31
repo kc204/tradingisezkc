@@ -769,10 +769,22 @@ export default function CryptoPage() {
     }
   }, []);
 
+  const PortalWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [mountNode, setMountNode] = useState<HTMLElement | null>(null);
+
+    useEffect(() => {
+      setMountNode(document.body);
+    }, []);
+
+    return mountNode ? createPortal(children, mountNode) : null;
+  };
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <CryptoGlobalOfferBar />
-      <CryptoHeader />
+    <>
+      <PortalWrapper>
+        <CryptoGlobalOfferBar />
+        <CryptoHeader />
+      </PortalWrapper>
       <main className='flex-grow container mx-auto px-4 py-8'>
         <div className="space-y-16">
           <div className="h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg">
@@ -862,7 +874,10 @@ export default function CryptoPage() {
           )}
         </div>
       </main>
-      <CryptoFooter />
-    </div>
+      <PortalWrapper>
+        <CryptoFooter />
+      </PortalWrapper>
+    </>
   );
 }
+
