@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Toaster } from '@/components/ui/toaster';
@@ -19,7 +20,7 @@ export default function CryptoLayout({
     return <>{children}</>
   }
   return (
-    <div className="crypto-theme font-pixel antialiased flex flex-col min-h-screen">
+    <div className="crypto-theme font-pixel antialiased flex flex-col min-h-screen overflow-x-hidden">
       <ThemeProvider
         attribute="class"
         defaultTheme="dark"
