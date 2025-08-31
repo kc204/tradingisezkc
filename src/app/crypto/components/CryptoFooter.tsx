@@ -3,8 +3,14 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react'; 
+import { usePathname } from 'next/navigation';
 
 const CryptoFooter = () => {
+  const pathname = usePathname();
+  if (!pathname.startsWith('/crypto')) {
+    return null;
+  }
+
   const currentYear = new Date().getFullYear();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -26,7 +32,8 @@ const CryptoFooter = () => {
   ];
   
   return (
-    <footer className="py-8 mt-auto bg-muted text-muted-foreground">
+    <>
+      <footer className="py-8 mt-auto bg-muted text-muted-foreground">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
             <div>
@@ -71,6 +78,7 @@ const CryptoFooter = () => {
           </div>
         </div>
       </footer>
+    </>
   );
 };
 
