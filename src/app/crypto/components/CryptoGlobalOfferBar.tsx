@@ -1,4 +1,3 @@
-
 'use client';
 
 import { mockGlobalOffers, mockPropFirms } from '@/lib/mockData';
