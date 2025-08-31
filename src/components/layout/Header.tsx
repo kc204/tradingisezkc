@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Rocket } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -40,6 +40,14 @@ const SCROLL_DELTA_THRESHOLD = 5;
 
 const Header = () => {
   const pathname = usePathname();
+
+  // Store the last non-crypto path
+  useEffect(() => {
+    if (pathname && !pathname.startsWith('/crypto')) {
+      sessionStorage.setItem('lastNonCryptoPath', pathname);
+    }
+  }, [pathname]);
+
   if (pathname.startsWith('/crypto')) {
     return null;
   }
@@ -53,12 +61,10 @@ const Header = () => {
   const lastScrollY = useRef(0);
 
   const currentNavLinks = mainSiteNavLinks;
-  // const logoText = "TradingisEZ"; // No longer needed as a single string
 
   useEffect(() => {
-    setMounted(true); // For dropdown hover logic
+    setMounted(true); 
     
-    // Scroll listener setup
     if (typeof window === 'undefined') return;
 
     const initializeScrollState = () => {
@@ -221,6 +227,8 @@ const Header = () => {
       )
     );
 
+  const showCryptoLink = process.env.NEXT_PUBLIC_SHOW_CRYPTO_LINK === 'true';
+
   return (
     <header
       className={cn(
@@ -247,15 +255,29 @@ const Header = () => {
 
         <nav className="hidden md:flex items-center space-x-1">
           {renderNavLinks(false)}
+          {showCryptoLink && (
+            <Button variant="ghost" size="icon" asChild className="crypto-rocket-trigger">
+                <Link href="/crypto" aria-label="Enter Crypto Mode">
+                    <Rocket className="h-5 w-5"/>
+                </Link>
+            </Button>
+          )}
         </nav>
 
         <div className="md:hidden flex items-center">
+         {showCryptoLink && (
+            <Button variant="ghost" size="icon" asChild className="crypto-rocket-trigger mr-2">
+                <Link href="/crypto" aria-label="Enter Crypto Mode">
+                    <Rocket className="h-5 w-5"/>
+                </Link>
+            </Button>
+          )}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="ml-2 text-header-foreground hover:bg-primary/80 hover:text-white"
+                className="text-header-foreground hover:bg-primary/80 hover:text-white"
               >
                 <Menu />
                 <span className="sr-only">Open menu</span>

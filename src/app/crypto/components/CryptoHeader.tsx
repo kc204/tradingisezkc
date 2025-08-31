@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -13,6 +13,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 const mainSiteNavLinks = [
   { href: '/crypto', label: 'Home' },
@@ -38,6 +39,7 @@ const HEADER_ALWAYS_VISIBLE_THRESHOLD = 64;
 const SCROLL_DELTA_THRESHOLD = 5;
 
 const CryptoHeader = () => {
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -97,6 +99,10 @@ const CryptoHeader = () => {
     };
   }, []);
 
+  const handleExit = () => {
+    const lastPath = sessionStorage.getItem('lastNonCryptoPath') || '/';
+    router.push(lastPath);
+  };
 
   const clearHoverTimeout = () => {
     if (hoverTimeoutRef.current) {
@@ -239,15 +245,23 @@ const CryptoHeader = () => {
 
         <nav className="hidden md:flex items-center space-x-1">
           {renderNavLinks(false)}
+           <Button onClick={handleExit} variant="outline" size="sm" className="ml-4">
+            <LogOut className="mr-2 h-4 w-4" />
+            Back to normal
+          </Button>
         </nav>
 
         <div className="md:hidden flex items-center">
+          <Button onClick={handleExit} variant="outline" size="icon" className="mr-2">
+              <LogOut className="h-5 w-5" />
+              <span className="sr-only">Back to normal</span>
+          </Button>
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="ml-2 text-header-foreground hover:bg-primary/80 hover:text-white"
+                className="text-header-foreground hover:bg-primary/80 hover:text-white"
               >
                 <Menu />
                 <span className="sr-only">Open menu</span>
