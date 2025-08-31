@@ -250,14 +250,14 @@ const CryptoHeader = () => {
           {renderNavLinks(false)}
            <Button onClick={handleExit} variant="outline" size="sm" className="ml-4">
             <LogOut className="mr-2 h-4 w-4" />
-            Back to normal
+            Exit
           </Button>
         </nav>
 
         <div className="md:hidden flex items-center">
           <Button onClick={handleExit} variant="outline" size="icon" className="mr-2">
               <LogOut className="h-5 w-5" />
-              <span className="sr-only">Back to normal</span>
+              <span className="sr-only">Exit Crypto Mode</span>
           </Button>
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
