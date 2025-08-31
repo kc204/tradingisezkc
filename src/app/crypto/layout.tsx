@@ -20,7 +20,7 @@ export default function CryptoLayout({
     return <>{children}</>
   }
   return (
-    <div className="crypto-theme font-pixel antialiased flex flex-col min-h-screen overflow-x-hidden">
+    <div className="crypto-theme font-pixel antialiased flex flex-col min-h-screen">
       <ThemeProvider
         attribute="class"
         defaultTheme="dark"
