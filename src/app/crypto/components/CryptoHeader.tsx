@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -56,11 +57,8 @@ const CryptoHeader = () => {
 
     const initializeScrollState = () => {
       lastScrollY.current = window.scrollY;
-      if (window.scrollY > HEADER_ALWAYS_VISIBLE_THRESHOLD) {
-        setIsVisible(true);  // Should be visible initially on crypto
-      } else {
-        setIsVisible(true);
-      }
+      // For crypto theme, we always want it visible initially, so we can remove the check
+      setIsVisible(true);
     };
     
     initializeScrollState(); 
@@ -70,7 +68,7 @@ const CryptoHeader = () => {
       const localLastScrollY = lastScrollY.current;
 
       if (Math.abs(currentScrollY - localLastScrollY) < SCROLL_DELTA_THRESHOLD) {
-        if (currentScrollY < HEADER_ALWAYS_VISIBLE_THRESHOLD) {
+         if (currentScrollY < HEADER_ALWAYS_VISIBLE_THRESHOLD) {
           setIsVisible(true);
         }
         return;
@@ -305,3 +303,5 @@ const CryptoHeader = () => {
 };
 
 export default CryptoHeader;
+
+    

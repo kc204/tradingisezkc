@@ -86,3 +86,5 @@ const CryptoGlobalOfferBar = () => {
 };
 
 export default CryptoGlobalOfferBar;
+
+    
