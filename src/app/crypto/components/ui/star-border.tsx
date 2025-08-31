@@ -22,7 +22,7 @@ export function StarBorder<T extends ElementType = "button">({
   const Component = as || "button"
   // Animated border effect defaults to Bright Blue (primary)
   const effectColor = color || "hsl(var(--primary))"; 
-  const hoverEffectColor = "hsl(var(--accent-primary-hover-hsl, var(--primary)))"; // Fallback to primary
+  const hoverEffectColor = "hsl(var(--cta-main-hover-hsl))"; // Fallback to primary
 
 
   return (

@@ -30,7 +30,6 @@ import FirmVsFirmSelector from './components/compare/FirmVsFirmSelector';
 import FirmComparisonHeader from './components/compare/FirmComparisonHeader';
 import ComparisonMetricCard from './components/compare/ComparisonMetricCard';
 import TierComparisonCard from './components/compare/TierComparisonCard';
-import { createPortal } from 'react-dom';
 
 
 const firebaseConfig = {
@@ -769,22 +768,10 @@ export default function CryptoPage() {
     }
   }, []);
 
-  const PortalWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [mountNode, setMountNode] = useState<HTMLElement | null>(null);
-
-    useEffect(() => {
-      setMountNode(document.body);
-    }, []);
-
-    return mountNode ? createPortal(children, mountNode) : null;
-  };
-
   return (
     <>
-      <PortalWrapper>
-        <CryptoGlobalOfferBar />
-        <CryptoHeader />
-      </PortalWrapper>
+      <CryptoGlobalOfferBar />
+      <CryptoHeader />
       <main className='flex-grow container mx-auto px-4 py-8'>
         <div className="space-y-16">
           <div className="h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg">
@@ -874,10 +861,7 @@ export default function CryptoPage() {
           )}
         </div>
       </main>
-      <PortalWrapper>
-        <CryptoFooter />
-      </PortalWrapper>
+      <CryptoFooter />
     </>
   );
 }
-
