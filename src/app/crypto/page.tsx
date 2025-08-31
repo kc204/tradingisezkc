@@ -1,4 +1,3 @@
-
 'use client'; 
 
 import FirmCard from './components/propfirms/FirmCard';
@@ -13,16 +12,16 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
 import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight, Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban, ArrowRight, Calendar, TrendingUp, Monitor, Edit, Loader2 } from 'lucide-react';
 import Image from 'next/image';
-import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/app/crypto/components/ui/dialog';
 import OfferBox from './components/propfirms/OfferBox';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { Card, CardContent, CardHeader, CardTitle } from '@/app/crypto/components/ui/card';
+import { ScrollArea } from '@/app/crypto/components/ui/scroll-area';
 import FirmMiniDetail from './components/propfirms/FirmMiniDetail';
-import { Slider } from '@/components/ui/slider';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Button } from '@/components/ui/button';
+import { Slider } from '@/app/crypto/components/ui/slider';
+import { Popover, PopoverContent, PopoverTrigger } from '@/app/crypto/components/ui/popover';
+import { Button } from '@/app/crypto/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/crypto/components/ui/select';
 import FirmVsFirmSelector from './components/compare/FirmVsFirmSelector';
 import FirmComparisonHeader from './components/compare/FirmComparisonHeader';
 import ComparisonMetricCard from './components/compare/ComparisonMetricCard';

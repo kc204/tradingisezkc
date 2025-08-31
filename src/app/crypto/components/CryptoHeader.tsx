@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, X, ChevronDown, LogOut } from 'lucide-react';
+import { Menu, X, ChevronDown, Rocket, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -13,7 +13,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const mainSiteNavLinks = [
   { href: '/crypto', label: 'Home' },
@@ -47,8 +47,14 @@ const CryptoHeader = () => {
 
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
+  
+  const pathname = usePathname();
 
-  const currentNavLinks = mainSiteNavLinks;
+  useEffect(() => {
+    if (pathname && !pathname.startsWith('/crypto')) {
+      sessionStorage.setItem('lastNonCryptoPath', pathname);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     setMounted(true); 
@@ -103,6 +109,8 @@ const CryptoHeader = () => {
     const lastPath = sessionStorage.getItem('lastNonCryptoPath') || '/';
     router.push(lastPath);
   };
+
+  const currentNavLinks = mainSiteNavLinks;
 
   const clearHoverTimeout = () => {
     if (hoverTimeoutRef.current) {
@@ -218,6 +226,8 @@ const CryptoHeader = () => {
         </Button>
       )
     );
+  
+  const showCryptoLink = process.env.NEXT_PUBLIC_SHOW_CRYPTO_LINK === 'true';
 
   return (
     <header

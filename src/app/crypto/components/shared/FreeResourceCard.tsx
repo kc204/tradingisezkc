@@ -1,11 +1,10 @@
-
 'use client';
 
 import type { FreeResourceItem, FreeResourceType } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/app/crypto/components/ui/card';
-import { StarBorder } from '@/app/crypto/components/ui/star-border';
+import { StarBorder } from '@/components/ui/star-border';
 import { Badge } from '@/app/crypto/components/ui/badge';
 import { ArrowRight, BookOpen, Headphones, Video, FileText, Wrench } from 'lucide-react';
 
