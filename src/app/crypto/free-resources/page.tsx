@@ -1,7 +1,6 @@
 
-
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { StarBorder } from "@/components/ui/star-border";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/app/crypto/components/ui/card";
+import { StarBorder } from "@/app/crypto/components/ui/star-border";
 import { BookOpen, Headphones, Video } from "lucide-react";
 import Link from "next/link";
 

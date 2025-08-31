@@ -4,9 +4,9 @@
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/app/crypto/components/ui/card';
+import { Button } from '@/app/crypto/components/ui/button';
+import { Badge } from '@/app/crypto/components/ui/badge';
 import { Star, TrendingUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
 

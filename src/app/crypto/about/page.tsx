@@ -59,8 +59,8 @@ const AboutPage = () => {
             <Image 
               src="https://placehold.co/1200x500.png" 
               alt="Team or abstract trading visual" 
-              fill={true} 
-              style={{objectFit: 'cover'}}
+              layout="fill" 
+              objectFit="cover" 
               data-ai-hint="office team"
             />
             <div className="absolute inset-0 bg-black/30 flex items-center justify-center">

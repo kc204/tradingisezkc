@@ -1,11 +1,10 @@
 
-
 'use client';
 
 import { useState } from 'react';
 import FirmCard from '../components/propfirms/FirmCard';
 import { mockPropFirms } from '@/lib/mockData';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/app/crypto/components/ui/input';
 import { Search } from 'lucide-react';
 import type { PropFirm } from '@/lib/types';
 

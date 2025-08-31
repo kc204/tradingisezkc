@@ -92,19 +92,22 @@ const FirmVsFirmPage = ({ params }: FirmVsFirmPageProps) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
            <ComparisonMetricCard 
                 title="Year Established"
-                icon={<div />}
-                value={firm1Years.year}
-                subvalue={firm1Years.yearsInOp}
+                value1={firm1Years.year}
+                subvalue1={firm1Years.yearsInOp}
+                value2={firm2Years.year}
+                subvalue2={firm2Years.yearsInOp}
             />
             <ComparisonMetricCard 
                 title="Max Allocation"
-                icon={<div />}
-                value={firm1.maxAccountSize ? `$${(firm1.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                value1={firm1.maxAccountSize ? `$${(firm1.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                value2={firm2.maxAccountSize ? `$${(firm2.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
             />
              <ComparisonMetricCard 
                 title="Platforms"
-                icon={<div />}
-                value={firm1.platforms?.join(', ') || 'N/A'}
+                value1={firm1.platforms?.join(', ') || 'N/A'}
+                subvalue1={firm1.platforms && firm1.platforms.length > 1 ? 'Multiple Platforms' : 'Single Platform'}
+                value2={firm2.platforms?.join(', ') || 'N/A'}
+                subvalue2={firm2.platforms && firm2.platforms.length > 1 ? 'Multiple Platforms' : 'Single Platform'}
                 isPlatformList
             />
         </div>
