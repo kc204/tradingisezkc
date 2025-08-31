@@ -8,7 +8,7 @@ import CryptoHeader from './components/CryptoHeader';
 import CryptoFooter from './components/CryptoFooter';
 import './crypto.css';
 import { usePathname } from 'next/navigation';
-
+import { useEffect } from 'react';
 
 export default function CryptoLayout({
   children,
@@ -16,27 +16,35 @@ export default function CryptoLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname.startsWith('/crypto')) {
+      document.body.classList.add('crypto-theme', 'font-pixel');
+    } else {
+      document.body.classList.remove('crypto-theme', 'font-pixel');
+    }
+
+    // Cleanup function to remove classes when the component unmounts
+    return () => {
+      document.body.classList.remove('crypto-theme', 'font-pixel');
+    };
+  }, [pathname]);
+
+
   if (!pathname.startsWith('/crypto')) {
     return <>{children}</>
   }
+
   return (
-      <html lang="en" suppressHydrationWarning className="crypto-theme font-pixel">
-        <body className="antialiased flex flex-col min-h-screen overflow-x-hidden bg-background">
-          <ThemeProvider
-              attribute="class"
-              defaultTheme="dark"
-              enableSystem={false}
-              disableTransitionOnChange
-          >
-            <CryptoGlobalOfferBar />
-            <CryptoHeader />
-            <main className='flex-grow container mx-auto px-4 py-8'>
-                {children}
-            </main>
-            <CryptoFooter />
-            <Toaster />
-          </ThemeProvider>
-        </body>
-      </html>
+      <>
+        <CryptoGlobalOfferBar />
+        <CryptoHeader />
+        <main className='flex-grow container mx-auto px-4 py-8'>
+            {children}
+        </main>
+        <CryptoFooter />
+        <Toaster />
+      </>
   );
 }
+
