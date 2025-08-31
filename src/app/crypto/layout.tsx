@@ -1,6 +1,6 @@
 'use client';
 
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from '@/app/crypto/components/ui/toaster';
 import CryptoGlobalOfferBar from './components/CryptoGlobalOfferBar';
 import CryptoHeader from './components/CryptoHeader';
 import CryptoFooter from './components/CryptoFooter';
@@ -16,20 +16,16 @@ export default function CryptoLayout({
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname.startsWith('/crypto')) {
-      document.body.classList.add('crypto-theme', 'font-pixel');
-    } else {
-      document.body.classList.remove('crypto-theme', 'font-pixel');
-    }
-
+    document.body.classList.add('crypto-theme', 'font-pixel');
     // Cleanup function to remove classes when the component unmounts
     return () => {
       document.body.classList.remove('crypto-theme', 'font-pixel');
     };
-  }, [pathname]);
+  }, []);
 
 
   if (!pathname.startsWith('/crypto')) {
+    // This layout is only for the /crypto path. For other paths, render children directly.
     return <>{children}</>
   }
 

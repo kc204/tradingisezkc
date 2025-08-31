@@ -2,14 +2,14 @@
 
 import Link from 'next/link';
 import { Menu, X, ChevronDown, Rocket, LogOut } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/app/crypto/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
+} from '@/app/crypto/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/app/crypto/components/ui/sheet';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { usePathname, useRouter } from 'next/navigation';
@@ -50,12 +50,6 @@ const CryptoHeader = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname && !pathname.startsWith('/crypto')) {
-      sessionStorage.setItem('lastNonCryptoPath', pathname);
-    }
-  }, [pathname]);
-
-  useEffect(() => {
     setMounted(true); 
     
     if (typeof window === 'undefined') return;
@@ -63,7 +57,7 @@ const CryptoHeader = () => {
     const initializeScrollState = () => {
       lastScrollY.current = window.scrollY;
       if (window.scrollY > HEADER_ALWAYS_VISIBLE_THRESHOLD) {
-        setIsVisible(false); 
+        setIsVisible(true);  // Should be visible initially on crypto
       } else {
         setIsVisible(true);
       }
