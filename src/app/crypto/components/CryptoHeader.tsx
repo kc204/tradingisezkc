@@ -221,9 +221,10 @@ const CryptoHeader = () => {
   const showCryptoLink = process.env.NEXT_PUBLIC_SHOW_CRYPTO_LINK === 'true';
 
   return (
-    <div
+    <header
       className={cn(
-        "shadow-lg sticky top-0 z-40",
+        "shadow-lg sticky z-40",
+        "top-[2.25rem]",
         "transition-[transform,opacity] duration-300 ease-out",
         "bg-header-background text-header-foreground",
         isVisible
@@ -231,12 +232,6 @@ const CryptoHeader = () => {
           : "opacity-0 -translate-y-full pointer-events-none"
       )}
     >
-      <CryptoGlobalOfferBar />
-      <header
-        className={cn(
-            "bg-header-background text-header-foreground"
-        )}
-      >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link
           href="/crypto"
@@ -303,8 +298,7 @@ const CryptoHeader = () => {
           </Sheet>
         </div>
       </div>
-      </header>
-    </div>
+    </header>
   );
 };
 
