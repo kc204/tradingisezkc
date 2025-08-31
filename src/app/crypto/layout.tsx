@@ -29,8 +29,10 @@ export default function CryptoLayout({
         <div className="flex flex-col flex-1">
             <CryptoGlobalOfferBar />
             <CryptoHeader />
-            <main className="flex-grow container mx-auto px-4 py-8">
+            <main className="flex-grow">
+              <div className="container mx-auto px-4 py-8">
                 {children}
+              </div>
             </main>
             <CryptoFooter />
             <Toaster />
