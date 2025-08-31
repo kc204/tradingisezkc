@@ -20,22 +20,20 @@ export default function CryptoLayout({
     return <>{children}</>
   }
   return (
-    <div className="crypto-theme font-pixel antialiased">
+    <div className="crypto-theme font-pixel antialiased flex flex-col min-h-screen overflow-x-hidden">
       <ThemeProvider
         attribute="class"
         defaultTheme="dark"
         enableSystem={false}
         disableTransitionOnChange
       >
-        <div className="flex flex-col min-h-screen">
           <CryptoGlobalOfferBar />
           <CryptoHeader />
-          <main className="flex-grow container mx-auto px-4 py-8">
-              {children}
+          <main className='flex-grow container mx-auto px-4 py-8'>
+            {children}
           </main>
           <CryptoFooter />
           <Toaster />
-        </div>
       </ThemeProvider>
     </div>
   );

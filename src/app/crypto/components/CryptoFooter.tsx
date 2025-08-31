@@ -26,8 +26,7 @@ const CryptoFooter = () => {
   ];
   
   return (
-    <>
-      <footer className="py-8 mt-auto bg-muted text-muted-foreground">
+    <footer className="py-8 mt-auto bg-muted text-muted-foreground">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
             <div>
@@ -58,9 +57,9 @@ const CryptoFooter = () => {
                 ))}
               </ul>
             </div>
-            {isMounted && (
+             {isMounted && (
               <div className="flex flex-col items-center md:items-end">
-                 {/* Intentionally empty */}
+                 {/* Intentionally empty - This space was for the Degen trigger */}
               </div>
             )}
           </div>
@@ -72,7 +71,6 @@ const CryptoFooter = () => {
           </div>
         </div>
       </footer>
-    </>
   );
 };
 
