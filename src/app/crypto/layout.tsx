@@ -12,20 +12,24 @@ export default function CryptoLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="crypto-theme font-pixel antialiased">
+    <div className="crypto-theme font-pixel antialiased flex flex-col min-h-screen">
       <ThemeProvider
         attribute="class"
         defaultTheme="dark"
         enableSystem={false}
         disableTransitionOnChange
       >
-        <CryptoGlobalOfferBar />
-        <CryptoHeader />
-        <main className="flex-grow container mx-auto px-4 py-8">
-          {children}
-        </main>
-        <CryptoFooter />
-        <Toaster />
+        <div className="flex flex-col flex-1">
+            <CryptoGlobalOfferBar />
+            <div className="sticky top-[2.25rem] z-40">
+                <CryptoHeader />
+            </div>
+            <main className="flex-grow container mx-auto px-4 py-8">
+                {children}
+            </main>
+            <CryptoFooter />
+            <Toaster />
+        </div>
       </ThemeProvider>
     </div>
   );

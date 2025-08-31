@@ -223,7 +223,7 @@ const CryptoHeader = () => {
     <header
       className={cn(
         "shadow-lg sticky z-40",
-        "top-[2.25rem]", 
+        "top-0", 
         "transition-[transform,opacity] duration-300 ease-out",
         "bg-header-background text-header-foreground", 
         isVisible
