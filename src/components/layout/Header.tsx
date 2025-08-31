@@ -40,7 +40,13 @@ const SCROLL_DELTA_THRESHOLD = 5;
 
 const Header = () => {
   const pathname = usePathname();
-
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  
   // Store the last non-crypto path
   useEffect(() => {
     if (pathname && !pathname.startsWith('/crypto')) {
@@ -51,14 +57,6 @@ const Header = () => {
   if (pathname.startsWith('/crypto')) {
     return null;
   }
-
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const [isVisible, setIsVisible] = useState(true);
-  const lastScrollY = useRef(0);
 
   const currentNavLinks = mainSiteNavLinks;
 
