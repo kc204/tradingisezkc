@@ -58,7 +58,7 @@ const CryptoHeader = () => {
     const initializeScrollState = () => {
       lastScrollY.current = window.scrollY;
       if (window.scrollY > HEADER_ALWAYS_VISIBLE_THRESHOLD) {
-        setIsVisible(true); // Always visible for now, can be changed later
+        setIsVisible(false); 
       } else {
         setIsVisible(true);
       }
@@ -89,10 +89,10 @@ const CryptoHeader = () => {
       lastScrollY.current = currentScrollY;
     };
 
-    // window.addEventListener('scroll', handleScrollLogic, { passive: true });
+    window.addEventListener('scroll', handleScrollLogic, { passive: true });
     
     return () => {
-      // window.removeEventListener('scroll', handleScrollLogic);
+      window.removeEventListener('scroll', handleScrollLogic);
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current);
       }
@@ -222,9 +222,13 @@ const CryptoHeader = () => {
   return (
     <header
       className={cn(
-        "shadow-lg z-30",
+        "shadow-lg sticky z-40",
+        "top-[2.25rem]",
         "transition-[transform,opacity] duration-300 ease-out",
-        "bg-header-background text-header-foreground"
+        "bg-header-background text-header-foreground",
+        isVisible
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 -translate-y-full pointer-events-none"
       )}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
