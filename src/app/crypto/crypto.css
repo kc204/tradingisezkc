@@ -83,3 +83,7 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+.crypto-theme main.container {
+    padding-top: 0 !important;
+}
