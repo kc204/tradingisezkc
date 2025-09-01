@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -6,17 +7,17 @@ import { usePathname } from 'next/navigation';
 
 const CryptoFooter = () => {
   const pathname = usePathname();
-  if (!pathname.startsWith('/crypto')) {
-    return null;
-  }
-
-  const currentYear = new Date().getFullYear();
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  if (!pathname.startsWith('/crypto')) {
+    return null;
+  }
+  
+  const currentYear = new Date().getFullYear();
 
   const mainSiteFooterLinks = [
     { href: '/crypto/terms-of-service', label: 'Terms & Privacy' },

@@ -7,17 +7,17 @@ import { usePathname } from 'next/navigation';
 
 const Footer = () => {
   const pathname = usePathname();
-  if (pathname.startsWith('/crypto')) {
-    return null;
-  }
-
-  const currentYear = new Date().getFullYear();
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  if (pathname.startsWith('/crypto')) {
+    return null;
+  }
+
+  const currentYear = new Date().getFullYear();
 
   const mainSiteFooterLinks = [
     { href: '/terms-of-service', label: 'Terms & Privacy' },
@@ -64,7 +64,6 @@ const Footer = () => {
                 ))}
               </ul>
             </div>
-            {/* Placeholder for NeonAstronautTrigger if re-added later */}
              {isMounted && (
               <div className="flex flex-col items-center md:items-end">
                  {/* Intentionally empty - NeonAstronautTrigger was here */}
