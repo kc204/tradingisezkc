@@ -33,8 +33,8 @@ export default function CryptoLayout({
     return null; // Don't render anything on the server or before hydration
   }
 
-  return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+  return createPortal(
+    <div className="crypto-root-container flex flex-col min-h-screen bg-background text-foreground">
       <CryptoGlobalOfferBar />
       <CryptoHeader />
       <main className='flex-grow container mx-auto px-4 py-8'>
@@ -42,6 +42,7 @@ export default function CryptoLayout({
       </main>
       <CryptoFooter />
       <Toaster />
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -608,38 +608,36 @@ function FullCompareSection() {
   }
 
   return (
-    <div className="font-sans text-white">
-      <div className="max-w-full mx-auto">
-        <main>
-          <ControlBar
-            filters={filters}
-            setFilters={setFilters}
-            selectedFirm={selectedFirm}
-            setSelectedFirm={setSelectedFirm}
-            filteredCount={filteredAndSortedChallenges.length}
-            totalCount={challenges.filter(c => c.challengeType === filters.challengeType && mockPropFirms.find(f=>f.slug === c.firmId)?.isFeatured).length}
-            hideFirmSelector={true}
-            hideChallengeType={true}
-            showFeaturedToggle={true}
-            isFeaturedActive={isFeaturedActive}
-            setIsFeaturedActive={setIsFeaturedActive}
-          />
-          <ChallengeTable 
-            challenges={paginatedChallenges} 
-            requestSort={requestSort}
-            sortConfig={sortConfig}
-            applyDiscount={filters.applyDiscount}
-          />
-          {totalPages > 1 && (
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
-          )}
-        </main>
-      </div>
-    </div>
+    <>
+      <main>
+        <ControlBar
+          filters={filters}
+          setFilters={setFilters}
+          selectedFirm={selectedFirm}
+          setSelectedFirm={setSelectedFirm}
+          filteredCount={filteredAndSortedChallenges.length}
+          totalCount={challenges.filter(c => c.challengeType === filters.challengeType && mockPropFirms.find(f=>f.slug === c.firmId)?.isFeatured).length}
+          hideFirmSelector={true}
+          hideChallengeType={true}
+          showFeaturedToggle={true}
+          isFeaturedActive={isFeaturedActive}
+          setIsFeaturedActive={setIsFeaturedActive}
+        />
+        <ChallengeTable 
+          challenges={paginatedChallenges} 
+          requestSort={requestSort}
+          sortConfig={sortConfig}
+          applyDiscount={filters.applyDiscount}
+        />
+        {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+        )}
+      </main>
+    </>
   );
 }
 
@@ -785,27 +783,25 @@ export default function CryptoPage() {
       
       {featuredFirms.length > 0 && (
         <section className="py-12">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-10">Featured Prop Firms</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredFirms.map(firm => (
-                <FirmCard key={firm.id} firm={firm} />
-              ))}
-            </div>
-             <div className="text-center mt-10">
-              <StarBorder<typeof Link>
-                  as={Link}
-                  href="/crypto/firms"
-              >
-                  View All Prop Firms
-              </StarBorder>
-            </div>
+          <h2 className="text-3xl font-bold text-center text-foreground mb-10">Featured Prop Firms</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredFirms.map(firm => (
+              <FirmCard key={firm.id} firm={firm} />
+            ))}
+          </div>
+           <div className="text-center mt-10">
+            <StarBorder<typeof Link>
+                as={Link}
+                href="/crypto/firms"
+            >
+                View All Prop Firms
+            </StarBorder>
           </div>
         </section>
       )}
 
       <section className="py-12">
-        <div className="container mx-auto text-center">
+        <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-2">Compare Prop Firms</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">The EZ-iest Way to Compare Prop Firm Challenges.</p>
             
@@ -832,21 +828,19 @@ export default function CryptoPage() {
       
       {featuredFreeResources.length > 0 && (
         <section className="py-12 bg-card rounded-xl">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-10">Explore Our Free Resources</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {featuredFreeResources.map(resource => (
-                <FreeResourceCard key={resource.id} resource={resource} />
-              ))}
-            </div>
-            <div className="text-center mt-10">
-              <StarBorder<typeof Link>
-                as={Link}
-                href="/crypto/free-resources"
-              >
-                View All Free Resources
-              </StarBorder>
-            </div>
+          <h2 className="text-3xl font-bold text-center text-foreground mb-10">Explore Our Free Resources</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {featuredFreeResources.map(resource => (
+              <FreeResourceCard key={resource.id} resource={resource} />
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <StarBorder<typeof Link>
+              as={Link}
+              href="/crypto/free-resources"
+            >
+              View All Free Resources
+            </StarBorder>
           </div>
         </section>
       )}
