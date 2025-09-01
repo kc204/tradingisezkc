@@ -34,7 +34,10 @@ export default function CryptoLayout({
   }
 
   return createPortal(
-    <div className="crypto-root-container flex flex-col min-h-screen bg-background text-foreground">
+    <div 
+      className="crypto-root-container flex flex-col min-h-screen bg-background text-foreground"
+      style={{ position: 'absolute', top: 0, left: 0, width: '100%' }} // Force position to top
+    >
       <CryptoGlobalOfferBar />
       <CryptoHeader />
       <main className='flex-grow container mx-auto px-4 py-8'>
