@@ -674,7 +674,7 @@ const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm 
         <div className="max-w-6xl mx-auto space-y-8 my-12">
             <FirmComparisonHeader firm1={firm1} firm2={firm2} />
             
-            <div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-12">
                 {/* Column for Firm 1 */}
                 <div className="space-y-4">
                     <ComparisonMetricCard 
@@ -722,7 +722,7 @@ const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm 
                     <div className="text-center my-8 md:my-12">
                         <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
                     </div>
-                    <div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
                         <TierComparisonCard firm={firm1} tier={tier1} />
                         <TierComparisonCard firm={firm2} tier={tier2} />
                     </div>
@@ -763,7 +763,7 @@ export default function CryptoPage() {
 
   return (
     <div className="space-y-16">
-      <div className="h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg">
+      <div className="h-auto md:h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg py-12 md:py-0">
         <div className="absolute inset-0 w-full h-full bg-background z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
         <h1 className={cn("text-2xl md:text-4xl text-foreground relative z-20 text-center px-4")}>
           Unlock Your Trading Potential: Find the Perfect Prop Firm &amp; Get Funded.
