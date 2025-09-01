@@ -763,7 +763,7 @@ export default function CryptoPage() {
 
   return (
     <div className="space-y-16">
-      <div className="h-auto md:h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg py-12 md:py-0">
+      <div className="h-auto md:h-96 relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg py-12 md:py-0 mt-8">
         <div className="absolute inset-0 w-full h-full bg-background z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
         <h1 className={cn("text-2xl md:text-4xl text-foreground relative z-20 text-center px-4")}>
           Unlock Your Trading Potential: Find the Perfect Prop Firm &amp; Get Funded.
@@ -848,3 +848,4 @@ export default function CryptoPage() {
     </div>
   );
 }
+
