@@ -36,7 +36,7 @@ export default function CryptoLayout({
   // Use a portal to render the crypto layout directly into the body,
   // escaping the parent layout's container.
   return createPortal(
-    <div className="crypto-root-container flex flex-col min-h-screen bg-background text-foreground">
+    <div className="crypto-root-container -mt-8 flex flex-col min-h-screen bg-background text-foreground">
       <div className="sticky top-0 z-50">
         <CryptoGlobalOfferBar />
         <CryptoHeader />
