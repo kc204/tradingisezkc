@@ -7,7 +7,7 @@ import CryptoHeader from './components/CryptoHeader';
 import CryptoFooter from './components/CryptoFooter';
 import './crypto.css';
 import { usePathname } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 export default function CryptoLayout({
@@ -36,16 +36,16 @@ export default function CryptoLayout({
   // Use a portal to render the crypto layout directly into the body,
   // escaping the parent layout's container.
   return createPortal(
-    <div className="crypto-root-container flex flex-col min-h-screen bg-background text-foreground">
-      <div className="sticky top-0 z-50">
+    <div className="sticky top-0 z-50">
+      <div className="crypto-root-container flex flex-col min-h-screen bg-background text-foreground">
         <CryptoGlobalOfferBar />
         <CryptoHeader />
+        <main className='flex-grow container mx-auto px-4 py-8'>
+          {children}
+        </main>
+        <CryptoFooter />
+        <Toaster />
       </div>
-      <main className='flex-grow container mx-auto px-4 py-8'>
-        {children}
-      </main>
-      <CryptoFooter />
-      <Toaster />
     </div>,
     document.body
   );
