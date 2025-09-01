@@ -241,7 +241,7 @@ const CryptoHeader = () => {
             if (openDropdown) setOpenDropdown(null);
           }}
         >
-          Tradingis<span style={{ color: 'hsl(var(--cta-main-hsl))' }}>EZ</span>
+          <span>Tradingis</span><span style={{ color: 'hsl(var(--cta-main-hsl))' }}>EZ</span>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-1">
@@ -279,7 +279,7 @@ const CryptoHeader = () => {
                   className="text-2xl font-bold text-foreground"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                    Tradingis<span style={{ color: 'hsl(var(--cta-main-hsl))' }}>EZ</span>
+                    <span>Tradingis</span><span style={{ color: 'hsl(var(--cta-main-hsl))' }}>EZ</span>
                   </Link>
                 <Button
                   variant="ghost"

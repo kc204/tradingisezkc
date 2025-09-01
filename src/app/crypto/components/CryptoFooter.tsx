@@ -37,7 +37,7 @@ const CryptoFooter = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Tradingis<span style={{ color: 'hsl(var(--cta-main-hsl))' }}>EZ</span></h3>
+              <h3 className="text-lg font-semibold text-foreground mb-2"><span>Tradingis</span><span style={{ color: 'hsl(var(--cta-main-hsl))' }}>EZ</span></h3>
               <p className="text-sm">Your trusted resource for finding the best prop firms and trading opportunities.</p>
             </div>
             <div>
