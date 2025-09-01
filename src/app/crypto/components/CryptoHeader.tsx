@@ -223,7 +223,13 @@ const CryptoHeader = () => {
   return (
     <header
       className={cn(
-        "w-full bg-header-background text-header-foreground",
+        "shadow-lg sticky z-40 w-full",
+        "top-[2.25rem]", // This assumes the offer bar is 2.25rem (36px) tall.
+        "transition-[transform,opacity] duration-300 ease-out",
+        "bg-header-background text-header-foreground", 
+        isVisible
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 -translate-y-full pointer-events-none"
       )}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">

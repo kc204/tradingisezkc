@@ -32,7 +32,7 @@ const CryptoGlobalOfferBar = () => {
   const duplicatedOffers = [...activeOffersWithFirms, ...activeOffersWithFirms];
 
   return (
-    <div data-global-offer-bar="true" className="bg-black text-white border-b border-white py-2 text-sm w-full overflow-x-hidden group shadow-md">
+    <div data-global-offer-bar="true" className="bg-black text-white border-b border-white py-2 text-sm w-full overflow-x-hidden group shadow-md sticky top-0 z-50">
         <div className={cn("flex w-max animate-marquee group-hover:[animation-play-state:paused]")}>
             <div className="flex">
                 {duplicatedOffers.map((offer, index) => (
