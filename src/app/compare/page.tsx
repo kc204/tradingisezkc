@@ -296,7 +296,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     };
 
     const columns = [
-        { key: 'firm', label: 'Firm / Rating', sticky: 'left', align: 'left', className: 'w-[150px] sm:w-auto' },
+        { key: 'firm', label: 'Firm / Rating', sticky: 'left', align: 'left', className: 'w-[120px] sm:w-auto' },
         { key: 'accountsize', label: 'Account Size', align: 'center' },
         { key: 'steps', label: 'Steps', align: 'center' },
         { key: 'activationfee', label: 'Activation Fee', align: 'center' },
