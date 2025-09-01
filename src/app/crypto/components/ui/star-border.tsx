@@ -20,9 +20,9 @@ export function StarBorder<T extends ElementType = "button">({
   ...props
 }: StarBorderProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof StarBorderProps<T>>) {
   const Component = as || "button"
-  // Animated border effect defaults to Bright Blue (primary)
-  const effectColor = color || "hsl(var(--primary))"; 
-  const hoverEffectColor = "hsl(var(--cta-main-hover-hsl))"; // Fallback to primary
+  // Animated border effect defaults to white for the crypto theme
+  const effectColor = color || "hsl(0 0% 98%)"; 
+  const hoverEffectColor = color || "hsl(0 0% 98%)";
 
 
   return (
