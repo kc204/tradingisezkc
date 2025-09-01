@@ -79,9 +79,20 @@
 .crypto-theme footer,
 .crypto-theme [data-global-offer-bar="true"] {
     width: 100vw;
-    position: relative;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.crypto-theme [data-global-offer-bar="true"] {
+  position: sticky;
+}
+
+.crypto-theme header {
+  position: sticky;
+}
+
+.crypto-theme footer {
+  position: relative;
 }
 
 .crypto-theme main.container {
