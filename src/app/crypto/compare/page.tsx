@@ -258,8 +258,8 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
                 </div>
             </div>
 
-            <h2 className="text-xl font-bold tracking-tight text-white/90">
-                {filters.challengeType === 'futures' ? 'Futures' : 'CFD'} Prop Firm Challenges <span className="ml-2 text-blue-400 font-medium bg-blue-500/10 px-2 py-1 rounded-md text-base">Showing {filteredCount} of {totalCount}</span>
+            <h2 className="text-lg md:text-xl font-bold tracking-tight text-white/90">
+                {filters.challengeType === 'futures' ? 'Futures' : 'CFD'} Prop Firm Challenges <span className="ml-2 text-blue-400 font-medium bg-blue-500/10 px-2 py-1 rounded-md text-sm md:text-base">Showing {filteredCount} of {totalCount}</span>
             </h2>
         </div>
     );
@@ -312,11 +312,11 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
-                <table className="min-w-full text-xs">
+                <table className="min-w-full text-[10px] md:text-xs">
                     <thead className="sticky top-0 z-20 bg-black/50 backdrop-blur-lg border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-${col.align} text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/50 backdrop-blur-lg' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-${col.align} font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/50 backdrop-blur-lg' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
                                     <button onClick={() => requestSort(col.key)} className={`flex items-center gap-2 hover:text-white transition-colors ${col.align === 'center' ? 'justify-center w-full' : ''}`}>
                                         {col.key === 'firm' ? (
                                             <span ref={textRef} className="flex flex-row md:whitespace-nowrap items-center">
@@ -377,8 +377,8 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                                 width: isScrolled ? '0px' : 'auto',
                             }}
                         >
-                            <div className="text-xs font-medium text-white truncate">{challenge.firmName}</div>
-                            <div className="flex items-center text-xs text-gray-400 mt-1">
+                            <div className="font-medium text-white truncate">{challenge.firmName}</div>
+                            <div className="flex items-center text-gray-400 mt-1">
                                 <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
                                 {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
                             </div>
@@ -390,7 +390,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.activationFee)}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-center">
                     <div className="flex items-center justify-center gap-2">
-                        <span className="text-xs text-white">{challenge.profitSplit}%</span>
+                        <span className="text-white">{challenge.profitSplit}%</span>
                         <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
                     </div>
                 </td>
@@ -398,21 +398,21 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.profitTarget)}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.dailyLoss)}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.maxLoss)}</td>
-                <td className="px-2 py-3 sm:px-4 text-xs text-gray-300 max-w-[200px] truncate text-center" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
+                <td className="px-2 py-3 sm:px-4 text-gray-300 max-w-[200px] truncate text-center" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover/row:bg-gray-800">
                      <div className="flex flex-col items-end sm:flex-row sm:items-center sm:justify-end gap-2">
                          <div className="text-right">
                            {applyDiscount && challenge.promoDiscountPercent > 0 ? (
                                 <>
                                     <p className="font-semibold text-green-400 text-xs sm:text-sm">{formatCurrency(finalPrice)}</p>
-                                    <p className="text-xs text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
+                                    <p className="text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
                                 </>
                             ) : (
                                 <p className="font-semibold text-white text-xs sm:text-sm">{formatCurrency(finalPrice)}</p>
                             )}
-                             <p className="text-xs text-gray-400">{challenge.paymentType}</p>
+                             <p className="text-gray-400">{challenge.paymentType}</p>
                         </div>
-                        <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="group relative w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 border border-transparent text-xs sm:text-sm font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600 overflow-hidden">
+                        <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="group relative w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 border border-transparent font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600 overflow-hidden">
                              <span className="transition-transform duration-300 group-hover:-translate-x-2">Buy</span>
                              <ArrowRight className="absolute right-3 h-4 w-4 opacity-0 transition-all duration-300 transform translate-x-full group-hover:opacity-100 group-hover:translate-x-0" />
                         </a>
@@ -678,8 +678,8 @@ export default function ComparePage() {
     <div className="font-sans text-white">
       <div className="max-w-full mx-auto">
         <header className="mb-10 text-center">
-          <h1 className="text-5xl font-extrabold text-white tracking-tight">Compare Prop Firms</h1>
-          <p className="mt-3 text-lg text-gray-400 max-w-2xl mx-auto">The EZ-iest Way to Compare Prop Firm Challenges.</p>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Compare Prop Firms</h1>
+          <p className="mt-3 text-md md:text-lg text-gray-400 max-w-2xl mx-auto">The EZ-iest Way to Compare Prop Firm Challenges.</p>
         </header>
 
         <main>

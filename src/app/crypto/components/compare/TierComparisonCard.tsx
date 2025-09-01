@@ -16,9 +16,9 @@ const formatCurrency = (value: number | undefined) => {
 }
 
 const MetricRow: React.FC<{ label: string; value: string | React.ReactNode; highlight?: boolean }> = ({ label, value, highlight }) => (
-    <div className={`flex justify-between items-center py-3 border-b border-border/30 last:border-b-0 ${highlight ? 'bg-primary/10 px-2 -mx-2 rounded-lg' : ''}`}>
-        <span className="text-sm text-muted-foreground">{label}</span>
-        <span className="text-base font-bold text-foreground text-right">{value}</span>
+    <div className={`flex justify-between items-center py-2 md:py-3 border-b border-border/30 last:border-b-0 ${highlight ? 'bg-primary/10 px-2 -mx-2 rounded-lg' : ''}`}>
+        <span className="text-xs md:text-sm text-muted-foreground">{label}</span>
+        <span className="text-sm md:text-base font-bold text-foreground text-right">{value}</span>
     </div>
 );
 
@@ -42,7 +42,7 @@ const TierComparisonCard: React.FC<TierComparisonCardProps> = ({ firm, tier }) =
 
   return (
      <div className="bg-card/80 border border-border/30 rounded-2xl p-4 md:p-6 flex flex-col transition-all duration-300 hover:shadow-2xl hover:border-primary/50 hover:scale-[1.02]">
-        <h3 className="text-lg md:text-xl font-bold text-center mb-4 md:mb-6 text-primary">{tier.name || `$${(tier.size / 1000)}K ${tier.challengeType}`}</h3>
+        <h3 className="text-base md:text-xl font-bold text-center mb-4 md:mb-6 text-primary">{tier.name || `$${(tier.size / 1000)}K ${tier.challengeType}`}</h3>
         <div className="space-y-1 flex-grow">
             <MetricRow label="Price" value={formatCurrency(tier.evaluationFee)} />
             <MetricRow label="Activation Fee" value={activationFeeValue} highlight={!tier.activationFee} />
@@ -51,7 +51,7 @@ const TierComparisonCard: React.FC<TierComparisonCardProps> = ({ firm, tier }) =
              <MetricRow label="Daily Loss Limit" value={dailyLossValue} highlight={dailyLossValue === 'None'}/>
             <MetricRow label="Profit Split" value={firm.profitSplit || 'N/A'} />
         </div>
-        <Button asChild className="mt-4 md:mt-6 w-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm md:text-base py-3 md:py-5">
+        <Button asChild size="sm" className="mt-4 md:mt-6 w-full bg-primary text-primary-foreground hover:bg-primary/90 text-xs md:text-sm py-2 md:py-3 h-auto">
             <Link href={`/crypto/firms/${firm.slug}`}>
                 View Full Review
             </Link>

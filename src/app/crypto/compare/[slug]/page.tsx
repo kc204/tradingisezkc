@@ -88,7 +88,7 @@ const FirmVsFirmPage = ({ params }: FirmVsFirmPageProps) => {
       <FirmComparisonHeader firm1={firm1} firm2={firm2} />
 
       <section className="space-y-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground">High-Level Comparison</h2>
+        <h2 className="text-xl md:text-2xl font-bold text-center text-foreground">High-Level Comparison</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
            <ComparisonMetricCard 
                 title="Year Established"
@@ -115,7 +115,7 @@ const FirmVsFirmPage = ({ params }: FirmVsFirmPageProps) => {
 
       {tier1 && tier2 && (
          <section className="space-y-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-center text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <TierComparisonCard firm={firm1} tier={tier1} />
                 <TierComparisonCard firm={firm2} tier={tier2} />
