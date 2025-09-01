@@ -296,7 +296,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     };
 
     const columns = [
-        { key: 'firm', label: 'Firm / Rating', sticky: 'left', align: 'left', className: 'w-[120px] sm:w-auto' },
+        { key: 'firm', label: 'Firm / Rating', sticky: 'left', align: 'left', className: 'w-[90px] sm:w-auto' },
         { key: 'accountsize', label: 'Account Size', align: 'center' },
         { key: 'steps', label: 'Steps', align: 'center' },
         { key: 'activationfee', label: 'Activation Fee', align: 'center' },
@@ -377,7 +377,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                                 width: isScrolled ? '0px' : 'auto',
                             }}
                         >
-                            <div className="text-xs font-medium text-white truncate max-w-[100px]">{challenge.firmName}</div>
+                            <div className="text-xs font-medium text-white truncate max-w-[90px]">{challenge.firmName}</div>
                             <div className="flex items-center text-xs text-gray-400 mt-1">
                                 <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
                                 {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
