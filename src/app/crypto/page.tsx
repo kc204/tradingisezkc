@@ -192,8 +192,7 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
                             <button
                                 key={size}
                                 onClick={() => toggleSizeFilter(size)}
-                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
-                            >
+                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
                                 {formatShortCurrency(size)}
                             </button>
                         ))}
@@ -231,8 +230,7 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
                             <button
                                 key={step}
                                 onClick={() => toggleStepFilter(step)}
-                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${filters.steps.includes(step) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
-                            >
+                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${filters.steps.includes(step) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
                                 {typeof step === 'number' ? `${step} Step${step > 1 ? 's' : ''}` : step}
                             </button>
                         ))}
@@ -769,7 +767,7 @@ export default function CryptoPage() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
       <CryptoGlobalOfferBar />
       <CryptoHeader />
       <main className='flex-grow container mx-auto px-4 py-8'>
