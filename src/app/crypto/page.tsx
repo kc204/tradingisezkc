@@ -320,7 +320,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     };
     
     const columns = [
-        { key: 'firm', label: 'Firm / Rating', sticky: 'left', align: 'left' },
+        { key: 'firm', label: 'Firm / Rating', sticky: 'left', align: 'left', className: 'w-[90px] sm:w-auto' },
         { key: 'accountsize', label: 'Account Size', align: 'center' },
         { key: 'steps', label: 'Steps', align: 'center' },
         { key: 'activationfee', label: 'Activation Fee', align: 'center' },
@@ -340,7 +340,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                     <thead className="sticky top-0 z-20 bg-black/50 backdrop-blur-lg border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-${col.align} text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/50 backdrop-blur-lg' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'}`}>
+                                <th key={col.key} scope="col" className={cn(`px-2 py-3 sm:px-4 text-${col.align} text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap`, col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/50 backdrop-blur-lg' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95', col.className)}>
                                     <button onClick={() => requestSort(col.key)} className={`flex items-center gap-2 hover:text-white transition-colors ${col.align === 'center' ? 'justify-center w-full' : ''}`}>
                                         {col.key === 'firm' ? (
                                             <span ref={textRef} className="flex flex-row md:whitespace-nowrap items-center">
@@ -394,14 +394,12 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                             <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
                         </div>
                         <div 
-                            className="flex flex-col justify-center flex-shrink-0"
-                            style={{
-                                transition: 'opacity 0.3s ease, width 0.3s ease',
-                                opacity: isScrolled ? 0 : 1,
-                                width: isScrolled ? '0px' : 'auto',
-                            }}
+                             className={cn(
+                                "flex flex-col justify-center flex-shrink-0 transition-all duration-300 ease-in-out",
+                                isScrolled ? "sm:opacity-100 sm:w-auto opacity-0 w-0" : "opacity-100 w-auto"
+                            )}
                         >
-                            <div className="text-xs font-medium text-white truncate">{challenge.firmName}</div>
+                            <div className="text-xs font-medium text-white truncate max-w-[90px] sm:max-w-none">{challenge.firmName}</div>
                             <div className="flex items-center text-xs text-gray-400 mt-1">
                                 <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
                                 {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
