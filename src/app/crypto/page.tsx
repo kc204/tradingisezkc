@@ -817,7 +817,9 @@ export default function CryptoPage() {
       </section>
 
       <section className="my-12">
-          <FirmVsFirmSelector firms={mockPropFirms} onCompare={handleSetComparisonFirms} />
+        <div className="flex flex-wrap items-center justify-center gap-4">
+            <FirmVsFirmSelector firms={mockPropFirms} onCompare={handleSetComparisonFirms} />
+        </div>
       </section>
 
       {comparisonFirms && (
@@ -846,3 +848,5 @@ export default function CryptoPage() {
     </div>
   );
 }
+
+    
