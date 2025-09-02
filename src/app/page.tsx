@@ -397,13 +397,8 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                         </div>
                         <div 
                             className="flex flex-col justify-center flex-shrink-0"
-                            style={{
-                                transition: 'opacity 0.3s ease, width 0.3s ease',
-                                opacity: isScrolled ? 0 : 1,
-                                width: isScrolled ? '0px' : 'auto',
-                            }}
                         >
-                            <div className="text-xs font-medium text-white truncate max-w-[90px]">{challenge.firmName}</div>
+                            <div className="text-xs font-medium text-white truncate max-w-[90px] sm:max-w-none">{challenge.firmName}</div>
                             <div className="flex items-center text-xs text-gray-400 mt-1">
                                 <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
                                 {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
