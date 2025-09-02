@@ -55,22 +55,30 @@ const renderPlatformValue = (value: string | React.ReactNode) => {
 };
 
 const ComparisonMetricCard: React.FC<ComparisonMetricCardProps> = ({ title, icon, value, subvalue, isPlatformList, value1, value2, subvalue1, subvalue2 }) => {
-    if (value1 !== undefined && value2 !== undefined) {
+    
+  if (value1 !== undefined || value2 !== undefined) {
+    const content1 = value1 !== undefined ? (
+      <>
+        <p className="text-xl md:text-2xl font-bold text-foreground">{value1}</p>
+        {subvalue1 && <p className="text-xs font-normal text-gray-400">{subvalue1}</p>}
+      </>
+    ) : null;
+
+    const content2 = value2 !== undefined ? (
+      <>
+        <p className="text-xl md:text-2xl font-bold text-foreground">{value2}</p>
+        {subvalue2 && <p className="text-xs font-normal text-gray-400">{subvalue2}</p>}
+      </>
+    ) : null;
+    
     return (
-        <div className="bg-card/80 border border-border/30 rounded-xl p-3 md:p-5 transition-all duration-300 hover:shadow-2xl hover:border-primary/50 hover:scale-[1.02] md:col-span-1">
-            <h3 className="font-semibold text-base text-center text-muted-foreground mb-2">{title}</h3>
-            <div className="flex flex-col sm:flex-row justify-around items-center sm:items-start text-center gap-4">
-                 <div>
-                    <p className="text-xl md:text-2xl font-bold text-foreground">{value1}</p>
-                    {subvalue1 && <p className="text-xs font-normal text-gray-400">{subvalue1}</p>}
-                </div>
-                <div className="h-px w-full sm:h-auto sm:w-px bg-border/30" />
-                <div>
-                    <p className="text-xl md:text-2xl font-bold text-foreground">{value2}</p>
-                    {subvalue2 && <p className="text-xs font-normal text-gray-400">{subvalue2}</p>}
-                </div>
-            </div>
+      <div className="bg-card/80 border border-border/30 rounded-xl p-3 md:p-5 transition-all duration-300 hover:shadow-2xl hover:border-primary/50 hover:scale-[1.02]">
+        <h3 className="font-semibold text-base text-muted-foreground mb-2">{title}</h3>
+        <div className="text-left">
+          {isPlatformList && value1 !== undefined ? renderPlatformValue(value1) : content1}
+          {isPlatformList && value2 !== undefined ? renderPlatformValue(value2) : content2}
         </div>
+      </div>
     );
   }
 

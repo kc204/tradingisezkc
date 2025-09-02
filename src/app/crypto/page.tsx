@@ -672,55 +672,49 @@ const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm 
         <div className="max-w-6xl mx-auto space-y-8 my-12">
             <FirmComparisonHeader firm1={firm1} firm2={firm2} />
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-12">
+            <div className="grid grid-cols-2 gap-2 md:gap-8 mt-6 md:mt-12">
                 {/* Column for Firm 1 */}
-                <div className="space-y-4">
+                <div className="space-y-2 md:space-y-4">
                     <ComparisonMetricCard 
                         title="Year Established"
-                        icon={<Calendar className="w-6 h-6 md:w-8 md:h-8 text-primary" />}
-                        value={firm1Years.year}
-                        subvalue={firm1Years.yearsInOp}
+                        value1={firm1Years.year}
+                        subvalue1={firm1Years.yearsInOp}
                     />
                     <ComparisonMetricCard 
                         title="Platforms"
-                        icon={<Monitor className="w-6 h-6 md:w-8 md:h-8 text-primary" />}
-                        value={firm1.platforms?.join(', ') || 'N/A'}
+                        value1={firm1.platforms?.join(', ') || 'N/A'}
                         isPlatformList
                     />
                     <ComparisonMetricCard 
                         title="Max Allocation"
-                        icon={<TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-primary" />}
-                        value={firm1.maxAccountSize ? `$${(firm1.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                        value1={firm1.maxAccountSize ? `$${(firm1.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
                     />
                 </div>
                 {/* Column for Firm 2 */}
-                <div className="space-y-4">
+                <div className="space-y-2 md:space-y-4">
                     <ComparisonMetricCard 
                         title="Year Established"
-                        icon={<Calendar className="w-6 h-6 md:w-8 md:h-8 text-secondary" />}
-                        value={firm2Years.year}
-                        subvalue={firm2Years.yearsInOp}
+                        value2={firm2Years.year}
+                        subvalue2={firm2Years.yearsInOp}
                     />
                      <ComparisonMetricCard 
                         title="Platforms"
-                        icon={<Monitor className="w-6 h-6 md:w-8 md:h-8 text-secondary" />}
-                        value={firm2.platforms?.join(', ') || 'N/A'}
+                        value2={firm2.platforms?.join(', ') || 'N/A'}
                         isPlatformList
                     />
                     <ComparisonMetricCard 
                         title="Max Allocation"
-                        icon={<TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-secondary" />}
-                        value={firm2.maxAccountSize ? `$${(firm2.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                        value2={firm2.maxAccountSize ? `$${(firm2.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
                     />
                 </div>
             </div>
 
             {tier1 && tier2 && (
                  <section className="space-y-4">
-                    <div className="text-center my-8 md:my-12">
-                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
+                    <div className="text-center my-6 md:my-12">
+                        <h2 className="text-xl md:text-3xl font-bold tracking-tight text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
+                    <div className="grid grid-cols-2 gap-2 md:gap-8">
                         <TierComparisonCard firm={firm1} tier={tier1} />
                         <TierComparisonCard firm={firm2} tier={tier2} />
                     </div>
@@ -848,5 +842,3 @@ export default function CryptoPage() {
     </div>
   );
 }
-
-    
