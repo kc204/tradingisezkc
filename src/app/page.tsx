@@ -396,7 +396,10 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                             <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
                         </div>
                         <div 
-                            className="flex flex-col justify-center flex-shrink-0"
+                             className={cn(
+                                "flex flex-col justify-center flex-shrink-0 transition-all duration-300 ease-in-out",
+                                isScrolled ? "sm:opacity-100 sm:w-auto opacity-0 w-0" : "opacity-100 w-auto"
+                            )}
                         >
                             <div className="text-xs font-medium text-white truncate max-w-[90px] sm:max-w-none">{challenge.firmName}</div>
                             <div className="flex items-center text-xs text-gray-400 mt-1">
@@ -851,7 +854,3 @@ export default function Home() {
     </div>
   );
 }
-
-
-
-
