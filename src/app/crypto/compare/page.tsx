@@ -661,7 +661,7 @@ export default function ComparePage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center text-white font-sans p-4">
+      <div className="flex items-center justify-center text-white p-4">
         <div className="flex items-center gap-3">
           <svg className="animate-spin h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -674,7 +674,7 @@ export default function ComparePage() {
   }
 
   return (
-    <div className="font-sans text-white">
+    <div className="text-white">
       <div className="max-w-full mx-auto">
         <header className="mb-10 text-center">
           <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Compare Prop Firms</h1>
