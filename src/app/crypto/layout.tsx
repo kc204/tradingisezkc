@@ -21,11 +21,11 @@ export default function CryptoLayout({
   useEffect(() => {
     setMounted(true);
     // Apply crypto-theme class to body for this layout
-    document.body.classList.add('crypto-theme', 'font-pixel');
+    document.body.classList.add('crypto-theme');
     
     // Cleanup function to remove classes when the component unmounts or path changes
     return () => {
-      document.body.classList.remove('crypto-theme', 'font-pixel');
+      document.body.classList.remove('crypto-theme');
     };
   }, [pathname]);
 
@@ -35,7 +35,7 @@ export default function CryptoLayout({
 
   return createPortal(
     <div 
-      className="crypto-root-container flex flex-col min-h-screen bg-background text-foreground"
+      className="crypto-root-container flex flex-col min-h-screen bg-background text-foreground crypto-theme"
       style={{ position: 'absolute', top: 0, left: 0, width: '100%' }} // Force position to top
     >
       <CryptoGlobalOfferBar />
