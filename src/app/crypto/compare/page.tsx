@@ -313,7 +313,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
             <div ref={scrollContainerRef} className="overflow-x-auto">
-                <table className="min-w-full text-xs">
+                <table className="min-w-full text-[11px] sm:text-xs">
                     <thead className="sticky top-0 z-20 bg-black/50 backdrop-blur-lg border-b border-white/10">
                         <tr>
                             {columns.map(col => (
@@ -376,8 +376,8 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                                 isScrolled ? "sm:opacity-100 sm:w-auto opacity-0 w-0" : "opacity-100 w-auto"
                             )}
                         >
-                            <div className="text-xs font-medium text-white truncate max-w-[90px] sm:max-w-none">{challenge.firmName}</div>
-                            <div className="flex items-center text-xs text-gray-400 mt-1">
+                            <div className="font-medium text-white truncate max-w-[90px] sm:max-w-none">{challenge.firmName}</div>
+                            <div className="flex items-center text-gray-400 mt-1">
                                 <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
                                 {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
                             </div>
@@ -397,17 +397,17 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.profitTarget)}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.dailyLoss)}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.maxLoss)}</td>
-                <td className="px-2 py-3 sm:px-4 text-xs text-gray-300 max-w-[200px] truncate text-center" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
+                <td className="px-2 py-3 sm:px-4 text-gray-300 max-w-[200px] truncate text-center" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover/row:bg-gray-800">
                      <div className="flex flex-col items-end sm:flex-row sm:items-center sm:justify-end gap-2">
                          <div className="text-right">
                            {applyDiscount && challenge.promoDiscountPercent > 0 ? (
                                 <>
-                                    <p className="font-semibold text-green-400 text-xs sm:text-sm">{formatCurrency(finalPrice)}</p>
+                                    <p className="font-semibold text-green-400">{formatCurrency(finalPrice)}</p>
                                     <p className="text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
                                 </>
                             ) : (
-                                <p className="font-semibold text-white text-xs sm:text-sm">{formatCurrency(finalPrice)}</p>
+                                <p className="font-semibold text-white">{formatCurrency(finalPrice)}</p>
                             )}
                              <p className="text-gray-400">{challenge.paymentType}</p>
                         </div>
