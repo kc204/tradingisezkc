@@ -235,7 +235,7 @@ const CryptoHeader = () => {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link
           href="/crypto"
-          className="text-xl md:text-2xl font-bold text-header-foreground hover:text-header-foreground transition-transform duration-300 ease-in-out hover:scale-105" 
+          className="text-2xl md:text-3xl font-bold text-header-foreground hover:text-header-foreground transition-transform duration-300 ease-in-out hover:scale-105" 
           onClick={() => {
             if (mobileMenuOpen) setMobileMenuOpen(false);
             if (openDropdown) setOpenDropdown(null);
