@@ -817,7 +817,7 @@ export default function CryptoPage() {
       </section>
 
       <section className="my-12">
-          <FirmVsFirmSelector firms={featuredFirms} onCompare={handleSetComparisonFirms} />
+          <FirmVsFirmSelector firms={mockPropFirms} onCompare={handleSetComparisonFirms} />
       </section>
 
       {comparisonFirms && (

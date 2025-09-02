@@ -45,49 +45,34 @@ const FirmVsFirmSelector: React.FC<FirmVsFirmSelectorProps> = ({ firms, onCompar
         <CardTitle className="text-2xl font-bold text-foreground">Firm Face-Off</CardTitle>
         <CardDescription className="text-muted-foreground">Select two firms to see a detailed side-by-side comparison.</CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto] items-center gap-4">
-          <div className='grid grid-cols-2 gap-2 md:col-span-1 md:grid-cols-1'>
-            <Select value={firm1Slug} onValueChange={setFirm1Slug}>
-              <SelectTrigger className="w-full bg-background">
-                <SelectValue placeholder="Select Firm 1" />
-              </SelectTrigger>
-              <SelectContent>
-                {firmOptions.filter(f => f.value !== firm2Slug).map(renderSelectItem)}
-              </SelectContent>
-            </Select>
+      <CardContent className="flex flex-col md:flex-row items-center justify-center gap-4">
+        <Select value={firm1Slug} onValueChange={setFirm1Slug}>
+          <SelectTrigger className="w-full md:w-[250px] bg-background">
+            <SelectValue placeholder="Select Firm 1" />
+          </SelectTrigger>
+          <SelectContent>
+            {firmOptions.filter(f => f.value !== firm2Slug).map(renderSelectItem)}
+          </SelectContent>
+        </Select>
 
-             <Select value={firm2Slug} onValueChange={setFirm2Slug}>
-              <SelectTrigger className="w-full bg-background">
-                <SelectValue placeholder="Select Firm 2" />
-              </SelectTrigger>
-              <SelectContent>
-                {firmOptions.filter(f => f.value !== firm1Slug).map(renderSelectItem)}
-              </SelectContent>
-            </Select>
-          </div>
+        <div className="text-xl font-bold text-primary transform md:-rotate-12 my-2 md:my-0">VS</div>
 
-          <div className="text-xl font-bold text-primary transform md:-rotate-12 my-2 md:my-0 hidden md:block">VS</div>
-        
-          <div className='hidden md:grid'>
-            <Select value={firm2Slug} onValueChange={setFirm2Slug}>
-              <SelectTrigger className="w-full bg-background">
-                <SelectValue placeholder="Select Firm 2" />
-              </SelectTrigger>
-              <SelectContent>
-                {firmOptions.filter(f => f.value !== firm1Slug).map(renderSelectItem)}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <Button 
-            onClick={handleCompareClick} 
-            disabled={!firm1Slug || !firm2Slug || firm1Slug === firm2Slug}
-            className="w-full md:w-auto bg-accent text-accent-foreground hover:bg-accent/90 col-span-2 md:col-span-1"
-          >
-            Compare
-          </Button>
-        </div>
+        <Select value={firm2Slug} onValueChange={setFirm2Slug}>
+          <SelectTrigger className="w-full md:w-[250px] bg-background">
+            <SelectValue placeholder="Select Firm 2" />
+          </SelectTrigger>
+          <SelectContent>
+             {firmOptions.filter(f => f.value !== firm1Slug).map(renderSelectItem)}
+          </SelectContent>
+        </Select>
+
+        <Button 
+          onClick={handleCompareClick} 
+          disabled={!firm1Slug || !firm2Slug || firm1Slug === firm2Slug}
+          className="w-full md:w-auto bg-accent text-accent-foreground hover:bg-accent/90"
+        >
+          Compare
+        </Button>
       </CardContent>
     </Card>
   );
