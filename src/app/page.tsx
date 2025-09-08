@@ -56,7 +56,7 @@ try {
 }
 
 const formatCurrency = (value: any) => value == null ? 'N/A' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
-const formatShortCurrency = (value: any) => value == null ? 'N/A' : `$${'\'\'\''}{value/1000}K`;
+const formatShortCurrency = (value: any) => value == null ? 'N/A' : `$${(value/1000)}K`;
 
 const Separator = () => <div className="hidden md:block h-6 w-px bg-white/10 mx-2"></div>;
 
@@ -153,10 +153,10 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
             <div className="flex justify-between items-center">
                  {!hideChallengeType && (
                      <div className="flex items-center p-1 bg-white/5 rounded-full">
-                        <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${'\'\'\''}{filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+                        <button onClick={() => handleChallengeTypeChange('futures')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'futures' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
                             Futures
                         </button>
-                        <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${'\'\'\''}{filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+                        <button onClick={() => handleChallengeTypeChange('cfd')} className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${filters.challengeType === 'cfd' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
                             CFD
                         </button>
                     </div>
@@ -193,13 +193,13 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
                             <button
                                 key={size}
                                 onClick={() => toggleSizeFilter(size)}
-                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${'\'\'\''}{!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
+                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${!isCustomSizeActive && filters.accountSize.includes(size) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
                                 {formatShortCurrency(size)}
                             </button>
                         ))}
                         <Popover open={isPopoverOpen} onOpenChange={handlePopoverOpenChange}>
                             <PopoverTrigger asChild>
-                                <button className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${'\'\'\''}{isCustomSizeActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
+                                <button className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${isCustomSizeActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
                                     Custom
                                 </button>
                             </PopoverTrigger>
@@ -231,8 +231,8 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
                             <button
                                 key={step}
                                 onClick={() => toggleStepFilter(step)}
-                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${'\'\'\''}{filters.steps.includes(step) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
-                                {typeof step === 'number' ? `${'\'\'\''}{step} Step${'\'\'\''}{step > 1 ? 's' : ''}` : step}
+                                className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${filters.steps.includes(step) ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}>
+                                {typeof step === 'number' ? `${step} Step${step > 1 ? 's' : ''}` : step}
                             </button>
                         ))}
                     </div>
@@ -240,8 +240,8 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
                     <Separator />
 
                     <div className="flex items-center space-x-2">
-                        <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${'\'\'\''}{filters.applyDiscount ? 'bg-orange-500' : 'bg-gray-600'}`}>
-                            <span className={`pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform h-5 w-5 ${'\'\'\''}{filters.applyDiscount ? 'translate-x-5' : 'translate-x-0'}`}></span>
+                        <button type="button" role="switch" aria-checked={filters.applyDiscount} onClick={handleDiscountToggle} className={`peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors h-6 w-11 ${filters.applyDiscount ? 'bg-orange-500' : 'bg-gray-600'}`}>
+                            <span className={`pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform h-5 w-5 ${filters.applyDiscount ? 'translate-x-5' : 'translate-x-0'}`}></span>
                         </button>
                         <label className="text-sm font-semibold text-gray-300">Apply Discount</label>
                     </div>
@@ -256,7 +256,7 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
                                 aria-pressed={isFeaturedActive}
                                 className="rounded-full"
                             >
-                                <Star className={`mr-2 h-4 w-4 ${'\'\'\''}{isFeaturedActive ? 'text-yellow-400 fill-yellow-400' : 'text-gray-400'}`} />
+                                <Star className={`mr-2 h-4 w-4 ${isFeaturedActive ? 'text-yellow-400 fill-yellow-400' : 'text-gray-400'}`} />
                                 Featured
                             </Button>
                         </>
@@ -344,8 +344,8 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                     <thead className="sticky top-0 z-20 bg-black/50 backdrop-blur-lg border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={cn(`px-2 py-3 sm:px-4 text-${'\'\'\''}{col.align} text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap`, col.sticky ? `sticky z-10 ${'\'\'\''}{col.sticky === 'left' ? 'left-0 bg-black/50 backdrop-blur-lg' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95', col.className)}>
-                                    <button onClick={() => requestSort(col.key)} className={`flex items-center gap-2 hover:text-white transition-colors ${'\'\'\''}{col.align === 'center' ? 'justify-center w-full' : ''}`}>
+                                <th key={col.key} scope="col" className={cn(`px-2 py-3 sm:px-4 text-${col.align} text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap`, col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/50 backdrop-blur-lg' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95', col.className)}>
+                                    <button onClick={() => requestSort(col.key)} className={`flex items-center gap-2 hover:text-white transition-colors ${col.align === 'center' ? 'justify-center w-full' : ''}`}>
                                         {col.key === 'firm' ? (
                                             <span ref={textRef} className="flex flex-row md:whitespace-nowrap items-center">
                                                 <span>Firm&nbsp;/&nbsp;</span>
@@ -376,9 +376,9 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
     const formatPercent = (value: number | (number | null)[] | null | undefined) => {
         if (value === null || value === undefined) return 'N/A';
         if (Array.isArray(value)) {
-            return value.map(v => v === null ? 'N/A' : `${'\'\'\''}{v}%`).join(' / ');
+            return value.map(v => v === null ? 'N/A' : `${v}%`).join(' / ');
         }
-        return `${'\'\'\''}{value}%`;
+        return `${value}%`;
     }
     
     if (!firm) {
@@ -395,7 +395,7 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover/row:bg-gray-800/80 backdrop-blur-sm">
                     <div className="flex items-center gap-3">
                         <div className="w-11 h-11 relative flex-shrink-0">
-                            <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${'\'\'\''}{challenge.firmName} logo`} layout="fill"/>
+                            <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
                         </div>
                         <div 
                              className={cn(
@@ -412,12 +412,12 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
                     </div>
                 </td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white font-medium text-center">{formatCurrency(challenge.accountSize)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{challenge.isInstant ? 'Instant' : `${'\'\'\''}{challenge.steps} Step`}</td>
+                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.activationFee)}</td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-center">
                     <div className="flex items-center justify-center gap-2">
                         <span className="text-sm text-white">{challenge.profitSplit}%</span>
-                        <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${'\'\'\''}{challenge.profitSplit}%`}}></div></div>
+                        <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
                     </div>
                 </td>
                 <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.maxAllocation)}</td>
@@ -466,7 +466,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: any) => {
                 </li>
                 {pageNumbers.map(number => (
                      <li key={number}>
-                        <button onClick={() => onPageChange(number)} className={`px-3 py-2 leading-tight border border-gray-700 ${'\'\'\''}{currentPage === number ? 'bg-blue-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}`}>
+                        <button onClick={() => onPageChange(number)} className={`px-3 py-2 leading-tight border border-gray-700 ${currentPage === number ? 'bg-blue-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}`}>
                             {number}
                         </button>
                     </li>
@@ -668,7 +668,7 @@ const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm 
         const year = new Date(firm.dateCreated).getFullYear();
         const currentYear = new Date().getFullYear();
         const yearsInOp = currentYear - year;
-        return { year: year.toString(), yearsInOp: `${'\'\'\''}{yearsInOp} Year${'\'\'\''}{yearsInOp !== 1 ? 's' : ''} of Operations` };
+        return { year: year.toString(), yearsInOp: `${yearsInOp} Year${yearsInOp !== 1 ? 's' : ''} of Operations` };
     };
 
     const firm1Years = getYearEstablished(firm1);
@@ -696,7 +696,7 @@ const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm 
                     <ComparisonMetricCard 
                         title="Max Allocation"
                         icon={<TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-primary" />}
-                        value={firm1.maxAccountSize ? `$${'\'\'\''}{(firm1.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                        value={firm1.maxAccountSize ? `$${(firm1.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
                     />
                 </div>
                 {/* Column for Firm 2 */}
@@ -716,7 +716,7 @@ const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm 
                     <ComparisonMetricCard 
                         title="Max Allocation"
                         icon={<TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-secondary" />}
-                        value={firm2.maxAccountSize ? `$${'\'\'\''}{(firm2.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
+                        value={firm2.maxAccountSize ? `$${(firm2.maxAccountSize / 1000).toFixed(0)}K` : 'N/A'}
                     />
                 </div>
             </div>
@@ -724,7 +724,7 @@ const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm 
             {tier1 && tier2 && (
                  <section className="space-y-4">
                     <div className="text-center my-8 md:my-12">
-                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">{`Challenge Comparison (~$${'\'\'\''}{(tier1.size / 1000).toFixed(0)}K)`}</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
                     </div>
                     <div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8">
                         <TierComparisonCard firm={firm1} tier={tier1} />
@@ -766,6 +766,95 @@ export default function Home() {
       handleSetComparisonFirms('topstep', 'take-profit-trader');
     }
   }, []);
+
+  // Ensure GlobalOfferBar remains fully visible on mobile (workaround)
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+  
+    // Try a few common selectors for the offer bar
+    const selectors = ['#global-offer-bar', '.global-offer-bar', '[data-global-offer-bar]'];
+  
+    const getOfferEl = (): HTMLElement | null => {
+      for (const s of selectors) {
+        const el = document.querySelector(s) as HTMLElement | null;
+        if (el) return el;
+      }
+      // fallback: try to find element with "Offer" text and role banner (best-effort)
+      const banners = Array.from(document.querySelectorAll('header, div, section')) as HTMLElement[];
+      for (const b of banners) {
+        if (b.innerText && /offer/i.test(b.innerText) && b.offsetHeight > 0) return b;
+      }
+      return null;
+    };
+  
+    const applyStickyForMobile = () => {
+      const offer = getOfferEl();
+      if (!offer) return;
+  
+      const isMobile = window.matchMedia('(max-width: 767px)').matches;
+      // Reset styles on desktop
+      if (!isMobile) {
+        offer.style.position = '';
+        offer.style.top = '';
+        offer.style.left = '';
+        offer.style.right = '';
+        offer.style.width = '';
+        offer.style.zIndex = '';
+        offer.style.transform = '';
+        offer.style.willChange = '';
+        // restore page padding
+        document.documentElement.style.paddingTop = '';
+        return;
+      }
+  
+      // compute height and apply fixed positioning
+      const rect = offer.getBoundingClientRect();
+      const height = Math.max(44, Math.ceil(rect.height || 56)); // fallback height
+      // Apply only minimal, non-destructive inline styles
+      offer.style.position = 'fixed';
+      offer.style.top = '0';
+      offer.style.left = '0';
+      offer.style.right = '0';
+      offer.style.width = '100%';
+      offer.style.zIndex = '2147483647'; // very high so it sits above any stacking contexts
+      offer.style.transform = 'none';
+      offer.style.willChange = 'auto';
+  
+      // Prevent content being hidden behind the bar
+      // Use documentElement padding so we don't modify many elements
+      document.documentElement.style.paddingTop = `${height}px`;
+    };
+  
+    // Apply initially and on breakpoint change / resize
+    applyStickyForMobile();
+    const mq = window.matchMedia('(max-width: 767px)');
+    const onMQChange = () => applyStickyForMobile();
+    mq.addEventListener('change', onMQChange);
+    window.addEventListener('resize', applyStickyForMobile);
+  
+    // Watch for DOM changes (carousel may mutate layout after mount)
+    const mo = new MutationObserver(() => applyStickyForMobile());
+    mo.observe(document.body, { childList: true, subtree: true, attributes: true });
+  
+    // Cleanup
+    return () => {
+      const offer = getOfferEl();
+      if (offer) {
+        offer.style.position = '';
+        offer.style.top = '';
+        offer.style.left = '';
+        offer.style.right = '';
+        offer.style.width = '';
+        offer.style.zIndex = '';
+        offer.style.transform = '';
+        offer.style.willChange = '';
+      }
+      document.documentElement.style.paddingTop = '';
+      mq.removeEventListener('change', onMQChange);
+      window.removeEventListener('resize', applyStickyForMobile);
+      mo.disconnect();
+    };
+  }, [isClient]);
 
   return (
     <div className="space-y-16">
@@ -870,3 +959,4 @@ export default function Home() {
     </div>
   );
 }
+
