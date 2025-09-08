@@ -344,7 +344,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                     <thead className="sticky top-0 z-20 bg-black/50 backdrop-blur-lg border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={cn(`px-2 py-3 sm:px-4 text-${col.align} text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap`, col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/50 backdrop-blur-lg' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95', col.className)}>
+                                <th key={col.key} scope="col" className={cn(`px-2 py-3 sm:px-4 text-${col.align} text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap`, col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/80 backdrop-blur-lg' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95', col.className)}>
                                     <button onClick={() => requestSort(col.key)} className={`flex items-center gap-2 hover:text-white transition-colors ${col.align === 'center' ? 'justify-center w-full' : ''}`}>
                                         {col.key === 'firm' ? (
                                             <span ref={textRef} className="flex flex-row md:whitespace-nowrap items-center">
@@ -887,7 +887,7 @@ export default function Home() {
             >
               <CarouselContent>
                 {featuredFirms.map((firm) => (
-                  <CarouselItem key={firm.id} className="md:basis-1/2 lg:basis-1/3">
+                  <CarouselItem key={firm.id} className="basis-[90%] md:basis-1/2 lg:basis-1/3">
                      <div className="p-1 h-full">
                        <FirmCard firm={firm} />
                     </div>
