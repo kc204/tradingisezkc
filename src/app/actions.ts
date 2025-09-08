@@ -11,7 +11,9 @@ const RecommendationInputSchema = z.object({
 export async function getAiPropFirmRecommendationAction(input: PropFirmRecommendationInput): Promise<{ data?: PropFirmRecommendationOutput; error?: string }> {
   const validationResult = RecommendationInputSchema.safeParse(input);
   if (!validationResult.success) {
-    return { error: validationResult.error.errors.map(e => e.message).join(', ') };
+    const formattedErrors = validationResult.error.errors.map(e => `${e.path.join('.')} - ${e.message}`).join(', ');
+    console.error("AI recommendation validation failed:", formattedErrors);
+    return { error: "Invalid input provided. Please check the fields and try again." };
   }
 
   try {
