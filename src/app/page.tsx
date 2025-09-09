@@ -1,5 +1,4 @@
 
-
 'use client'; 
 
 import FirmCard from '@/components/propfirms/FirmCard';
@@ -8,8 +7,8 @@ import { mockPropFirms, mockFreeResources, ALL_CHALLENGES_DATA } from '@/lib/moc
 import Link from 'next/link';
 import { cn } from "@/lib/utils";
 import { StarBorder } from "@/components/ui/star-border";
-import React, { useRef, useEffect, useState, useMemo } from 'react';
-import type { PropFirm, AccountTier, FirmData, TrendData, WeeklyData } from '@/lib/types';
+import React, { useRef, useEffect, useState, useMemo, useCallback } from 'react';
+import type { PropFirm, AccountTier, FirmData, TrendData, WeeklyData, CarouselApi } from '@/lib/types';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
 import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight, Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban, ArrowRight, Calendar, TrendingUp, Monitor, Edit, Loader2 } from 'lucide-react';
@@ -736,15 +735,101 @@ const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm 
     );
 };
 
+const FeaturedFirmsCarousel = () => {
+    const featuredFirms = mockPropFirms.filter(f => f.isFeatured);
+    const autoplayPlugin = React.useRef(Autoplay({ delay: 4000, stopOnInteraction: true }));
+    const isMobile = useIsMobile();
+    const [api, setApi] = useState<CarouselApi | undefined>();
+    const [scale, setScale] = useState<number[]>([]);
+    const [opacity, setOpacity] = useState<number[]>([]);
+
+    const onSelect = useCallback((api: CarouselApi) => {
+        if (!api) return;
+        const scrollSnaps = api.scrollSnapList();
+        const selectedSnap = api.selectedScrollSnap();
+
+        const newScale = scrollSnaps.map((_, index) => (index === selectedSnap ? 1 : 0.8));
+        const newOpacity = scrollSnaps.map((_, index) => (index === selectedSnap ? 1 : 0.5));
+        
+        setScale(newScale);
+        setOpacity(newOpacity);
+    }, []);
+
+    useEffect(() => {
+        if (!api) return;
+        onSelect(api);
+        api.on("select", onSelect);
+        return () => {
+            api.off("select", onSelect);
+        };
+    }, [api, onSelect]);
+
+    if (isMobile === undefined) {
+        return null;
+    }
+
+    if (!isMobile) {
+        return (
+            <Carousel 
+              opts={{ align: "start", loop: true }}
+              plugins={[autoplayPlugin.current]}
+              className="w-full"
+            >
+              <CarouselContent>
+                {featuredFirms.map((firm) => (
+                  <CarouselItem key={firm.id} className="md:basis-1/2 lg:basis-1/3">
+                     <div className="p-1 h-full">
+                       <FirmCard firm={firm} />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
+        );
+    }
+    
+    return (
+      <>
+        <style>{`
+            .coverflow .embla__slide {
+                transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            }
+        `}</style>
+        <div className="relative w-full h-[500px] flex items-center justify-center overflow-hidden [perspective:1000px]">
+            <Carousel 
+                setApi={setApi}
+                opts={{ align: "center", loop: true, containScroll: false }}
+                plugins={[autoplayPlugin.current]}
+                className="w-full coverflow"
+            >
+                <CarouselContent className="-ml-0">
+                    {featuredFirms.map((firm, index) => (
+                        <CarouselItem key={firm.id} className="basis-[75%] pl-0">
+                            <div 
+                                className="p-1 h-full"
+                                style={{
+                                    transform: `scale(${scale[index] || 0.8})`,
+                                    opacity: opacity[index] || 0.5,
+                                }}
+                            >
+                                <FirmCard firm={firm} />
+                            </div>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+            </Carousel>
+        </div>
+      </>
+    );
+}
 
 export default function Home() {
-  const featuredFirms = mockPropFirms.filter(f => f.isFeatured);
   const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3);
   
   const [isClient, setIsClient] = React.useState(false);
   const [comparisonFirms, setComparisonFirms] = React.useState<{firm1: PropFirm, firm2: PropFirm} | null>(null);
-  const autoplayPlugin = React.useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
-
 
   const handleSetComparisonFirms = (firm1Slug: string, firm2Slug: string) => {
     const firm1 = mockPropFirms.find(f => f.slug === firm1Slug);
@@ -759,102 +844,13 @@ export default function Home() {
   React.useEffect(() => {
     setIsClient(true);
     // Set a default comparison on initial load
-    const featuredSlugs = featuredFirms.map(f => f.slug);
-    if(featuredSlugs.length >= 2){
-      handleSetComparisonFirms(featuredSlugs[0], featuredSlugs[1]);
+    const featuredFirmSlugs = mockPropFirms.filter(f => f.isFeatured).map(f => f.slug);
+    if(featuredFirmSlugs.length >= 2){
+      handleSetComparisonFirms(featuredFirmSlugs[0], featuredFirmSlugs[1]);
     } else {
       handleSetComparisonFirms('topstep', 'take-profit-trader');
     }
   }, []);
-
-  // Ensure GlobalOfferBar remains fully visible on mobile (workaround)
-  React.useEffect(() => {
-    if (typeof window === 'undefined') return;
-  
-    // Try a few common selectors for the offer bar
-    const selectors = ['#global-offer-bar', '.global-offer-bar', '[data-global-offer-bar]'];
-  
-    const getOfferEl = (): HTMLElement | null => {
-      for (const s of selectors) {
-        const el = document.querySelector(s) as HTMLElement | null;
-        if (el) return el;
-      }
-      // fallback: try to find element with "Offer" text and role banner (best-effort)
-      const banners = Array.from(document.querySelectorAll('header, div, section')) as HTMLElement[];
-      for (const b of banners) {
-        if (b.innerText && /offer/i.test(b.innerText) && b.offsetHeight > 0) return b;
-      }
-      return null;
-    };
-  
-    const applyStickyForMobile = () => {
-      const offer = getOfferEl();
-      if (!offer) return;
-  
-      const isMobile = window.matchMedia('(max-width: 767px)').matches;
-      // Reset styles on desktop
-      if (!isMobile) {
-        offer.style.position = '';
-        offer.style.top = '';
-        offer.style.left = '';
-        offer.style.right = '';
-        offer.style.width = '';
-        offer.style.zIndex = '';
-        offer.style.transform = '';
-        offer.style.willChange = '';
-        // restore page padding
-        document.documentElement.style.paddingTop = '';
-        return;
-      }
-  
-      // compute height and apply fixed positioning
-      const rect = offer.getBoundingClientRect();
-      const height = Math.max(44, Math.ceil(rect.height || 56)); // fallback height
-      // Apply only minimal, non-destructive inline styles
-      offer.style.position = 'fixed';
-      offer.style.top = '0';
-      offer.style.left = '0';
-      offer.style.right = '0';
-      offer.style.width = '100%';
-      offer.style.zIndex = '2147483647'; // very high so it sits above any stacking contexts
-      offer.style.transform = 'none';
-      offer.style.willChange = 'auto';
-  
-      // Prevent content being hidden behind the bar
-      // Use documentElement padding so we don't modify many elements
-      document.documentElement.style.paddingTop = `${height}px`;
-    };
-  
-    // Apply initially and on breakpoint change / resize
-    applyStickyForMobile();
-    const mq = window.matchMedia('(max-width: 767px)');
-    const onMQChange = () => applyStickyForMobile();
-    mq.addEventListener('change', onMQChange);
-    window.addEventListener('resize', applyStickyForMobile);
-  
-    // Watch for DOM changes (carousel may mutate layout after mount)
-    const mo = new MutationObserver(() => applyStickyForMobile());
-    mo.observe(document.body, { childList: true, subtree: true, attributes: true });
-  
-    // Cleanup
-    return () => {
-      const offer = getOfferEl();
-      if (offer) {
-        offer.style.position = '';
-        offer.style.top = '';
-        offer.style.left = '';
-        offer.style.right = '';
-        offer.style.width = '';
-        offer.style.zIndex = '';
-        offer.style.transform = '';
-        offer.style.willChange = '';
-      }
-      document.documentElement.style.paddingTop = '';
-      mq.removeEventListener('change', onMQChange);
-      window.removeEventListener('resize', applyStickyForMobile);
-      mo.disconnect();
-    };
-  }, [isClient]);
 
   return (
     <div className="space-y-16">
@@ -876,38 +872,20 @@ export default function Home() {
         </div>
       </div>
       
-      {featuredFirms.length > 0 && (
-        <section className="py-12">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-10">Featured Prop Firms</h2>
-            <Carousel 
-              opts={{ align: "start", loop: true }}
-              plugins={[autoplayPlugin.current]}
-              className="w-full"
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-10">Featured Prop Firms</h2>
+          {isClient ? <FeaturedFirmsCarousel /> : null}
+           <div className="text-center mt-10">
+            <StarBorder<typeof Link>
+                as={Link}
+                href="/firms"
             >
-              <CarouselContent>
-                {featuredFirms.map((firm) => (
-                  <CarouselItem key={firm.id} className="basis-[90%] md:basis-1/2 lg:basis-1/3">
-                     <div className="p-1 h-full">
-                       <FirmCard firm={firm} />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="hidden md:flex" />
-              <CarouselNext className="hidden md:flex" />
-            </Carousel>
-             <div className="text-center mt-10">
-              <StarBorder<typeof Link>
-                  as={Link}
-                  href="/firms"
-              >
-                  View All Prop Firms
-              </StarBorder>
-            </div>
+                View All Prop Firms
+            </StarBorder>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       <section className="py-12">
         <div className="container mx-auto text-center">
@@ -928,7 +906,7 @@ export default function Home() {
       </section>
 
       <section className="my-12">
-          <FirmVsFirmSelector firms={featuredFirms} onCompare={handleSetComparisonFirms} />
+          <FirmVsFirmSelector firms={mockPropFirms.filter(f => f.isFeatured)} onCompare={handleSetComparisonFirms} />
       </section>
 
       {comparisonFirms && (
