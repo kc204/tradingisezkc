@@ -5,10 +5,19 @@ import { mockFreeResources } from "@/lib/mockData";
 import type { BookListing } from "@/lib/types";
 import { Headphones } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Free Trading Audiobooks | TradingisEZ',
+export const metadata: Metadata = {
+  title: 'Free Trading Audiobooks with Audible Trial',
   description: 'Discover essential trading audiobooks available for free with an Audible trial. Expand your knowledge on trading psychology, strategy, and market history.',
+  alternates: {
+    canonical: '/free-resources/audiobooks',
+  },
+  openGraph: {
+    title: 'Free Trading Audiobooks | TradingisEZ',
+    description: 'Listen to essential trading audiobooks for free with an Audible trial.',
+    url: '/free-resources/audiobooks',
+  }
 };
 
 export default function FreeAudiobooksPage() {

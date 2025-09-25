@@ -2,10 +2,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Target, Zap, ShieldCheck } from "lucide-react";
 import Image from "next/image";
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'About Us | TradingisEZ',
-  description: 'Learn more about TradingisEZ and our mission to help traders succeed.',
+export const metadata: Metadata = {
+  title: 'About Us',
+  description: 'Learn more about TradingisEZ and our mission to help traders succeed by providing the best prop firm reviews, tools, and educational content.',
+  alternates: {
+    canonical: '/about',
+  },
+  openGraph: {
+    title: 'About Us | TradingisEZ',
+    description: 'Learn more about our mission to empower traders with insights, tools, and connections.',
+    url: '/about',
+  },
 };
 
 const AboutPage = () => {
@@ -57,8 +66,8 @@ const AboutPage = () => {
       <section className="container mx-auto px-4">
          <div className="relative aspect-video md:aspect-[16/7] rounded-xl overflow-hidden shadow-xl">
             <Image 
-              src="https://placehold.co/1200x500.png" 
-              alt="Team or abstract trading visual" 
+              src="https://picsum.photos/seed/aboutpage/1200/500"
+              alt="Team of traders collaborating in an office" 
               layout="fill" 
               objectFit="cover" 
               data-ai-hint="office team"

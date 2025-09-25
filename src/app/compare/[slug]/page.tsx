@@ -10,6 +10,7 @@ import { ExternalLink, Star } from 'lucide-react';
 import FirmComparisonHeader from '@/components/compare/FirmComparisonHeader';
 import ComparisonMetricCard from '@/components/compare/ComparisonMetricCard';
 import TierComparisonCard from '@/components/compare/TierComparisonCard';
+import type { Metadata } from 'next';
 
 interface FirmVsFirmPageProps {
   params: { slug: string };
@@ -36,7 +37,7 @@ const findComparableTiers = (firm1: PropFirm, firm2: PropFirm): [AccountTier | n
 };
 
 
-export async function generateMetadata({ params }: FirmVsFirmPageProps) {
+export async function generateMetadata({ params }: FirmVsFirmPageProps): Promise<Metadata> {
   const slugs = params.slug.split('-vs-');
   if (slugs.length !== 2) {
     return { title: 'Invalid Comparison' };
@@ -47,10 +48,22 @@ export async function generateMetadata({ params }: FirmVsFirmPageProps) {
   if (!firm1 || !firm2) {
     return { title: 'Firms Not Found' };
   }
+  
+  const title = `${firm1.name} vs ${firm2.name} | Prop Firm Comparison`;
+  const description = `Direct side-by-side comparison of ${firm1.name} and ${firm2.name}. Compare rules, costs, profit splits, and more to find the best prop firm for you.`;
+  const url = `/compare/${params.slug}`;
 
   return {
-    title: `${firm1.name} vs ${firm2.name} | Prop Firm Comparison | TradingisEZ`,
-    description: `Direct side-by-side comparison of ${firm1.name} and ${firm2.name}. Compare rules, costs, profit splits, and more to find the best prop firm for you.`,
+    title,
+    description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: `${title} | TradingisEZ`,
+      description,
+      url,
+    },
   };
 }
 

@@ -8,6 +8,21 @@ import { PlayCircle, ListChecks, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, useEffect } from "react";
+import type { Metadata } from 'next';
+
+// export const metadata: Metadata = {
+//   title: 'Free Al Brooks Price Action Course',
+//   description: "Get a sample of Al Brooks' renowned price action trading methodology with these free sample video lessons and understand how a professional trader reads charts.",
+//   alternates: {
+//     canonical: '/free-resources/al-brooks-course',
+//   },
+//   openGraph: {
+//     title: 'Free Al Brooks Price Action Course | TradingisEZ',
+//     description: "Get free video lessons from Al Brooks' famous price action trading course.",
+//     url: '/free-resources/al-brooks-course',
+//   }
+// };
+
 
 export default function AlBrooksFreeCoursePage() {
   const [isMounted, setIsMounted] = useState(false);
@@ -29,7 +44,7 @@ export default function AlBrooksFreeCoursePage() {
   const { title, pageIntroduction, mainAffiliateLink, mainCTAText, videoLessons, concludingCTASection } = courseData;
 
   const getYouTubeVideoId = (url: string): string | null => {
-    const regex = /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/ ]{11})/;
+    const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/ ]{11})/;
     const match = url.match(regex);
     return match ? match[1] : null;
   };

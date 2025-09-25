@@ -21,7 +21,7 @@ const Footer = () => {
 
   const mainSiteFooterLinks = [
     { href: '/terms-of-service', label: 'Terms & Privacy' },
-    { href: '/sitemap', label: 'Sitemap' },
+    { href: '/site-map', label: 'Sitemap' },
   ];
 
   const quickLinks = [

@@ -3,10 +3,19 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { StarBorder } from "@/components/ui/star-border";
 import { BookOpen, Headphones, Video } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Free Trading Resources | TradingisEZ',
-  description: 'Explore valuable free trading resources including courses, audiobooks, guides, and tools to elevate your trading skills.',
+export const metadata: Metadata = {
+  title: 'Free Trading Resources to Elevate Your Skills',
+  description: 'Explore valuable free trading resources including courses, audiobooks, guides, and tools to elevate your trading skills. Curated by TradingisEZ.',
+  alternates: {
+    canonical: '/free-resources',
+  },
+  openGraph: {
+    title: 'Free Trading Resources | TradingisEZ',
+    description: 'Explore valuable free trading resources including courses, audiobooks, guides, and tools.',
+    url: '/free-resources',
+  }
 };
 
 const resourceCategories = [

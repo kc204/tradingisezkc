@@ -1,9 +1,19 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, Shield, AlertTriangle } from "lucide-react";
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Terms & Privacy | TradingisEZ',
-  description: 'Read the Terms of Service and Privacy Policy for TradingisEZ.',
+export const metadata: Metadata = {
+  title: 'Terms of Service & Privacy Policy',
+  description: 'Read the Terms of Service and Privacy Policy for TradingisEZ. Understand our disclaimers, affiliate disclosure, and data practices.',
+  alternates: {
+    canonical: '/terms-of-service',
+  },
+  openGraph: {
+    title: 'Terms of Service & Privacy Policy | TradingisEZ',
+    description: 'Read the Terms of Service and Privacy Policy for TradingisEZ.',
+    url: '/terms-of-service',
+  }
 };
 
 export default function TermsAndPrivacyPage() {

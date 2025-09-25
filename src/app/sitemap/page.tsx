@@ -1,11 +1,21 @@
 
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Map } from "lucide-react";
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Sitemap | TradingisEZ',
-  description: 'Navigate TradingisEZ through our sitemap.',
+export const metadata: Metadata = {
+  title: 'Sitemap',
+  description: 'Navigate TradingisEZ through our sitemap to find all our pages including reviews, comparisons, and resources.',
+  alternates: {
+    canonical: '/site-map',
+  },
+  openGraph: {
+    title: 'Sitemap | TradingisEZ',
+    description: 'Find your way around TradingisEZ.',
+    url: '/site-map',
+  }
 };
 
 const sitemapLinks = [

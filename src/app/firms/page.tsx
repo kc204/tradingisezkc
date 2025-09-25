@@ -7,6 +7,22 @@ import { mockPropFirms } from '@/lib/mockData';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import type { PropFirm } from '@/lib/types';
+import type { Metadata } from 'next';
+
+// Note: Cannot export metadata from a client component.
+// This would need to be moved to a parent Server Component if dynamic metadata is required.
+// export const metadata: Metadata = {
+//   title: 'All Prop Firms',
+//   description: 'Browse and discover all prop trading firms reviewed by TradingisEZ. Find the funding opportunity that matches your trading style.',
+//   alternates: {
+//     canonical: '/firms',
+//   },
+//   openGraph: {
+//     title: 'All Prop Firms | TradingisEZ',
+//     description: 'Browse and discover all prop trading firms reviewed by TradingisEZ.',
+//     url: '/firms',
+//   },
+// };
 
 export default function FirmsPage() {
   const [searchTerm, setSearchTerm] = useState('');

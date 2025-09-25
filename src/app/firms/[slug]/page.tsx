@@ -1,20 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm } from '@/lib/types';
 import Image from 'next/image';
@@ -25,7 +9,8 @@ import OfferBox from '@/components/propfirms/OfferBox';
 import { ExternalLink, Info, Star, ThumbsUp, Lightbulb, ShieldCheck, FileText, Briefcase, CreditCard, Banknote, CandlestickChart, TowerControl, Ban, CircleDollarSign } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
-import TrueCostCalculator from '@/components/compare/TrueCostCalculator'; // Import the calculator
+import TrueCostCalculator from '@/components/compare/TrueCostCalculator'; 
+import type { Metadata } from 'next';
 
 interface FirmDetailPageProps {
   params: { slug: string };
@@ -39,14 +24,33 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: FirmDetailPageProps) {
+export async function generateMetadata({ params }: FirmDetailPageProps): Promise<Metadata> {
   const firm = mockPropFirms.find(p => p.slug === params.slug);
   if (!firm) {
     return { title: 'Firm Not Found' };
   }
+  
+  const title = `${firm.name} Review, Rules, & Payouts`;
+  const description = `In-depth review of ${firm.name}. Compare funding rules, profit split, costs, and drawdown limits. ${firm.briefDescription}`;
+  const url = `/firms/${firm.slug}`;
+
   return {
-    title: `${firm.name} Review | TradingisEZ`,
-    description: `In-depth review of ${firm.name}: funding, rules, profit split, and more. ${firm.briefDescription}`,
+    title,
+    description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: `${title} | TradingisEZ`,
+      description,
+      url,
+      images: [
+        {
+          url: firm.logoUrl, // Use firm logo for OG image
+          alt: `${firm.name} Logo`,
+        },
+      ],
+    },
   };
 }
 
@@ -60,7 +64,7 @@ const DetailItem = ({ label, children }: { label: string, children: React.ReactN
     </div>
 );
 
-const DetailBadge = ({ children, icon }: { children: React.ReactNode, icon?: React.Node }) => (
+const DetailBadge = ({ children, icon }: { children: React.ReactNode, icon?: React.ReactNode }) => (
     <div className="inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium bg-muted text-muted-foreground">
         {icon && <span className="mr-2">{icon}</span>}
         {children}

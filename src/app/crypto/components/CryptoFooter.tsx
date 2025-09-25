@@ -21,7 +21,7 @@ const CryptoFooter = () => {
 
   const mainSiteFooterLinks = [
     { href: '/crypto/terms-of-service', label: 'Terms & Privacy' },
-    { href: '/crypto/sitemap', label: 'Sitemap' },
+    { href: '/crypto/site-map', label: 'Sitemap' },
   ];
 
   const quickLinks = [
