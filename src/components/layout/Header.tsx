@@ -22,7 +22,7 @@ const mainSiteNavLinks = [
     label: 'Prop Firms',
     dropdown: [
       { href: '/firms', label: 'All Firms' },
-      { href: '/compare', label: 'Compare Firms' },
+      { href: '/compare-prop-firms', label: 'Compare Firms' },
     ],
   },
   { href: '/free-resources', label: 'Free Resources',

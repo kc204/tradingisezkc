@@ -76,6 +76,12 @@ const nextConfig: NextConfig = {
         hostname: 'assets-global.website-files.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
@@ -108,8 +114,30 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/compare',
+        destination: '/compare-prop-firms',
+        permanent: true,
+      },
+       {
+        source: '/compare/:path*',
+        destination: '/compare-prop-firms/:path*',
+        permanent: true,
+      },
+      {
+        source: '/crypto/compare',
+        destination: '/crypto/compare-prop-firms',
+        permanent: true,
+      },
+       {
+        source: '/crypto/compare/:path*',
+        destination: '/crypto/compare-prop-firms/:path*',
+        permanent: true,
+      },
+    ]
+  },
 };
 
 export default nextConfig;
-
-    

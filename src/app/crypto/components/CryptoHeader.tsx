@@ -23,7 +23,7 @@ const mainSiteNavLinks = [
     label: 'Prop Firms',
     dropdown: [
       { href: '/crypto/firms', label: 'All Firms' },
-      { href: '/crypto/compare', label: 'Compare Firms' },
+      { href: '/crypto/compare-prop-firms', label: 'Compare Firms' },
     ],
   },
   { href: '/crypto/free-resources', label: 'Free Resources',

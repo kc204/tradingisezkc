@@ -767,7 +767,7 @@ export default function CryptoPage() {
         <div className="mt-8 relative z-20">
           <StarBorder<typeof Link>
             as={Link}
-            href="/crypto/compare"
+            href="/crypto/compare-prop-firms"
           >
             Compare All Prop Firms
           </StarBorder>
@@ -803,7 +803,7 @@ export default function CryptoPage() {
             <div className="text-center mt-10">
               <StarBorder<typeof Link>
                   as={Link}
-                  href="/crypto/compare"
+                  href="/crypto/compare-prop-firms"
               >
                   Go to Full Comparison Page
               </StarBorder>

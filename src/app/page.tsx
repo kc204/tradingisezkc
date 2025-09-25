@@ -865,7 +865,7 @@ export default function Home() {
         <div className="mt-8 relative z-20">
           <StarBorder<typeof Link>
             as={Link}
-            href="/compare"
+            href="/compare-prop-firms"
           >
             Compare All Prop Firms
           </StarBorder>
@@ -897,7 +897,7 @@ export default function Home() {
             <div className="text-center mt-10">
               <StarBorder<typeof Link>
                   as={Link}
-                  href="/compare"
+                  href="/compare-prop-firms"
               >
                   Go to Full Comparison Page
               </StarBorder>

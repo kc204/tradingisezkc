@@ -3,14 +3,13 @@ import { mockPropFirms } from '@/lib/mockData';
 import type { PropFirm, AccountTier } from '@/lib/types';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/app/crypto/components/ui/badge';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/app/crypto/components/ui/button';
 import { ExternalLink, Star } from 'lucide-react';
-import FirmComparisonHeader from '@/components/compare/FirmComparisonHeader';
-import ComparisonMetricCard from '@/components/compare/ComparisonMetricCard';
-import TierComparisonCard from '@/components/compare/TierComparisonCard';
-import type { Metadata } from 'next';
+import FirmComparisonHeader from '../../components/compare/FirmComparisonHeader';
+import ComparisonMetricCard from '../../components/compare/ComparisonMetricCard';
+import TierComparisonCard from '../../components/compare/TierComparisonCard';
 
 interface FirmVsFirmPageProps {
   params: { slug: string };
@@ -37,7 +36,7 @@ const findComparableTiers = (firm1: PropFirm, firm2: PropFirm): [AccountTier | n
 };
 
 
-export async function generateMetadata({ params }: FirmVsFirmPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: FirmVsFirmPageProps) {
   const slugs = params.slug.split('-vs-');
   if (slugs.length !== 2) {
     return { title: 'Invalid Comparison' };
@@ -48,22 +47,10 @@ export async function generateMetadata({ params }: FirmVsFirmPageProps): Promise
   if (!firm1 || !firm2) {
     return { title: 'Firms Not Found' };
   }
-  
-  const title = `${firm1.name} vs ${firm2.name} | Prop Firm Comparison`;
-  const description = `Direct side-by-side comparison of ${firm1.name} and ${firm2.name}. Compare rules, costs, profit splits, and more to find the best prop firm for you.`;
-  const url = `/compare/${params.slug}`;
 
   return {
-    title,
-    description,
-    alternates: {
-      canonical: url,
-    },
-    openGraph: {
-      title: `${title} | TradingisEZ`,
-      description,
-      url,
-    },
+    title: `${firm1.name} vs ${firm2.name} | Prop Firm Comparison | TradingisEZ`,
+    description: `Direct side-by-side comparison of ${firm1.name} and ${firm2.name}. Compare rules, costs, profit splits, and more to find the best prop firm for you.`,
   };
 }
 
@@ -101,8 +88,8 @@ const FirmVsFirmPage = ({ params }: FirmVsFirmPageProps) => {
       <FirmComparisonHeader firm1={firm1} firm2={firm2} />
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-bold text-center text-foreground">High-Level Comparison</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <h2 className="text-xl md:text-2xl font-bold text-center text-foreground">High-Level Comparison</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
            <ComparisonMetricCard 
                 title="Year Established"
                 value1={firm1Years.year}
@@ -128,7 +115,7 @@ const FirmVsFirmPage = ({ params }: FirmVsFirmPageProps) => {
 
       {tier1 && tier2 && (
          <section className="space-y-4">
-            <h2 className="text-2xl font-bold text-center text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-center text-foreground">{`Challenge Comparison (~$${(tier1.size / 1000).toFixed(0)}K)`}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <TierComparisonCard firm={firm1} tier={tier1} />
                 <TierComparisonCard firm={firm2} tier={tier2} />
@@ -138,7 +125,7 @@ const FirmVsFirmPage = ({ params }: FirmVsFirmPageProps) => {
 
       <section className="text-center py-6">
         <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent-hover">
-            <Link href="/compare">
+            <Link href="/crypto/compare-prop-firms">
                 View Full Comparison Table
             </Link>
         </Button>

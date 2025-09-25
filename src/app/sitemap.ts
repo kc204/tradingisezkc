@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     '',
     '/about',
-    '/compare',
+    '/compare-prop-firms',
     '/contact',
     '/firms',
     '/free-resources',
@@ -42,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (let i = 0; i < mockPropFirms.length; i++) {
     for (let j = i + 1; j < mockPropFirms.length; j++) {
       comparePages.push({
-        url: `${siteUrl}/compare/${mockPropFirms[i].slug}-vs-${mockPropFirms[j].slug}`,
+        url: `${siteUrl}/compare-prop-firms/${mockPropFirms[i].slug}-vs-${mockPropFirms[j].slug}`,
         lastModified: new Date().toISOString(),
         changeFrequency: 'monthly' as const,
         priority: 0.6,
