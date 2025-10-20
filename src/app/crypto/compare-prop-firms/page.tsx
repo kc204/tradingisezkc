@@ -5,7 +5,7 @@
 import React from 'react';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot, doc, getDocs, writeBatch } from 'firebase/firestore';
-import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight, Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban, ArrowRight, Calendar, TrendingUp, Monitor } from 'lucide-react';
+import { Search, Star, ChevronsUpDown, ExternalLink, Info, ChevronDown, Zap, ChevronLeft, ChevronRight, Briefcase, CreditCard, Banknote, CandlestickChart, ShieldCheck, FileText, Ban, ArrowRight, Calendar, TrendingUp, Monitor, Columns } from 'lucide-react';
 import type { PropFirm, AccountTier } from '@/lib/types';
 import { ALL_CHALLENGES_DATA, mockPropFirms } from '@/lib/mockData';
 import Image from 'next/image';
@@ -24,7 +24,8 @@ import FirmComparisonHeader from '../components/compare/FirmComparisonHeader';
 import ComparisonMetricCard from '../components/compare/ComparisonMetricCard';
 import TierComparisonCard from '../components/compare/TierComparisonCard';
 import { cn } from '@/lib/utils';
-
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -53,7 +54,21 @@ const formatShortCurrency = (value: any) => value == null ? 'N/A' : `$${value/10
 
 const Separator = () => <div className="hidden md:block h-6 w-px bg-white/10 mx-2"></div>;
 
-const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filteredCount, totalCount }: any) => {
+const allTableColumns = [
+    { key: 'firm', label: 'Firm / Rating', sticky: 'left', align: 'left', className: 'w-[90px] sm:w-auto', sortable: true },
+    { key: 'accountsize', label: 'Account Size', align: 'center', sortable: true },
+    { key: 'steps', label: 'Steps', align: 'center', sortable: true },
+    { key: 'activationfee', label: 'Activation Fee', align: 'center', sortable: true },
+    { key: 'profitsplit', label: 'Profit Split', align: 'center', sortable: true },
+    { key: 'maxallocation', label: 'Max Allocation', align: 'center', sortable: true },
+    { key: 'profitTarget', label: 'Profit Target', align: 'center', sortable: true },
+    { key: 'dailyLoss', label: 'Daily Loss', align: 'center', sortable: true },
+    { key: 'maxLoss', label: 'Max Loss', align: 'center', sortable: true },
+    { key: 'payoutfrequency', label: 'Payout', align: 'center', sortable: true },
+    { key: 'price', label: 'Prices', sticky: 'right', align: 'right', sortable: true },
+];
+
+const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filteredCount, totalCount, visibleColumns, setVisibleColumns }: any) => {
     const [isCustomSizeActive, setIsCustomSizeActive] = React.useState(false);
     const [customSize, setCustomSize] = React.useState([50000, 500000]);
     const [tempCustomSize, setTempCustomSize] = React.useState(customSize);
@@ -152,24 +167,56 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
                         CFD
                     </button>
                 </div>
-                 <div className="flex-col items-end gap-2 hidden md:flex">
-                     <div className="w-full md:w-64">
-                         <Select onValueChange={handleFirmChange} value={selectedFirm || 'all'}>
-                            <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <SelectValue placeholder="Select a firm..." />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">All Firms</SelectItem>
-                                {mockPropFirms.map((firm) => (
-                                    <SelectItem key={firm.id} value={firm.slug}>
-                                        <div className="flex items-center gap-2">
-                                            <Image src={firm.logoUrl} alt={firm.name} width={24} height={24} className="rounded-sm" />
-                                            <span>{firm.name}</span>
-                                        </div>
-                                    </SelectItem>
+                 <div className="flex items-center gap-4">
+                     <Popover>
+                        <PopoverTrigger asChild>
+                            <Button variant="outline" className="h-9 rounded-full">
+                                <Columns className="mr-2 h-4 w-4" />
+                                Columns
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-56 p-2">
+                            <div className="grid gap-2">
+                                <Label className="font-semibold px-2">Toggle Columns</Label>
+                                {allTableColumns.filter(c => !c.sticky).map(column => (
+                                    <div key={column.key} className="flex items-center space-x-2 p-2 hover:bg-muted rounded-md">
+                                        <Checkbox
+                                            id={`col-${column.key}`}
+                                            checked={visibleColumns[column.key]}
+                                            onCheckedChange={(checked) => {
+                                                setVisibleColumns((prev: any) => ({
+                                                    ...prev,
+                                                    [column.key]: checked,
+                                                }));
+                                            }}
+                                        />
+                                        <Label htmlFor={`col-${column.key}`} className="text-sm font-normal cursor-pointer flex-1">
+                                            {column.label}
+                                        </Label>
+                                    </div>
                                 ))}
-                            </SelectContent>
-                        </Select>
+                            </div>
+                        </PopoverContent>
+                    </Popover>
+                    <div className="flex-col items-end gap-2 hidden md:flex">
+                        <div className="w-full md:w-64">
+                            <Select onValueChange={handleFirmChange} value={selectedFirm || 'all'}>
+                                <SelectTrigger className="w-full bg-black/20 border border-white/10 rounded-full h-11 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <SelectValue placeholder="Select a firm..." />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="all">All Firms</SelectItem>
+                                    {mockPropFirms.map((firm) => (
+                                        <SelectItem key={firm.id} value={firm.slug}>
+                                            <div className="flex items-center gap-2">
+                                                <Image src={firm.logoUrl} alt={firm.name} width={24} height={24} className="rounded-sm" />
+                                                <span>{firm.name}</span>
+                                            </div>
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -266,7 +313,7 @@ const ControlBar = ({ filters, setFilters, selectedFirm, setSelectedFirm, filter
     );
 };
 
-const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: any) => {
+const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount, visibleColumns }: any) => {
     const scrollContainerRef = React.useRef<HTMLDivElement>(null);
     const textRef = React.useRef<HTMLSpanElement>(null); // Ref for the header text
     const isMobile = useIsMobile();
@@ -296,19 +343,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
         return sortConfig.direction === 'ascending' ? '▲' : '▼';
     };
 
-    const columns = [
-        { key: 'firm', label: 'Firm / Rating', sticky: 'left', align: 'left', className: 'w-[90px] sm:w-auto' },
-        { key: 'accountsize', label: 'Account Size', align: 'center' },
-        { key: 'steps', label: 'Steps', align: 'center' },
-        { key: 'activationfee', label: 'Activation Fee', align: 'center' },
-        { key: 'profitsplit', label: 'Profit Split', align: 'center' },
-        { key: 'maxallocation', label: 'Max Allocation', align: 'center' },
-        { key: 'profitTarget', label: 'Profit Target', align: 'center' },
-        { key: 'dailyLoss', label: 'Daily Loss', align: 'center' },
-        { key: 'maxLoss', label: 'Max Loss', align: 'center' },
-        { key: 'payoutfrequency', label: 'Payout', align: 'center' },
-        { key: 'price', label: 'Prices', sticky: 'right', align: 'right' },
-    ];
+    const columns = allTableColumns.filter(col => visibleColumns[col.key]);
 
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl shadow-black/20 relative">
@@ -334,7 +369,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
-                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} />)}
+                        {challenges.map((challenge: any) => <ChallengeRow key={challenge.id} challenge={challenge} applyDiscount={applyDiscount} isScrolled={isScrolled} visibleColumns={visibleColumns} />)}
                     </tbody>
                 </table>
             </div>
@@ -342,7 +377,7 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
     );
 };
 
-const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
+const ChallengeRow = ({ challenge, applyDiscount, isScrolled, visibleColumns }: any) => {
     const finalPrice = applyDiscount && challenge.promoDiscountPercent > 0 ? challenge.price * (1 - challenge.promoDiscountPercent / 100) : challenge.price;
     const firm = mockPropFirms.find(f => f.slug === challenge.firmId) || null;
     
@@ -357,66 +392,80 @@ const ChallengeRow = ({ challenge, applyDiscount, isScrolled }: any) => {
     if (!firm) {
         return (
             <tr className="group/row hover:bg-white/5 transition-colors duration-200 cursor-pointer">
-                <td colSpan={11}>Firm data not found for challenge ID {challenge.id}</td>
+                <td colSpan={allTableColumns.length}>Firm data not found for challenge ID {challenge.id}</td>
             </tr>
         );
     }
     
+    const columnRenderers: { [key: string]: React.ReactNode } = {
+        firm: (
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover/row:bg-gray-800/80 backdrop-blur-sm">
+                <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 relative flex-shrink-0">
+                        <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
+                    </div>
+                    <div 
+                       className={cn(
+                            "flex flex-col justify-center flex-shrink-0 transition-all duration-300 ease-in-out",
+                            isScrolled ? "sm:opacity-100 sm:w-auto opacity-0 w-0" : "opacity-100 w-auto"
+                        )}
+                    >
+                        <div className="font-medium text-white truncate max-w-[90px] sm:max-w-none">{challenge.firmName}</div>
+                        <div className="flex items-center text-gray-400 mt-1">
+                            <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
+                            {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
+                        </div>
+                    </div>
+                </div>
+            </td>
+        ),
+        accountsize: <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white font-medium text-center">{formatCurrency(challenge.accountSize)}</td>,
+        steps: <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>,
+        activationfee: <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.activationFee)}</td>,
+        profitsplit: (
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-center">
+                <div className="flex items-center justify-center gap-2">
+                    <span className="text-white">{challenge.profitSplit}%</span>
+                    <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
+                </div>
+            </td>
+        ),
+        maxallocation: <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.maxAllocation)}</td>,
+        profitTarget: <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.profitTarget)}</td>,
+        dailyLoss: <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.dailyLoss)}</td>,
+        maxLoss: <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.maxLoss)}</td>,
+        payoutfrequency: <td className="px-2 py-3 sm:px-4 text-gray-300 max-w-[200px] truncate text-center" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>,
+        price: (
+            <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover/row:bg-gray-800">
+                 <div className="flex flex-col items-end sm:flex-row sm:items-center sm:justify-end gap-2">
+                     <div className="text-right">
+                       {applyDiscount && challenge.promoDiscountPercent > 0 ? (
+                            <>
+                                <p className="font-semibold text-green-400">{formatCurrency(finalPrice)}</p>
+                                <p className="text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
+                            </>
+                        ) : (
+                            <p className="font-semibold text-white">{formatCurrency(finalPrice)}</p>
+                        )}
+                         <p className="text-gray-400">{challenge.paymentType}</p>
+                    </div>
+                    <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="group relative w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 border border-transparent font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600 overflow-hidden">
+                         <span className="transition-transform duration-300 group-hover:-translate-x-2">Buy</span>
+                         <ArrowRight className="absolute right-3 h-4 w-4 opacity-0 transition-all duration-300 transform translate-x-full group-hover:opacity-100 group-hover:translate-x-0" />
+                    </a>
+                </div>
+            </td>
+        ),
+    };
+
     return (
         <FirmMiniDetail firm={firm}>
             <tr className="group/row hover:bg-white/5 transition-colors duration-200 cursor-pointer transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/50 transition-transform">
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky left-0 z-0 bg-black/20 group-hover/row:bg-gray-800/80 backdrop-blur-sm">
-                    <div className="flex items-center gap-3">
-                        <div className="w-11 h-11 relative flex-shrink-0">
-                            <Image data-ai-hint="logo" className="rounded-lg object-contain border-2 border-white/10" src={challenge.logoUrl} alt={`${challenge.firmName} logo`} layout="fill"/>
-                        </div>
-                        <div 
-                           className={cn(
-                                "flex flex-col justify-center flex-shrink-0 transition-all duration-300 ease-in-out",
-                                isScrolled ? "sm:opacity-100 sm:w-auto opacity-0 w-0" : "opacity-100 w-auto"
-                            )}
-                        >
-                            <div className="font-medium text-white truncate max-w-[90px] sm:max-w-none">{challenge.firmName}</div>
-                            <div className="flex items-center text-gray-400 mt-1">
-                                <Star className="h-3.5 w-3.5 text-yellow-400 mr-1" />
-                                {challenge.trustpilotRating} ({challenge.trustpilotReviewCount})
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white font-medium text-center">{formatCurrency(challenge.accountSize)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{challenge.isInstant ? 'Instant' : `${challenge.steps} Step`}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.activationFee)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-center">
-                    <div className="flex items-center justify-center gap-2">
-                        <span className="text-white">{challenge.profitSplit}%</span>
-                        <div className="w-16 h-1.5 bg-white rounded-full overflow-hidden"><div className="h-full bg-blue-500" style={{width: `${challenge.profitSplit}%`}}></div></div>
-                    </div>
-                </td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatCurrency(challenge.maxAllocation)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.profitTarget)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.dailyLoss)}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap text-white text-center">{formatPercent(challenge.maxLoss)}</td>
-                <td className="px-2 py-3 sm:px-4 text-gray-300 max-w-[200px] truncate text-center" title={challenge.payoutFrequency}>{challenge.payoutFrequency}</td>
-                <td className="px-2 py-3 sm:px-4 whitespace-nowrap sticky right-0 z-0 bg-gray-900 group-hover/row:bg-gray-800">
-                     <div className="flex flex-col items-end sm:flex-row sm:items-center sm:justify-end gap-2">
-                         <div className="text-right">
-                           {applyDiscount && challenge.promoDiscountPercent > 0 ? (
-                                <>
-                                    <p className="font-semibold text-green-400">{formatCurrency(finalPrice)}</p>
-                                    <p className="text-gray-500 line-through">{formatCurrency(challenge.price)}</p>
-                                </>
-                            ) : (
-                                <p className="font-semibold text-white">{formatCurrency(finalPrice)}</p>
-                            )}
-                             <p className="text-gray-400">{challenge.paymentType}</p>
-                        </div>
-                        <a href={challenge.affiliateLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="group relative w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 border border-transparent font-medium rounded-full shadow-sm text-white bg-orange-500 hover:bg-orange-600 overflow-hidden">
-                             <span className="transition-transform duration-300 group-hover:-translate-x-2">Buy</span>
-                             <ArrowRight className="absolute right-3 h-4 w-4 opacity-0 transition-all duration-300 transform translate-x-full group-hover:opacity-100 group-hover:translate-x-0" />
-                        </a>
-                    </div>
-                </td>
+                {allTableColumns.filter(c => visibleColumns[c.key]).map(col => (
+                    <React.Fragment key={col.key}>
+                        {columnRenderers[col.key]}
+                    </React.Fragment>
+                ))}
             </tr>
         </FirmMiniDetail>
     );
@@ -555,6 +604,29 @@ export default function ComparePage() {
   const ROWS_PER_PAGE = 8;
   const [comparisonFirms, setComparisonFirms] = React.useState<{firm1: PropFirm, firm2: PropFirm} | null>(null);
 
+  const initialColumns = allTableColumns.reduce((acc, col) => {
+    acc[col.key] = true;
+    return acc;
+  }, {} as Record<string, boolean>);
+
+  const [visibleColumns, setVisibleColumns] = React.useState(initialColumns);
+
+  React.useEffect(() => {
+    try {
+        const savedColumns = localStorage.getItem('visibleColumnsCrypto');
+        if (savedColumns) {
+            setVisibleColumns(JSON.parse(savedColumns));
+        }
+    } catch (error) {
+        console.warn("Could not parse visible columns from localStorage", error)
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem('visibleColumnsCrypto', JSON.stringify(visibleColumns));
+  }, [visibleColumns]);
+
+
   const handleSetComparisonFirms = (firm1Slug: string, firm2Slug: string) => {
     const firm1 = mockPropFirms.find(f => f.slug === firm1Slug);
     const firm2 = mockPropFirms.find(f => f.slug === firm2Slug);
@@ -689,12 +761,15 @@ export default function ComparePage() {
             setSelectedFirm={setSelectedFirm}
             filteredCount={filteredAndSortedChallenges.length}
             totalCount={challenges.filter(c => c.challengeType === filters.challengeType).length}
+            visibleColumns={visibleColumns}
+            setVisibleColumns={setVisibleColumns}
           />
           <ChallengeTable 
             challenges={paginatedChallenges} 
             requestSort={requestSort}
             sortConfig={sortConfig}
             applyDiscount={filters.applyDiscount}
+            visibleColumns={visibleColumns}
           />
            {totalPages > 1 && (
             <Pagination
