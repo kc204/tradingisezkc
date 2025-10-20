@@ -905,10 +905,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="my-12">
-          <FirmVsFirmSelector firms={mockPropFirms.filter(f => f.isFeatured)} onCompare={handleSetComparisonFirms} />
-      </section>
-
       {comparisonFirms && (
           <FirmVsFirmSection firm1={comparisonFirms.firm1} firm2={comparisonFirms.firm2} />
       )}
