@@ -8,8 +8,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 
 interface ComparisonMetricCardProps {
   title: string;
-  icon: React.ReactNode;
-  value: string | React.ReactNode;
+  icon?: React.ReactNode;
+  value?: string | React.ReactNode;
   subvalue?: string;
   isPlatformList?: boolean;
 }
@@ -54,7 +54,7 @@ const ComparisonMetricCard: React.FC<ComparisonMetricCardProps> = ({ title, icon
   return (
     <div className="bg-card/80 border border-border/30 rounded-xl p-3 md:p-5 transition-all duration-300 hover:shadow-2xl hover:border-primary/50 hover:scale-[1.02]">
         <div className="flex items-center gap-3 md:gap-4">
-            <div className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0">{icon}</div>
+            {icon && <div className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0">{icon}</div>}
             <div>
                 <h3 className="font-semibold text-base text-muted-foreground">{title}</h3>
                 {isPlatformList ? (

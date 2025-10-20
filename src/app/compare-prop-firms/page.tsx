@@ -292,21 +292,22 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
 
     const getSortIndicator = (key: string) => {
         if (!sortConfig || sortConfig.key !== key) return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
-        return sortConfig.direction === 'ascending' ? '▲' : '▼';
+        if (sortConfig.direction === 'ascending') return <span aria-label="sorted ascending">▲</span>;
+        return <span aria-label="sorted descending">▼</span>;
     };
 
     const columns = [
-        { key: 'firm', label: 'Firm / Rating', sticky: 'left', align: 'left', className: 'w-[90px] sm:w-auto' },
-        { key: 'accountsize', label: 'Account Size', align: 'center' },
-        { key: 'steps', label: 'Steps', align: 'center' },
-        { key: 'activationfee', label: 'Activation Fee', align: 'center' },
-        { key: 'profitsplit', label: 'Profit Split', align: 'center' },
-        { key: 'maxallocation', label: 'Max Allocation', align: 'center' },
-        { key: 'profitTarget', label: 'Profit Target', align: 'center' },
-        { key: 'dailyLoss', label: 'Daily Loss', align: 'center' },
-        { key: 'maxLoss', label: 'Max Loss', align: 'center' },
-        { key: 'payoutfrequency', label: 'Payout', align: 'center' },
-        { key: 'price', label: 'Prices', sticky: 'right', align: 'right' },
+        { key: 'firmName', label: 'Firm / Rating', sticky: 'left', align: 'left', className: 'w-[90px] sm:w-auto', sortable: true },
+        { key: 'accountSize', label: 'Account Size', align: 'center', sortable: true },
+        { key: 'steps', label: 'Steps', align: 'center', sortable: true },
+        { key: 'activationFee', label: 'Activation Fee', align: 'center', sortable: true },
+        { key: 'profitSplit', label: 'Profit Split', align: 'center', sortable: true },
+        { key: 'maxAllocation', label: 'Max Allocation', align: 'center', sortable: true },
+        { key: 'profitTarget', label: 'Profit Target', align: 'center', sortable: true },
+        { key: 'dailyLoss', label: 'Daily Loss', align: 'center', sortable: true },
+        { key: 'maxLoss', label: 'Max Loss', align: 'center', sortable: true },
+        { key: 'payoutFrequency', label: 'Payout', align: 'center', sortable: true },
+        { key: 'price', label: 'Prices', sticky: 'right', align: 'right', sortable: true },
     ];
 
     return (
@@ -316,18 +317,27 @@ const ChallengeTable = ({ challenges, requestSort, sortConfig, applyDiscount }: 
                     <thead className="sticky top-0 z-20 bg-black/50 backdrop-blur-lg border-b border-white/10">
                         <tr>
                             {columns.map(col => (
-                                <th key={col.key} scope="col" className={`px-2 py-3 sm:px-4 text-${col.align} text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/50 backdrop-blur-lg' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'} ${col.className || ''}`}>
-                                    <button onClick={() => requestSort(col.key)} className={`flex items-center gap-2 hover:text-white transition-colors ${col.align === 'center' ? 'justify-center w-full' : ''}`}>
-                                        {col.key === 'firm' ? (
-                                            <span ref={textRef} className="flex flex-row md:whitespace-nowrap items-center">
-                                                <span>Firm&nbsp;/&nbsp;</span>
-                                                <span>Rating</span>
-                                            </span>
-                                        ) : (
-                                            col.label
-                                        )}
-                                        <span>{getSortIndicator(col.key)}</span>
-                                    </button>
+                                <th 
+                                    key={col.key} 
+                                    scope="col" 
+                                    aria-sort={sortConfig?.key === col.key ? sortConfig.direction : 'none'}
+                                    className={`px-2 py-3 sm:px-4 text-${col.align} text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap ${col.sticky ? `sticky z-10 ${col.sticky === 'left' ? 'left-0 bg-black/50 backdrop-blur-lg' : 'right-0 bg-gray-900'}` : 'bg-gray-800/95'} ${col.className || ''}`}
+                                >
+                                    {col.sortable ? (
+                                        <button onClick={() => requestSort(col.key)} className={`flex items-center gap-2 hover:text-white transition-colors ${col.align === 'center' ? 'justify-center w-full' : ''}`}>
+                                            {col.key === 'firmName' ? (
+                                                <span ref={textRef} className="flex flex-row md:whitespace-nowrap items-center">
+                                                    <span>Firm&nbsp;/&nbsp;</span>
+                                                    <span>Rating</span>
+                                                </span>
+                                            ) : (
+                                                col.label
+                                            )}
+                                            <span>{getSortIndicator(col.key)}</span>
+                                        </button>
+                                    ) : (
+                                        <span>{col.label}</span>
+                                    )}
                                 </th>
                             ))}
                         </tr>
@@ -471,7 +481,7 @@ const FirmVsFirmSection = ({ firm1, firm2 }: { firm1: PropFirm; firm2: PropFirm 
     const [tier1, tier2] = findComparableTiers(firm1, firm2);
 
     const getYearEstablished = (firm: PropFirm) => {
-        if (!firm.dateCreated) return 'N/A';
+        if (!firm.dateCreated) return { year: 'N/A', yearsInOp: 'N/A' };
         const year = new Date(firm.dateCreated).getFullYear();
         const currentYear = new Date().getFullYear();
         const yearsInOp = currentYear - year;
@@ -626,17 +636,34 @@ export default function ComparePage() {
         });
     }
     
-    filtered.sort((a, b) => {
-        if (!a || !b) return 0;
-        let aValue, bValue;
-        const key = sortConfig.key;
+    const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
 
-        if (key === 'firm') { aValue = a.firmName; bValue = b.firmName; }
-        else if (key === 'price') { aValue = a.price * (1 - (filters.applyDiscount ? (a.promoDiscountPercent || 0) / 100 : 0)); bValue = b.price * (1 - (filters.applyDiscount ? (b.promoDiscountPercent || 0) / 100 : 0)); }
-        else { aValue = a[(key as keyof typeof a)] ?? -Infinity; bValue = b[(key as keyof typeof b)] ?? -Infinity; }
+    filtered.sort((a, b) => {
+        if (!sortConfig.key) return 0;
+
+        let aValue = a[sortConfig.key];
+        let bValue = b[sortConfig.key];
         
+        // Handle special price key
+        if (sortConfig.key === 'price') {
+            aValue = a.price * (1 - (filters.applyDiscount ? (a.promoDiscountPercent || 0) / 100 : 0));
+            bValue = b.price * (1 - (filters.applyDiscount ? (b.promoDiscountPercent || 0) / 100 : 0));
+        }
+
+        // Default to -Infinity if value is null/undefined for numeric sorts
+        if (typeof aValue === 'number' || typeof bValue === 'number') {
+            aValue = aValue ?? -Infinity;
+            bValue = bValue ?? -Infinity;
+        }
+
+        if (typeof aValue === 'string' && typeof bValue === 'string') {
+            const comparison = collator.compare(aValue, bValue);
+            return sortConfig.direction === 'ascending' ? comparison : -comparison;
+        }
+
         if (aValue < bValue) return sortConfig.direction === 'ascending' ? -1 : 1;
         if (aValue > bValue) return sortConfig.direction === 'ascending' ? 1 : -1;
+        
         return 0;
     });
     return filtered;
