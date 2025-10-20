@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import FirmCard from './components/propfirms/FirmCard';
@@ -731,27 +730,9 @@ export default function CryptoPage() {
   const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3);
   
   const [isClient, setIsClient] = React.useState(false);
-  const [comparisonFirms, setComparisonFirms] = React.useState<{firm1: PropFirm, firm2: PropFirm} | null>(null);
-
-  const handleSetComparisonFirms = (firm1Slug: string, firm2Slug: string) => {
-    const firm1 = mockPropFirms.find(f => f.slug === firm1Slug);
-    const firm2 = mockPropFirms.find(f => f.slug === firm2Slug);
-    if (firm1 && firm2) {
-      setComparisonFirms({ firm1, firm2 });
-    } else {
-      setComparisonFirms(null);
-    }
-  };
-
+  
   React.useEffect(() => {
     setIsClient(true);
-    // Set a default comparison on initial load
-    const featuredSlugs = featuredFirms.map(f => f.slug);
-    if(featuredSlugs.length >= 2){
-      handleSetComparisonFirms(featuredSlugs[0], featuredSlugs[1]);
-    } else {
-      handleSetComparisonFirms('topstep', 'take-profit-trader');
-    }
   }, []);
 
   return (
@@ -810,16 +791,6 @@ export default function CryptoPage() {
           </div>
         </div>
       </section>
-
-      <section className="my-12">
-          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-4">
-            <FirmVsFirmSelector firms={mockPropFirms} onCompare={handleSetComparisonFirms} />
-          </div>
-      </section>
-
-      {comparisonFirms && (
-          <FirmVsFirmSection firm1={comparisonFirms.firm1} firm2={comparisonFirms.firm2} />
-      )}
       
       {featuredFreeResources.length > 0 && (
         <section className="py-12 bg-card rounded-xl">

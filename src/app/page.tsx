@@ -829,27 +829,9 @@ export default function Home() {
   const featuredFreeResources = mockFreeResources.filter(r => r.isFeatured).slice(0, 3);
   
   const [isClient, setIsClient] = React.useState(false);
-  const [comparisonFirms, setComparisonFirms] = React.useState<{firm1: PropFirm, firm2: PropFirm} | null>(null);
-
-  const handleSetComparisonFirms = (firm1Slug: string, firm2Slug: string) => {
-    const firm1 = mockPropFirms.find(f => f.slug === firm1Slug);
-    const firm2 = mockPropFirms.find(f => f.slug === firm2Slug);
-    if (firm1 && firm2) {
-      setComparisonFirms({ firm1, firm2 });
-    } else {
-      setComparisonFirms(null);
-    }
-  };
-
+  
   React.useEffect(() => {
     setIsClient(true);
-    // Set a default comparison on initial load
-    const featuredFirmSlugs = mockPropFirms.filter(f => f.isFeatured).map(f => f.slug);
-    if(featuredFirmSlugs.length >= 2){
-      handleSetComparisonFirms(featuredFirmSlugs[0], featuredFirmSlugs[1]);
-    } else {
-      handleSetComparisonFirms('topstep', 'take-profit-trader');
-    }
   }, []);
 
   return (
@@ -904,10 +886,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {comparisonFirms && (
-          <FirmVsFirmSection firm1={comparisonFirms.firm1} firm2={comparisonFirms.firm2} />
-      )}
       
       {featuredFreeResources.length > 0 && (
         <section className="py-12 bg-card rounded-xl">
