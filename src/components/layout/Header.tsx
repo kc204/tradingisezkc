@@ -252,23 +252,9 @@ const Header = () => {
 
         <nav className="hidden md:flex items-center space-x-1">
           {renderNavLinks(false)}
-          {showCryptoLink && (
-            <Button variant="ghost" size="icon" asChild className="crypto-rocket-trigger">
-                <Link href="/crypto" aria-label="Enter Crypto Mode">
-                    <Rocket className="h-5 w-5"/>
-                </Link>
-            </Button>
-          )}
         </nav>
 
         <div className="md:hidden flex items-center">
-         {showCryptoLink && (
-            <Button variant="ghost" size="icon" asChild className="crypto-rocket-trigger mr-2">
-                <Link href="/crypto" aria-label="Enter Crypto Mode">
-                    <Rocket className="h-5 w-5"/>
-                </Link>
-            </Button>
-          )}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button

@@ -126,16 +126,6 @@ const nextConfig: NextConfig = {
         destination: '/compare-prop-firms/:path*',
         permanent: true,
       },
-      {
-        source: '/crypto/compare',
-        destination: '/crypto/compare-prop-firms',
-        permanent: true,
-      },
-       {
-        source: '/crypto/compare/:path*',
-        destination: '/crypto/compare-prop-firms/:path*',
-        permanent: true,
-      },
     ]
   },
 };
