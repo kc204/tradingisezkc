@@ -11,7 +11,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      sans: ["var(--font-jakarta)", ...fontFamily.sans],
+      sans: ["var(--font-sora)", ...fontFamily.sans],
     },
   	extend: {
   		colors: {

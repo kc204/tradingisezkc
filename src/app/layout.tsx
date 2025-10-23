@@ -1,6 +1,6 @@
 
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import { Sora } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -8,9 +8,9 @@ import GlobalOfferBar from '@/components/layout/GlobalOfferBar';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
-const jakarta = Plus_Jakarta_Sans({
+const sora = Sora({
   subsets: ['latin'],
-  variable: '--font-jakarta',
+  variable: '--font-sora',
 });
 
 const siteConfig = {
@@ -83,7 +83,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${jakarta.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${sora.variable}`}>
        <head>
         <script
           type="application/ld+json"
