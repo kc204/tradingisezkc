@@ -11,7 +11,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      sans: ["var(--font-sora)", ...fontFamily.sans],
+      sans: ["'Satoshi'", ...fontFamily.sans],
     },
   	extend: {
   		colors: {

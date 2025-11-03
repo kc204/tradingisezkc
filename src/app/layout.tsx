@@ -1,17 +1,11 @@
 
 import type { Metadata } from 'next';
-import { Sora } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 import GlobalOfferBar from '@/components/layout/GlobalOfferBar';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-
-const sora = Sora({
-  subsets: ['latin'],
-  variable: '--font-sora',
-});
 
 const siteConfig = {
   name: 'TradingisEZ',
@@ -83,8 +77,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${sora.variable}`}>
+    <html lang="en" suppressHydrationWarning>
        <head>
+        <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap" rel="stylesheet" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
